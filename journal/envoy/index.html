@@ -1,0 +1,86 @@
+{% include 'layouts/header' %}
+
+
+  {% if type == 'post' %}
+		{% assign post = current %}
+		{% if type == 'post' %}
+
+		<div class="row post">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1">
+				<div class="envoy-poster">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+					viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+					<g>
+					<polygon fill="none" stroke="#231F20" stroke-linecap="square" stroke-width="7" stroke-miterlimit="10" points="98.5,407.2 129.5,407.2 129.5,383.8 
+					98.5,383.8 98.5,350.5 144,350.5 144,327 73,327 73,350.5 73,442.5 73,466 98.5,466 144,466 144,442.5 98.5,442.5 	"/>
+					<polygon fill="none" stroke="#231F20" stroke-linecap="square" stroke-width="7" stroke-miterlimit="10" points="246,327 220.5,327 220.5,397.2 194.5,327 
+					169,327 169,466 194.5,466 194.5,395.8 220.5,466 246,466 	"/>
+					<polygon fill="none" stroke="#231F20" stroke-linecap="square" stroke-width="7" stroke-miterlimit="10" points="335,396.3 347.5,327 322,327 309.5,396.5 
+					296.5,327 271,327 297,466 322.5,466 335,396.3 	"/>
+					<path fill="none" stroke="#231F20" stroke-linecap="square" stroke-width="7" stroke-miterlimit="10" d="M443,360.2c0-18.3-17.1-33.2-38.2-33.2
+					s-38.2,14.8-38.2,33.2v72.7c0,18.3,17.1,33.2,38.2,33.2s38.2-14.8,38.2-33.2V360.2 M391.9,431.1v-29.4v-10.2v-29.7
+					c0-6.2,5.8-11.1,12.9-11.1s12.9,5,12.9,11.1v29.7v10.2v29.4c0,6.2-5.8,11.1-12.9,11.1S391.9,437.2,391.9,431.1"/>
+					<polygon fill="none" stroke="#231F20" stroke-linecap="square" stroke-width="7" stroke-miterlimit="10" points="511,407.2 536.5,327 511.2,327 
+					498.2,368.3 485.5,327 460,327 485.5,407.2 485.5,466 511,466 	"/>
+					</g>
+					</svg>
+				</div>
+			</div>
+			<div class="container">
+				<article class="post">
+						<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+
+							<h1 class="content-title">{{title}}</h1>
+							<h3 class="project">{{post.date | date: "%b %d, %Y"}}</h3>
+
+							{{post.body}}
+						</div>
+				</article>
+			{% include 'include/journal-foot' %}
+			</div>
+		</div>
+
+
+		{% if current.parent and (current.previous or current.next) %}
+
+		<div class="row top-border">
+			<div class="container">
+
+				<div class="col-xs-6 col-sm-6 col-md-4 col-md-offset-2 border">
+				{% if current.previous %}
+					<div class="project-foot">
+						<a href="{{ current.previous.url }}" class="prev" title="">&larr; {{ current.previous.title }}</a>
+					</div>
+				{% else %}
+					<div class="project-foot">
+						<p class="bottom">This is where it began.</p>
+					</div>
+				{% endif %}
+				</div>
+
+				<div class="col-xs-6 col-sm-6 col-md-4">
+				{% if current.next %}
+					<div class="project-foot">
+						<a href="{{ current.next.url }}" class="next" title="">{{ current.next.title }} &rarr;</a>
+					</div>
+				{% else %}
+					<div class="project-foot">
+						<p class="bottom" style="float:right;">More to come, hang tight.</p>
+					</div>
+				{% endif %}
+				</div>
+
+			</div>
+		</div>
+		{% endif %}
+
+		{% endif %}
+		
+  {% endif %}
+				
+			
+{% include 'layouts/elsewhere' %}
+	
+{% include 'layouts/footer' %}
+
+

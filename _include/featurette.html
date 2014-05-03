@@ -1,0 +1,38 @@
+{% for asset in assets %}
+	{% if asset.meta.type == 'featurette' %}
+		<a class="red-hover" href="{{meta.featurette-link}}" title="{{meta.featurette-title}}">
+			<section class="row red-featurette" style="background-image: url('{{asset.url}}')">
+				<div class="container">
+					<div class="col-sm-4 col-sm-offset-1 col-md-3 col-md-offset-1">
+					
+						<h3 class="project-featurette">New Project</h3>
+						<h3>{{meta.featurette-title}}</h3>
+					
+					</div>
+				</div>
+			</section>
+		</a>
+	{% endif %}
+<!-- 
+	{% if asset.meta.type == 'featurette-mini-left' %}
+		<section class="row" style="background-image: url('{{asset.url}}')">
+			<a class="red-hover" href="{{meta.featurette-link-left}}" title="{{meta.featurette-title-left}}">
+				<div class="box">
+					<h3 class="project-featurette">Project</h3>
+					<h3>{{meta.featurette-title-left}}</h3>
+				</div>
+			</a>
+		</section>
+	{% endif %}
+	{% if asset.meta.type == 'featurette-mini-right' %}
+		<section class="row" style="background-image: url('{{asset.url}}')">
+			<a class="red-hover" href="{{meta.featurette-link-right}}" title="{{meta.featurette-title-right}}">
+				<div class="box">
+					<h3 class="project-featurette">Project</h3>
+					<h3>{{meta.featurette-title-right}}</h3>
+				</div>
+			</a>
+		</section>
+	{% endif %}
+-->
+{% endfor %}

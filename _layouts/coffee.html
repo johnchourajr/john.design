@@ -1,0 +1,42 @@
+
+
+	{% if type == 'page' %}
+		{% for asset in post.assets %}
+			{% if  asset.meta.type == "thumb" %}
+				<div class="col-sm-4 col-md-3 fifty">
+					<div class="coffee-thumb">
+						<a href="{{post.url}}">
+							<img src="{{asset.url}}" alt="{{post.title}}" />
+							<h2 class="title" href="{{post.url}}">
+								{{post.title}}
+							</h2>
+						</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	
+	{% if type == 'post' %}
+		<div class="container">
+			<div class="">
+				<h1>{{post.title}}</h1>
+			</div>
+			<div class="col-md-8 col-md-offset-2">
+				{% for asset in assets %}
+					{% if asset.meta.type == 'hero' %}
+						<div class="project-hero" style="background-image: url('{{asset.url}}')">
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<div class="col-md-6 col-md-offset-3">
+					{{post.body}}
+			</div>
+		</div>
+		
+		
+	{% else %}
+	{% endif %}
+	
+	
