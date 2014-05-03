@@ -1,0 +1,16 @@
+{% include 'layouts/header' %}
+
+
+				  {% if type == 'post' %}
+						{% assign post = current %}
+						{% include 'layouts/journal' %}
+				  {% else %}
+						{% for post in posts %}
+						{% include 'layouts/journal' %}
+						{% endfor %}
+				  {% endif %}
+				
+			
+{% include 'layouts/elsewhere' %}
+	
+{% include 'layouts/footer' %}

@@ -1,0 +1,74 @@
+
+
+{% include 'layouts/header' %}
+
+<div class="row zero-top">
+	{% for asset in assets %}
+		{% if asset.meta.type == 'hero-left' %}
+			<div class="info-hero" style="background-image: url('{{asset.url}}')">
+			</div>
+		{% else asset.meta.type == 'hero-right' %}
+			<div class="info-hero" style="background-image: url('{{asset.url}}')">
+				<p class="right-quote">“I want to make beautiful things, even if nobody cares.” <em>— Saul Bass</em></p>
+			</div>
+		{% endif %}
+	{% endfor %}
+	
+	<div class="container">
+		<div class="col-sm-8 col-md-7 col-md-offset-1">
+			<div class="info-description text-spacing">
+				{{body}}
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<div class="info-aside" >
+				
+				<ul>
+					<h3 class="project">Contact</h3>
+					<li>
+						<p><a href="mailto:{{site.meta['email']}}?subject=Hello" title="Say Hello">{{site.meta['email']}}</a></p>
+					</li>
+				</ul>
+				
+				<ul>
+					<h3 class="project">Featured</h3>
+					<li>
+						<p>{{ meta['featured' | markdown ]}}</p>
+					</li>
+				</ul>
+				
+				<ul>
+					<h3 class="project">Elsewhere</h3>
+					<li>
+						<p>
+						{% for data in meta %}
+						{% assign key = data.key | split: '.' %}
+							{% if key[0] == 'link' %}
+						
+							<a href="{{ data.value }}" title="{{ key[1] | capitalize }}" target="_blank" alt="{{ key[1] | capitalize }}" class="{{ key[1] }}-link">{{ key[1] | capitalize }}</a>
+						
+							{% endif %}
+						{% endfor %}
+						</p>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'layouts/elsewhere' %}
+	
+{% include 'layouts/footer' %}
+
+
+
+
+
+
+
+
+
+
+

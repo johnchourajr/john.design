@@ -1,0 +1,22 @@
+<article  class="post-foot">
+	<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">	
+		<div class="foot left">
+		<h3 id="refer" class="project">References and Notes</h3>
+		<p>{{meta['refer'] | md}}</p>
+		</div>
+	</div>
+</article>
+
+<!--div class="container">
+	<footer class='row article-footer'>
+	  {% if current.meta.footer %}{{ current.meta.footer | md }}{% endif %}
+	  {% capture tweet_text %}I enjoyed reading "{{ current.title }}":{% endcapture %}
+	  <a class='tweet-button' href='https://twitter.com/intent/tweet?original_referer={{ current.permalink | escape }}&text={{ tweet_text | escape }}&tw_p=tweetbutton&url={{ current.permalink | escape }}&via={{ site.meta.twitter }}' target='_blank'><i class="fa fa-twitter" style="color:black;">Twitter </i><span id='twitter-count' class='count'></span></a>
+	  <script>
+	    function count_callback(data) { document.getElementById('twitter-count').innerHTML = data.count; }
+	    var script = document.createElement('script');
+	    script.setAttribute("src", 'http://urls.api.twitter.com/1/urls/count.json?callback=count_callback&url={{ current.permalink | escape }}');
+	    document.getElementsByTagName("head")[0].appendChild(script);
+	  </script>
+	</footer>
+</div>	 -->
