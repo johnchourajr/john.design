@@ -1,0 +1,84 @@
+section.archive__title
+  margin: 100px auto
+  padding: 0
+  width: 90vw
+  display: block
+
+  +min-width($tablet)
+    margin: 100px auto 100px
+
+
+  .title-block
+    padding: 2em 0
+    opacity: 1
+    &:hover
+      //h2, h6
+        opacity: .5
+
+      h2
+        $property: transform
+        $value: translateY(0)
+        +prefix-property($property, $value)
+
+      h6
+        opacity: .75
+        $property: transform
+        $value: translateY(0)
+        +prefix-property($property, $value)
+
+    +min-width($tablet)
+      padding: 2em 5em
+
+    +min-width($desktop)
+      padding: 2em 10em
+
+    +min-width($desktop-large)
+      padding: 2em 11em
+      max-width: 1000px
+
+    &:before
+      content: ""
+      top: -100px
+      width: 2px
+      height: 100px
+      background: $black
+      position: absolute
+      opacity: 1 !important
+
+    &:after
+      content: ""
+      bottom: -100px
+      width: 2px
+      height: 100px
+      background: $black
+      position: absolute
+      opacity: 1 !important
+
+    h2, h6
+      $property: transition
+      $value: all 0.7s cubic-bezier(0.77, 0, 0.175, 1) 0.1s
+      +prefix-property($property, $value)
+
+      &:hover
+        $property: transition
+        $value: all 0.4s cubic-bezier(0.77, 0, 0.175, 1) 0.1s
+        +prefix-property($property, $value)
+
+    h2
+      color: $black
+      font-family: grad
+
+      +min-width($tablet)
+        $property: transform
+        $value: translateY(22px)
+        +prefix-property($property, $value)
+
+    h6
+      color: rgba($black, .25)
+      margin-top: 1.5em
+      margin-bottom: 0
+      +min-width($tablet)
+        opacity: 0
+        $property: transform
+        $value: translateY(-22px)
+        +prefix-property($property, $value)

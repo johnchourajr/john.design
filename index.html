@@ -1,0 +1,49 @@
+{% capture content %}
+
+<!-- // HOMEPAGE HERO // -->
+<section class="hero">
+  <!-- <div class="container"> -->
+
+  <!-- NAV -->
+  <header>
+    <nav class="grid">
+      <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
+        <li class="logo__svg"><a href="/"><img src="/img/logo.svg" alt="/"/></a></li>
+      </ul>
+      <ul class="nav grid__col grid__col--4-of-12 grid__col--push-5-of-12">
+      {% for page in site.pages %}
+        <li><a class="hero" href="{{page.url}}">{{page.title}}</a></li>
+      {% endfor %}
+      </ul>
+    </nav>
+  </header>
+  <div class="hero__headline grid">
+    <figure class="grid__col grid__col--6-of-12 grid__col--push-1-of-12">
+      <article class="hero__headline--row">
+        {{ body }}
+      </article>
+    </figure>
+  <!-- </div> -->
+  </div>
+
+  <!-- HERO TILES AND PLAY PIECES -->
+  <div class="hero__fill">
+    <figure class="hero__fill--filled leftUp"></figure>
+    <figure class="hero__fill--filled rightTall"></figure>
+    <figure class="hero__fill--filled leftDown"></figure>
+    <figure class="hero__fill--filled bottomDown"></figure>
+    <figure
+      data-0="top:0; bottom:0;"
+      data-50p="top:300px"
+      class="hero__fill--filled wideAll"
+      ></figure>
+  </div>
+
+
+</section>
+
+{% include 'layouts/home-grid-3' %}
+
+{% endcapture %}
+
+{% include 'layouts/default' %}

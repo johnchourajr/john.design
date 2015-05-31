@@ -1,0 +1,10 @@
+.DS_Store
+.rbenv-vars
+.sass-cache
+_assets
+config.ru
+theme.zip
+styles/*.css
+.bundle/
+.ignore
+config.codekit

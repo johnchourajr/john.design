@@ -1,74 +1,75 @@
+{% capture content %}
 
+  <section class="info info__01 grid">
 
-{% include 'layouts/header' %}
+    <figure class="info__photo info__photo--1 grid__col grid__col--6-of-12 ">
+      <img src="/img/info/01.jpg" alt="" />
+    </figure>
 
-<div class="row zero-top">
-	{% for asset in assets %}
-		{% if asset.meta.type == 'hero-left' %}
-			<div class="info-hero" style="background-image: url('{{asset.url}}')">
-			</div>
-		{% else asset.meta.type == 'hero-right' %}
-			<div class="info-hero" style="background-image: url('{{asset.url}}')">
-				<p class="right-quote">“I want to make beautiful things, even if nobody cares.” <em>— Saul Bass</em></p>
-			</div>
-		{% endif %}
-	{% endfor %}
-	
-	<div class="container">
-		<div class="col-sm-8 col-md-7 col-md-offset-1">
-			<div class="info-description text-spacing">
-				{{body}}
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3">
-			<div class="info-aside" >
-				
-				<ul>
-					<h3 class="project">Contact</h3>
-					<li>
-						<p><a href="mailto:{{site.meta['email']}}?subject=Hello" title="Say Hello">{{site.meta['email']}}</a></p>
-					</li>
-				</ul>
-				
-				<ul>
-					<h3 class="project">Featured</h3>
-					<li>
-						<p>{{ meta['featured' | markdown ]}}</p>
-					</li>
-				</ul>
-				
-				<ul>
-					<h3 class="project">Elsewhere</h3>
-					<li>
-						<p>
-						{% for data in meta %}
-						{% assign key = data.key | split: '.' %}
-							{% if key[0] == 'link' %}
-						
-							<a href="{{ data.value }}" title="{{ key[1] | capitalize }}" target="_blank" alt="{{ key[1] | capitalize }}" class="{{ key[1] }}-link">{{ key[1] | capitalize }}</a>
-						
-							{% endif %}
-						{% endfor %}
-						</p>
-					</li>
-				</ul>
-				
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="info__01--body grid__col grid__col--6-of-12 ">
+      {{body}}
+    </div>
 
-{% include 'layouts/elsewhere' %}
-	
-{% include 'layouts/footer' %}
+    <div class="info__01--info grid__col grid__col--6-of-12 ">
+      {{meta['info'] | markdown }}
+    </div>
+
+    <figure class="info__photo info__photo--2b grid__col grid__col--6-of-12 ">
+      <img src="/img/info/02.jpg" alt="" />
+    </figure>
+
+  </section>
+
+  <section class="info info__02 grid">
+
+    <aside class="grid__col grid__col--4-of-12">
+
+      <div class="info__02--words">
+        {{meta['words'] | markdown }}
+      </div>
+
+      <div class="info__02--sidebar">
+        {{meta['featured'] | markdown }}
+      </div>
+
+    </aside>
+
+    <figure class="info__photo info__photo--2 grid__col grid__col--6-of-12 ">
+      <img src="/img/info/02.jpg" alt="" />
+    </figure>
+
+    <div class="info__02--info grid__col grid__col--6-of-12 ">
+      {{meta['info'] | markdown }}
+    </div>
 
 
 
+  </section>
 
+  <section class="info info__03 grid">
 
+    <figure class="info__photo info__photo--3 grid__col grid__col--8-of-12 ">
+      {{meta['quote'] | markdown }}
+      <img src="/img/info/03.jpg" alt="" />
+    </figure>
 
+    <div class="social grid__col grid__col--4-of-12 ">
+      <ul>
+        <li><a href="http://twitter.com/johnchourajr"><img src="/img/ico-Twitter-b.svg" alt="" /></a></li>
+        <li><a href="http://instagram.com/johnchourajr"><img src="/img/ico-Instagram-b.svg" alt="" /></a></li>
+        <li><a href="http://dribbble.com/johnchourajr"><img src="/img/ico-dribbble-b.svg" alt="" /></a></li>
+      </ul>
+    </div>
 
+  </section>
 
+  <section class="info info__04 grid">
 
+    <div class="grid__col grid__col--centered grid__col--6-of-12 ">
+      {{meta['colophon'] | markdown }}
+    </div>
 
+  </section>
 
+{% endcapture %}
+{% include 'layouts/default' %}

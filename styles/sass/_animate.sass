@@ -1,0 +1,44 @@
+// Keyframes --------------------------------------------------- Keyframes //
+
++keyframes(appear-1)
+  0%
+    opacity: 0
+    $property: transform
+    $value: translateY(-25px)
+    +prefix-property($property, $value)
+
+  100%
+    opacity: 1
+    $property: transform
+    $value: translateY(0)
+    +prefix-property($property, $value)
+
+
++keyframes(appear-2)
+  0%
+    opacity: 0
+    $property: transform
+    $value: translateY(-25px)
+    +prefix-property($property, $value)
+
+  20%
+    opacity: 0
+    $property: transform
+    $value: translateY(-25px)
+    +prefix-property($property, $value)
+
+  100%
+    opacity: 1
+    $property: transform
+    $value: translateY(0)
+    +prefix-property($property, $value)
+
+nav
+  $property: animation
+  $value: appear-1 1s normal none
+  +prefix-property($property, $value)
+
+section
+  $property: animation
+  $value: appear-2 1s normal none
+  +prefix-property($property, $value)

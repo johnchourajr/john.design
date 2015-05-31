@@ -1,0 +1,35 @@
+{% if current.parent and (current.previous or current.next) %}
+
+<section class="article__pagenation grid">
+	<div class="grid__col grid__col--10-of-12 grid__col--centered">
+
+
+		{% if current.previous %}
+		<a href="{{ current.previous.url }}" title="">
+		<div class="article__pagenation--item article__pagenation--prev">
+				<h6 class="">Previous Project</h6>
+				{{ current.previous.title }}
+		</div>
+		</a>
+		{% else %}
+
+		{% endif %}
+
+
+
+		{% if current.next %}
+		<a href="{{ current.next.url }}" title="">
+		<div class="article__pagenation--item article__pagenation--next">
+				<h6 class="">Next Project</h6>
+				{{ current.next.title }}
+		</div>
+		</a>
+		{% else %}
+    <!-- <h6 class="">No More Posts</h6> -->
+		{% endif %}
+
+
+	</div>
+</section>
+
+{% endif %}
