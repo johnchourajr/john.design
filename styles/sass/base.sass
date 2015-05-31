@@ -37,6 +37,7 @@ html
   background: white
   overflow-x: hidden
   overflow-y: visible !important
+  background: white
 
 body
   overflow-x: hidden
@@ -46,18 +47,12 @@ body
   font-weight: 400 !important
   font-size: 100%!important
   height: initial !important
-
   +min-width($mobile)
     font-size: 120%!important
-    //border: 2.25vw solid white
-
   +min-width($tablet)
     font-size: 130%!important
-    //border: 2vw solid white
-
   +min-width($desktop)
     font-size: 140%!important
-    //border: 20px solid white
 
 ol,ul
   list-style:  none
@@ -91,13 +86,9 @@ table
   background: rgba($color1, .5) !important
 
 
-// Structural --------------------------------------------------- Structural //
-
-//.grid
-  max-width: 60em
-  +min-width(1318px)
-    display: block
-    margin: 0 auto
+// Structual
+//-------------------------------------------------- Structural
+//
 
 section
   display: block
@@ -148,10 +139,6 @@ header
           padding-right: 0
           float: right
           margin: 0
-        //+min-width($tablet)
-          padding-left: 2.5vw
-        //+min-width($desktop)
-          padding-left: 4.55vw
 
         &:first-child
           display: none
@@ -163,7 +150,6 @@ header
           &.hero
             color: $black
             +min-width($desktop)
-              //color: white !important
 
 .dribbble
   padding: 0
@@ -180,9 +166,6 @@ header
     +min-width($tablet)
       width: 50%
       float: none
-
-    &:first-child
-      //padding-left: 0
     img
       width: 100%
 

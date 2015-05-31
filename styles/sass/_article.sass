@@ -207,24 +207,17 @@
     &--thumb
       float: left
       position: relative
-      //height: 50vw
       width: 50% !important
       display: table-cell !important
       margin-bottom: 30px
       padding-right: 1.5rem
       +min-width($tablet)
-        //height: 31vw
         width: 25% !important
         height: 4.1rem
-      +min-width($desktop)
-        //height: 27vw
-
       img
         width: 100%
-
       h5
         width: 100%
-        //text-align: center
 
 
 .journal
@@ -236,7 +229,7 @@
     max-height: 60vh
 
     &:hover
-      .work__hero--img
+      .journal__hero--img
         opacity: .6
 
     &--img
@@ -259,6 +252,12 @@
       +min-width($tablet)
         opacity: .9
 
+  &__body
+    img
+      border-radius: .25rem
+      &[alt=lg]
+        border-radius: 0
+
   &__preview
     padding: 0 8.5vw
     position: relative
@@ -266,6 +265,9 @@
       padding: 0
       width: calc(83.5vw + 30px)
       margin-left: calc(8.25vw - 30px)
+
+    img
+      border-radius: .25rem
 
     &--post
       a
@@ -352,7 +354,6 @@
         $value: color .4s $cubic
         +prefix-property($property, $value)
         &:hover
-          //color: black
           opacity: 1
           &:after
             bottom: 3px
@@ -364,7 +365,6 @@
           left: -0.1em
           right: -0.1em
           background: rgba(254,255,163,1)
-          //mix-blend-mode: multiply
           width: 100%
           height: .5em
           z-index: -1
@@ -391,17 +391,12 @@
         margin-top: 1rem
         margin-bottom: 1rem
         &[alt=lg]
-          //margin-left: -16.5vw
-          //width: 83.5vw
           margin-left: -8.5vw
           width: 100vw
           +min-width($desktop)
             margin-left: -25vw
             width: 100vw
         &[alt=sm]
-          //margin-left: -16.5vw
-          //width: 100%
-          //margin-left: -8.5vw
           width: 100%
           border-radius: .25rem
           +min-width($desktop)
@@ -409,10 +404,8 @@
             margin-left: -16.5vw
         &[alt=xsm]
           width: 100%
-          //border-radius: .25rem
         &[alt=twoup]
           width: 100%
-          //border-radius: .25rem
           +min-width($desktop)
             width: calc(50vw - 15px)
             &:first-child
@@ -421,10 +414,6 @@
             &:last-child
               margin-left: 9.5px
               margin-right: -25vw
-
-
-    //h6
-      margin: 3.25rem 0 2rem !important
 
     h4
       padding-bottom: 1em !important
@@ -508,6 +497,26 @@
       h6
         text-align: center
 
+    &--refer
+      padding-top: 2em
+      opacity: .5
+      $property: transition
+      $value: opacity 0.2s $cubic, height .2s $cubic
+      +prefix-property($property, $value)
+
+      &:hover
+        opacity: 1
+
+      h6
+        opacity: .5
+      p
+        font-family: $sans
+        font-weight: 400 !important
+        font-size: .7em
+        text-transform: uppercase
+        font-weight: bold
+        letter-spacing: .15em
+        line-height: 1.5em
 
 
   &__pagenation
@@ -546,7 +555,6 @@
         width: 1em
         height: 2px
         top: -1.24em
-        //width: calc(50vw - 16.666666666%)
       &:hover
         opacity: 1
         &:after, &:before

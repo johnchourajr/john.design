@@ -2,6 +2,7 @@
   margin: 0
   padding: 0 !important
   position: relative
+  //background: white
 
   figure
     margin: 0
@@ -24,34 +25,9 @@
     padding-bottom: 2em
     line-height: 2.15
 
-    a, a:visited, a:link
-      position: relative
-      color: $black
-      $property: transition
-      $value: color .4s $cubic
-      +prefix-property($property, $value)
-      &:hover
-        //color: black
-        opacity: 1
-        &:after
-          bottom: 3px
-          height: 1.1em
-      &:after
-        content: ""
-        position: absolute
-        bottom: 0.15em
-        left: -0.1em
-        right: -0.1em
-        background: rgba(254,255,163,1)
-        //mix-blend-mode: multiply
-        width: 100%
-        height: .5em
-        z-index: -1
-        $property: transition
-        $value: bottom 0.2s $cubic, height .2s $cubic
-        +prefix-property($property, $value)
 
 
+  //Info Section 1
   &__01
     margin-bottom: 3em
     +min-width($tablet)
@@ -86,10 +62,11 @@
         width: 100%
         +horiz-align
 
+  //Info Section 2
   &__02
     height: auto
     display: inline-block
-    margin-bottom: 7vw
+    padding-bottom: 7vw !important
 
     aside
       margin-top: -15.7em
@@ -139,11 +116,51 @@
         padding-right: 8.33333%
         margin-top: 1em
 
+  //Info Section 3
+  &__03
+    position: relative
+
+    .social
+      padding-left: 0 !important
+      width: 100%
+
+      +min-width($tablet)
+        width: calc(33.333333% - 30px)
+        height: 30em
+      ul
+        +min-width($tablet)
+          +vertical-align
+        li
+          width: 30%
+          padding: 3em 0 2em
+          display: inline-block
+          +min-width($tablet)
+            width: 100%
+            padding: 1.4em
+            display: inherit
+          //background: $black
+          a
+            +horiz-align
+            filter: invert(100%)
+          img
+            height: 1em
+            opacity: .8
+            filter: invert(100%)
+
+  //Info Section 4
+  &__04
+    padding: 8.333333% 0 0 !important
+    display: block
+    div
+      opacity: .5
+
+  //Info Photos
   &__photo
     overflow: hidden
     position: relative
     z-index: 0
 
+    //Photo 1
     &--1
       margin-left: 0 !important
       padding-left: 0 !important
@@ -159,6 +176,7 @@
           width: initial
           height: 100%
 
+    //Photo 2
     &--2
       float: right
       margin-left: 8.33333%
@@ -175,6 +193,7 @@
         width: 100%
         +vertical-align
 
+    //Photo 3
     &--3
       margin-left: 0 !important
       padding-left: 0 !important
@@ -209,7 +228,6 @@
         z-index: 9999
         +vertical-align
 
-
         p
           width: 100%
           padding: 0
@@ -233,40 +251,3 @@
             display: block
             text-indent: 0
             text-align: right
-
-
-  &__03
-    position: relative
-
-    .social
-      padding-left: 0 !important
-      width: 100%
-
-      +min-width($tablet)
-        width: calc(33.333333% - 30px)
-        height: 30em
-      ul
-        +min-width($tablet)
-          +vertical-align
-        li
-          width: 30%
-          padding: 3em 0 2em
-          display: inline-block
-          +min-width($tablet)
-            width: 100%
-            padding: 1.4em
-            display: inherit
-          //background: $black
-          a
-            +horiz-align
-            filter: invert(100%)
-          img
-            height: 1em
-            opacity: .8
-            filter: invert(100%)
-
-  &__04
-    margin-top: 8.3333333%
-
-    div
-      opacity: .5

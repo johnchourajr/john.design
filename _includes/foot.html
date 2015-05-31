@@ -1,7 +1,10 @@
 <script src="/js/min/base-min.js"></script>
 <script src="/js/min/slick.min.js"></script>
 <script type="text/javascript" src="/js/min/skrollr.min.js"></script>
+
+{% comment %}
 <script type="text/javascript" src="/js/jquery.jribbble-1.0.1.min.js"></script>
+{% endcomment %}
 
 <script type="text/javascript">
 
@@ -24,6 +27,8 @@
 
 </script>
 
+
+{% comment %}
 <script type="text/javascript">
   var callback = function (playerShots) {
               var html = '';
@@ -43,6 +48,7 @@
 
           $.jribbble.getShotsByPlayerId('johnchourajr', callback, {page: 1, per_page: 2});
 </script>
+{% endcomment %}
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
