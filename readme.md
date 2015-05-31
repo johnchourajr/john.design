@@ -1,8 +1,5 @@
 # Object & Subject
-
 #### The Design Work of John Choura Jr.
-
-=====
 
 ## Checklist
 
