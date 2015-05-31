@@ -1432,7 +1432,9 @@ a.btn {
     padding-left: 0 !important;
     width: initial !important;
     overflow: hidden;
-    height: inherit; }
+    height: inherit;
+    height: 48vw;
+    width: 90% !important; }
     @media only screen and (min-width: 740px) {
       .featured__cell {
         margin: 8.333333333% 8.333333333% 0 !important;
@@ -1748,8 +1750,8 @@ a.btn {
   .info__04 {
     padding: 8.333333% 0 0 !important;
     display: block; }
-    .info__04 div {
-      opacity: 0.5; }
+    .info__04 p, .info__04 a:link, .info__04 h6 {
+      color: rgba(50, 50, 50, 0.5) !important; }
   .info__photo {
     overflow: hidden;
     position: relative;
