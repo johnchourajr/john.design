@@ -10,7 +10,7 @@ $hero-min-height-m: 800px
 
 
 .hero
-  padding: 0 34px
+  padding: 0 8.3333333%
   position: relative
   overflow: hidden
   width: 100vw
@@ -37,12 +37,13 @@ $hero-min-height-m: 800px
       position: absolute
       left: 0
       overflow: visible
-      padding-left: 34px
+      padding: 0 8.3333333% 
       bottom: calc(50% - 3em)
       +min-width($tablet)
         width: 60%
         margin-left: 7.333333%
         padding-left: 1%
+        padding-right: 0
         //bottom: calc(40% - 3em)
       +min-width(879px)
         width: 50%
@@ -97,8 +98,10 @@ $hero-min-height-m: 800px
           height: 50%
           width: 70vw
           background: white
+          display: none
         +min-width(879px)
           width: 59vw
+          display: block
         //+min-width($desktop)
           height: 33.333333%
 
