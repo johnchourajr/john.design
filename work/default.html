@@ -1,0 +1,57 @@
+{% if type == 'post' %}
+
+{% capture content %}
+
+  {% assign post = current %}
+  {% include 'layouts/work' %}
+
+{% endcapture %}
+{% include 'layouts/default-article' %}
+
+{% else %}
+
+{% capture content %}
+
+  {% if type == 'page' %}
+    {% if type != "post" %}
+
+      <section class="work__grid grid">
+
+        {% for post in posts %}
+          {% capture currentyear %}{{post.date | date: "%Y"}}{% endcapture %}
+          {% if currentyear != year %}
+            {% unless forloop.first %}</ul>{% endunless %}
+            <h6>{{ currentyear }}</h6>
+            <ul
+              class="{% if post.meta.order == "new" %}featured{% else %}archived grid__col grid__col--10-of-12{% endif %}">
+            {% capture year %}{{currentyear}}{% endcapture %}
+          {% endif %}
+            <li class={% if post.meta.order == "new" %}"work__grid--featured"{% else %}"work__grid--thumb grid__col grid__col--3-of-12"{% endif %}>
+              <a href="{{ post.url }}">
+                {% if post.meta.order == "new" %}
+                <span>
+                  <h3>{{ post.title }}</h3>
+                </span>
+                {% for asset in post.assets %}
+                  {% if  asset.meta.type == "poster" %}
+                    <img src="{{asset.url}}" alt="{{post.title}}" />
+                  {% endif %}
+                {% endfor %}
+                {% else %}
+                  {{ post.title }}
+                {% endif %}
+              </a>
+            </li>
+        {% endfor %}
+
+      </section>
+
+      <a href="http://v1.objectsubject.com/projects"><h4 class="link-centered-text">For more work visit my old site.</h4></a>
+
+    {% endif %}
+  {% endif %}
+
+{% endcapture %}
+{% include 'layouts/default' %}
+
+{% endif %}

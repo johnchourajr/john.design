@@ -1,0 +1,56 @@
+<script src="/js/min/base-min.js"></script>
+<script src="/js/min/slick.min.js"></script>
+<script type="text/javascript" src="/js/min/skrollr.min.js"></script>
+<script type="text/javascript" src="/js/jquery.jribbble-1.0.1.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+      // initialize skrollr if the window width is large enough
+      if ($(window).width() > 1024) {
+        skrollr.init();
+      }
+
+      // disable skrollr if the window is resized below 768px wide
+      $(window).on('resize', function () {
+        if ($(window).width() <= 1024) {
+          skrollr.init().destroy(); // skrollr.init() returns the singleton created above
+        }
+        if ($(window).width() > 1024) {
+          skrollr.init();
+        }
+      });
+    });
+
+</script>
+
+<script type="text/javascript">
+  var callback = function (playerShots) {
+              var html = '';
+
+              $.each(playerShots.shots, function (i, shot) {
+
+                  html += '<li class=" grid__col grid__col--6-of-12 ">';
+                  html += '<a class=" feat " href="' + shot.url + '" target="_blank">';
+                  html += '<figure class="min-featurette">';
+                  html += '<img src="' + shot.image_url + '" ';
+                  html += 'alt="' + shot.title + '">';
+                  html += '</figure></a></li>';
+              });
+
+              $('#dribbble-shot').html(html);
+          };
+
+          $.jribbble.getShotsByPlayerId('johnchourajr', callback, {page: 1, per_page: 2});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-22938148-8', 'auto');
+  ga('send', 'pageview');
+
+</script>

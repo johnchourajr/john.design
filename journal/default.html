@@ -1,16 +1,46 @@
-{% include 'layouts/header' %}
+{% if type == 'post' %}
 
+{% capture content %}
 
-				  {% if type == 'post' %}
-						{% assign post = current %}
-						{% include 'layouts/journal' %}
-				  {% else %}
-						{% for post in posts %}
-						{% include 'layouts/journal' %}
-						{% endfor %}
-				  {% endif %}
-				
-			
-{% include 'layouts/elsewhere' %}
-	
-{% include 'layouts/footer' %}
+  {% assign post = current %}
+  {% include 'layouts/journal' %}
+
+{% endcapture %}
+{% include 'layouts/default-article' %}
+
+{% else %}
+
+{% capture content %}
+
+  {% if type == 'page' %}
+    {% if type != "post" %}
+
+      <section class="journal__preview grid">
+          {% for post in posts %}
+            {% if type == 'page' %}
+              <div class="journal__preview--post grid__col grid__col--8-of-12 grid__col--centered">
+                <a href="{{post.url}}">
+                  {% for asset in post.assets %}
+                    {% if  asset.meta.type == "poster" %}
+                      <img src="{{asset.url}}" alt="{{post.title}}" />
+                    {% endif %}
+                  {% endfor %}
+                </a>
+                <article class="journal__preview--body">
+                  <h2>{{post.title}}</h2>
+                  <h5 class="project">{{post.date | date: "%b %d, %Y"}}</h5>
+                  <p>{{post.body | strip_html | truncatewords: 50}}</p>
+                  <h6 class="read"><a href="{{post.url}}">Continue reading &rarr;</a></h6>
+                </article>
+              </div>
+            {% endif %}
+          {% endfor %}
+      </section>
+
+    {% endif %}
+  {% endif %}
+
+{% endcapture %}
+{% include 'layouts/default' %}
+
+{% endif %}

@@ -1,0 +1,272 @@
+.info
+  margin: 0
+  padding: 0 !important
+  position: relative
+
+  figure
+    margin: 0
+    padding: 0
+
+  h1, blockquote
+    font-family: $serif
+    color: rgba($black,.9)
+
+  h3, h6, p, a
+    font-family: $sans
+    color: rgba($black,.9)
+
+  h3
+    font-size: 1.5em
+    margin-bottom: 1.2em
+
+  p
+    font-size: .85em
+    padding-bottom: 2em
+    line-height: 2.15
+
+    a, a:visited, a:link
+      position: relative
+      color: $black
+      $property: transition
+      $value: color .4s $cubic
+      +prefix-property($property, $value)
+      &:hover
+        //color: black
+        opacity: 1
+        &:after
+          bottom: 3px
+          height: 1.1em
+      &:after
+        content: ""
+        position: absolute
+        bottom: 0.15em
+        left: -0.1em
+        right: -0.1em
+        background: rgba(254,255,163,1)
+        //mix-blend-mode: multiply
+        width: 100%
+        height: .5em
+        z-index: -1
+        $property: transition
+        $value: bottom 0.2s $cubic, height .2s $cubic
+        +prefix-property($property, $value)
+
+
+  &__01
+    margin-bottom: 3em
+    +min-width($tablet)
+      margin-bottom: 0
+    &--body
+      margin-top: 3em
+      padding-right: 30px
+      +min-width($tablet)
+        height: calc(40vw)
+        margin-left: 8.33333%
+        padding-left: 0 !important
+        padding-right: 8.33333%
+        padding-top: 3vw
+        margin-top: 0
+      +min-width($desktop)
+        padding-top: 7vw
+
+    &--info
+      display: block
+      padding-right: 30px
+      +min-width($tablet)
+        display: none !important
+
+    .info__photo--2b
+      display: block
+      padding-left: 0 !important
+      height: 70vw
+      margin-top: 1em
+      +min-width($tablet)
+        display: none !important
+      img
+        width: 100%
+        +horiz-align
+
+  &__02
+    height: auto
+    display: inline-block
+    margin-bottom: 7vw
+
+    aside
+      margin-top: -15.7em
+      +min-width($tablet)
+        margin-left: 8.33333%
+        margin-top: -2em
+        float: left
+        z-index: 9999
+
+    &--words
+      margin: 3em 0 3em -30px
+      text-align: center
+      +min-width($tablet)
+        width: 150%
+        margin: 0
+        text-align: left
+        margin-bottom: 5em
+        z-index: 9999 !important
+      h1
+        color: $color3
+        line-height: 1.4
+        font-size: 2.75em
+        +min-width($tablet)
+          font-size: 2.25em
+        +min-width(888px)
+          font-size: 2.5em
+        +min-width(1215px)
+          font-size: 2.75em
+
+    &--sidebar
+      width: 100%
+      padding-right: 30px
+      +min-width($tablet)
+        width: 100%
+        padding-right: 0
+      +min-width($desktop)
+        width: 63%
+      p
+        font-size: 75%
+
+    &--info
+      display: none !important
+      +min-width($tablet)
+        display: inline-block !important
+        margin-left: 7%
+        padding-left: 0 !important
+        padding-right: 8.33333%
+        margin-top: 1em
+
+  &__photo
+    overflow: hidden
+    position: relative
+    z-index: 0
+
+    &--1
+      margin-left: 0 !important
+      padding-left: 0 !important
+      height: 70vw
+      +min-width($tablet)
+        height: 39em
+        width: 40vw !important
+
+      img
+        width: 100%
+        +horiz-align
+        +min-width($tablet)
+          width: initial
+          height: 100%
+
+    &--2
+      float: right
+      margin-left: 8.33333%
+      padding-left: 0 !important
+      padding-right: 8.33333%
+      width: 51.75vw !important
+      transform: translateY(-7vw)
+      height: 20em
+      display: none !important
+      +min-width($tablet)
+        display: block !important
+
+      img
+        width: 100%
+        +vertical-align
+
+    &--3
+      margin-left: 0 !important
+      padding-left: 0 !important
+      height: 30em
+      position: relative
+      background: $black
+
+      img
+        opacity: .5
+        height: 100%
+        +vertical-align
+        +min-width(450px)
+          width: 100%
+          height: initial
+        +min-width(480px)
+          height: 100%
+          width: initial
+        +min-width(603px)
+          width: 100%
+          height: initial
+        +min-width($tablet)
+          height: 100%
+          width: initial
+        +min-width(890px)
+          width: 100%
+          height: initial
+
+      blockquote
+        position: absolute !important
+        width: 100%
+        padding: 0 25%
+        z-index: 9999
+        +vertical-align
+
+
+        p
+          width: 100%
+          padding: 0
+          font-weight: 700
+          font-size: 2.75em
+          line-height: 1.3
+          text-indent: -.45em
+          font-family: $serif
+          color: white
+
+          em
+            font-family: $sans
+            font-weight: 400 !important
+            font-size: .3em
+            text-transform: uppercase
+            font-weight: bold
+            font-style: normal
+            letter-spacing: .15em
+            margin-top: 2em
+            //line-height: 4.25em
+            display: block
+            text-indent: 0
+            text-align: right
+
+
+  &__03
+    position: relative
+
+    .social
+      padding-left: 0 !important
+      width: 100%
+
+      +min-width($tablet)
+        width: calc(33.333333% - 30px)
+        height: 30em
+      ul
+        +min-width($tablet)
+          +vertical-align
+        li
+          width: 30%
+          padding: 3em 0 2em
+          display: inline-block
+          +min-width($tablet)
+            width: 100%
+            padding: 1.4em
+            display: inherit
+          //background: $black
+          a
+            +horiz-align
+            filter: invert(100%)
+          img
+            height: 1em
+            opacity: .8
+            filter: invert(100%)
+
+  &__04
+    margin-top: 8.3333333%
+
+    div
+      opacity: .5

@@ -2,7 +2,7 @@
 
 <body>
 
-  <section class="journal__hero" style="background-color:{{post.meta.color | fallback:'rgba(77,77,77,1)'}} !important;">
+  <section class="work__hero" style="background-color:{{post.meta.color | fallback:'rgba(77,77,77,1)'}} !important;">
     <header>
       <nav class="grid">
         <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
@@ -17,8 +17,8 @@
     </header>
     <figure
       data-0="background-position-y:1px;"
-      data-800="background-position-y:100px;"
-      class="journal__hero--img"
+      data-500="background-position-y:70px;"
+      class="work__hero--img"
       {% for asset in assets %}{% if asset.meta.type == 'poster' %} style="background-image: url('{{asset.url}}');"
       {% endif %}{% endfor %}>
     </figure>
@@ -28,7 +28,32 @@
     <span class="article__detail--header">
       <h1>{{post.title}}</h1>
     </span>
-    {{body}}
+    <aside class="">
+      <ul>
+        <li>
+          <h6>Role</h6>
+          <p>{{post.meta.service}}</p>
+        </li>
+        <li>
+          <h6>Client</h6>
+          <p>{{post.meta.client}}</p>
+        </li>
+        {% for data in meta %}
+          {% assign key = data.key | split: '_' %}
+            {% if key[0] == 'link' %}
+            <li>
+            <h6>Link</h6>
+            <p><a href="{{ key[1] }}"  class="button" alt="{{post.title}} Link" target="_blank">
+              {{ data.value }}
+            </a></p>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </aside>
+    <div class="article__detail--work-body">
+      {{body}}
+    </div>
   </section>
 
 </body>

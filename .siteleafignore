@@ -1,0 +1,9 @@
+.*
+Gemfile*
+Guardfile
+LICENSE
+README.md
+styles/*.sass
+rootkey.csv
+config.codekit
+vid/*.mp4

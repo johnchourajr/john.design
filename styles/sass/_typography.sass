@@ -1,0 +1,148 @@
+// Typography --------------------------------------------------- Typography //
+
+
+a
+  text-decoration: none
+  color: inherit
+  $property: transition
+  $value: opacity 0.25s ease-in-out
+  +prefix-property($property, $value)
+  &:link
+    cursor: pointer
+    color: $black !important
+
+  &:active
+    opacity: .5
+  &:hover
+    opacity: .75
+
+.sm-txt
+  p
+    font-family: $serif
+    font-size: .8em
+    line-height: 1.5
+    text-rendering: optimizeSpeed
+
+p
+  font-family: $serif
+  font-size: 1.05em
+  line-height: 1.5
+  text-rendering: optimizeSpeed
+
+  &.lg
+    font-size: 1.35em
+
+  &.xlg
+    font-size: 1.6em
+
+
+h1, h2, h3, h4, h5, h6
+  font-family: $serif
+  line-height: 1.1em
+  color: $black
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased !important
+
+h1, h2, h3, h4,
+  font-weight: 700
+
+  &.uline
+    border-bottom: solid 2px #4d4d4d
+
+h1
+  font-size: 2.75em
+
+h2
+  font-size: 2.15em
+
+h3
+  font-size: 1.7em
+
+h4
+  font-size: 1.5em
+  line-height: 1.25
+
+h5
+  font-family: $sans
+  font-weight: 400 !important
+  font-size: .7em
+  text-transform: uppercase
+  font-weight: bold
+  letter-spacing: .15em
+  line-height: 1.5em
+
+h6
+  font-family: $sans
+  font-weight: 700
+  font-size: .55em
+  text-transform: uppercase
+  font-weight: bold
+  letter-spacing: .25em
+  line-height: 1.5em
+
+.center-text
+  text-align: center !important
+
+.x__btm-mar
+  margin-bottom: 0 !important
+
+.x__btm-pad
+  padding-bottom: 0 !important
+
+
+// Buttons --------------------------------------------------- Buttons //
+
+
+
+a.btn
+  margin: 3rem auto
+  position: relative
+  width: auto
+  border: solid 4px $black
+  color: $black
+  font-family: $sans
+  font-weight: 300
+  letter-spacing: .075em
+  $property: transition
+  $value: all 0.3s ease-in-out
+  +prefix-property($property, $value)
+
+  &.sm
+    padding: .25rem .5rem
+    font-size: 1rem
+
+  &.lg
+    padding: .5rem 1rem
+    font-size: 1.2rem
+
+  &:hover
+    background: $black
+    color: white
+
+  &:active
+    opacity: .5
+
+
+.btn--uline
+  position: relative
+  display: inline
+  &:hover
+    &:after
+      bottom: -5px
+      background-color: rgba($black, .25)
+
+
+  &:after
+    content: ""
+    position: absolute
+    height: 3px
+    width: auto
+    bottom: 0
+    left: 0
+    right: 0
+    display: block
+    background-color: rgba($black, 0)
+
+    $property: transition
+    $value: all 0.4s $bez
+    +prefix-property($property, $value)
