@@ -2,7 +2,7 @@
 
 <body>
 
-  <section class="journal__hero" style="background-color:{{post.meta.color | fallback:'rgba(77,77,77,1)'}} !important;">
+  <section class="journal__hero" style="background-color:{{post.meta.color | fallback:'rgb(50,50,50)'}} !important;" >
     <header>
       <nav class="grid">
         <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
@@ -19,16 +19,28 @@
       data-0="background-position-y:1px;"
       data-800="background-position-y:100px;"
       class="journal__hero--img"
-      {% for asset in assets %}{% if asset.meta.type == 'poster' %} style="background-image: url('{{asset.url}}');"
-      {% endif %}{% endfor %}>
+      {% for asset in assets %}{% if asset.meta.type == 'banner' %} style="background-image: url('{{asset.url}}');"
+      {% elsif asset.meta.type == 'poster' %} style="background-image: url('{{asset.url}}');"{% else %} style="background-color:{{post.meta.color | fallback:'rgb(229,80,51)'}} !important;" {% endif %}{% endfor %}>
     </figure>
   </section>
 
-  <section class="article__detail article__detail--work">
+  <section class="article__detail article__detail--work journal__body">
     <span class="article__detail--header">
       <h1>{{post.title}}</h1>
     </span>
     {{body}}
+
+    {% for data in meta %}
+    {% if meta.refer contains data.value %}
+      <div class="article__detail--refer">
+        <h6 id="refer">References</h6>
+        {{meta['refer'] | markdown}}
+      </div>
+    {% else %}
+      foo
+    {% endif %}
+    {% endfor %}
+
   </section>
 
 </body>
