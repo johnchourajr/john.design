@@ -1,0 +1,29 @@
+{% capture content %}
+
+<section class="hero404">
+  <header>
+    <nav class="grid">
+      <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
+        <li class="logo__svg"><a href="/"><img src="/img/logo-w.svg" alt="/"/></a></li>
+      </ul>
+      <ul class="nav grid__col grid__col--4-of-12 grid__col--push-5-of-12">
+      {% for page in site.pages %}
+        <li><a class="white" href="{{page.url}}">{{page.title}}</a></li>
+      {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <span>
+  <h5>Error 404</h5>
+  <h1>Nothing to see here.</h1>
+  </span>
+
+  <figure>
+  </figure>
+
+</section>
+
+{% endcapture %}
+
+{% include 'layouts/default-404' %}
