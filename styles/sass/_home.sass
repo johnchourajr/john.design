@@ -907,3 +907,35 @@ $hero-min-height-m: 800px
           width: 35%
           padding: 3.2rem 40px 0 0
           opacity: 0
+
+
+.hero404
+  padding: 0
+  position: relative
+  overflow: hidden
+  height: 100vh
+  background: rgba($color3,.5)
+
+  figure
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    padding: 0
+    margin: 0
+    position: absolute
+    background-image: url('http://www.relativelyinteresting.com/wp-content/uploads/2014/12/penrose-triangle-illusion-gif.gif')
+    z-index: -1
+
+  span
+    display: block
+    z-index: 9999
+    padding: 0 8.3333333%
+    +min-width($tablet)
+      margin-left: 7.333333%
+      padding-left: 1%
+    +min-width($desktop)
+
+
+    h5, h1
+      color: white
