@@ -1131,7 +1131,7 @@ a.btn {
       right: -1em; }
 
 .hero {
-  padding: 0 34px;
+  padding: 0 8.3333333%;
   position: relative;
   overflow: hidden;
   width: 100vw;
@@ -1160,13 +1160,14 @@ a.btn {
       position: absolute;
       left: 0;
       overflow: visible;
-      padding-left: 34px;
+      padding: 0 8.3333333%;
       bottom: calc(50% - 3em); }
       @media only screen and (min-width: 740px) {
         .hero__headline--row {
           width: 60%;
           margin-left: 7.333333%;
-          padding-left: 1%; } }
+          padding-left: 1%;
+          padding-right: 0; } }
       @media only screen and (min-width: 879px) {
         .hero__headline--row {
           width: 50%; } }
@@ -1218,10 +1219,12 @@ a.btn {
           .hero__fill figure.leftUp {
             height: 50%;
             width: 70vw;
-            background: white; } }
+            background: white;
+            display: none; } }
         @media only screen and (min-width: 879px) {
           .hero__fill figure.leftUp {
-            width: 59vw; } }
+            width: 59vw;
+            display: block; } }
       @media only screen and (min-width: 740px) {
         .hero__fill figure.rightTall {
           height: 100%;
@@ -1992,30 +1995,24 @@ header {
       mix-blend-mode: multiply; }
   header nav ul.nav {
     display: table-cell !important;
-    padding: 1.4rem 0 0 0;
-    margin-left: 1rem !important;
-    margin: 0; }
-    @media only screen and (min-width: 480px) {
-      header nav ul.nav {
-        margin-left: 3rem !important; } }
-    @media only screen and (min-width: 980px) {
-      header nav ul.nav {
-        margin-left: 41.6666666667% !important; } }
+    padding: 1.4rem 0 0 0; }
     header nav ul.nav li {
       font-size: 0.55em;
       font-weight: bold;
       letter-spacing: 0.25rem;
       text-transform: uppercase;
       display: table-cell;
-      padding-right: 4.55vw; }
+      padding-left: 4.55vw;
+      float: right; }
       @media only screen and (min-width: 980px) {
         header nav ul.nav li {
           padding-left: 4.55vw;
           padding-right: 0;
-          float: right;
           margin: 0; } }
       header nav ul.nav li:first-child {
         display: none; }
+      header nav ul.nav li:nth-child(1) {
+        padding-left: 0; }
       header nav ul.nav li a {
         color: #323232;
         padding: 0; }

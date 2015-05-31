@@ -112,36 +112,45 @@ header
     ul.logo
       padding: 0
       display: inline-block !important
+      //padding-left: 10px !important
       mix-blend-mode: multiply
+      +min-width($tablet)
+        //padding-left: 30px !Important
       +min-width($desktop)
         display: block
       li.logo__svg
         background-blend-mode: multiply
         mix-blend-mode: multiply
+      //&--home
+        padding-left: 28px !important
     ul.nav
       display: table-cell !important
       padding: 1.4rem 0 0 0
-      margin-left: 1rem !important
-      margin: 0
+      //margin-left: 1rem !important
+      //margin: 0
+      //width: 40% !important
       +min-width($mobile)
-        margin-left: 3rem !important
+        //margin-left: 3rem !important
       +min-width($desktop)
-        margin-left: 41.6666666667% !important
+        //width: 33.3333333333% !important
+        //margin-left: 41.6666666667% !important
       li
         font-size: .55em
         font-weight: bold
         letter-spacing: 0.25rem
         text-transform: uppercase
         display: table-cell
-        padding-right: 4.55vw
+        padding-left: 4.55vw
+        float: right
         +min-width($desktop)
           padding-left: 4.55vw
           padding-right: 0
-          float: right
           margin: 0
 
         &:first-child
           display: none
+        &:nth-child(1)
+          padding-left: 0
         a
           color: $black
           padding: 0

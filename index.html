@@ -7,10 +7,10 @@
   <!-- NAV -->
   <header>
     <nav class="grid">
-      <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
+      <ul class="logo logo--home grid__col grid__col--1-of-12 grid__col--push-1-of-12">
         <li class="logo__svg"><a href="/"><img src="/img/logo.svg" alt="/"/></a></li>
       </ul>
-      <ul class="nav grid__col grid__col--4-of-12 grid__col--push-5-of-12">
+      <ul class="nav grid__col grid__col--5-of-12 grid__col--push-4-of-12">
       {% for page in site.pages %}
         <li><a class="hero" href="{{page.url}}">{{page.title}}</a></li>
       {% endfor %}
