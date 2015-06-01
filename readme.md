@@ -4,15 +4,16 @@
 ## Checklist
 
 #### Complete:
-* Home > Basic
-* Work > New Work Grid
-* Work > New Work Pages
-* Journal > Post Preview
-* Journal > Page
+* Work New Work Grid
+* Work New Work Pages
+* Journal Post Preview
+* Journal Page
+* OG Metadata
+* Twitter Card Metadata
 
-#### Next
-* Home > Dynamic
-* Work > Old Work List
-* Work > Old Work Pages
-* Work > Videos
-* Journal > ENVOY post
+#### Incomplete:
+* Home 2.1
+* Old Work List
+* Old Work Pages
+* Work Page Videos
+* Journal ENVOY post
