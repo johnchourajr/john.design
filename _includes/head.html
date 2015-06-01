@@ -1,10 +1,32 @@
 <head>
 
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="/img/favicon.png"/>
+  <link rel="icon" type="image/png" href="/img/favicon.ico"/>
   <meta content="width=device-width, initial-scale=1" name="viewport">
 
-  <title>{{site.title}} | {{title}}</title>
+  <title>{{site.title}} > {{title}}</title>
+
+{% comment %} START METADATA {% endcomment %}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@JohnChouraJr">
+  <meta name="twitter:title" content="Object &amp; Subject" />
+  <meta name="twitter:description" content="{{site.meta['tag']}}">
+  <meta name="twitter:image" content="{{permalink}}/img/twitter-card.png" />
+  <meta property="og:title" content="Object &amp; Subject" />
+  <meta property="og:description" content="{{site.meta['tag']}}" />
+  <meta property="og:type" content="summary" />
+  <meta property="og:url" content="{{permalink}}" />
+  <meta property="og:image" content="{{permalink}}/img/twitter-card.png" />
+
+  {% if type == 'post' %}
+    <meta property="twitter:card" content="photo" />
+    <meta property="twitter:title" content="{{title}}" />
+    <meta property="twitter:description" content="{{body | strip_html | truncatewords: 10}}" />
+    <meta property="twitter:image" content="{{site.permalink}}{% for asset in assets %}{% if asset.meta.type == 'poster' %}{{asset.url}}{% endif %}{% endfor %}" />
+    <meta property="twitter:url" content="{{permalink}}" />
+  {% endif %}
+
+{% comment %} END METADATA {% endcomment %}
 
   <link rel="alternate" type="application/rss+xml" href="{{site.feed_url}}" />
   <link rel="stylesheet" type="text/css" href="/styles/css/base.css" />
