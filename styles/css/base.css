@@ -997,11 +997,11 @@ a.btn {
         padding: 0 25vw; } }
   .article__detail blockquote {
     width: 100vw;
-    margin: 5em 0 4em;
+    margin: 3.25em 0 2em;
     padding: 0 8.5vw; }
     @media only screen and (min-width: 980px) {
       .article__detail blockquote {
-        padding: 0 15vw; } }
+        padding: 0 25vw; } }
     .article__detail blockquote p {
       width: 100%;
       padding: 0;
