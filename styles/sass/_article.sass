@@ -552,7 +552,7 @@
       &:after
         width: 1em
         height: 2px
-        top: -1.24em
+        top: -1.23em
       &:hover
         opacity: 1
         &:after, &:before
@@ -563,12 +563,15 @@
       &:after
         background: $black
         left: 0
+        top: -1.22em
       &:before
         height: 10px
         width: 10px
         border-bottom: solid 2px $black
         border-left: solid 2px $black
-        transform: rotate(45deg)
+        $property: transform
+        $value: rotate(45deg)
+        +prefix-property($property, $value)
         top: calc(-1.2em - 4.5px)
         left: 0
       &:hover
@@ -584,12 +587,15 @@
       &:after
         background: $black
         right: 0
+        top: -1.22em
       &:before
         height: 10px
         width: 10px
         border-top: solid 2px $black
         border-right: solid 2px $black
-        transform: rotate(45deg)
+        $property: transform
+        $value: rotate(45deg)
+        +prefix-property($property, $value)
         top: calc(-1.2em - 4.5px)
         right: 0
       &:hover
