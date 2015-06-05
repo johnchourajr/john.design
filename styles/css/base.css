@@ -1,12 +1,12 @@
 @charset "UTF-8";
-/*------------------------------------------------- */
-/*000000000---000---000-------000---000---000------ */
-/*000---000---000---000-------000---000---000------ */
-/*000---000---000000000-------000000000---000------ */
-/*000---000---000---000-------000---000---000------ */
-/*000---000---000---000--000--000---000---000---000 */
-/*000000000---000---000--000--000---000---000---000 */
-/*-----------------------00------------------------ */
+/*-------------------------------------------------- */
+/*000000000---000---000--------000---000---000------ */
+/*000---000---000---000--------000---000---000------ */
+/*000---000---000000000--------000000000---000------ */
+/*000---000---000---000--------000---000---000------ */
+/*000---000---000---000--000---000---000---000--000- */
+/*000000000---000---000--000---000---000---000--000- */
+/*-----------------------00------------------------- */
 /*
  * Version: 2.0
  *  Author: John Choura Jr.
@@ -439,7 +439,7 @@ a {
   transition: opacity 0.25s ease-in-out; }
   a:link {
     cursor: pointer;
-    color: #323232 !important; }
+    color: #323232; }
   a:active {
     opacity: 0.5; }
   a:hover {
@@ -1104,7 +1104,7 @@ a.btn {
     .article__pagenation--prev:after, .article__pagenation--next:after {
       width: 1em;
       height: 2px;
-      top: -1.24em; }
+      top: -1.23em; }
     .article__pagenation--prev:hover, .article__pagenation--next:hover {
       opacity: 1; }
       .article__pagenation--prev:hover:after, .article__pagenation--prev:hover:before, .article__pagenation--next:hover:after, .article__pagenation--next:hover:before {
@@ -1113,12 +1113,17 @@ a.btn {
     left: 0; }
     .article__pagenation--next:after {
       background: #323232;
-      left: 0; }
+      left: 0;
+      top: -1.22em; }
     .article__pagenation--next:before {
       height: 10px;
       width: 10px;
       border-bottom: solid 2px #323232;
       border-left: solid 2px #323232;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
       transform: rotate(45deg);
       top: calc(-1.2em - 4.5px);
       left: 0; }
@@ -1133,12 +1138,17 @@ a.btn {
         right: 0; } }
     .article__pagenation--prev:after {
       background: #323232;
-      right: 0; }
+      right: 0;
+      top: -1.22em; }
     .article__pagenation--prev:before {
       height: 10px;
       width: 10px;
       border-top: solid 2px #323232;
       border-right: solid 2px #323232;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
       transform: rotate(45deg);
       top: calc(-1.2em - 4.5px);
       right: 0; }
@@ -2033,6 +2043,8 @@ header {
         padding: 0; }
         header nav ul.nav li a.white {
           color: white; }
+          header nav ul.nav li a.white a:link {
+            color: white !important; }
         header nav ul.nav li a.hero {
           color: #323232; }
 
