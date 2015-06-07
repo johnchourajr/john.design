@@ -37,7 +37,7 @@ $hero-min-height-m: 800px
       position: absolute
       left: 0
       overflow: visible
-      padding: 0 8.3333333% 
+      padding: 0 8.3333333%
       bottom: calc(50% - 3em)
       +min-width($tablet)
         width: 60%
@@ -122,7 +122,8 @@ $hero-min-height-m: 800px
           width: 30vw
           right: 0
           top: 0
-          //background: $color2
+          background: white
+          z-index: -1
           //mix-blend-mode: multiply
           +min-width(879px)
             width: 41vw
@@ -134,7 +135,12 @@ $hero-min-height-m: 800px
         top: 50%
         left: 0
         background: $color3
-        mix-blend-mode: multiply
+        z-index: -1
+        //mix-blend-mode: multiply
+        //$property: mix-blend-mode
+        //$value: multiply
+        //+prefix-property($property, $value)
+
         +min-width($tablet)
           height: 50%
           width: 100vw
@@ -150,7 +156,7 @@ $hero-min-height-m: 800px
       &.wideAll
         //height: 68.5vw
         //min-height: 800px
-        height: 100%
+        height: 101%
         top: 0
         right: 0
         bottom: 0
@@ -158,8 +164,8 @@ $hero-min-height-m: 800px
         background-image: url('/img/hero-bkg.jpg')
         background-size: cover
         background-position: center center
+        background-blend-mode: multiply
         mix-blend-mode: multiply
-        z-index: 0
         +min-width($desktop)
           //background-image: url('/img/hero-bkg-lg.jpg')
         +min-width($desktop-large)

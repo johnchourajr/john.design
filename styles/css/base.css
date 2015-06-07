@@ -658,7 +658,8 @@ a.btn {
           margin-top: -2.25em;
           padding-left: 31%; } }
     .work__grid ul li {
-      display: inline-block; }
+      display: inline-block;
+      float: left; }
       .work__grid ul li a {
         font-family: "source-serif-pro", sans-serif;
         font-weight: 400 !important;
@@ -1045,8 +1046,6 @@ a.btn {
   .article__detail--work-body h3 {
     text-align: center;
     margin: 6rem 0 4rem !important; }
-  .article__detail--work-body h5 {
-    text-align: center; }
   .article__detail--work-body h6 {
     text-align: center; }
   .article__detail--refer {
@@ -1255,7 +1254,9 @@ a.btn {
           height: 100%;
           width: 30vw;
           right: 0;
-          top: 0; } }
+          top: 0;
+          background: white;
+          z-index: -1; } }
   @media only screen and (min-width: 740px) and (min-width: 879px) {
     .hero__fill figure.rightTall {
       width: 41vw; } }
@@ -1266,14 +1267,14 @@ a.btn {
         top: 50%;
         left: 0;
         background: #e55033;
-        mix-blend-mode: multiply; }
+        z-index: -1; }
         @media only screen and (min-width: 740px) {
           .hero__fill figure.leftDown {
             height: 50%;
             width: 100vw;
             top: 50%; } }
       .hero__fill figure.wideAll {
-        height: 100%;
+        height: 101%;
         top: 0;
         right: 0;
         bottom: 0;
@@ -1281,8 +1282,8 @@ a.btn {
         background-image: url("/img/hero-bkg.jpg");
         background-size: cover;
         background-position: center center;
-        mix-blend-mode: multiply;
-        z-index: 0; }
+        background-blend-mode: multiply;
+        mix-blend-mode: multiply; }
         @media only screen and (min-width: 1200px) {
           .hero__fill figure.wideAll {
             background-position: bottom; } }
@@ -1667,7 +1668,7 @@ a.btn {
     font-size: 1.5em;
     margin-bottom: 1.2em; }
   .info p {
-    font-size: 0.85em;
+    font-size: 0.8em;
     padding-bottom: 2em;
     line-height: 2.15; }
   .info__01 {
@@ -1719,7 +1720,7 @@ a.btn {
       @media only screen and (min-width: 740px) {
         .info__02 aside {
           margin-left: 8.33333%;
-          margin-top: -2em;
+          margin-top: -5.9em;
           float: left;
           z-index: 9999; } }
     .info__02--words {
