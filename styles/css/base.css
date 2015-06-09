@@ -2012,6 +2012,7 @@ header {
   header nav ul.logo {
     padding: 0;
     display: inline-block !important;
+    position: relative;
     mix-blend-mode: multiply; }
     @media only screen and (min-width: 980px) {
       header nav ul.logo {

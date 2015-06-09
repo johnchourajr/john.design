@@ -130,10 +130,39 @@ header
     ul.logo
       padding: 0
       display: inline-block !important
+      position: relative
       //padding-left: 10px !important
       mix-blend-mode: multiply
       +min-width($tablet)
         //padding-left: 30px !Important
+        //&:hover
+          $property: transition
+          $value: all 0.15s $cubic,
+          +prefix-property($property, $value)
+          &:after
+            opacity: .75
+            transform: scale(1.0) scaleZ(1.0) rotateY(0)
+        //&:after
+          content: "Object & Subject"
+          position: absolute
+          top: 12%
+          left: 120px
+          width: 9em
+          font-size: .75em
+          line-height: 1.3
+          font-weight: 600
+          text-transform: uppercase
+          letter-spacing: .2em
+          transform: scale(0.8)
+          //transform: scale(0.8) scaleZ(1.0) rotateY(75deg)
+          transform-origin: 0% 0%
+          //perspective: 500
+          //perspective-origin: 50% 14%
+          opacity: 0
+          color: $black
+          $property: transition
+          $value: all 0.55s $cubic,
+          +prefix-property($property, $value)
       +min-width($desktop)
         display: block
       li.logo__svg
