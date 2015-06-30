@@ -2012,9 +2012,8 @@ header {
   header nav ul.logo {
     padding: 0;
     display: inline-block !important;
-    position: relative;
-    mix-blend-mode: multiply; }
-    @media only screen and (min-width: 980px) {
+    position: relative; }
+    @media only screen and (min-width: 740px) {
       header nav ul.logo {
         display: block; } }
     header nav ul.logo li.logo__svg {
