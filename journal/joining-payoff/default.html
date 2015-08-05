@@ -1,0 +1,75 @@
+{% if type == 'post' %}
+
+{% capture content %}
+
+<body>
+
+  <section class="journal__heropayoff" >
+    <header>
+      <nav class="grid">
+        <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
+          <li class="logo__svg"><a href="/"><img src="/img/logo.svg" alt="/"/></a></li>
+        </ul>
+        <ul class="nav grid__col grid__col--5-of-12 grid__col--push-4-of-12">
+        {% for page in site.pages %}
+          <li><a href="{{page.url}}">{{page.title}}</a></li>
+        {% endfor %}
+        </ul>
+      </nav>
+    </header>
+    <figure class="journal__hero--img journal__hero--imgpayoff">
+      <div class="move move--1"></div>
+      <div class="move move--2"></div>
+      <div class="move move--3"></div>
+    </figure>
+  </section>
+
+  <section class="article__detail article__detail--work journal__body">
+    <span class="article__detail--header">
+      <h1>{{title}}</h1>
+    </span>
+    {{body}}
+
+    {% for data in meta %}
+    {% if meta.refer contains data.value %}
+      <div class="article__detail--refer">
+        <h6 id="refer">References</h6>
+        {{meta['refer'] | markdown}}
+      </div>
+    {% endif %}
+    {% endfor %}
+
+  </section>
+
+
+
+{% endcapture %}
+{% include 'layouts/default-article' %}
+
+{% endif %}
+
+
+<script type="text/javascript">
+$("body").mousemove(function(event) {
+
+  var mousex = event.pageX - $(this).width()/2;
+  var mousey = event.pageY - $(this).height()/2;
+
+  var imgx1 = (mousex) / -90;
+  var imgy1 = (mousey) / 65;
+  var imgr1 = (mousex) / 50;
+  var imgx2 = (mousex) / -70;
+  var imgy2 = (mousey) / 50;
+  var imgr2 = (mousex) / -60;
+  var imgx3 = (mousex) / -110;
+  var imgy3 = (mousey) / 70;
+  var imgr3 = (mousex) / 80;
+
+  $(".move--1").css("transform", "translate(" + imgx1 + "vw," + imgy1 + "vh)" + "rotate(" + imgr1 + "deg)");
+  $(".move--2").css("transform", "translate(" + imgx2 + "vw," + imgy2 + "vh)" + "rotate(" + imgr2 + "deg)");
+  $(".move--3").css("transform", "translate(" + imgx3 + "vw," + imgy3 + "vh)" + "rotate(" + imgr3 + "deg)");
+});
+
+</script>
+
+</body>

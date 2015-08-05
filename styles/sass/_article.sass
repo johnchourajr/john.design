@@ -136,7 +136,7 @@
       &:nth-child(2), &:nth-child(5)
         +min-width($tablet)
           width: calc(40% - 30px)
-      
+
       &:hover
         span
           //bottom: -4.25vw
@@ -229,9 +229,18 @@
     height: 50vw
     max-height: 60vh
 
+    &payoff
+      padding: 0
+      height: 65vw
+      //height: 100vh
+      max-height: 75vh
+      overflow: hidden
+      background-color: rgba($balloon-color1, .4)
+
     &:hover
       .journal__hero--img
         opacity: .6
+
 
     &--img
       position: absolute
@@ -252,6 +261,10 @@
       +prefix-property($property, $value)
       +min-width($tablet)
         opacity: .9
+    &--imgpayoff
+      position: absolute
+      width: 100vw
+      height: 70%
 
   &__body
     img
@@ -291,16 +304,19 @@
 
     &--header
       width: 100vw
-      padding: 0 8.5vw 5.5vw
+      padding: 0 8.5vw 3.5vw
       display: block
       position: relative
       mix-blend-mode: multiply
+      +min-width($desktop)
+        padding: 0 25vw 5.5vw
 
       h1
         width: 80%
-        +min-width($tablet)
-          width: 50%
-        +min-width($desktop-large)
+        +min-width($desktop)
+          width: 70%
+
+        //+min-width($desktop-large)
           max-width: 450px
 
     aside
@@ -359,15 +375,16 @@
           &:after
             bottom: 3px
             height: 1.1em
+            background: rgba(254,255,163,1)
         &:after
           content: ""
           position: absolute
           bottom: 0.15em
           left: -0.1em
           right: -0.1em
-          background: rgba(254,255,163,1)
+          background: rgba(254,255,163,.5)
           width: 100%
-          height: .5em
+          height: .25em
           z-index: -1
           $property: transition
           $value: bottom 0.2s $cubic, height .2s $cubic
@@ -419,7 +436,7 @@
     h4
       padding-bottom: 1em !important
 
-    h2, h3, h4, h5, h6, p, ul, ol, pre
+    h2, h3, h4, h5, h6, p, ul, ol, pre, iframe
       width: 100vw
       padding: 0 8.5vw
       display: block
@@ -561,6 +578,7 @@
 
     &--next
       left: 0
+      width: 45%
       &:after
         background: $black
         left: 0
@@ -583,6 +601,7 @@
       right: 30px
       position: absolute
       text-align: right
+      width: 45%
       +min-width($tablet)
         right: 0
       &:after

@@ -1,0 +1,41 @@
+
+.move
+  display: block
+  position: absolute
+  width: $var
+  height: $var
+  $property: transition
+  $value: all 2.5s cubic-bezier(0,.01,.14,1.19)
+  +prefix-property($property, $value)
+  border-radius: 50%
+  mix-blend-mode: multiply
+
+  &:after
+    content: ""
+    position: absolute
+    bottom: -#{$var / 9}
+    left: calc(50% - #{$var / 8})
+    width: 0
+    height: 0
+    border-left: #{$var / 8} solid transparent
+    border-right: #{$var / 8} solid transparent
+    border-bottom: #{$var / 8} solid black
+
+  &--1
+    left: calc(38% - #{$var / 2})
+    top: calc(50% - #{$var / 2})
+    background: $balloon-color1
+    &:after
+      border-bottom-color: $balloon-color1
+  &--2
+    left: calc(50% - #{$var / 2})
+    top: calc(58% - #{$var / 2})
+    background: $balloon-color2
+    &:after
+      border-bottom-color: $balloon-color2
+  &--3
+    left: calc(62% - #{$var / 2})
+    top: calc(42% - #{$var / 2})
+    background: $balloon-color3
+    &:after
+      border-bottom-color: $balloon-color3
