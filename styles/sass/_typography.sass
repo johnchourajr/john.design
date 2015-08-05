@@ -40,19 +40,20 @@ p
       &:after
         bottom: 3px
         height: 1.1em
+        background: rgba(254,255,163,1)
     &:visited
       color: rgba($black, .75) !important
       &:after
-        background: rgba(255, 254, 225, 1)
+        background: rgba(255, 254, 225, .25)
     &:after
       content: ""
       position: absolute
       bottom: 0.15em
       left: -0.1em
       right: -0.1em
-      background: rgba(254,255,163,1)
+      background: rgba(254,255,163,.5)
       width: 100%
-      height: .5em
+      height: .25em
       z-index: -1
       $property: transition
       $value: bottom 0.2s $cubic, height .2s $cubic
