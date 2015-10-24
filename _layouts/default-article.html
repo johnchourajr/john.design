@@ -1,13 +1,21 @@
-<html>
+<html lang="en">
+{% include "includes/head" %}
+<body>
 
-  {% include "includes/head" %}
+  <div id="main" class="wrap m-scene">
 
-    {{ content }}
+    <div class=" scene_element scene_element--fadeInUp">
+      {{ content }}
+      {% include "layouts/pagenation" %}
+    </div>
 
-  {% include "layouts/pagenation" %}
+    <script src="/js/min/base-min.js"></script>
+    <script type="text/javascript" src="/js/min/skrollr.min.js"></script>
+    {% include "includes/skrollr-init" %}
+    {% include "includes/footer" %}
 
-  {% include "includes/footer" %}
+  </div>
 
-  {% include "includes/foot" %}
-
+</body>
+{% include "includes/foot" %}
 </html>
