@@ -4,6 +4,11 @@ Guardfile
 LICENSE
 README.md
 styles/*.sass
+styles/*.scss
+styles/css/*.map
 rootkey.csv
 config.codekit
 vid/*.mp4
+js/base.js
+js/jquery.smoothState.js
+js/smoothStateInit.js

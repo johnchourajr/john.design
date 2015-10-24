@@ -38,18 +38,25 @@ $hero-min-height-m: 800px
       left: 0
       overflow: visible
       padding: 0 8.3333333%
-      bottom: calc(50% - 3em)
+      bottom: calc(50% - 5.2em)
+      +min-width(638px)
+        bottom: calc(50% - 2.9em)
       +min-width($tablet)
         width: 60%
         margin-left: 7.333333%
         padding-left: 1%
         padding-right: 0
-        //bottom: calc(40% - 3em)
+        bottom: calc(50% - 5.4em)
       +min-width(879px)
         width: 50%
       +min-width($desktop)
-        //bottom: calc(66.666666% - 3em)
+        bottom: calc(50% - 5.5em)
+        max-width: 800px
+      +min-width($desktop-large)
+        bottom: calc(50% - 6em)
         max-width: 700px
+      +min-width(1600px)
+        bottom: calc(50% - 6.4em)
       h2
         padding: 0 40px 0 0
         font-size: 1.7em
@@ -63,6 +70,10 @@ $hero-min-height-m: 800px
           //font-size: 1.7em
         +min-width(910px)
           font-size: 2.2em
+        +min-width($desktop-large)
+          font-size: 2.4em
+        +min-width(1600px)
+          font-size: 2.6em
 
   // HOME HERO BACKGROUND
   &__fill
@@ -102,20 +113,6 @@ $hero-min-height-m: 800px
         +min-width(879px)
           width: 59vw
           display: block
-        //+min-width($desktop)
-          height: 33.333333%
-
-      // HERO BOX BLUE
-      +min-width($tablet)
-        //&.bottomDown
-          height: 40%
-          top: 100%
-          +min-width($desktop)
-            top: calc(66.666666%)
-          right: 0
-          width: 100%
-          background: $color3
-          mix-blend-mode: multiply
 
         &.rightTall
           height: 100%
@@ -124,7 +121,6 @@ $hero-min-height-m: 800px
           top: 0
           background: white
           z-index: -1
-          //mix-blend-mode: multiply
           +min-width(879px)
             width: 41vw
 
@@ -136,26 +132,14 @@ $hero-min-height-m: 800px
         left: 0
         background: $color3
         z-index: -1
-        //mix-blend-mode: multiply
-        //$property: mix-blend-mode
-        //$value: multiply
-        //+prefix-property($property, $value)
 
         +min-width($tablet)
           height: 50%
           width: 100vw
           top: 50%
-        +min-width(879px)
-          //width: 59vw
-        //+min-width($desktop)
-          top: 33.333333%
-          height: 33.333333%
-          height: 33.333333%
 
       // HERO BOX BACKGROUND IMAGE
       &.wideAll
-        //height: 68.5vw
-        //min-height: 800px
         height: 101%
         top: 0
         right: 0
@@ -166,11 +150,8 @@ $hero-min-height-m: 800px
         background-position: center center
         background-blend-mode: multiply
         mix-blend-mode: multiply
-        +min-width($desktop)
-          //background-image: url('/img/hero-bkg-lg.jpg')
         +min-width($desktop-large)
           background-position: bottom
-          //height: 100vh
 
     // HERO BACKGROUND PLAY
   +min-width($desktop)

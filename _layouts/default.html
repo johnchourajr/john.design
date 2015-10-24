@@ -1,35 +1,21 @@
-<html>
+<html lang="en">
+{% include "includes/head" %}
+<body>
 
-  {% include "includes/head" %}
+  <div id="main" class="wrap m-scene">
 
-  <body>
-    {% if slug == "home" %}
+    <div class=" scene_element scene_element--fadeInUp">
+      {% include "includes/header" %}
+      {{ content }}
+    </div>
 
-    {% else %}
-
-      <header>
-        <nav class="grid">
-          <ul class="logo grid__col grid__col--1-of-12 grid__col--push-1-of-12">
-            <li class="logo__svg"><a href="/"><img src="/img/logo.svg" alt="/"/></a></li>
-          </ul>
-          <ul class="nav grid__col grid__col--5-of-12 grid__col--push-4-of-12">
-          {% for page in site.pages %}
-            <li><a href="{{page.url}}">{{page.title}}</a></li>
-          {% endfor %}
-          </ul>
-        </nav>
-      </header>
-
-    {% endif %}
-
-    {{ content }}
-
+    <script src="/js/min/base-min.js"></script>
+    <script type="text/javascript" src="/js/min/skrollr.min.js"></script>
+    {% include "includes/skrollr-init" %}
     {% include "includes/footer" %}
 
-  </body>
+  </div>
 
-  {% include "includes/foot" %}
-
-
-
+</body>
+{% include "includes/foot" %}
 </html>
