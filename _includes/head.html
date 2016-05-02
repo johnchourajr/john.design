@@ -2,6 +2,21 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/img/favicon.ico"/>
+  <meta name="theme-color" content="#e55033">
+
+  <title>{{site.title}} > {{page.title}}</title>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@JohnChouraJr">
+  <meta name="twitter:title" content="Object &amp; Subject" />
+  <meta name="twitter:description" content="{{site.description}}">
+  <meta name="twitter:image" content="{{permalink}}/img/twitter-card.png" />
+  <meta property="og:title" content="Object &amp; Subject" />
+  <meta property="og:description" content="{{site.description}}" />
+  <meta property="og:type" content="summary" />
+  <meta property="og:url" content="{{permalink}}" />
+  <meta property="og:image" content="{{permalink}}/img/twitter-card.png" />
 
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
