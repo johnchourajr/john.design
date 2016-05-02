@@ -1,10 +1,4 @@
-.DS_Store
-.rbenv-vars
+_site
 .sass-cache
-_assets
-config.ru
-theme.zip
-styles/*.css
-.bundle/
-.ignore
+.jekyll-metadata
 config.codekit
