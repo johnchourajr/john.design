@@ -9,12 +9,3 @@ collections:
   uploads:
     title: Uploads
     output: true
-description: |
-  John Choura Jr. is a multidisciplinary designer in Long Beach, California.
-email: john@scientist.design
-baseurl:
-ga: UA-75174054-1
-markdown: kramdown
-destination: _site
-sass:
-  style: compressed
