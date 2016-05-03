@@ -2,11 +2,23 @@
   background: rgba($brand-yellow,.5);
 }
 
+nav {
+  // display: flex;
+
+  .nav-items {
+    a {
+      padding: .65em 0;
+      padding-right: 2em;
+      display: inline-block;
+    }
+  }
+}
+
 .page-header {
-  padding-top: $space-md;
+  padding-top: $space-sm;
 
   @include media-query(md) {
-    padding-top: $space-lg;
+    padding-top: $space-md;
   }
 
   &--upper {
@@ -14,6 +26,10 @@
 
     @include media-query(md) {
       padding-bottom: $space-lg;
+    }
+
+    @include media-query(lg) {
+      padding-bottom: $space-xl;
     }
 
     #site-header {
