@@ -2,9 +2,17 @@
   background: rgba($brand-yellow,.5);
 }
 
+body {
+  color: $text-black !important;
+  background-color: $fill-gray-lighter !important;
+}
+
 .doc {
   min-height: 100vh;
   background: white;
+  z-index: 1;
+  padding-bottom: $space-md;
+  margin-bottom: 23em;
 }
 
 .nav-header {
@@ -31,12 +39,14 @@ nav {
   }
 }
 
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: -1;
+}
+
 .page-header {
-  // padding-top: $space-sm;
-  //
-  // @include media-query(md) {
-  //   padding-top: $space-md;
-  // }
 
   &--upper {
     padding-bottom: $space-md;
@@ -65,11 +75,31 @@ nav {
   }
 }
 
-.page-body {
-  padding-top: $space-md;
+.post-body, .page-body {
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre {
+      margin-bottom: 1em;
+    }
+}
 
-  @include media-query(md) {
-    padding-top: $space-lg;
+.post-body {
+  .post-content {
+
+    p {
+      font-family: serif;
+      font-size: 2.2em;
+      line-height: 1.65;
+    }
+  }
+}
+
+.page-body {
+
+  &.pad {
+    padding-top: $space-md;
+
+    @include media-query(md) {
+      padding-top: $space-lg;
+    }
   }
 
   tr.flex-baseline {
