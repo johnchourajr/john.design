@@ -1,21 +1,31 @@
 ---
 layout: page
 title: Journal
+weight: 2
 ---
 
 <div class="wrapper">
   <div class="gutters">
-    <div class="col md-col-4 lg-col-5 md-mt4">
-      <h3>Journal Posts</h3>
+    <div class="col md-col-4 lg-col-5">
+      <h1 class="display">Journal</h1>
     </div>
     <div class="col md-col-8 lg-col-7">
-      <ul class="list-unstyled">
-        {% for post in site.journal %}
-          <li>
-            <a href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
-          </li>
-        {% endfor %}
-      </ul>
+      <table>
+        <tbody>
+          {% for post in site.journal %}
+            <tr class="flex-baseline ">
+              <td class="col xs-col-8">
+                <a href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
+              </td>
+              <td class="col xs-col-2">
+              </td>
+              <td class="col xs-col-2 xs-text-right">
+                <h6>{{ post.date | date: "%b %-d, %Y" }}</h6>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
