@@ -1,12 +1,15 @@
 ---
 title: John Choura Jr.
 url: http://v3.objectsubject.com
-analtyics: UA-22938148-6
 timezone: UTC
 collections:
   journal:
     title: Journal
     output: true
+  posts:
+    title: Posts
+    output: true
   uploads:
     title: Uploads
     output: true
+analtyics: UA-22938148-6
