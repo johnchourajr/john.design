@@ -1,7 +1,7 @@
 ---
 title: Joining Payoff
-layout: journal
 date: 2015-08-05 06:44:00 Z
+layout: journal
 color: ''
 refer: 1 Some of the original JS logic goes to [this Codepen](http://codepen.io/Bergability/pen/EjRRXx).
 ---

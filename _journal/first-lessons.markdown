@@ -1,7 +1,7 @@
 ---
 title: The Engineer and the Artist
-layout: journal
 date: 2015-06-05 13:39:00 Z
+layout: journal
 color: ''
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
 Tags:

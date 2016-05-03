@@ -1,7 +1,7 @@
 ---
 title: SF Trip
-layout: journal
 date: 2014-04-21 20:11:00 Z
+layout: journal
 refer: |-
   1 [Blue Bottle Coffee  - Ferry Building](http://www.bluebottlecoffee.com/cafes/ferry-building)
 

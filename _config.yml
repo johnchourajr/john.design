@@ -6,10 +6,13 @@ collections:
   journal:
     title: Journal
     output: true
-  work:
-    title: Work
-    output: false
+  posts:
+    title: Posts
+    output: true
   uploads:
     title: Uploads
     output: true
+  work:
+    title: Work
+    output: false
 analtyics: UA-22938148-6
