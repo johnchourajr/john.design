@@ -2,24 +2,41 @@
   background: rgba($brand-yellow,.5);
 }
 
-nav {
-  // display: flex;
-
-  .nav-items {
-    a {
-      padding: .65em 0;
-      padding-right: 2em;
-      display: inline-block;
-    }
-  }
+.doc {
+  min-height: 100vh;
+  background: white;
 }
 
-.page-header {
+.nav-header {
   padding-top: $space-sm;
 
   @include media-query(md) {
     padding-top: $space-md;
   }
+}
+
+nav {
+  // display: flex;
+
+  .nav-items {
+    // display: flex;
+    width: 100%;
+
+    a {
+      padding: .65em 0;
+      padding-right: 10%;
+      display: inline-block;
+      // flex-basis: 20%;
+    }
+  }
+}
+
+.page-header {
+  // padding-top: $space-sm;
+  //
+  // @include media-query(md) {
+  //   padding-top: $space-md;
+  // }
 
   &--upper {
     padding-bottom: $space-md;

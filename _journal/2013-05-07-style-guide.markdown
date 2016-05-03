@@ -1,11 +1,12 @@
 ---
 title: Style Guide
+layout: journal
 date: 2013-05-07 06:06:00 Z
 published: false
 color: ''
 ---
 
-Basic paragraph typography is emblazoned in FF Tisa Web Pro, at a fair size for reading comfortably on a screen. From time-to-time I *italicise text* for rhetorical emphasis, as well as call out certain words with **bold text**. 
+Basic paragraph typography is emblazoned in FF Tisa Web Pro, at a fair size for reading comfortably on a screen. From time-to-time I *italicise text* for rhetorical emphasis, as well as call out certain words with **bold text**.
 
 ### Sub-Sections
 Second headings break up the content into sub-sections. In the case where I was referring to something or someone outside of myself, I would make a [reference^1](#refer) or a [note^2](#refer) which uses an anchor link `href="#refer"` that directs the reader toward the **References and Notes** section at the bottom of the page. [Hyperlinks](#) are colored and underlined with a lighter gray, and change red on hover.
@@ -14,13 +15,13 @@ Second headings break up the content into sub-sections. In the case where I was 
 ![sm](/uploads/proj-sm.jpg)
 
 ###### Inline Image Large
-![lg](/uploads/proj-lg.jpg) 
+![lg](/uploads/proj-lg.jpg)
 
 ###### Two Up Inline Images
-![twoup](/uploads/proj-sm.jpg) 
-![twoup](/uploads/proj-sm.jpg) 
+![twoup](/uploads/proj-sm.jpg)
+![twoup](/uploads/proj-sm.jpg)
 
-### Code 
+### Code
 ```
   <section class="work__hero">
     <header>
