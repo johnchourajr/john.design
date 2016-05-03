@@ -1,8 +1,7 @@
 ---
 title: Style Guide
-layout: journal
 date: 2013-05-07 06:06:00 Z
-published: true
+layout: journal
 color: ''
 ---
 

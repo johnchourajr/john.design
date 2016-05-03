@@ -1,7 +1,7 @@
 ---
 title: Announcing Peepr
-layout: journal
 date: 2014-08-02 21:16:00 Z
+layout: journal
 refer: |-
   1 [Peepr Website](http://playpeepr.com)
 

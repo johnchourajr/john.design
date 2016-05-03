@@ -1,7 +1,7 @@
 ---
 title: Staying in Motion
-layout: journal
 date: 2015-06-02 13:26:00 Z
+layout: journal
 color: ''
 refer: Illustration by John Choura Jr.
 ---

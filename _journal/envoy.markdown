@@ -1,7 +1,7 @@
 ---
 title: Joining Envoy
-layout: journal
 date: 2014-04-30 04:40:00 Z
+layout: journal
 Tags:
 - Life
 - Work
