@@ -6,9 +6,9 @@ collections:
   journal:
     title: Journal
     output: true
-  posts:
-    title: Posts
-    output: true
+  work:
+    title: Work
+    output: false
   uploads:
     title: Uploads
     output: true

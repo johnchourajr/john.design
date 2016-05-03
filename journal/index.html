@@ -1,0 +1,21 @@
+---
+layout: page
+title: Journal
+---
+
+<div class="wrapper">
+  <div class="gutters">
+    <div class="col md-col-4 lg-col-5 md-mt4">
+      <h3>Journal Posts</h3>
+    </div>
+    <div class="col md-col-8 lg-col-7">
+      <ul class="list-unstyled">
+        {% for post in site.journal %}
+          <li>
+            <a href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
