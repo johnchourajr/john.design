@@ -52,6 +52,15 @@ nav {
   }
 }
 
+.logo {
+  &-white #logo {
+    fill: #fff;
+  }
+  &-black #logo {
+    fill: #000;
+  }
+}
+
 footer {
   position: fixed;
   width: 100%;
