@@ -70,6 +70,12 @@ footer {
 
 .page-header {
 
+  padding-top: $space-sm;
+
+  @include media-query(md) {
+    padding-top: 0;
+  }
+
   &--upper {
     padding-bottom: $space-md;
 
