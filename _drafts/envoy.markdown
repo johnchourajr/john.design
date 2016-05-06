@@ -2,7 +2,6 @@
 title: Joining Envoy
 date: 2014-04-30 04:40:00 Z
 author: John Choura Jr.
-draft: true
 layout: journal
 Tags:
 - Life

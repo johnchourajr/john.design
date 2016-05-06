@@ -3,7 +3,7 @@ title: The Engineer and the Artist
 date: 2015-06-05 13:39:00 Z
 author: John Choura Jr.
 layout: journal
-cover: '05-GP-poster.jpg'
+cover: 05-GP-poster.jpg
 color: ''
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
 Tags:
