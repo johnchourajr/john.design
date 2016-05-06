@@ -1,7 +1,7 @@
 ---
 title: The Engineer and the Artist
 date: 2015-06-05 13:39:00 Z
-permalink: first-lessons/
+permalink: journal/first-lessons/
 author: John Choura Jr.
 layout: journal
 cover: 05-GP-poster.jpg

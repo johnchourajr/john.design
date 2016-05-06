@@ -1,7 +1,7 @@
 ---
 title: Staying in Motion
 date: 2015-06-02 13:26:00 Z
-permalink: staying-in-motion/
+permalink: journal/staying-in-motion/
 author: John Choura Jr.
 layout: journal
 cover: 06-new-poster-1.jpg

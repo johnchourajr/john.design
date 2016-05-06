@@ -1,7 +1,7 @@
 ---
 title: SF Trip
 date: 2014-04-21 20:11:00 Z
-permalink: sf/
+permalink: journal/sf/
 author: John Choura Jr.
 layout: journal
 cover: 02-SF-poster.jpg
