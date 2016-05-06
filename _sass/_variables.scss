@@ -18,6 +18,7 @@ $font-smoothing: true !default;
 // -------------------------
 
 $sans: "europa", Helvetica, Arial, sans-serif;
+$serif: "Times-New-Roman", serif;
 $slab: "Caponi-Slab-Semibold", Georgia, serif;
 
 // Borders
@@ -25,7 +26,7 @@ $slab: "Caponi-Slab-Semibold", Georgia, serif;
 
 $border: 1px solid rgba(0, 0, 0, .2);
 $border-lighter: 1px solid rgba(0, 0, 0, .1);
-$border-radius: 3px;
+$border-radius: 4px;
 
 // Easing
 // -------------------------
@@ -116,7 +117,7 @@ $text-instagram: #517fa4;
 // Typography
 // -------------------------
 
-$base-font-family: "europa";
+$base-font-family: $serif;
 $base-font-size: 16px;
 
 $base-font-weight: 700;
@@ -124,18 +125,18 @@ $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
 
 $text-1: 2.25em;   // 36px
-$text-2: 1.375em;  // 22px
+$text-2: 1.8em;  // 22px
 $text-3: 1.125em;  // 18px
 $text-4: 1em;      // 16px
 $text-5: .875em;  // 14px
 $text-6: .75em;   // 12px
 
-$line-height-1: 2.5rem; // 40px
-$line-height-2: 1.625rem; // 26px
-$line-height-3: 1.375rem; // 22px
-$line-height-4: 1.5rem; // 24px
-$line-height-5: 1.25rem; // 20px
-$line-height-6: 1rem; // 16px
+$line-height-1: 1.4; // 40px
+$line-height-2: 1.35; // 26px
+$line-height-3: 1.25; // 22px
+$line-height-4: 1.25; // 24px
+$line-height-5: 1; // 20px
+$line-height-6: 1; // 16px
 
 $regular: 400;
 $bold: 600;

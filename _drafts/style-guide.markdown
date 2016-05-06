@@ -1,6 +1,7 @@
 ---
 title: Style Guide
 date: 2013-05-07 06:06:00 Z
+author: John Choura Jr.
 layout: journal
 color: ''
 ---

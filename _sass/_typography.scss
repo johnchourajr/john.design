@@ -1,0 +1,132 @@
+h1.display {
+  font-size: 7vw;
+
+  @include media-query(sm) {
+    font-size: 6vw;
+  }
+  @include media-query(md) {
+    font-size: 4.25vw;
+  }
+  @include media-query(lg) {
+    font-size: 3.9vw;
+  }
+}
+
+.post-body, .page-body {
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre {
+    margin-bottom: 1em;
+  }
+}
+
+.post-content {
+  p {
+    font-family: serif;
+    line-height: 1.65;
+    font-size: 1.4em;
+  }
+}
+
+
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+  margin-bottom: $space-1 / 2;
+}
+
+
+
+/**
+ * Headings
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $base-font-weight;
+  font-family: $sans;
+  letter-spacing: .02em;
+  line-height: 1.35;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  a {
+    text-decoration: underline;
+  }
+}
+
+
+
+/**
+ * Links
+ */
+a {
+  color: $text-gray;
+  text-decoration: none;
+
+  &:visited {
+    color: darken($text-gray, 15%);
+  }
+
+  &:hover {
+    color: $text-gray;
+    text-decoration: underline;
+  }
+}
+
+
+
+/**
+ * Blockquotes
+ */
+blockquote {
+  color: $fill-gray;
+  font-size: ($text-1 * .75);
+  font-weight: bold;
+
+  & > p {
+    text-indent: -0.4em;
+    line-height: $line-height-1 !important;
+
+    > em {
+      font-family: $sans;
+      font-size: 30%;
+      font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+
+/**
+ * Code formatting
+ */
+pre,
+code {
+  font-size: 15px;
+  border: 1px solid $fill-gray-lighter;
+  border-radius: 3px;
+  background-color: #eef;
+}
+
+code {
+  padding: 1px 5px;
+}
+
+pre {
+  padding: 8px 12px;
+  overflow-x: auto;
+
+  > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

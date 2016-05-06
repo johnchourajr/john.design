@@ -1,0 +1,82 @@
+.post-header {
+
+}
+
+.post-hero {
+  background-color: $fill-gray-lighter;
+  background-size: cover;
+  background-position: center;
+  height: 30vw;
+  min-height: 200px;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  border-radius: $border-radius;
+
+  &-overflow {
+    background: transparent;
+    overflow: visible;
+    mix-blend-mode: multiply;
+  }
+
+  img {
+    top: 0;
+    width: 100%;
+    position: absolute;
+  }
+
+  iframe[src*="codepen.io"] {
+    height: 30vw;
+    min-height: 200px;
+  }
+}
+
+.post-body {
+  .post-content {
+    z-index: 10;
+
+    img {
+
+      &[alt~="twoup"] {
+        margin-bottom: $space-2;
+      }
+      &[alt~="lg"] {
+        margin-left: calc(-7.5vw - 1em);
+        width: calc(100vw + 0.5em) !important;
+        max-width: none;
+      }
+
+      @include media-query(md) {
+        &[alt~="lg"] {
+          margin-left: -51.5%;
+          width: 151.5% !important;
+          max-width: none;
+        }
+      }
+
+      @include media-query(lg) {
+        &[alt~="sm"] {
+          margin-left: -36.5%;
+          width: 136.5% !important;
+          max-width: none;
+        }
+        &[alt~="lg"] {
+          margin-left: -73%;
+          width: 173% !important;
+          max-width: none;
+        }
+        &[alt~="twoup"] {
+          margin-left: -73.5%;
+          width: 85.87% !important;
+          max-width: none;
+
+          &:nth-child(2) {
+            margin-left: 0%;
+          }
+        }
+      }
+    }
+  }
+}

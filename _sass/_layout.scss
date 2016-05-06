@@ -2,17 +2,24 @@
   background: rgba($brand-yellow,.5);
 }
 
-body {
-  color: $text-black !important;
-  background-color: $fill-gray-lighter !important;
-}
-
 .doc {
   min-height: 100vh;
   background: white;
   z-index: 1;
   padding-bottom: $space-md;
   margin-bottom: 23em;
+  overflow-x: hidden;
+  box-shadow: 0 5px 0px $fill-black;
+
+  @include media-query(sm) {
+    margin-bottom: 21em;
+  }
+  @include media-query(md) {
+    margin-bottom: 22em;
+  }
+  @include media-query(lg) {
+    margin-bottom: 20em;
+  }
 }
 
 .nav-header {
@@ -24,17 +31,23 @@ body {
 }
 
 nav {
-  // display: flex;
 
   .nav-items {
-    // display: flex;
     width: 100%;
 
     a {
-      padding: .65em 0;
-      padding-right: 10%;
+      padding: 2em 0;
+      padding-right: 15px;
       display: inline-block;
-      // flex-basis: 20%;
+
+      @include media-query(sm) {
+        padding: .65em 0;
+        padding-right: 10%;
+      }
+
+      @include media-query(md) {
+        padding-right: 10%;
+      }
     }
   }
 }
@@ -72,23 +85,6 @@ footer {
   &--lower {
     height: 40vw;
     position: relative;
-  }
-}
-
-.post-body, .page-body {
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre {
-      margin-bottom: 1em;
-    }
-}
-
-.post-body {
-  .post-content {
-
-    p {
-      font-family: serif;
-      font-size: 2.2em;
-      line-height: 1.65;
-    }
   }
 }
 
@@ -170,35 +166,13 @@ footer {
   font-weight: normal;
   font-size: .45em;
   display: block;
-  line-height: $line-height-4;
-
-  @include media-query(sm) {
-    line-height: $line-height-1;
-  }
+  line-height: 2.2em;
 
   &.active {
-    // width: 100%;
     opacity: 1;
-    max-width: 500px;
-    height: 100px;
-    color: $brand-red;
-
-    @include media-query(sm) {
-      max-width: 500px;
-      height: 165px;
-    }
-    @include media-query(md) {
-      max-width: 47vw;
-      height: 165px;
-    }
-    @include media-query(lg) {
-      max-width: 35vw;
-      height: 165px;
-    }
-    @include media-query(xl) {
-      max-width: 35vw;
-      height: 165px;
-    }
+    max-width: 23em;
+    height: 9em;
+    color: #fff;
   }
 
   &.inactive {
@@ -228,7 +202,6 @@ footer {
     width: 27vw;
     height: 27vw;
     background: $brand-red;
-    // bottom: 0;
     top: 20vw;
   }
 
@@ -237,7 +210,6 @@ footer {
     height: 34vw;
     background: $brand-blue;
     top: 30vw;
-    // bottom: -20vw;
     right: 7.5vw;
   }
 
@@ -251,7 +223,6 @@ footer {
 
   &--circ {
     left: 32.5vw;
-    // bottom: -12vw;
     top: 48vw;
 
     img {
@@ -284,4 +255,8 @@ footer {
       width: 4vw;
     }
   }
+}
+
+img {
+  border-radius: $border-radius;
 }
