@@ -1,6 +1,7 @@
 ---
 title: Joining Payoff
 date: 2015-08-05 06:44:00 Z
+permalink: joining-payoff/
 author: John Choura Jr.
 layout: journal-payoff
 color: ''
