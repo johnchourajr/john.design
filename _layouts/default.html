@@ -5,9 +5,14 @@
 
   <body>
 
-    <div class="doc">
+    <div id="doc" class="doc">
+
       {% include header.html %}
+
       {{ content }}
+
+      {% include scripts.html %}
+
     </div>
 
     {% include footer.html %}
