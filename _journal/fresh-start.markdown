@@ -1,6 +1,7 @@
 ---
 title: Object Matter
 date: 2014-01-24 04:58:00 Z
+permalink: fresh-start/
 author: John Choura Jr.
 layout: journal
 cover: 01-objsbj.jpg
@@ -32,4 +33,4 @@ This is all to say, that I want to step fully into my vocation. In the coming ye
 
 > "I want to make beautiful things, even if nobody cares." *— Saul Bass*
 
-![sm](uploads/01-objsbj.jpg)
+![sm](/journal/uploads/01-objsbj.jpg)
