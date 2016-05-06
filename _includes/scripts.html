@@ -1,6 +1,25 @@
 <script src="{{ "/js/jquery-2.1.4.js" | prepend: site.baseurl }}"></script>
 
 <script type="text/javascript">
+  // ---------------
+  // Header Click
+  // ---------------
+  $('#designer').on('click', function(evt) {
+
+    var designer = $('.designer');
+    var multi = $('.multi');
+
+    if (designer.hasClass('active')) {
+      designer.addClass('inactive').removeClass('active');
+      multi.addClass('active').removeClass('inactive');
+    } else {
+      designer.addClass('active').removeClass('inactive');
+      multi.addClass('inactive').removeClass('active');
+    }
+  });
+</script>
+
+<script type="text/javascript">
   $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
     options.async = true;
   });

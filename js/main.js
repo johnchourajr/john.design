@@ -15,25 +15,6 @@ $(document.links).filter(function() {
   return this.hostname != window.location.hostname;
 }).attr('target', '_blank');
 
-
-// ---------------
-// Header Click
-// ---------------
-$('#designer').on('click', function(evt) {
-
-  var designer = $('.designer');
-  var multi = $('.multi');
-
-  if (designer.hasClass('active')) {
-    designer.addClass('inactive').removeClass('active');
-    multi.addClass('active').removeClass('inactive');
-  } else {
-    designer.addClass('active').removeClass('inactive');
-    multi.addClass('inactive').removeClass('active');
-  }
-});
-
-
 // ---------------
 // Animated scroll
 // ---------------
