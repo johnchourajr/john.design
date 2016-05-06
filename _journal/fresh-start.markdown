@@ -3,7 +3,7 @@ title: Object Matter
 date: 2014-01-24 04:58:00 Z
 author: John Choura Jr.
 layout: journal
-cover: '01-objsbj.jpg'
+cover: 01-objsbj.jpg
 refer: |-
   1 [Trent Walton](http://trentwalton.com), [Jessica Hische](http://jessicahische.is), [Noah Stokes](http://esbueno.noahstokes.com), [Jonnie Hallman](http://destroytoday.com), [Skylar Challand](https://twitter.com/sskylar), and [Oak](http://oak.is).
 
