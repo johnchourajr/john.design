@@ -2,6 +2,7 @@
 title: John Choura Jr.
 url: http://v3.objectsubject.com
 timezone: UTC
+post_dirs: false
 collections:
   journal:
     title: Journal
@@ -15,4 +16,6 @@ collections:
   work:
     title: Work
     output: false
-analtyics: UA-22938148-6
+ga: UA-22938148-6
+host: 127.0.0.1
+port: 4444

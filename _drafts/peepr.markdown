@@ -1,6 +1,7 @@
 ---
 title: Announcing Peepr
 date: 2014-08-02 21:16:00 Z
+author: John Choura Jr.
 layout: journal
 refer: |-
   1 [Peepr Website](http://playpeepr.com)

@@ -1,34 +1,38 @@
 ---
-title: Info
-layout: page
-weight: 3
+title:
+layout: default-w
+weight: 0
 main-p-1: |
-  # I’m a designer, in as many senses of the word as possible. Putting pixels to work for great brands and people, by designing intuitive experiences. I’ve helped build products, illustrate pictures, and design/develop websites.
+  Owner and Creative Director of Scientist Design, a two-man design team. Also, Designing Product at Payoff, Inc. Previously at Envoy, Signal, and Biola.
 main-p-2: |
-  ## I am passionate about leading and working with teams. Currently designing products to reenvision the world of finance at Payoff. Previously at Envoy.
+  I am designer, in as many senses of the word as possible. Bringing ideas to life for great brands and even better people, across all mediums. I write code, illustrate, push pixels, build products, creative direct, story-tell, shape brands, and make/break grids. I am passionate about leading and working with teams.
 personal-p-1: |
-  ### I live life one day at a time with by best friend and letterer extraordinaire, my wife Alex. We live in sunny Long Beach, CA with our rascal of a cat. We both created and manage the amateur food and drink pairing blog, A Good Pair.
+  I live life one day at a time with by best friend and letterer extraordinaire, my wife Alex. We live in sunny Long Beach, CA with our rascal of a cat. We both created and manage the amateur food and drink pairing blog, A Good Pair.
 personal-p-2: |
-  ### Object & Subject is a personal experiment of mine, it's a design workspace by and for me. A space to keep my work, as well as a place for my side projects and writing. The name represents a balance that I strive to achieve in my work; between the visual world, and that of ideas. My aim is to see and practice design as both a science and an art.
+  Object & Subject is a personal experiment of mine, it's a design workspace by and for me. A space to keep my work, as well as a place for my side projects and writing. The name represents a balance that I strive to achieve in my work; between the visual world, and that of ideas. My aim is to see and practice design as both a science and an art.
 ---
 
-<div class="wrapper">
-  <div class="gutters">
-    <div class="col md-col-4 lg-col-5">
-      <h1 class="display">I am John<br/>Choura Jr.</h1>
-    </div>
-    <div class="col md-col-8 lg-col-7">
-      {{ page.main-p-1 | markdownify }}
-      {{ page.main-p-2 | markdownify }}
+<section class="post-body">
+  <div class="post-content">
+    <div class="wrapper">
+      <div class="gutters">
+        <div class="col md-col-4 lg-col-5">
+          <h1 class="display">{{ page.title }}</h1>
+        </div>
+        <div class="col md-col-8 lg-col-7">
+          <p>{{ page.main-p-1 }}</p>
+          <p>{{ page.main-p-2 }}</p>
+          <h3>On a Personal Note</h3>
+          <p>{{ page.personal-p-1 }}</p>
+          <p>{{ page.personal-p-2 }}</p>
+        </div>
+      </div>
+      <div class="gutters">
+        <div class="col md-col-8 lg-col-7">
+
+        </div>
+      </div>
     </div>
   </div>
-  <div class="gutters">
-    <div class="col md-col-4 lg-col-5">
-      <h3>More about me</h1>
-    </div>
-    <div class="col md-col-8 lg-col-7">
-      {{ page.personal-p-1 | markdownify }}
-      {{ page.personal-p-2 | markdownify }}
-    </div>
-  </div>
-</div>
+
+</section>

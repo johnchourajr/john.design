@@ -1,7 +1,9 @@
 ---
 title: The Engineer and the Artist
 date: 2015-06-05 13:39:00 Z
+author: John Choura Jr.
 layout: journal
+cover: '05-GP-poster.jpg'
 color: ''
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
 Tags:
@@ -33,4 +35,4 @@ Whenever I talk about design or vocation, I'm always led back here to this dicho
 
 Here is to you grandpa. 🍻
 
-![sm](uploads/05-GP-poster.jpg)
+![lg](uploads/05-GP-poster.jpg)
