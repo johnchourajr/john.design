@@ -1,7 +1,7 @@
 ---
 title: Object Matter
 date: 2014-01-24 04:58:00 Z
-permalink: fresh-start/
+permalink: journal/fresh-start/
 author: John Choura Jr.
 layout: journal
 cover: 01-objsbj.jpg
