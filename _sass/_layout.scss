@@ -82,9 +82,23 @@ footer {
     @include media-query(md) {
       padding-bottom: $space-lg;
     }
+    //
+    // @include media-query(lg) {
+    //   padding-bottom: $space-xl;
+    // }
 
-    @include media-query(lg) {
-      padding-bottom: $space-xl;
+    h1.display {
+      font-size: 7vw;
+
+      @include media-query(sm) {
+        font-size: 6vw;
+      }
+      @include media-query(md) {
+        font-size: 4.25vw;
+      }
+      @include media-query(lg) {
+        font-size: 3.9vw;
+      }
     }
 
     #site-header {
@@ -94,6 +108,32 @@ footer {
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+    }
+  }
+
+  &--text {
+    top: 20vw;
+
+    @include media-query(sm) {
+      top: 3vw;
+    }
+
+    @include media-query(md) {
+      top: -6vw;
+    }
+
+    h1 {
+      font-size: 30vw;
+      color: rgba(255,255,255, .15);
+      margin-bottom: 0 !important;
+
+      @include media-query(sm) {
+        font-size: 23vw;
+      }
+
+      @include media-query(md) {
+        font-size: 23vw;
+      }
     }
   }
 
@@ -269,5 +309,25 @@ footer {
     img {
       width: 4vw;
     }
+  }
+}
+
+.line-span {
+  position: relative;
+  overflow-x: hidden;
+
+  h1, h2, h3, h4, h5, h6 {
+    z-index: $z2;
+  }
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    z-index: $z1;
+    background: $fill-black;
+    bottom: 1.5em;
+
   }
 }

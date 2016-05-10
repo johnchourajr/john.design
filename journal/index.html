@@ -1,29 +1,65 @@
 ---
 title: Journal
 layout: page
+header: black
 weight: 3
 ---
 
-<div class="wrapper">
-  <div class="gutters">
-    <div class="col md-col-4 lg-col-5">
-      <h1 class="">{{ page.title }}</h1>
-    </div>
-    <div class="col xs-col-12 md-col-8 lg-col-7">
-      <table>
-        <tbody>
-          {% for post in site.journal reversed %}
-            <tr class="flex-baseline ">
-              <td class="col xs-col-8 xs-pr2">
-                <a href="{{ post.url }}"><h2>{{ post.title }}</h2></a>
-              </td>
-              <td class="col xs-col-4 xs-text-right text-gray-lightest">
-                <h6>{{ post.date | date: "%b %-d, %Y" }}</h6>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+<section class="page-header fill-black xs-relative">
+  <div class="page-header--upper wrapper xs-z4">
+    <div class="xs-block gutters">
+      <div class="col md-col-8 md-offset-4 lg-col-7 lg-offset-5 xl-col-6">
+        <h1 class="display text-white">The <span class="decoration-line-through">Journal</span> Life of</br>John Choura Jr.</h1>
+      </div>
     </div>
   </div>
-</div>
+  <div class="page-header--text xs-absolute" style="left: -73vw;">
+    <h1>{{ page.title }}{{ page.title }}{{ page.title }}{{ page.title }}</h1>
+  </div>
+</section>
+
+
+<section class="page-body md-pt6">
+  <div class="post-content wrapper xs-mt3">
+      <div class="xs-block gutters">
+        {% for post in site.journal reversed %}
+        {% unless post.next %}
+          <div class="col xs-col-12">
+            <h3 class="xs-mt3 xs-mb2 xs-pr1 xs-inline-block"> Recent Posts </h3>
+          </div>
+        {% else %}
+        {% capture year %}{{ post.date | date: '%Y' }}
+        {% endcapture %}
+        {% capture nyear %}{{ post.next.date | date: '%Y' }}
+        {% endcapture %}
+          {% if year != nyear %}
+            <div class="col xs-col-12 xs-overflow-hidden line-span">
+              <h3 class="xs-mt6 xs-mb2 xs-pr1 xs-inline-block ">{{ post.date | date: '%Y' }}</h3>
+            </div>
+          {% endif %}
+        {% endunless %}
+          <div class="col xs-col-12 xs-my3">
+            <a href="{{ post.url }}" class="xs-mb4">
+              <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
+                {% if post.next %}
+                  <p class="text-1 xs-mb1 lg-pr6">{{ post.title }}</p>
+                {% else %}
+                  <span class="display-2 xs-mb3 lg-pr6">{{ post.title }}</span>
+                {% endif %}
+                <h6 class="text-gray-lightest">{{ post.date | date: "%b %-d, %Y" }}</h6>
+              </div>
+              <div class="col sm-col-6 md-col-7">
+                {% if post.cover %}
+                  <img src="/journal/uploads/{{ post.cover }}" alt="" />
+                {% else %}
+                  <div class="xs-py6">
+
+                  </div>
+                {% endif %}
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+</section>

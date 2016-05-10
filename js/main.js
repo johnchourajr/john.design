@@ -5,7 +5,7 @@
 
 $(function() {
   'use strict';
-  $('.doc').smoothState({ debug: true, prefetch: true, cacheLength: 2, });
+  $('.doc').smoothState({ debug: true, prefetch: true, cacheLength: 2, scroll: true, });
 });
 
 // ---------------

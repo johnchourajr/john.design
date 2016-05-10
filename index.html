@@ -1,6 +1,7 @@
 ---
 title: Info
 layout: default
+header: black
 order: 1
 about-1: |
   I am designer, in as many senses of the word as possible. Bringing ideas to life for great brands and even better people, across all mediums. I write code, illustrate, push pixels, build products, creative direct, story-tell, shape brands, and make/break grids. I am passionate about leading and working with teams.
@@ -8,31 +9,6 @@ about-2: |
   I live life one day at a time with by best friend and letterer extraordinaire, my wife Alex. We live in sunny Long Beach, CA with our rascal of a cat. We both created and manage the amateur food and drink pairing blog, A Good Pair.
 about-3: |
   Object & Subject is a personal experiment of mine, it's a design workspace by and for me. A space to keep my work, as well as a place for my side projects and writing. The name represents a balance that I strive to achieve in my work; between the visual world, and that of ideas. My aim is to see and practice design as both a science and an art.
-projects:
-- name: The Table Journal
-  link: 
-  year: 2013
-- name: Signal Podcast App
-  link: https://itunes.apple.com/us/app/signal-podcasting/id920703736?ls=1&mt=8
-  year: 2014
-- name: Blossom Smart Watering
-  link: 
-  year: 2014
-- name: A Good Pair
-  link: http://agoodpair.com
-  year: 2015
-- name: Coffee OC
-  link: http://coffeeoc.com
-  year: 2015
-- name: Vizio SmartCast
-  link: 
-  year: 2016
-- name: Grand Food & Beverage
-  link: http://grandfandb.com
-  year: 2016
-- name: Payoff
-  link: http://payoff.com
-  year: 2016
 ---
 
 <section class="page-header fill-black">
@@ -78,7 +54,7 @@ projects:
       <div class="col xs-col-12 md-col-8 lg-col-7">
         <table>
           <tbody>
-            {% for project in page.projects %}
+            {% for project in site.data.projects %}
               <tr class="flex-baseline ">
                 <td class="col xs-col-10">
                   {% if project.link %}

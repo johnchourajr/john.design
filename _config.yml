@@ -19,3 +19,8 @@ post_dirs: false
 ga: UA-22938148-6
 host: 127.0.0.1
 port: 4444
+
+markdown: redcarpet
+
+redcarpet:
+  extensions: ["smart","superscript"]
