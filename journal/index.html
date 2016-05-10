@@ -33,32 +33,37 @@ weight: 3
         {% capture nyear %}{{ post.next.date | date: '%Y' }}
         {% endcapture %}
           {% if year != nyear %}
-            <div class="col xs-col-12 xs-overflow-hidden line-span">
-              <h3 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block ">{{ post.date | date: '%Y' }}</h3>
+            <div class="col xs-col-12">
+              <div class="xs-col-12 xs-overflow-hidden line-span">
+                <h3 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block ">{{ post.date | date: '%Y' }}</h3>
+              </div>
             </div>
           {% endif %}
         {% endunless %}
-          <div class="col xs-col-12 xs-my3">
-            <a href="{{ post.url }}" class="xs-mb4">
+          <div class="col xs-col-12 xs-my3 ">
+            {% if post.cover %}{% else %}<div class="fill-black rounded">{% endif %}
+            <a href="{{ post.url }}" class="xs-inline-block {% if post.cover %}{% else %}xs-col-12 xs-p6{% endif %}">
               <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
                 {% if post.next %}
-                  <p class="text-1 xs-mb1 lg-pr6">{{ post.title }}</p>
+                  <p class="text-1 xs-mb1 lg-pr6 {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</p>
                 {% else %}
-                  <span class="display-2 xs-mb3 lg-pr6">{{ post.title }}</span>
+                  <span class="display-2 xs-mb3 lg-pr6 {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</span>
                 {% endif %}
-                <h6 class="text-gray-lightest">{{ post.date | date: "%b %-d, %Y" }}</h6>
+                <h6 class="{% if post.cover %}text-gray-lightest {% else %}text-white{% endif %}">{{ post.date | date: "%b %-d, %Y" }}</h6>
               </div>
               <div class="col {% if post.next %}sm-offset-2 sm-col-4 md-col-5{% else %}sm-col-6 md-col-7{% endif %}">
                 {% if post.cover %}
                   <img src="/journal/uploads/{{ post.cover }}" alt="" />
                 {% else %}
-                  <div class="xs-py6">
-
-                  </div>
+                <p class="text-white">
+                  {{ post.content | strip_html | truncate: 100 }}
+                </p>
+                  <h6 class="text-white">Continue Reading</h6>
                 {% endif %}
               </div>
             </a>
           </div>
+          {% if post.cover %} {% else %} </div> {% endif %}
         {% endfor %}
       </div>
   </div>
