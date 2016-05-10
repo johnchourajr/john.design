@@ -124,31 +124,31 @@ $base-font-weight: 700;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
 
-$text-1: 2.25em;   // 36px
-$text-2: 1.8em;  // 22px
-$text-3: 1.125em;  // 18px
-$text-4: 1em;      // 16px
-$text-5: .875em;  // 14px
-$text-6: .75em;   // 12px
+$display-1: 4.5em;      // 72px
+$display-2: 3.125em;    // 50px
+$display-3: 2.75em;     // 44px
 
-$line-height-1: 1.4; // 40px
-$line-height-2: 1.35; // 26px
-$line-height-3: 1.25; // 22px
-$line-height-4: 1.25; // 24px
-$line-height-5: 1; // 20px
-$line-height-6: 1; // 16px
+$text-1: 2.25em;        // 36px
+$text-2: 1.8em;         // 22px
+$text-3: 1.125em;       // 18px
+$text-4: 1em;           // 16px
+$text-5: .875em;        // 14px
+$text-6: .75em;         // 12px
+
+$line-height-1: 1.3;    // 40px
+$line-height-2: 1.25;   // 26px
+$line-height-3: 1.15;   // 22px
+$line-height-4: 1.15;   // 24px
+$line-height-5: 1;      // 20px
+$line-height-6: 1;      // 16px
 
 $regular: 400;
 $bold: 600;
-
-
 
 // Layout
 // -------------------------
 
 $content-width:    85vw;
-
-
 
 // SVG
 // -------------------------
