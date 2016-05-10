@@ -42,7 +42,7 @@ weight: 3
         {% endunless %}
           <div class="col xs-col-12 xs-my3 ">
             {% if post.cover %}{% else %}<div class="fill-black rounded">{% endif %}
-            <a href="{{ post.url }}" class="xs-inline-block {% if post.cover %}{% else %}xs-col-12 xs-p6{% endif %}">
+            <a href="{{ post.url }}" class="xs-inline-block {% if post.cover %}{% else %}sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0{% endif %}">
               <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
                 {% if post.next %}
                   <p class="text-1 xs-mb1 lg-pr6 {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</p>
