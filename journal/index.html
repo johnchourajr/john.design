@@ -34,7 +34,7 @@ weight: 3
         {% endcapture %}
           {% if year != nyear %}
             <div class="col xs-col-12 xs-overflow-hidden line-span">
-              <h3 class="xs-mt6 xs-mb2 xs-pr1 xs-inline-block ">{{ post.date | date: '%Y' }}</h3>
+              <h3 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block ">{{ post.date | date: '%Y' }}</h3>
             </div>
           {% endif %}
         {% endunless %}
@@ -48,7 +48,7 @@ weight: 3
                 {% endif %}
                 <h6 class="text-gray-lightest">{{ post.date | date: "%b %-d, %Y" }}</h6>
               </div>
-              <div class="col sm-col-6 md-col-7">
+              <div class="col {% if post.next %}sm-offset-2 sm-col-4 md-col-5{% else %}sm-col-6 md-col-7{% endif %}">
                 {% if post.cover %}
                   <img src="/journal/uploads/{{ post.cover }}" alt="" />
                 {% else %}
