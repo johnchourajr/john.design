@@ -60,3 +60,41 @@ $('a[href*=#]:not([href=#])').click(function() {
     }
   }
 });
+
+
+$(window).resize(function() {
+   if ($(this).width() > 1024) {
+
+     // ---------------
+     // Scroll Mod
+     // ---------------
+     function Parallax() {
+       var scrollPos = $(this).scrollTop();
+
+       $('.shape--sheet-1').css({
+         'margin-top' : (-1-(scrollPos / 22))
+       });
+
+       $('.shape--sheet-2').css({
+         'margin-top' : (-1-(scrollPos / 28))
+       });
+
+       $('.shape--sheet-3').css({
+         'margin-top' : (-1-(scrollPos / 12))
+       });
+
+     }
+     $(document).ready(function(){
+       $(window).scroll(function() {
+         Parallax();
+       });
+     });
+
+   } else {
+
+   }
+});
+
+$(document).ready(function() {
+   $(window).resize();
+});
