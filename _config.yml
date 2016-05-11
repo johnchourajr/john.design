@@ -1,7 +1,6 @@
 ---
 title: John Choura Jr.
 url: http://objectsubject.com
-email: hello@objectsubject.com
 timezone: UTC
 collections:
   journal:
@@ -16,6 +15,7 @@ collections:
   work:
     title: Work
     output: false
+email: hello@objectsubject.com
 post_dirs: false
 ga: UA-22938148-6
 host: 127.0.0.1
