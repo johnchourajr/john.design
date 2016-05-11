@@ -252,6 +252,46 @@ footer {
   }
 }
 
+.about {
+  &-me {
+
+    max-width: 50vw;
+    margin-top: 15vw;
+    margin-bottom: $space-6;
+
+    @include media-query(lg) {
+      width: 100%;
+      margin-left: calc(-7.5vw - .5rem);
+      margin-top: 7.5vw;
+    }
+  }
+
+  &-featured {
+    @include media-query(lg) {
+      margin-top: -25vw;
+    }
+    @include media-query(xl) {
+      margin-top: -10vw;
+    }
+  }
+
+  &-beach {
+
+    @include media-query(lg) {
+      min-width: 120%;
+      margin-top: 7.5vw;
+    }
+    @include media-query(lg) {
+      margin-top: 10vw;
+    }
+  }
+}
+
+.about-shape {
+  transition: margin-top 1s $easeOutCubic;
+  position: relative;
+}
+
 .shape {
   position: absolute;
   transition: margin-top 1s $easeOutCubic;
@@ -337,4 +377,23 @@ footer {
 
 #video {
   width: 100%;
+  height: 62vw;
+}
+
+video {
+  &::-webkit-media-controls-panel {
+      background-color: transparent !important;
+  }
+  &::-webkit-media-controls-play-button, &::-webkit-media-controls-volume-slider,
+  &::-webkit-media-controls-mute-button,
+  &::-webkit-media-controls-fullscreen-button {
+    display: none;
+  }
+  &::-webkit-media-controls-current-time-display, &::-webkit-media-controls-time-remaining-display {
+    color: $text-black;
+  }
+}
+
+input[type="range" i]::-webkit-slider-thumb, input[type="range" i]::-webkit-media-slider-thumb {
+  -webkit-appearance: none !important;
 }
