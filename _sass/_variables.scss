@@ -21,13 +21,6 @@ $sans: "europa", Helvetica, Arial, sans-serif;
 $serif: "Times-New-Roman", serif;
 $slab: "Caponi-Slab-Semibold", Georgia, serif;
 
-// Borders
-// -------------------------
-
-$border: 1px solid rgba(0, 0, 0, .2);
-$border-lighter: 1px solid rgba(0, 0, 0, .1);
-$border-radius: 2px;
-
 // Easing
 // -------------------------
 
@@ -113,6 +106,13 @@ $text-pinterest: #bd081c;
 $text-tumblr: #36465d;
 $text-youtube: #cd201f;
 $text-instagram: #517fa4;
+
+// Borders
+// -------------------------
+
+$border: 3px solid $fill-black;
+$border-lighter: 3px solid $fill-gray-lighter;
+$border-radius: 2px;
 
 // Typography
 // -------------------------

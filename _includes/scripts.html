@@ -29,6 +29,45 @@
 </script>
 
 <script type="text/javascript">
+$(window).resize(function() {
+   if ($(this).width() > 1024) {
+
+     // ---------------
+     // Scroll Mod
+     // ---------------
+     function Parallax() {
+       var scrollPos = $(this).scrollTop();
+
+       $('.shape--sheet-1').css({
+         'margin-top' : (-1-(scrollPos / 9))
+       });
+
+       $('.shape--sheet-2').css({
+         'margin-top' : (-1-(scrollPos / 15))
+       });
+
+       $('.shape--sheet-3').css({
+         'margin-top' : (-1-(scrollPos / 6))
+       });
+
+     }
+     $(document).ready(function(){
+       $(window).scroll(function() {
+         Parallax();
+       });
+     });
+
+   } else {
+
+   }
+});
+
+$(document).ready(function() {
+   $(window).resize();
+});
+</script>
+
+<script type="text/javascript">
   $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
     options.async = true;
   });

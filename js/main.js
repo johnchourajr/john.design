@@ -60,29 +60,3 @@ $('a[href*=#]:not([href=#])').click(function() {
     }
   }
 });
-
-
-// ---------------
-// Scroll Mod
-// ---------------
-function Parallax() {
-  var scrollPos = $(this).scrollTop();
-
-  $('.shape--sheet-1').css({
-    'margin-top' : (-1-(scrollPos / 9))
-  });
-
-  $('.shape--sheet-2').css({
-    'margin-top' : (-1-(scrollPos / 15))
-  });
-
-  $('.shape--sheet-3').css({
-    'margin-top' : (-1-(scrollPos / 6))
-  });
-
-}
-$(document).ready(function(){
-  $(window).scroll(function() {
-    Parallax();
-  });
-});
