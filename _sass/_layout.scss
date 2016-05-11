@@ -7,12 +7,12 @@
   background: white;
   z-index: 1;
   padding-bottom: $space-md;
-  margin-bottom: 23em;
+  // margin-bottom: 23em;
   overflow-x: hidden;
   box-shadow: 0 5px 0px $fill-black;
 
   @include media-query(sm) {
-    margin-bottom: 21em;
+    // margin-bottom: 21em;
   }
   @include media-query(md) {
     margin-bottom: 22em;
@@ -62,10 +62,13 @@ nav {
 }
 
 footer {
-  position: fixed;
   width: 100%;
   bottom: 0;
   z-index: -1;
+
+  @include media-query(md) {
+    position: fixed;
+  }
 }
 
 .page-header {
@@ -330,4 +333,8 @@ footer {
     bottom: 1.85em;
 
   }
+}
+
+#video {
+  width: 100%;
 }
