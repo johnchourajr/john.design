@@ -259,39 +259,29 @@ footer {
     margin-top: 15vw;
     margin-bottom: $space-6;
 
-    @include media-query(sm) {
-      margin-top: 10vw;
-    }
-
     @include media-query(md) {
+      max-width: 32em;
       margin-top: 0;
     }
 
     @include media-query(lg) {
       width: 100%;
       margin-left: calc(-7.5vw - .5rem);
-      margin-top: 7.5vw;
-    }
-  }
-
-  &-featured {
-    @include media-query(lg) {
-      margin-top: -25vw;
     }
     @include media-query(xl) {
-      margin-top: -10vw;
+      // margin-left: 0;
     }
   }
 
   &-beach {
-    margin-top: 40vw;
+    // margin-top: 40vw;
 
     @include media-query(lg) {
       min-width: 120%;
-      margin-top: 7.5vw;
+      // margin-top: 7.5vw;
     }
     @include media-query(lg) {
-      margin-top: 10vw;
+      // margin-top: 10vw;
     }
   }
 }
