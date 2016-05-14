@@ -1,9 +1,6 @@
 ---
 title: SF Trip
 date: 2014-04-21 20:11:00 Z
-permalink: journal/sf/
-author: John Choura Jr.
-layout: journal
 cover: 02-SF-poster.jpg
 refer: |-
   1 [Blue Bottle Coffee  - Ferry Building](http://www.bluebottlecoffee.com/cafes/ferry-building)

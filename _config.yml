@@ -6,9 +6,10 @@ collections:
   journal:
     title: Journal
     output: true
+    permalink: /journal/:path/
   posts:
     title: Posts
-    output: true
+    output: false
   uploads:
     title: Uploads
     output: true
@@ -25,3 +26,11 @@ redcarpet:
   extensions:
   - smart
   - superscript
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "journal"
+    values:
+      author: "John Choura Jr."
+      layout: "journal"
