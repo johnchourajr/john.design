@@ -1,9 +1,6 @@
 ---
 title: SF Trip v2
 date: 2016-05-06 17:12:00 Z
-permalink: journal/sf-v2/
-author: John Choura Jr.
-layout: journal
 cover: 20160506-sf-11.jpg
 Tags:
 - Life

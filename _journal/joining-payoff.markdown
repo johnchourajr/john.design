@@ -1,10 +1,7 @@
 ---
 title: Joining Payoff
 date: 2015-08-05 06:44:00 Z
-permalink: journal/joining-payoff/
-author: John Choura Jr.
 layout: journal-payoff
-color: ''
 refer: 1 Some of the original JS logic goes to [this Codepen](http://codepen.io/Bergability/pen/EjRRXx).
 ---
 

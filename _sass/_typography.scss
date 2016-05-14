@@ -66,16 +66,21 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: $text-gray;
+  color: $text-black;
   text-decoration: none;
+  transition: color .2s $easeOutCubic;
 
   &:visited {
-    color: darken($text-gray, 15%);
+    color: darken($text-black, 15%);
   }
 
   &:hover {
-    color: $text-gray;
+    color: $text-black;
     text-decoration: underline;
+
+    .underline {
+      text-decoration: underline;
+    }
   }
 }
 

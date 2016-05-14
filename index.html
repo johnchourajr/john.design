@@ -5,30 +5,17 @@ header: black
 order: 1
 about-1: |
   I am designer, in as many senses of the word as possible. Bringing ideas to life for great brands and even better people, across all mediums. I write code, illustrate, push pixels, build products, creative direct, story-tell, shape brands, and make/break grids. I am passionate about leading and working with teams.
-about-2: |
-  I live life one day at a time with by best friend and letterer extraordinaire, my wife Alex. We live in sunny Long Beach, CA with our rascal of a cat. We both created and manage the amateur food and drink pairing blog, A Good Pair.
-about-3: |
-  Object & Subject is a personal experiment of mine, it's a design workspace by and for me. A space to keep my work, as well as a place for my side projects and writing. The name represents a balance that I strive to achieve in my work; between the visual world, and that of ideas. My aim is to see and practice design as both a science and an art.
 ---
 
 <section class="page-header fill-black">
   <div class="page-header--upper wrapper">
     <div class="xs-block gutters">
-      <div class="col md-col-8 md-offset-4 lg-col-7 lg-offset-5 xl-col-6">
+      <div class="col md-col-8 md-offset-4 lg-col-7 lg-offset-5">
         <h1 id="site-header" class="display text-white">John Choura Jr. is a <span id="designer" class="designer active">multidisciplinary <i>*</i></span> <span id="multi" class="multi inactive">code hacking, illustrating, pixel pushing, product making, creative directing, storytelling, brand shaping, grid breaking</span> designer in Long Beach, California.</h1>
       </div>
     </div>
   </div>
-  <div class="page-header--lower wrapper">
-    <!-- I do this because I love order and chaos -->
-    <i class="shape shape--sheet-1 shape--red-left"></i>
-    <i class="shape shape--sheet-3 shape--blue-right"></i>
-    <i class="shape shape--sheet-2 shape--yellow-right"></i>
-    <span class="shape shape--sheet-2 shape--circ"><img src="/img/circ.svg" alt="" /></span>
-    <span class="shape shape--sheet-2 shape--line-circ"><img src="/img/line-circ.svg" alt="" /></span>
-    <span class="shape shape--sheet-1 shape--diamond"><img src="/img/diamond.svg" alt="" /></span>
-    <span class="shape shape--sheet-1 shape--triangle"><img src="/img/triangle.svg" alt="" /></span>
-  </div>
+  {% include home/shapes.html %}
 </section>
 <section class="post-body md-pt6">
   <div class="post-content xs-pt6 xs-mt6">
@@ -70,37 +57,35 @@ about-3: |
       </div>
     </div>
   </div>
-</section>
-{% comment %}
-<section class="page-body">
-  <div class="wrapper xs-pt6 md-mt6">
-    <div class="gutters">
-      <div class="col xs-col-12">
-        <h3 class="md-mt2">Project History</h3>
-      </div>
-      <div class="col xs-col-12 md-col-8 lg-col-7">
-        <table>
-          <tbody>
-            {% for project in site.data.projects %}
-              <tr class="flex-baseline ">
-                <td class="col xs-col-10">
-                  {% if project.link %}
-                    <a href="{{ project.link }}">
-                      <h2>{{ project.name }}</h2>
-                    </a>
-                  {% else %}
-                    <h2>{{ project.name }}</h2>
-                  {% endif %}
-                </td>
-                <td class="col xs-col-2 xs-text-right">
-                  <h6>{{ project.year }}</h6>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+  <div class="post-content ">
+    <div class="wrapper xs-pt3 xs-mt3 md-pt6 md-mt6">
+      <div class="xs-col-12">
+        {% assign post = site.journal.last %}
+        {% assign content = post.content %}
+        <h1 class="xs-inline-block md-mt2 xs-pr2">Newest Journal Post</h1>
+        <h3 class="xs-inline-block text-gray-lightest md-mt2 md-pr6"> on {{ post.date | date: "%b %-d, %Y" }}</h3>
+        <div class="col xs-col-12 xs-mb3 " >
+          <div class="fill-black rounded">
+            <a href="{{ post.url }}" class="xs-block">
+              <div class="xs-block xs-py6" {% if post.cover %}style="
+              background-image: url(/journal/uploads/{{ post.cover }}); background-size: cover; background-position: center; height: 30vw;"{% endif %}>
+              </div>
+              <div class="xs-inline-block sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0">
+                <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
+                  <span class="display-2 xs-mb3 lg-pr6 text-white">{{ post.title }}</span>
+                  <h6 class="text-white">{{ post.date | date: "%b %-d, %Y" }}</h6>
+                </div>
+                <div class="col sm-col-6 md-col-7">
+                  <p class="text-white">
+                    {{ post.content | strip_html | truncate: 100 }}
+                  </p>
+                  <h6 class="text-white">Continue Reading</h6>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-{% endcomment %}
