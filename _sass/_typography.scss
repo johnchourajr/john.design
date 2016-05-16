@@ -24,7 +24,8 @@ ul, ol, dl, figure,
   margin-bottom: $space-1 / 2;
 }
 
-
+em {
+}
 
 /**
  * Headings
@@ -32,7 +33,7 @@ ul, ol, dl, figure,
 h1, h2, h3, h4, h5, h6 {
   font-weight: $base-font-weight;
   font-family: $sans;
-  letter-spacing: .02em;
+  letter-spacing: 0;
   line-height: 1.35;
 }
 
@@ -90,7 +91,7 @@ a {
  * Blockquotes
  */
 blockquote {
-  color: $fill-gray;
+  color: $fill-black;
   font-size: ($text-1 * .75);
   font-weight: bold;
 
@@ -98,7 +99,7 @@ blockquote {
     text-indent: -0.4em;
     line-height: $line-height-1 !important;
 
-    > em {
+    > strong {
       font-family: $sans;
       font-size: 30%;
       font-style: normal;

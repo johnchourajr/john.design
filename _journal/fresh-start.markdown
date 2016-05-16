@@ -27,6 +27,6 @@ Put together, they represent the paradox between a person's capacity to be both 
 
 This is all to say, that I want to step fully into my vocation. In the coming years, I want to get to know the people that I find inspiring; hopefully even some of the folks I listed above. Most of all, I want to live a meaningful and balanced life. I'll end with a quote, thanks for reading.
 
-> "I want to make beautiful things, even if nobody cares." *— Saul Bass*
+> "I want to make beautiful things, even if nobody cares." **— Saul Bass**
 
 ![sm](/journal/uploads/01-objsbj.jpg)
