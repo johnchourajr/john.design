@@ -1,0 +1,16 @@
+<!-- Scroll Magic -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
+<script src="{{ "/js/scrollmagic/uncompressed/ScrollMagic.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/scrollmagic/uncompressed/plugins/animation.gsap.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/scrollmagic/uncompressed/plugins/debug.addindicators.js" | prepend: site.baseurl }}"></script>
+<script>
+  var scene = new ScrollMagic.Scene({
+  triggerElement: '#info', // starting scene, when reaching this element
+  duration: 400 // pin the element for a total of 400px
+  })
+  .setPin('#info'); // the element we want to pin
+
+  // Add Scene to ScrollMagic Controller
+  controller.addScene(scene);
+</script>

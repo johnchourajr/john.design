@@ -5,11 +5,16 @@
   height: 30vw;
   min-height: 200px;
   width: 100%;
+  margin: $space-2 0 $space-4;
   display: inline-block;
   overflow: hidden;
   position: relative;
   z-index: 0;
   border-radius: $border-radius;
+
+  @include media-query(md) {
+    margin: $space-4 0 $space-6;
+  }
 
   &-overflow {
     background: transparent;
@@ -33,6 +38,45 @@
   .post-content {
     z-index: 10;
 
+    // &::first-line {
+    //   font-variant: small-caps;
+    //   letter-spacing: .1em;
+    //   // font-size: 200%;
+    //   // color: blue;
+    // }
+
+    > {
+      h1, h2, h3, h4, h5, h6, p {
+        margin-bottom: 1.5rem;
+      }
+
+      h4, h5, h6 {
+        margin-top: 2.5rem;
+      }
+    }
+
+
+
+    h1, h2, h3 {
+      font-family: $serif;
+      font-weight: $regular;
+      line-height: 1.55;
+    }
+
+    img + em {
+      display: block;
+      opacity: .25;
+      margin-top: $space-2;
+      color: $text-gray-lightest;
+      font-family: $sans;
+      font-size: .45em;
+      font-style: normal;
+      font-weight: $bold;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+    }
+
     img {
 
       &[alt~="twoup"] {
@@ -50,14 +94,15 @@
           width: 151.5% !important;
           max-width: none;
         }
-      }
-
-      @include media-query(lg) {
         &[alt~="sm"] {
           margin-left: -36.5%;
           width: 136.5% !important;
           max-width: none;
         }
+      }
+
+      @include media-query(lg) {
+
         &[alt~="lg"] {
           margin-left: -73%;
           width: 173% !important;

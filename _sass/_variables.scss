@@ -110,9 +110,9 @@ $text-instagram: #517fa4;
 // Borders
 // -------------------------
 
-$border: 3px solid $fill-black;
-$border-lighter: 3px solid $fill-gray-lighter;
-$border-radius: 2px;
+$border: 0.25em solid $fill-black;
+$border-lighter: 0.25em solid $fill-gray-lighter;
+$border-radius: 0.15em;
 
 // Typography
 // -------------------------
@@ -178,4 +178,4 @@ $text-gray--lightest: #999;
 
 // @TODO remove in Solid 2.0
 // -------------------------
-$border--lighter: 1px solid rgba(0, 0, 0, .1);
+$border--lighter: 0.1em solid rgba(0, 0, 0, .1);

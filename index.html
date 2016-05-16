@@ -73,7 +73,14 @@ about-1: |
               <div class="xs-inline-block sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0">
                 <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
                   <span class="display-2 xs-mb3 lg-pr6 text-white">{{ post.title }}</span>
-                  <h6 class="text-white">{{ post.date | date: "%b %-d, %Y" }}</h6>
+                  {% assign wordcount = post.content | number_of_words %}
+                  {% assign avgwpm = 200 %}
+                  <!-- {{wordcount}} words read at {{avgwpm}} words per minute equals the estimated read time -->
+                  {% if  wordcount >= avgwpm %}
+                    <h5 class="xs-mt3 text-white xs-block">{{ wordcount | divided_by: avgwpm | floor }} Minute Read</h5>
+                  {% else %}
+                    <h5 class="xs-mt3 text-white xs-block">1 Minute Read</h5>
+                  {% endif %}
                 </div>
                 <div class="col sm-col-6 md-col-7">
                   <p class="text-white">

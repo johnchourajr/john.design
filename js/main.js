@@ -14,9 +14,10 @@ $(function(){
       options = {
         debug: true,
         prefetch: true,
+        prefetchOn: 'intent',
         cacheLength: 2,
         onStart: {
-          duration: 250, // Duration of our animation
+          duration: 0, // Duration of our animation
           render: function ($container) {
             // Add your CSS animation reversing class
             $container.addClass('is-exiting');
@@ -24,11 +25,20 @@ $(function(){
             smoothState.restartCSSAnimations();
           }
         },
+        onProgress: {
+          // How long this animation takes
+          duration: 0,
+          // A function that dictates the animations that take place
+          render: function ($container) {
+            $container.addClass('is-loading');
+          }
+        },
         onReady: {
           duration: 0,
           render: function ($container, $newContent) {
             // Remove your CSS animation reversing class
             $container.removeClass('is-exiting');
+            $container.removeClass('is-loading');
             // Inject the new content
             $container.html($newContent);
           }
