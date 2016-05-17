@@ -38,13 +38,6 @@
   .post-content {
     z-index: 10;
 
-    // &::first-line {
-    //   font-variant: small-caps;
-    //   letter-spacing: .1em;
-    //   // font-size: 200%;
-    //   // color: blue;
-    // }
-
     > {
       h1, h2, h3, h4, h5, h6, p {
         margin-bottom: 1.5rem;
@@ -57,7 +50,7 @@
 
 
 
-    h1, h2, h3 {
+    h1, h2 {
       font-family: $serif;
       font-weight: $regular;
       line-height: 1.55;
