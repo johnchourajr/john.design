@@ -6,9 +6,14 @@
 
 .post-content {
   p {
-    font-family: $serif;
+    font-family: $sans;
     line-height: 1.65;
     font-size: 1.4em;
+    letter-spacing: .02em;
+    
+    &.text-1, &.text-2 {
+      font-weight: 600;
+    }
   }
 }
 
@@ -30,8 +35,8 @@ em {
 /**
  * Headings
  */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: $base-font-weight;
+h1, h2, {
+  font-weight: 600;
   font-family: $sans;
   letter-spacing: 0;
   line-height: 1.35;
@@ -43,19 +48,29 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+h3, h4, h5, h6 {
+  font-weight: $base-font-weight;
+  font-family: $mono;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
 .display {
 
   &-1 {
+    font-weight: 600;
     font-size: $display-1;
     line-height: $line-height-1;
   }
 
   &-2 {
+    font-weight: 600;
     font-size: $display-2;
     line-height: $line-height-2;
   }
 
   &-3 {
+    font-weight: 600;
     font-size: $display-3;
     line-height: $line-height-3;
   }
@@ -100,7 +115,7 @@ blockquote {
     line-height: $line-height-1 !important;
 
     > strong {
-      font-family: $sans;
+      font-family: $mono;
       font-size: 30%;
       font-style: normal;
       text-transform: uppercase;
@@ -139,4 +154,12 @@ pre {
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.serif {
+  font-family: $serif;
+}
+
+.sans {
+  font-family: $sans;
 }

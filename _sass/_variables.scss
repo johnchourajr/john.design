@@ -17,8 +17,12 @@ $font-smoothing: true !default;
 // Fonts
 // -------------------------
 
-$sans: "europa", Helvetica, Arial, sans-serif;
-$serif: "Times-New-Roman", serif;
+// "canada-type-gibson"
+// "mr-eaves-xl-modern"
+// "Europa"
+$sans: "canada-type-gibson", "Helvetica", sans-serif;
+$mono: "roboto-mono", monospace;
+$serif: "freight-big-pro", "Times-New-Roman", serif;
 $slab: "Caponi-Slab-Semibold", Georgia, serif;
 
 // Easing
@@ -117,7 +121,7 @@ $border-radius: 0.15em;
 // Typography
 // -------------------------
 
-$base-font-family: $serif;
+$base-font-family: $sans;
 $base-font-size: 16px;
 
 $base-font-weight: 700;

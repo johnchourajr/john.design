@@ -90,17 +90,36 @@ footer {
     //   padding-bottom: $space-xl;
     // }
 
+    // h1.display {
+    //   font-size: 7vw;
+    //   font-family: $serif;
+    //
+    //   @include media-query(sm) {
+    //     font-size: 6vw;
+    //   }
+    //   @include media-query(md) {
+    //     font-size: 4.25vw;
+    //   }
+    //   @include media-query(lg) {
+    //     font-size: 3.9vw;
+    //   }
+    // }
+
     h1.display {
-      font-size: 7vw;
+      font-size: 7.2vw;
+      line-height: 1.2;
+      font-family: $sans;
+      // font-weight: 900;
+      // font-style: italic;
 
       @include media-query(sm) {
-        font-size: 6vw;
+        font-size: 7vw;
       }
       @include media-query(md) {
-        font-size: 4.25vw;
+        font-size: 5.5vw;
       }
       @include media-query(lg) {
-        font-size: 3.9vw;
+        font-size: 5vw;
       }
     }
 
@@ -127,6 +146,7 @@ footer {
 
     h1 {
       font-size: 30vw;
+      font-family: $sans;
       color: rgba(255,255,255, .15);
       margin-bottom: 0 !important;
 

@@ -10,7 +10,7 @@
             {% assign pages = site.pages | sort:"weight"  %}
             {% for p in pages %}
               {% if p.title %}
-              <a class="{% if page.header == "black" %} text-white{% else %} text-black{% endif %}{% if p.url == page.url %} active decoration-line-through{% endif %}" href="{{ p.url | prepend: site.baseurl }}"><h3>{{ p.title }}</h3></a>
+              <a class="{% if page.header == "black" %} text-white{% else %} text-black{% endif %}{% if p.url == page.url %} active decoration-line-through{% endif %}" href="{{ p.url | prepend: site.baseurl }}"><h3>/{{ p.title }}</h3></a>
               {% endif %}
             {% endfor %}
           </div>

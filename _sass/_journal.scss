@@ -46,12 +46,16 @@
       h4, h5, h6 {
         margin-top: 2.5rem;
       }
+
+      p {
+        font-size: 1.4em;
+      }
     }
 
 
 
     h1, h2 {
-      font-family: $serif;
+      font-family: $sans;
       font-weight: $regular;
       line-height: 1.55;
     }
@@ -61,7 +65,7 @@
       opacity: .25;
       margin-top: $space-2;
       color: $text-gray-lightest;
-      font-family: $sans;
+      font-family: $mono;
       font-size: .45em;
       font-style: normal;
       font-weight: $bold;
