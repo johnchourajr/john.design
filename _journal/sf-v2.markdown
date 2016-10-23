@@ -7,7 +7,7 @@ Tags:
 - Travel
 ---
 
-Once again, my wife and I took ourselves on a little trip to San Francisco for our anniversary in April. The last time we went to SF was two years ago for our two-year anniversary.
+## Once again, my wife and I took ourselves on a little trip to San Francisco for our anniversary in April. The last time we went to SF was two years ago for our two-year anniversary.
 
 We've been married for four years, and together for almost seven years. She's the best! This time around was a blast, as usual. We saw friends, ate delicious food, Uber'd a ton, drank a lot of coffee, and took a lot of photos. The following are some of my favorite snaps from the trip. Enjoy.
 

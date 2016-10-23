@@ -3,18 +3,18 @@
   <a href="{{ post.url }}" class="xs-inline-block {% if post.cover %}{% else %}sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0{% endif %}">
     <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
       {% if post.next %}
-        <p class="text-1 xs-mb1 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</p>
+        <p class="xs-block text-1 xs-mb1 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</p>
       {% else %}
-        <span class="display-2 xs-mb3 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</span>
+        <span class="xs-block display-2 xs-mb3 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</span>
       {% endif %}
-      <h5 class="xs-mt3 xs-mb1 {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %}">{{ post.date | date: "%b %-d, %Y" }}</h5>
+      <h5 class="xs-inline-block xs-mt3 xs-mb1 {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %}">{{ post.date | date: "%b %-d, %Y" }}</h5><h5 class="xs-inline-block xs-px2 {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %}">—</h5>
       {% assign wordcount = post.content | number_of_words %}
       {% assign avgwpm = 200 %}
       <!-- {{wordcount}} words read at {{avgwpm}} words per minute equals the estimated read time -->
       {% if  wordcount >= avgwpm %}
-        <h5 class="{% if post.cover %}text-gray-lightest {% else %}text-white{% endif %} xs-block">{{ wordcount | divided_by: avgwpm | floor }} Minute Read</h5>
+        <h5 class="xs-inline-block {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %} xs-block">{{ wordcount | divided_by: avgwpm | floor }} Minute Read</h5>
       {% else %}
-        <h5 class="{% if post.cover %}text-gray-lightest {% else %}text-white{% endif %} xs-block">1 Minute Read</h5>
+        <h5 class="xs-inline-block {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %} xs-block">1 Minute Read</h5>
       {% endif %}
     </div>
     <div class="col {% if post.next %}sm-offset-2 sm-col-4 md-col-5{% else %}sm-col-6 md-col-7{% endif %}">
