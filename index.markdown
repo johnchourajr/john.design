@@ -3,9 +3,13 @@ title: Info
 layout: default
 header: black
 order: 1
-headline: 'John Choura Jr. is a designer in Long Beach, California.'
-about-1: 'Designing financial products for non-financial types at Payoff. <span class="decoration-line-through">Previously at Envoy, Signal, and Biola.</span>'
-about-2: 'I am a designer, in as many senses of the word as possible. Bringing ideas to life for great brands and even better people, across all mediums. I write code, illustrate, push pixels, build products, creative direct, story-tell, shape brands, and make/break grids. I am passionate about leading and working with teams.'
+headline: John Choura Jr. is a designer in Long Beach, California.
+about-1: Designing financial products for non-financial types at Payoff. <span class="decoration-line-through">Previously
+  at Envoy, Signal, and Biola.</span>
+about-2: I am a designer, in as many senses of the word as possible. Bringing ideas
+  to life for great brands and even better people, across all mediums. I write code,
+  illustrate, push pixels, build products, creative direct, story-tell, shape brands,
+  and make/break grids. I am passionate about leading and working with teams.
 ---
 
 <section class="page-header fill-black">
