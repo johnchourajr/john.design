@@ -3,19 +3,16 @@ title: Info
 layout: default
 header: black
 order: 1
-about-1: 'I am a designer, in as many senses of the word as possible. Bringing ideas
-  to life for great brands and even better people, across all mediums. I write code,
-  illustrate, push pixels, build products, creative direct, story-tell, shape brands,
-  and make/break grids. I am passionate about leading and working with teams.
-
-'
+headline: 'John Choura Jr. is a designer in Long Beach, California.'
+about-1: 'Designing financial products for non-financial types at Payoff. <span class="decoration-line-through">Previously at Envoy, Signal, and Biola.</span>'
+about-2: 'I am a designer, in as many senses of the word as possible. Bringing ideas to life for great brands and even better people, across all mediums. I write code, illustrate, push pixels, build products, creative direct, story-tell, shape brands, and make/break grids. I am passionate about leading and working with teams.'
 ---
 
 <section class="page-header fill-black">
   <div class="page-header--upper wrapper">
     <div class="xs-block gutters">
       <div class="col md-col-8 md-offset-4 lg-col-7 lg-offset-5">
-        <h1 id="site-header" class="display text-white">John Choura Jr. is a designer in Long Beach, California.</h1>
+        <h1 id="site-header" class="display text-white">{{ page.headline }}</h1>
       </div>
     </div>
   </div>
@@ -32,8 +29,8 @@ about-1: 'I am a designer, in as many senses of the word as possible. Bringing i
         </div>
         <div class="col md-col-8 lg-col-7 ">
           <h3 class="md-mt2 md-pr3">About Me</h3>
-          <p class="text-1">Designing financial products for non-financial types at Payoff. <span class="decoration-line-through">Previously at Envoy, Signal, and Biola.</span></p>
-          <p>{{ page.about-1 }}</p>
+          <p class="text-1">{{ page.about-1 }}</p>
+          <p>{{ page.about-2 }}</p>
         </div>
       </div>
     </div>
@@ -61,42 +58,5 @@ about-1: 'I am a designer, in as many senses of the word as possible. Bringing i
       </div>
     </div>
   </div>
-  <div class="post-content ">
-    <div class="wrapper xs-pt3 xs-mt3 md-pt6 md-mt6">
-      <div class="xs-col-12">
-        {% assign post = site.journal.last %}
-        {% assign content = post.content %}
-        <h1 class="xs-inline-block md-mt2 xs-pr2">Newest Journal Post</h1>
-        <h3 class="xs-inline-block text-gray-lightest md-mt2 md-pr6"> on {{ post.date | date: "%b %-d, %Y" }}</h3>
-        <div class="col xs-col-12 xs-mb3 " >
-          <div class="fill-black rounded">
-            <a href="{{ post.url }}" class="xs-block">
-              <div class="xs-block xs-py6" {% if post.cover %}style="
-              background-image: url(/journal/uploads/{{ post.cover }}); background-size: cover; background-position: center; height: 30vw;"{% endif %}>
-              </div>
-              <div class="xs-inline-block sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0">
-                <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
-                  <span class="display-2 xs-mb3 lg-pr6 text-white">{{ post.title }}</span>
-                  {% assign wordcount = post.content | number_of_words %}
-                  {% assign avgwpm = 200 %}
-                  <!-- {{wordcount}} words read at {{avgwpm}} words per minute equals the estimated read time -->
-                  {% if  wordcount >= avgwpm %}
-                    <h5 class="xs-mt3 text-white xs-block">{{ wordcount | divided_by: avgwpm | floor }} Minute Read</h5>
-                  {% else %}
-                    <h5 class="xs-mt3 text-white xs-block">1 Minute Read</h5>
-                  {% endif %}
-                </div>
-                <div class="col sm-col-6 md-col-7">
-                  <p class="text-white">
-                    {{ post.content | strip_html | truncate: 100 }}
-                  </p>
-                  <h6 class="text-white">Continue Reading</h6>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include home/most-recent-post.html %}
 </section>
