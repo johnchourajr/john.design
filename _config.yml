@@ -22,7 +22,7 @@ defaults:
   values:
     author: John Choura Jr.
     layout: journal
-email: hello@objectsubject.com
+email: hi@john.design
 post_dirs: false
 ga: UA-22938148-6
 host: jchoura-mbp.local
