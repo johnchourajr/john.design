@@ -9,7 +9,7 @@ weight: 2
   <div class="page-header--upper wrapper xs-z4">
     <div class="xs-block gutters">
       <div class="col md-col-8 md-offset-4 lg-col-7 lg-offset-5 xl-col-6">
-        <h1 class="display text-white">The Work of</br>John Choura Jr.</h1>
+        <h1 class="display text-white">The Work of<br>John Choura Jr.</h1>
       </div>
     </div>
   </div>
