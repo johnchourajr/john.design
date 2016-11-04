@@ -3,17 +3,17 @@
     <div class="xs-col-12">
       {% assign post = site.journal.last %}
       {% assign content = post.content %}
-      <h1 class="xs-inline-block md-mt2 xs-pr2 ">Newest Journal Post </h1>
-      <h3 class="xs-inline-block text-gray-lightest md-mt2 md-pr6"> on {{ post.date | date: "%b %-d, %Y" }}</h3>
+      <p class="text-2 xs-inline-block md-mt2 xs-pr2">Newest Journal Post </p>
+      <h4 class="xs-inline-block text-gray-lightest md-mt2 md-pr6"> on {{ post.date | date: "%b %-d, %Y" }}</h4>
       <div class="col xs-col-12 xs-mb3 " >
-        <div class="fill-black rounded">
+        <div class="fill-black rounded xs-overflow-hidden">
           <a href="{{ post.url }}" class="xs-block">
             <div class="xs-block xs-py6" {% if post.cover %}style="
             background-image: url(/journal/uploads/{{ post.cover }}); background-size: cover; background-position: center; height: 30vw;"{% endif %}>
             </div>
             <div class="xs-inline-block sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0">
               <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
-                <span class="display-2 xs-mb3 lg-pr6 text-white">{{ post.title }}</span>
+                <p class="text-1 xs-mb3 lg-pr6 text-white">{{ post.title }}</p>
                 {% assign wordcount = post.content | number_of_words %}
                 {% assign avgwpm = 200 %}
                 <!-- {{wordcount}} words read at {{avgwpm}} words per minute equals the estimated read time -->

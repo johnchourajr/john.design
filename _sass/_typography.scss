@@ -6,12 +6,12 @@
 
 .post-content {
   p {
-    font-family: $sans;
-    line-height: 1.65;
-    font-size: 1.4em;
+    // font-family: $sans;
+    line-height: 1.75;
+    font-size: 1.1em;
     letter-spacing: .02em;
-    
-    &.text-1, &.text-2 {
+
+    &.text-1, &.text-2, &.text-3 {
       font-weight: 600;
     }
   }
@@ -37,7 +37,7 @@ em {
  */
 h1, h2, {
   font-weight: 600;
-  font-family: $sans;
+  font-family: $mono;
   letter-spacing: 0;
   line-height: 1.35;
 }

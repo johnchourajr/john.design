@@ -21,7 +21,8 @@ $font-smoothing: true !default;
 // "mr-eaves-xl-modern"
 // "Europa"
 $sans: "canada-type-gibson", "Helvetica", sans-serif;
-$mono: "roboto-mono", monospace;
+// $mono: "Space Mono", monospace;
+$mono: "Roboto Mono", monospace;
 $serif: "freight-big-pro", "Times-New-Roman", serif;
 $slab: "Caponi-Slab-Semibold", Georgia, serif;
 
@@ -58,14 +59,14 @@ $z4: 400;
 // Brand
 $brand-red: #FF641C;
 $brand-yellow: #FFE631;
-$brand-blue: #005CFF;
+$brand-blue: #0035ff;
 $brand-green: #5DE33F;
 
 // Fills
 $fill-red: #e32;
 $fill-red-lighter: #feebe9;
 $fill-pink: #eb2649;
-$fill-blue: #07e;
+$fill-blue: $brand-blue;
 $fill-yellow: #fe0;
 $fill-yellow-lighter: #fffab6;
 $fill-green: #6fb824;
@@ -98,7 +99,7 @@ $text-gray-lightest: #999;
 $text-red: #e32;
 $text-orange: #f49c1a;
 $text-green: #6fb824;
-$text-blue: #07e;
+$text-blue: $brand-blue;
 $text-black: #000;
 
 // Social Type Colors
@@ -121,27 +122,27 @@ $border-radius: 0.15em;
 // Typography
 // -------------------------
 
-$base-font-family: $sans;
+$base-font-family: $mono;
 $base-font-size: 16px;
 
 $base-font-weight: 700;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
 
-$display-1: 4.5em;      // 72px
-$display-2: 3.125em;    // 50px
-$display-3: 2.75em;     // 44px
+$display-1: 4em;      // 72px
+$display-2: 3em;    // 50px
+$display-3: 2.5em;     // 44px
 
 $text-1: 2.25em;        // 36px
 $text-2: 1.8em;         // 22px
-$text-3: 1.125em;       // 18px
+$text-3: 1.35em;       // 18px
 $text-4: 1em;           // 16px
 $text-5: .875em;        // 14px
 $text-6: .75em;         // 12px
 
 $line-height-1: 1.3;    // 40px
 $line-height-2: 1.25;   // 26px
-$line-height-3: 1.15;   // 22px
+$line-height-3: 1.4;   // 22px
 $line-height-4: 1.15;   // 24px
 $line-height-5: 1;      // 20px
 $line-height-6: 1;      // 16px
