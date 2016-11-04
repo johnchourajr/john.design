@@ -34,6 +34,10 @@
   }
 }
 
+.post-header {
+  margin-top: $space-6;
+}
+
 .post-body {
   .post-content {
     z-index: 10;
@@ -48,15 +52,11 @@
       }
 
       p {
-        font-size: 1.4em;
+        font-weight: 600;
       }
     }
 
-
-
     h1, h2 {
-      font-family: $sans;
-      font-weight: $regular;
       line-height: 1.55;
     }
 
@@ -75,6 +75,7 @@
     }
 
     img {
+      margin-top: $space-2;
 
       &[alt~="twoup"] {
         margin-bottom: $space-2;
@@ -116,5 +117,9 @@
         }
       }
     }
+  }
+  
+  .text-1 {
+    font-weight: 600;
   }
 }

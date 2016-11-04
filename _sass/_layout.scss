@@ -2,6 +2,37 @@
   background: rgba($brand-yellow,.5);
 }
 
+.vh_100 {height: 100vh; min-height: 500px;}
+.vh_90 {height: 90vh; min-height: 500px;}
+.vh_80 {height: 80vh; min-height: 500px;}
+.vh_70 {height: 70vh; min-height: 500px;}
+.vh_60 {height: 60vh; min-height: 500px;}
+.vh_50 {height: 50vh; min-height: 500px;}
+.vh_40 {height: 40vh; min-height: 500px;}
+.vh_30 {height: 30vh; min-height: 500px;}
+.vh_20 {height: 20vh; min-height: 500px;}
+.vh_10 {height: 10vh; min-height: 500px;}
+
+.display-flex {display: flex;}
+.inline-table {display: inline-table;}
+.align-items-center {align-items: center;}
+.align-items-flex-start {align-items: flex-start;}
+.align-items-flex-end {align-items: flex-end;}
+.align-items-baseline {align-items: baseline;}
+.align-items-stretch {align-items: stretch;}
+.align-self-center {align-self: center;}
+.align-self-flex-start {align-self: flex-start;}
+.align-self-flex-end {align-self: flex-end;}
+.align-self-baseline {align-self: baseline;}
+.align-self-stretch {align-self: stretch;}
+.justify-content-center {justify-content: center;}
+.justify-content-flex-start {justify-content: flex-start;}
+.justify-content-flex-end {justify-content: flex-end;}
+.justify-content-space-around {justify-content: space-around;}
+.justify-content-space-between {justify-content: space-between;}
+
+
+
 .doc {
   min-height: 100vh;
   background: white;
@@ -34,6 +65,9 @@ nav {
 
   .nav-items {
     width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 
     a {
       padding: 2em 0;
@@ -42,11 +76,16 @@ nav {
 
       @include media-query(sm) {
         padding: .65em 0;
-        padding-right: 10%;
+        padding-left: 10%;
       }
 
       @include media-query(md) {
-        padding-right: 10%;
+        padding-left: 10%;
+      }
+
+      &.active {
+        opacity: .3;
+        transition: all .2s $easeOutCubic;
       }
     }
   }
@@ -73,55 +112,24 @@ footer {
 
 .page-header {
 
-  padding-top: 2em;
+  &--index {
+    background-image: url('../img/onward.png');
+    background-size: cover;
+  }
 
-  @include media-query(md) {
-    padding-top: 0;
+  &--work {
+    background-image: url('../img/explore.png');
+    background-size: cover;
+  }
+
+  &--journal {
+    background-image: url('../img/wander.png');
+    background-size: cover;
+    background-position: top;
   }
 
   &--upper {
-    padding-bottom: $space-md;
-
-    @include media-query(md) {
-      padding-bottom: $space-lg;
-    }
-    //
-    // @include media-query(lg) {
-    //   padding-bottom: $space-xl;
-    // }
-
-    // h1.display {
-    //   font-size: 7vw;
-    //   font-family: $serif;
-    //
-    //   @include media-query(sm) {
-    //     font-size: 6vw;
-    //   }
-    //   @include media-query(md) {
-    //     font-size: 4.25vw;
-    //   }
-    //   @include media-query(lg) {
-    //     font-size: 3.9vw;
-    //   }
-    // }
-
-    h1.display {
-      font-size: 7.2vw;
-      line-height: 1.2;
-      font-family: $sans;
-      // font-weight: 900;
-      // font-style: italic;
-
-      @include media-query(sm) {
-        font-size: 7vw;
-      }
-      @include media-query(md) {
-        font-size: 5.5vw;
-      }
-      @include media-query(lg) {
-        font-size: 5vw;
-      }
-    }
+    width: 100%;
 
     #site-header {
       -webkit-touch-callout: none;
@@ -162,6 +170,7 @@ footer {
 
   &--lower {
     height: 40vw;
+    margin-top: -15vw;
     position: relative;
   }
 }
@@ -274,7 +283,6 @@ footer {
 
 .about {
   &-me {
-
     max-width: 50vw;
     margin-top: 15vw;
     margin-bottom: $space-6;
