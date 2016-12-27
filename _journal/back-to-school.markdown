@@ -13,7 +13,7 @@ tweet_2: |-
 
 ## This spring I'm going back to school.
 
-But errrr uh, probably not in the way you're assuming. I'm going back to teach.
+But, errrr uh... probably not in the way you're initially assuming. I'm going back to teach. Yes, nearly 6 years post-graduation, I'll be tromping back to my alma mater to teach in the design program as an adjunct professor. 
 
 This spring I'm going back to school, but probably not in the way that you're most likely assuming. Just a short 6 years since I graduated from college and I'm excited that I'll be returning to my alma mater as an adjunct professor.  
 
