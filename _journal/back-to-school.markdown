@@ -11,7 +11,7 @@ tweet_2: |-
   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 ---
 
-This spring I'm going back to school.
+## This spring I'm going back to school.
 
 But errrr uh, probably not in the way you're assuming. I'm going back to teach.
 
