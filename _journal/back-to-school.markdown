@@ -11,6 +11,10 @@ tweet_2: |-
   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 ---
 
+This spring I'm going back to school.
+
+But errrr uh, probably not in the way you're assuming. I'm going back to teach.
+
 This spring I'm going back to school, but probably not in the way that you're most likely assuming. Just a short 6 years since I graduated from college and I'm excited that I'll be returning to my alma mater as an adjunct professor.  
 
 There have been a lot of discussions stirring lately from design-folks like [@DannPetty](https://twitter.com/DannPetty/status/804770214361513984), go look at those responses, it's interesting stuff. But, never-the-less, it's been on my mind lately as I approach the spring 2017 semester (never thought I'd say that combinations of words again.)
