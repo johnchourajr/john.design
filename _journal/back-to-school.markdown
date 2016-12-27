@@ -24,8 +24,10 @@ But, errrr uh... probably not in the way you're initially assuming. I'm going ba
 
 I've always wanted to teach in some capacity, so when the opportunity came along, I leaped at it headfirst. But in my time of preparation for these students, A few things have been circling my mind. Most importantly, do I still believe in higher education? For which my answer is, no spoiler here, yes I do. But it still begs the deeper probing question of *'why?'*.
 
+Why is always a good question. It forces a look 
 
 I'm energized at the prospect of teaching design, it's a topic I'm passionate about and I'll have a lot to say. But in the process of preparing for the course, I've been thinking through a few things that are important to address publically. 
 
 
+{{page['tweet_1']}}{{page['tweet_2']}}
 
