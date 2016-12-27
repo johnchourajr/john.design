@@ -22,7 +22,15 @@ draft: "This spring I'm going back to school, but probably not in the way that y
 
 But, errrr uh... probably not in the way you're initially assuming. I'm going back to teach. Yes, nearly 6 years post-graduation, I'll be tromping back to my alma mater to teach an upper-level design class as an adjunct professor. 
 
-I've always wanted to teach in some capacity, so when the opportunity came along, I leaped at it headfirst. But in my time of preparation for these students, A few things have been circling my mind. Most importantly, do I still believe in higher education? For which my answer is, no spoiler here, yes I do. But it still begs the deeper probing question of *'why?'*.
+I've always wanted to teach in some capacity, so when the opportunity came along, I leaped at it headfirst. In my time of preparation for these students, A few things have been circling my mind. Most importantly, **do I still believe in higher education?** For which my answer is; spoiler, *yes*, I do. But, a simple yes begs the deeper probe of *'why?'*.
+
+Higher Education for designers must do the following:
+a) Teach the principles (ie. Form, Balance, Contrast, Hierarchy, etc.)
+b) Inform historical context (ie. How our field came to be.)
+That is all for the purpose
+b) 
+
+good professors mentor their students.
 
 Why is always a good question. It forces a look 
 
