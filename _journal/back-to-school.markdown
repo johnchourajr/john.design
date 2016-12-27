@@ -12,7 +12,3 @@ There have been a lot of discussions stirring lately from design-folks like [@Da
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Should we be requiring a college degree for design? Some of the best designers I know have no college degree at all — not even high school. <a href="https://t.co/E6erO32cBG">https://t.co/E6erO32cBG</a></p>&mdash; Dann Petty (@DannPetty) <a href="https://twitter.com/DannPetty/status/804770214361513984">December 2, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-Poll
-https://twitter.com/DannPetty/status/804766109408759808
