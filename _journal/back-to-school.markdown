@@ -20,7 +20,7 @@ draft: "This spring I'm going back to school, but probably not in the way that y
 
 ## This spring I'm going back to school.
 
-But, errrr uh... probably not in the way you're initially assuming. I'm going back to teach. Yes, nearly 6 years post-graduation, I'll be tromping back to my alma mater to teach an upper-level design class as an adjunct professor. 
+But, errrr uh... probably not in the way you're thinking. I'm going back to teach. Yes, nearly 6 years post-graduation, I'll be tromping back to my alma mater to teach an upper-level design class as an adjunct professor. 
 
 I've always wanted to teach in some capacity, so when the opportunity came along, I leaped at it headfirst. In my time of preparation for these students, A few things have been circling my mind. Most importantly, **do I still believe in higher education?** For which my answer is; spoiler, *yes*, I do. But, a simple yes begs the deeper probe of *'why?'*.
 
