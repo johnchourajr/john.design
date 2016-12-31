@@ -18,9 +18,9 @@ draft: "This spring I'm going back to school, but probably not in the way that y
   that combinations of words again.)\n\n{{page['tweet_1']}}{{page['tweet_2']}}\n"
 ---
 
-## This spring I'm going back to school.
+## This spring I'm going back to school... But, errrr uh... probably not in the way you're thinking. 
 
-## But, errrr uh... probably not in the way you're thinking. I'm going back to teach. Yes, just 6 years post-graduation, I'll be tromping back to my alma mater to teach design as an adjunct professor. 
+I'm going back to teach! Just six years post-graduation, and I'll be tromping back to my alma mater to teach design as an adjunct professor. 
 
 I do have to admit that I've always wanted to teach, so when the opportunity came along from my former Professor Daniel Chang, I leaped at it headfirst. 
 
