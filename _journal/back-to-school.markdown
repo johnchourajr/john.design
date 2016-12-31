@@ -20,9 +20,11 @@ draft: "This spring I'm going back to school, but probably not in the way that y
 
 ## This spring I'm going back to school.
 
-But, errrr uh... probably not in the way you're thinking. I'm going back to teach. Yes, nearly 6 years post-graduation, I'll be tromping back to my alma mater to teach an upper-level design class as an adjunct professor. 
+## But, errrr uh... probably not in the way you're thinking. I'm going back to teach. Yes, just 6 years post-graduation, I'll be tromping back to my alma mater to teach design as an adjunct professor. 
 
-I've always wanted to teach in some capacity, so when the opportunity came along, I leaped at it headfirst. In my time of preparation for these students, A few things have been circling my mind. Most importantly, **do I still believe in higher education?** For which my answer is; spoiler, *yes*, I do. But, a simple yes begs the deeper probe of *'why?'*.
+I have to admit that I've always wanted to teach, so when the opportunity came along from my former Professor Daniel Chang, I leaped at it headfirst. 
+
+In my time of preparation for these students, A few things have been circling my mind. Most importantly, **do I still believe in higher education?** For which my answer is; spoiler, *yes*, I do. But, a simple yes begs the deeper probe of *'why?'*.
 
 Higher Education for designers must do the following:
 a) Teach the principles (ie. Form, Balance, Contrast, Hierarchy, etc.)
