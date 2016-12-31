@@ -22,9 +22,16 @@ draft: "This spring I'm going back to school, but probably not in the way that y
 
 ## But, errrr uh... probably not in the way you're thinking. I'm going back to teach. Yes, just 6 years post-graduation, I'll be tromping back to my alma mater to teach design as an adjunct professor. 
 
-I have to admit that I've always wanted to teach, so when the opportunity came along from my former Professor Daniel Chang, I leaped at it headfirst. 
+I do have to admit that I've always wanted to teach, so when the opportunity came along from my former Professor Daniel Chang, I leaped at it headfirst. 
 
-In my time of preparation for these students, A few things have been circling my mind. Most importantly, **do I still believe in higher education?** For which my answer is; spoiler, *yes*, I do. But, a simple yes begs the deeper probe of *'why?'*.
+In my time of preparation for these students, A few things have been circling my mind. Most chiefly, **"do I still believe in higher education?"** For which my answer is, (no spoiler) "*yes*." That answer comes with a lot of caveats.
+
+
+First caveat, and this should go without saying, but if you're a designer (or anything, for that matter) and you're self-taught, you should be proud of yourself. That's an accomplishment, and I want to say, your lack of a college degree in the field that you work should not fog your ambition. Never-the-less, I'm going to now advocate for a college degree based on my personal experience.
+
+Okay, nothing compares to the grindstone of learning fields/disciplines that are required of you. I'm talking general education. I think this stuff is hugely important; The Astronomy, Geology, History, and English classes. The contents of these courses, sure, may be hard to sit through with day after day of lecture, but it opens a student to a broader world. This is important. So when a design student goes into their studio classroom, they have these broad lenses on (whether they know it or not), and that's preparation for the real world. 
+
+Secondly, design is bigger than its tools of the trade. I'm not going to bash on vocational programs, or skillshare, or anything. I'm just wanting to tap into the fundamentals. 
 
 Higher Education for designers must do the following:
 a) Teach the principles (ie. Form, Balance, Contrast, Hierarchy, etc.)
