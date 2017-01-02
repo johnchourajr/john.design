@@ -6,4 +6,3 @@ position: 7
 ---
 
 ![lg](/uploads/Sedona-New-sm-1.jpg)
-![lg](/uploads/Sedona-New-sm-2.jpg)
