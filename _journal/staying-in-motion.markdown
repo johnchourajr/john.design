@@ -1,6 +1,7 @@
 ---
 title: Staying in Motion
 date: 2015-06-02 13:26:00 Z
+position: 2
 cover: 06-new-poster-1.jpg
 refer: Illustration by John Choura Jr.
 ---
