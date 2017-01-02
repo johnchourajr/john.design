@@ -2,7 +2,7 @@
 title: Back to School
 date: 2016-12-27 14:41:00 Z
 published: false
-position: 4
+position: 6
 author: John Choura Jr.
 tweet_1: |-
   <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Designers: do you have a college degree?</p>&mdash; Dann Petty (@DannPetty) <a href="https://twitter.com/DannPetty/status/804766109408759808">December 2, 2016</a></blockquote>
