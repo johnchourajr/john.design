@@ -1,6 +1,7 @@
 ---
 title: The Engineer and the Artist
 date: 2015-06-05 13:39:00 Z
+position: 3
 cover: 05-GP-poster.jpg
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
 Tags:
