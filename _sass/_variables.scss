@@ -20,7 +20,11 @@ $font-smoothing: true !default;
 // "canada-type-gibson"
 // "mr-eaves-xl-modern"
 // "Europa"
-$sans: "canada-type-gibson", "Helvetica", sans-serif;
+// $sans: "canada-type-gibson", "Helvetica", sans-serif;
+$sans: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
 // $mono: "Space Mono", monospace;
 $mono: "Roboto Mono", monospace;
 $serif: "freight-big-pro", "Times-New-Roman", serif;
@@ -80,6 +84,7 @@ $fill-white: #fff;
 $fill-black: #000;
 
 // Social Fills
+$text-dribbble: #ea4c89;
 $fill-facebook: #3b5998;
 $fill-twitter: #55acee;
 $fill-google: #dd4b39;
@@ -96,6 +101,7 @@ $text-white: #fff;
 $text-gray: #333;
 $text-gray-lighter: #666;
 $text-gray-lightest: #999;
+$text-gray-lighterest: #ccc;
 $text-red: #e32;
 $text-orange: #f49c1a;
 $text-green: #6fb824;
@@ -103,6 +109,7 @@ $text-blue: $brand-blue;
 $text-black: #000;
 
 // Social Type Colors
+$text-dribbble: #ea4c89;
 $text-facebook: #3b5998;
 $text-twitter: #55acee;
 $text-google: #dd4b39;
@@ -140,12 +147,12 @@ $text-4: 1em;           // 16px
 $text-5: .875em;        // 14px
 $text-6: .75em;         // 12px
 
-$line-height-1: 1.3;    // 40px
-$line-height-2: 1.25;   // 26px
-$line-height-3: 1.4;   // 22px
-$line-height-4: 1.15;   // 24px
-$line-height-5: 1;      // 20px
-$line-height-6: 1;      // 16px
+$line-height-1: 1.25;    // 40px
+$line-height-2: 1.2;   // 26px
+$line-height-3: 1.2;   // 22px
+$line-height-4: 1.2;   // 24px
+$line-height-5: 1.2;      // 20px
+$line-height-6: 1.2;      // 16px
 
 $regular: 400;
 $bold: 600;

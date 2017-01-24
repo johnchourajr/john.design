@@ -1,11 +1,11 @@
-<header class="nav-header{% if page.header == "black" and page.title == "Info" %} fill-black {% elsif page.header == "black" %} fill-black {% else %} fill-white{% endif %}">
-  <nav class="">
+<header class="nav-header{% if page.header == "black" and page.title == "Info" %} fill-black {% elsif page.header == "black" %} fill-black {% else %}{% endif %}">
+  <nav class="nav-max nav-down">
     <div class="wrapper">
       <div class="gutters">
         <div class="col xs-col-3 md-col-2">
           <a href="/">{% include icons/logo.html %}</a>
         </div>
-        <div class="col xs-col-12 sm-col-9 md-col-8 md-offset-2 lg-col-7 lg-offset-3">
+        <div class="col xs-col-9 md-col-6 md-offset-4 lg-col-5 lg-offset-5">
           <div class="nav-items">
             {% assign pages = site.pages | sort:"weight"  %}
             {% for p in pages %}
