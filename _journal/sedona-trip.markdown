@@ -1,7 +1,6 @@
 ---
 title: Sedona Trip
 date: 2016-11-25 08:32:00 Z
-published: true
 cover: Sedona-New-sm-1.jpg
 Tags:
 - Life
