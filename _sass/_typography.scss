@@ -5,6 +5,8 @@
 }
 
 .post-content {
+  position: relative;
+  z-index: 8888;
   p {
     // font-family: $sans;
     line-height: 1.75;
@@ -32,14 +34,18 @@ ul, ol, dl, figure,
 em {
 }
 
+del {
+  opacity: .12;
+}
 /**
  * Headings
  */
 h1, h2, {
-  font-weight: 600;
-  font-family: $mono;
+  font-weight: 700;
+  font-family: $sans;
   letter-spacing: 0;
   line-height: 1.35;
+  z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -58,21 +64,39 @@ h3, h4, h5, h6 {
 .display {
 
   &-1 {
-    font-weight: 600;
-    font-size: $display-1;
+    font-size: ($display-1 * .5);
     line-height: $line-height-1;
+    letter-spacing: -.025em;
+    @include media-query(sm) {
+      font-size: ($display-1 * .75);
+    }
+    @include media-query(md) {
+      font-size: $display-1;
+    }
   }
 
   &-2 {
-    font-weight: 600;
-    font-size: $display-2;
+    font-size: ($display-2 * .5);
     line-height: $line-height-2;
+    letter-spacing: -.025em;
+    @include media-query(sm) {
+      font-size: ($display-2 * .75);
+    }
+    @include media-query(md) {
+      font-size: $display-2;
+    }
   }
 
   &-3 {
-    font-weight: 600;
-    font-size: $display-3;
+    font-size: ($display-3 * .5);
     line-height: $line-height-3;
+    letter-spacing: -.025em;
+    @include media-query(sm) {
+      font-size: ($display-3 * .75);
+    }
+    @include media-query(md) {
+      font-size: $display-3;
+    }
   }
 }
 

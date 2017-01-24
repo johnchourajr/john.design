@@ -23,6 +23,11 @@ defaults:
     author: John Choura Jr.
     layout: journal
 email: hi@john.design
+twitter: http://twitter.com/johnchourajr
+dribbble: http://dribbble.com/johnchourajr
+instagram: http://instagram.com/johnchoura
+github: http://github.com/johnchourajr
+copyright: All work is copyright John Choura Jr. unless otherwise mentioned.
 post_dirs: false
 ga: UA-22938148-6
 host: jchoura-mbp.local

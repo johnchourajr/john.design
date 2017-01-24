@@ -126,3 +126,26 @@ li {
 footer {
   font-weight: 600;
 }
+
+// body {
+//   transition: all .2s $easeOutCubic;
+// }
+
+
+body.is-Loading #doc, body.is-Loading footer {
+    padding-top: 200px;
+    /* background: black; */
+    opacity: 0;
+}
+
+body.is-Loading::after {
+    content: '👋';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+}
+
+body.is-Loading {
+    background: black;
+}

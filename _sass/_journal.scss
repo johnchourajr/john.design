@@ -35,7 +35,7 @@
 }
 
 .post-header {
-  margin-top: $space-6;
+  margin-top: ($space-6 * 3);
 }
 
 .post-body {
@@ -118,7 +118,7 @@
       }
     }
   }
-  
+
   .text-1 {
     font-weight: 600;
   }

@@ -3,9 +3,9 @@
   <a href="{{ post.url }}" class="xs-inline-block {% if post.cover %}{% else %}sm-col-10 sm-offset-1 xs-p3 sm-py6 sm-px0{% endif %}">
     <div class="col sm-col-6 md-col-5 xs-pr2 md-pr3 lg-pr6">
       {% if post.next %}
-        <p class="xs-block text-2 xs-mb1 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</p>
+        <h2 class="xs-block display-3 xs-mb1 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</h2>
       {% else %}
-        <p class="xs-block text-1 xs-mb3 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</p>
+        <h1 class="xs-block display-2 xs-mb3 lg-pr6 underline {% if post.cover %}{% else %}text-white{% endif %}">{{ post.title }}</h1>
       {% endif %}
       <h5 class="xs-inline-block xs-mt3 xs-mb1 {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %}">{{ post.date | date: "%b %-d, %Y" }}</h5><h5 class="xs-inline-block xs-px2 {% if post.cover %}text-gray-lightest {% else %}text-white{% endif %}">—</h5>
       {% assign wordcount = post.content | number_of_words %}

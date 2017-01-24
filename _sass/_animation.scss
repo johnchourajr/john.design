@@ -1,0 +1,47 @@
+.tog-show {
+  display: block;
+}
+
+.tog-hide {
+  display: none;
+}
+
+.txt-big {
+  opacity: 0;
+  width: 100vw;
+  position: fixed;
+  transition: opacity .5s $easeOutCubic;
+  background-size: cover;
+  background-position: center center;
+}
+
+a {
+  transition: color .2s $easeOutCubic, opacity .2s $easeOutCubic, background-color .2s $easeOutCubic;
+}
+
+
+
+// 😁 Designer
+// 😬 Developer
+// 😵 Maker
+// ☕️ Coffee
+// ☀️ Long Beach
+
+@mixin home-hover($name, $colorbkg, $color, $img, $blend) {
+  body.#{$name}, body.#{$name} .doc {background-color: $colorbkg !important; color: $color !important;}
+  body.#{$name} .logo-black #logo {fill: $color !important;}
+  body.#{$name} a {color: $color !important;}
+  .txt-big.#{$name} {opacity: 1; height: 100vh; background-image: url('/img/home/#{$img}.gif'); mix-blend-mode: $blend;}
+}
+
+@include home-hover(😁, #00ff12, black, design, screen);
+@include home-hover(😬, black, #00ff12, dev, screen);
+@include home-hover(😵, red, white, maker, screen);
+@include home-hover(☕️, blue, aqua, coffee, screen);
+@include home-hover(☀️, white, yellow, lbc, multiply);
+
+@include home-hover(👋, black, white, foo, none);
+@include home-hover(twitter, white, $text-twitter, foo, none);
+@include home-hover(dribbble, white, $text-dribbble, foo, none);
+@include home-hover(instagram, white, $text-instagram, foo, none);
+@include home-hover(github, white, gray, foo, none);

@@ -1,69 +1,37 @@
 ---
 title: Info
 layout: default
-header: black
+header: white
 order: 1
-headline: John Choura Jr. is a designer, in as many senses of the word as possible.
-about-1: Designing financial products for non-financial types at Payoff. <span class="decoration-line-through">Previously
-  at Envoy, Signal, and Biola.</span>
-about-2: John drinks lots of coffee and lives in sunny Long Beach, California with
-  his wife and cat.
-about-3: I am a designer, in as many senses of the word as possible. Bringing ideas
-  to life for great brands and even better people, across all mediums. I write code,
-  illustrate, push pixels, build products, creative direct, story-tell, shape brands,
-  and make/break grids. I am passionate about leading and working with teams.
+contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%20website%20and%20wanted%20to%20say%20hello%21
 ---
 
-<section class="page-header page-header--index vh_100 display-flex align-items-center fill-black -xs-pb6">
-  <div class="page-header--upper  inline-table wrapper xs-pb6">
-      <div class="col md-col-8 lg-col-7" style="max-width: 790px;">
-        <h1 class="display text-white">{{ page.headline }}</h1>
+<div class="txt-big">
+
+</div>
+<section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="rgba(255,255,255,1)">
+  <div class="page-header--upper inline-table wrapper xs-pb6">
+      <div class="col md-col-12">
+        <h1 class="display-1 text-black">
+          John Choura Jr. is a <a href="#" class="txt" data-txt="😁">Designer</a>, <a href="#" class="txt" data-txt="😬">Developer</a>, <a href="#" class="txt" data-txt="😵">Maker</a>, and <a href="#" class="txt" data-txt="☕️">Craft Coffee</a> enthusiast in <a href="#" class="txt" data-txt="☀️">Long Beach</a>, California.
+        </h1>
       </div>
   </div>
 </section>
-{% comment %}
-{% include home/shapes.html %}
-{% endcomment %}
-<section class="post-body xs-pt6 md-mt6">
-  <div class="post-content">
-    <div class="wrapper">
-      <div class="gutters">
-        <div class="col col-md-4 lg-col-5">
-          <div class="about-shape -shape--sheet-3">
-            <img class="about-me" src="{{ "/img/me.jpg" | prepend: site.baseurl }}" alt="" />
-          </div>
-        </div>
-        <div class="col md-col-8 lg-col-7 xl-col-6">
-          <!-- <h4 class="md-mt2 md-pr3">About John</h4> -->
-          <p class="text-1">{{ page.about-1 }}</p>
-          <p class="text-3">{{ page.about-2 }}</p>
-          <!-- <p>{{ page.about-3 }}</p> -->
-        </div>
+<section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(236,255,254,1)">
+  <div class="page-header--upper inline-table wrapper xs-pb6">
+      <div class="col md-col-12">
+        <h1 class="display-1 text-black">Currently Product Design Lead at Payoff. Adjunct Professor of Design at Biola University. <del>Previously at Envoy, Signal, and Biola.</del></h1>
       </div>
-    </div>
   </div>
-  <div class="post-content">
-    <div class="wrapper md-pt6 md-mt6">
-      <div class="gutters">
-        <div class="col col-md-4 lg-col-4">
-          <div class="about-featured">
-            <h4 class="md-mt2 md-pr6">Featured On</h4>
-            <p class="text-3"><a href="http://www.awwwards.com/sites/grand-food-beverage">Awwwards</a>, <a href="http://www.commarts.com/webpicks/grand-food-beverage">Commarts</a>, <a href="http://www.site.uplabs.com/posts/john-choura-jr-home">SiteUp</a>, <a href="http://thetypefight.com/details/john-choura-vs.-simon-sok">Type Fight</a>, <a href="http://www.underconsideration.com/fpo/archives/2013/07/biola-academic-planner.php">FPO</a>, <a href="">OneMinuteWith</a>, <a href="http://www.urbanoutfitters.com/urban/catalog/productdetail.jsp?id=24772220&color=060&itemdescription=true&navAction=jump&search=true&isProduct=true&parentid=A_FURN_WALL">Urban Outfitters</a>, <a href="http://helpink.org/search?q=John+Choura">Help Ink</a>, <a href="http://fontsinuse.com/uses/2882/change-the-things-i-can">Fonts In Use</a>.</p>
-            <hr class="xs-border xs-my6">
-            <h4 class="md-mt2 md-pr6">Social</h4>
-            <p class="text-3"><a href="http://twitter.com/johnchourajr">Twitter</a>, <a href="http://instagram.com/johnchoura">Instagram</a>, <a href="http://dribbble.com/johnchourajr">Dribbble</a>, <a href="http://github.com/johnchourajr">GitHub</a>.</p>
-            <hr class="xs-border xs-my6">
-            <h4 class="md-mt2 md-pr6">Say Hello</h4>
-            <p class="text-3"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-          </div>
-        </div>
-        <div class="col xs-col-12 lg-col-7 lg-offset-1">
-          <div class="about-shape -shape--sheet-1">
-            <img class="about-beach" src="{{ "/img/beach.jpg" | prepend: site.baseurl }}" alt="" />
-          </div>
-        </div>
+</section>
+<section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(255,254,236,1)">
+  <div class="page-header--upper inline-table wrapper xs-pb6">
+      <div class="col md-col-12">
+        <h1 class="display-1 text-black">Say <a href="{{ page.contact }}" class="txt" data-txt="👋">Hello</a>, or follow me on <a href="{{ site.twitter }}" class="txt" data-txt="twitter">Twitter</a>, <a href="{{ site.dribbble }}" class="txt" data-txt="dribbble">Dribbble</a>, <a href="{{ site.instagram }}" class="txt" data-txt="instagram">Instagram</a>, and <a href="{{ site.github }}" class="txt" data-txt="github">Github</a>.</h1>
       </div>
-    </div>
   </div>
+</section>
+<section class="slide" data-background="rgba(255,255,255,1)">
   {% include home/most-recent-post.html %}
 </section>
