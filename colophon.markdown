@@ -23,6 +23,7 @@ other:
 - I like to write reflections and life notes in my Journal, even if no one reads them.
 - "The Gif's on the homepage aren't made by me, I just like them \U0001F642."
 - "Lastly, special shoutout to emoji's, I even used them when writing some code \U0001F918."
+
 ---
 
 {% include globals/page-header.html %}
@@ -31,7 +32,7 @@ other:
   <div class="post-content wrapper xs-mt3">
     <div class="xs-block gutters">
       <div class="col md-col-5">
-        <h1>Technical</h2>
+        <h1>Technical</h1>
         <ul class="xs-mb6">
           {% for item in page.technical %}
             <li><h4 class="text-black xs-mb1">{{ item | markdownify }}</h4></li>
@@ -39,7 +40,7 @@ other:
         </ul>
       </div>
       <div class="col md-col-5 md-offset-2">
-        <h1>Acknowledgements</h2>
+        <h1>Acknowledgements</h1>
           {% for item in page.other %}
             <h2 class="text-black">
               {{ item }}
