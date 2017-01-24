@@ -116,7 +116,7 @@ footer {
     position: fixed;
   }
 
-  .copyright {
+  .copyright, .copyright a {
     color: $text-gray-lighterest;
     // max-width: 60%;
   }
@@ -440,25 +440,9 @@ input[type="range" i]::-webkit-slider-thumb, input[type="range" i]::-webkit-medi
   -webkit-appearance: none !important;
 }
 
-// .portrait-outer {
-//   height: 0;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   position: relative;
-//   z-index: 0
-// }
-
-// .portrait-outer {
-//   height: 100vh;
-//   width: 100vw;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   position: fixed;
-//   top: 0;
-//   z-index: 0
-// }
+ul li h4 p {
+  margin-bottom: 0 !important;
+}
 
 .portrait {
   font-size: 0.48vw;

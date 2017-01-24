@@ -1,21 +1,30 @@
 ---
+title: 404 Error
 layout: default
+headline: 404
+header: white
+hide: true
 ---
+
+<section class="page-header page-header--{{page.title | slugify}} vh_60 display-flex align-items-center">
+  <div class="page-header--upper xs-mt6 xs-pt6 inline-table wrapper">
+    <div class="col md-col-12">
+      <h1 class="display-1 text-black el" data-rellax-speed="-1">{{ page.headline }}</h1>
+    </div>
+  </div>
+</section>
+
 
 <section class="page-header xs-full-height">
   <div class="page-header--upper wrapper">
     <div class="xs-block gutters">
 
       <div class="col md-col-4 lg-col-5">
-
         <h5 class="md-mt2">Error 404 — Page Not Found</h5>
-
       </div>
 
       <div class="col md-col-8 lg-col-7 xl-col-6">
-
         <h1 class="display"><a href="/">Move along</a>, nothing to see here.</h1>
-
       </div>
 
     </div>
