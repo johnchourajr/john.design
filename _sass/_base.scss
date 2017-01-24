@@ -73,7 +73,7 @@ figcaption {
  * Lists
  */
 ul, ol {
-  margin-left: $space-1;
+  margin-left: ($space-1 * 2.5);
 }
 
 li {

@@ -9,9 +9,14 @@
           <div class="nav-items">
             {% assign pages = site.pages | sort:"weight"  %}
             {% for p in pages %}
-              {% if p.title %}
-              <a class="{% if page.header == "black" %} text-white{% else %} text-black{% endif %}{% if p.url == page.url %} active{% endif %}" href="{{ p.url | prepend: site.baseurl }}"><h4>/{{ p.title }}</h4></a>
+              {% if  p.hide == true %}
+              {% else %}
+                {% if p.title %}
+                <a class.html"{% if page.header == "black" %} text-white{% else %} text-black{% endif %}{% if p.url == page.url %} active{% endif %}" href="{{ p.url | prepend: site.baseurl }}"><h4>/{{ p.title }}</h4></a>
+                {% endif %}
               {% endif %}
+
+
             {% endfor %}
           </div>
         </div>
