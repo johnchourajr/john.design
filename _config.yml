@@ -32,6 +32,8 @@ post_dirs: false
 ga: UA-22938148-6
 host: jchoura-mbp.local
 port: 4444
+sass:
+  style: compressed
 redcarpet:
   extensions:
   - smart
