@@ -8,7 +8,7 @@ collections:
     permalink: "/journal/:path/"
   posts:
     title: Posts
-    output: false
+    output: true
   uploads:
     title: Uploads
     output: true
