@@ -23,7 +23,6 @@ other:
 - I like to write reflections and life notes in my Journal, even if no one reads them.
 - "The Gif's on the homepage aren't made by me, I just like them \U0001F642."
 - "Lastly, special shoutout to emoji's, I even used them when writing some code \U0001F918."
-
 ---
 
 {% include globals/page-header.html %}
