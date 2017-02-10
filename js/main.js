@@ -134,7 +134,7 @@ function(){
 // ---------------
 $(document).ready(function() {
   let body = $('body').height();
-  let footer = ($('footer').height() * 1.5)
+  let footer = ($('footer').height() * 1.75)
   let bodyDiff = body - footer;
   console.log('body height = ' + body);
   console.log('footer height = ' + footer);
