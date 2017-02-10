@@ -1,8 +1,8 @@
 ---
-title: Colophon
+title: Site Credits
 header: white
 hide: true
-headline: Site Colophon
+headline: Site Credits
 technical:
 - Hosted on [AWS](https://aws.amazon.com/)
 - Domains with [Google Domains](https://domains.google/#/)
