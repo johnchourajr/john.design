@@ -4,82 +4,90 @@ layout: default
 header: white
 weight: 2
 headline: Work
+clients:
+- name: Arcade Coffee Roasters
+  role: Brand/Identity Design
+  link: http://arcadecoffeeroasters.com
+  year: 2017
+- name: Steelhead Coffee
+  role: Graphic Designer
+  link: http://steelheadcoffee.com/
+  year: 2016
+- name: Grand Food & Beverage
+  role: Creative/Tech Director
+  link: http://grandfandb.com
+  year: 2016
+- name: Amazing Grass
+  role: Logo/Packaging Design
+  link: http://amazinggrass.com
+  year: 2015
+- name: Vizio
+  role: Product Designer
+  link: http://vizio.com
+  year: 2015
+- name: Kareo
+  role: Art Director
+  link: http://kareo.com
+  year: 2015
+- name: Blossom
+  role: Designer
+  link: http://getblossom.com
+  year: 2015
+- name: Biola University
+  role: Designer
+  link: http://biola.edu
+  year: 2014
+projects:
+- name: So. Cal. Craft Coffee
+  link: http://socal.coffee
+
 ---
 
 {% include globals/page-header.html %}
 
-<section id="work-payoff" class="page-body md-pt6 md-pb2" data-background="rgba(230,230,230,1)">
-  <div class="post-content wrapper xs-mt3">
-      <div class="xs-block gutters ">
-        <div class="col sm-col-5">
-          <p class="text-2">Payoff, Inc.</p>
-          <h4 class="text-gray-lightest xs-mt1 xs-mb2">FinWell Guide — 2016 — Lead Product Designer</h4>
-        </div>
-        <div class="col sm-col-7">
-          <a href="http://payoff.com"><h4 class="xs-text-right md-mt6 xs-mb2">View it Live</h4></a>
-        </div>
+<section class="page-body">
+  <div class="post-content wrapper xs-mb6">
+      <div class="xs-block gutters">
+          <div class="col xs-col-12">
+            <h4 class="xs-mt3 xs-mb2 xs-pr1 xs-inline-block">Recent Work</h4>
+          </div>
       </div>
   </div>
-  <figure><img src="{{ "/work/uploads/po-02.jpg" | prepend: site.baseurl }}" alt="" /></figure>
+</section>
 
-  <figure><img src="{{ "/work/uploads/po-01.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-</section>
-<section id="work-gfb" class="page-body md-py2">
+<div class="shots"></div>
+
+<section class="page-body">
   <div class="post-content wrapper xs-mt3">
-      <div class="xs-block gutters ">
-        <div class="col sm-col-5">
-          <p class="text-2">Grand Food & Beverage</p>
-          <h4 class="text-gray-lightest xs-mt1 xs-mb2">Brand Platform — 2016 — Creative Director/Lead Web Developer</h4>
+      <div class="xs-block gutters">
+        <div class="col xs-col-12 xs-mb4">
+          <div class="xs-col-12 xs-overflow-hidden line-span">
+            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Client List</h4>
+          </div>
         </div>
-        <div class="col sm-col-7">
-          <a href="http://grandfandb.com"><h4 class="xs-text-right md-mt6 xs-mb2">View it Live</h4></a>
-        </div>
-      </div>
-  </div>
-  <figure><img src="{{ "/work/uploads/gfb-01.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-  <figure><img src="{{ "/work/uploads/gfb-02.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-</section>
-<section id="work-vizio" class="page-body md-pt6 md-py2">
-  <div class="post-content wrapper xs-mt3">
-      <div class="xs-block gutters ">
-        <div class="col sm-col-5">
-          <p class="text-2">Vizio SmartCast™</p>
-          <h4 class="text-gray-lightest xs-mt1 xs-mb2">SmartCast™ TV Interface — 2016 — Product Designer</h4>
-        </div>
-      </div>
-  </div>
-  <figure><img src="{{ "/work/uploads/vsc-01.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-  <figure><img src="{{ "/work/uploads/vsc-02.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-  <video id="video" width="1800" height="967" autoplay controls loop muted>
-    <source src="{{ "/work/uploads/tv-ui-loop.mp4" | prepend: site.baseurl }}" type="video/mp4" />
-    <source src="{{ "/work/uploads/tv-ui-loop.ogg" | prepend: site.baseurl }}" type="video/ogg" />
-  </video>
-</section>
-<section id="work-coffeeoc" class="page-body md-py2">
-  <div class="post-content wrapper xs-mt3">
-      <div class="xs-block gutters ">
-        <div class="col sm-col-5">
-          <p class="text-2">Coffee OC</p>
-          <h4 class="text-gray-lightest xs-mt1 xs-mb2">Craft Coffee Directory — 2015 — Creator</h4>
-        </div>
-        <div class="col sm-col-7">
-          <a href="http://coffeeoc.com"><h4 class="xs-text-right md-mt6 xs-mb2">View it Live</h4></a>
-        </div>
-      </div>
-  </div>
-  <figure><img src="{{ "/work/uploads/coc-01.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-  <figure><img src="{{ "/work/uploads/coc-02.jpg" | prepend: site.baseurl }}" alt="" /></figure>
-  <video id="video" width="1800" height="1032" autoplay controls loop muted>
-    <source src="{{ "/work/uploads/coffee-oc-loop.mp4" | prepend: site.baseurl }}" type="video/mp4" />
-    <source src="{{ "/work/uploads/coffee-oc-loop.ogg" | prepend: site.baseurl }}" type="video/ogg" />
-  </video>
-</section>
-<section class="page-body md-py6">
-  <div class="post-content wrapper xs-mt3">
-      <div class="xs-block gutters ">
-        <div class="xs-text-center">
-          <h4 class="text-gray-lightest xs-mt1 xs-mb2">More Coming Soon</h4>
-        </div>
+        {% for item in page.clients %}
+          <div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block">
+            <h2 class="xs-mb2 xs-pr6"><a href="{{item.link}}">{{item.name}}</a></h2>
+            <h4 class="-xs-pr6">{{item.role}}</h4>
+          </div>
+        {% endfor %}
       </div>
   </div>
 </section>
+
+<script type="text/javascript">
+  $.jribbble.setToken('ddb8861ee535f012c39ce85126a6e6987b245585883bb591390360f48def34d7');
+
+  $.jribbble.users('johnchourajr').shots({per_page: 14}).then(function(shots) {
+    var html = [];
+
+    shots.forEach(function(shot) {
+      html.push('<span class="shots--shot">');
+      html.push('<a href="' + shot.html_url + '" target="_blank">');
+      html.push('<img src="' + shot.images.hidpi + '">');
+      html.push('</a></span>');
+    });
+
+    $('.shots').html(html.join(''));
+  });
+</script>
