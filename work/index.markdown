@@ -40,7 +40,6 @@ clients:
 projects:
 - name: So. Cal. Craft Coffee
   link: http://socal.coffee
-
 ---
 
 {% include globals/page-header.html %}
