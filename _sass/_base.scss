@@ -16,13 +16,15 @@ dl, dd, ol, ul, figure {
  */
 html {
   font-size: $base-font-size;
+  background-color: $fill-black;
 }
 
 body {
   font-size: 90%;
   font-family: $base-font-family;
   color: $text-black;
-  background-color: #fff;
+  // background-color: #fff;
+  background-color: rgb(238, 238, 238);
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;

@@ -8,7 +8,7 @@ headline: Journal
 
 {% include globals/page-header.html %}
 
-<section class="page-body md-pt6">
+<section class="page-body">
   <div class="post-content wrapper xs-mt3">
       <div class="xs-block gutters">
         {% for post in site.journal reversed %}

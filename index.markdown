@@ -7,7 +7,7 @@ contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%2
 ---
 
 <div class="txt-big"></div>
-<section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="rgba(255,255,255,1)">
+<section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="rgb(238, 238, 238)">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
         <h1 class="display-1 text-black">
@@ -30,6 +30,6 @@ contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%2
       </div>
   </div>
 </section>
-<section class="slide" data-background="rgba(255,255,255,1)">
+<section class="slide" data-background="rgb(238, 238, 238)">
   {% include home/most-recent-post.html %}
 </section>
