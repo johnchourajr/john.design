@@ -44,7 +44,7 @@ layout: default
         <h1>Acknowledgements</h1>
           {% for item in page.other %}
             <h2 class="text-black">
-              {{ item }}
+              {{ item | markdownify }}
             </h2>
           {% endfor %}
       </div>
