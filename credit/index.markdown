@@ -21,8 +21,7 @@ other:
 - I design and build my personal website to reflect on myself and my work. I change
   it all the time, just because I want to.
 - I like to write reflections and life notes in my Journal, even if no one reads them.
-- "Some of the Gif's on the homepage aren't made by me, I just like them \U0001F642.
-  Please send your cease and desist [here](mailto:hi@john.design)."
+- "Some of the Gif's on the homepage aren't made by me, I just like them \U0001F642."
 - "Lastly, special shoutout to emoji's, I even used them when writing some code \U0001F918."
 layout: default
 ---
