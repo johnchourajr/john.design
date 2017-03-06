@@ -8,7 +8,7 @@ technical:
 - Domains with [Google Domains](https://domains.google/#/)
 - Code Managed with [GitHub](https://github.com/) [(View)](https://github.com/johnchourajr/john.design)
 - Built with [Jekyll](https://jekyllrb.com/)
-- Content Manage with [Siteleaf](https://www.siteleaf.com/)
+- Content Managed with [Siteleaf](https://www.siteleaf.com/)
 - Written on [Atom](https://atom.io/)
 - CSS Framework with [Solid CSS by Buzzfeed](http://solid.buzzfeed.com/)
 - Web Tech [Liquid](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers),
