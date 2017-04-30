@@ -1,10 +1,13 @@
 ---
 title: Work
-layout: default
 header: white
 weight: 2
 headline: Work
 clients:
+- name: Payoff, Inc.
+  role: Product Design Lead
+  link: http://payoff.com
+  year: 2017
 - name: Arcade Coffee Roasters
   role: Brand/Identity Design
   link: http://arcadecoffeeroasters.com
@@ -40,6 +43,7 @@ clients:
 projects:
 - name: So. Cal. Craft Coffee
   link: http://socal.coffee
+layout: default
 ---
 
 {% include globals/page-header.html %}
@@ -61,7 +65,7 @@ projects:
       <div class="xs-block gutters">
         <div class="col xs-col-12 xs-mb4">
           <div class="xs-col-12 xs-overflow-hidden line-span">
-            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Client List</h4>
+            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Select Projects</h4>
           </div>
         </div>
         {% for item in page.clients %}
