@@ -4,9 +4,9 @@ header: white
 weight: 2
 headline: Work
 clients:
-- name: Payoff, Inc.
+- name: Joy App
   role: Product Design Lead
-  link: http://payoff.com
+  link: http://findjoy.com/
   year: 2017
 - name: Arcade Coffee Roasters
   role: Contract Brand/Identity Design
@@ -20,24 +20,20 @@ clients:
   role: Creative/Tech Director
   link: http://grandfandb.com
   year: 2016
-- name: 'Envoy '
-  role: Designer
-  link: http://weareenvoy.com
-  year: 2015
 - name: Amazing Grass
-  role: Logo/Packaging Design (at Envoy)
+  role: Logo/Packaging Design
   link: http://amazinggrass.com
   year: 2015
 - name: Vizio
-  role: Product Designer (at Envoy)
+  role: Product Designer
   link: http://vizio.com
   year: 2015
 - name: Kareo
-  role: Art Director (at Envoy)
+  role: Art Director
   link: http://kareo.com
   year: 2015
 - name: Blossom
-  role: Designer (at Envoy)
+  role: 'Brand Designer '
   link: http://getblossom.com
   year: 2015
 - name: Biola University
