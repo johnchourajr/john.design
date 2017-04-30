@@ -9,31 +9,35 @@ clients:
   link: http://payoff.com
   year: 2017
 - name: Arcade Coffee Roasters
-  role: Brand/Identity Design
+  role: Contract Brand/Identity Design
   link: http://arcadecoffeeroasters.com
   year: 2017
 - name: Steelhead Coffee
-  role: Graphic Designer
+  role: Contract Graphic Designer
   link: http://steelheadcoffee.com/
   year: 2016
 - name: Grand Food & Beverage
   role: Creative/Tech Director
   link: http://grandfandb.com
   year: 2016
+- name: 'Envoy '
+  role: Designer
+  link: http://weareenvoy.com
+  year: 2015
 - name: Amazing Grass
-  role: Logo/Packaging Design
+  role: Logo/Packaging Design (at Envoy)
   link: http://amazinggrass.com
   year: 2015
 - name: Vizio
-  role: Product Designer
+  role: Product Designer (at Envoy)
   link: http://vizio.com
   year: 2015
 - name: Kareo
-  role: Art Director
+  role: Art Director (at Envoy)
   link: http://kareo.com
   year: 2015
 - name: Blossom
-  role: Designer
+  role: Designer (at Envoy)
   link: http://getblossom.com
   year: 2015
 - name: Biola University
