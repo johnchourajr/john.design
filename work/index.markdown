@@ -4,7 +4,7 @@ header: white
 weight: 2
 headline: Work
 clients:
-- name: Joy App
+- name: Joy
   role: Product Design Lead
   link: http://findjoy.com/
   year: 2017
