@@ -69,7 +69,7 @@ layout: default
           </div>
         </div>
         {% for item in page.clients %}
-          <div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block">
+          <div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block client-col">
             <h2 class="xs-mb2 xs-pr6"><a href="{{item.link}}">{{item.name}}</a></h2>
             <h4 class="-xs-pr6">{{item.role}}</h4>
           </div>

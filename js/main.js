@@ -1,22 +1,5 @@
 console.log('WTF you looking at?');
 
-// ---------------
-// smoothState Init
-// ---------------
-
-// $(function(){
-//   var $page = $('#doc'),
-//     options = {
-//       debug: false,
-//       prefetch: true,
-//       prefetchOn: 'intent',
-//       cacheLength: 0,
-//       loadingClass: 'is-loading',
-//       blacklist: '.slide',
-//     },
-//     smoothState = $page.smoothState(options).data('smoothState');
-// });
-
 
 // ---------------
 // External Link Click
@@ -132,25 +115,41 @@ function(){
 // ---------------
 // Hide/Show Footer
 // ---------------
-$(document).ready(function() {
-  let body = $('body').height();
-  let footer = ($('footer').height() * 1.75)
-  let bodyDiff = body - footer;
-  console.log('body height = ' + body);
-  console.log('footer height = ' + footer);
-  console.log('body - footer = ' + bodyDiff);
-  if($(window).width() >= 832) {
+function showHideFooter() {
+
+  let docHeight = $(document).height();
+  let windowWidth = $(window).width();
+  let footer = $('footer').height();
+  let delta = docHeight - (footer/2);
+  let scrollBottom = $(window).scrollTop() + $(window).height()
+
+  if (windowWidth >= 832) {
     $(document).scroll(function () {
-      let y = $(this).scrollTop();
-      if (y > bodyDiff) {
-        $('footer').fadeIn();
+      docHeight = $(document).height();
+      footer = $('footer').height();
+      delta = docHeight - (footer/2);
+      scrollBottom = $(window).scrollTop() + $(window).height()
+
+      // FOR DEBUGGING
+      // console.log('docHeight height = ' + docHeight);
+      // console.log('footer height = ' + footer);
+      // console.log('delta = ' + delta);
+      // console.log('scrollBottom = ' + scrollBottom);
+
+      if (scrollBottom > delta) {
+        $( "footer" ).removeClass( "hidden" )
       } else {
-        $('footer').fadeOut();
+        $( "footer" ).addClass( "hidden" )
       }
     });
   }
-  $(window).resize();
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  showHideFooter();
 });
+
+// window.setInterval(showHideFooter(), 10000);
 
 
 

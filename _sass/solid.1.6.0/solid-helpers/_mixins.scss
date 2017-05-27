@@ -11,11 +11,12 @@
 // all of the breakpoint names and values
 // we may use this a lot, keep them somwhere safe
 $breakpoints: (
-  xs: null,
-  sm: 40rem,
-  md: 52rem,
-  lg: 64rem,
-  xl: 76rem,
+  xs:  null,
+  sm:  40rem,
+  md:  52rem,
+  lg:  64rem,
+  xl:  76rem,
+  xxl: 88rem,
 );
 
 // returns the apropriate media query

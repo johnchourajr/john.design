@@ -8,7 +8,7 @@
   z-index: 1;
   padding-bottom: $space-md;
   overflow-x: hidden;
-  box-shadow: 0 5px 0px $fill-black;
+  // box-shadow: 0 5px 0px $fill-black;
   transition: all .5s $easeOutCubic;
 
   @include media-query(md) {
@@ -107,6 +107,12 @@ footer {
   bottom: 0;
   z-index: -1;
   background-color: $fill-black;
+  transition: all .4s $easeOutCubic;
+
+  &.hidden {
+    opacity: 0;
+    transition: opacity .4s $easeOutCubic;
+  }
 
   @include media-query(md) {
     position: fixed;
@@ -498,4 +504,8 @@ ul li h4 p {
       width: $grid*3.6666666666;
     }
   }
+}
+
+.client-col {
+  height: 8em;
 }
