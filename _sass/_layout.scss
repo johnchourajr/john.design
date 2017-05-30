@@ -109,13 +109,15 @@ footer {
   background-color: $fill-black;
   transition: all .4s $easeOutCubic;
 
-  &.hidden {
-    opacity: 0;
-    transition: opacity .4s $easeOutCubic;
-  }
+
 
   @include media-query(md) {
     position: fixed;
+
+    &.hidden {
+      opacity: 0;
+      transition: opacity .4s $easeOutCubic;
+    }
   }
 
   a:hover {
