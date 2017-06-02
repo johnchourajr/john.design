@@ -23,6 +23,7 @@ defaults:
   values:
     author: John Choura Jr.
     layout: journal
+baseurl: http://john.design
 email: hi@john.design
 twitter: http://twitter.com/johnchourajr
 dribbble: http://dribbble.com/johnchourajr
