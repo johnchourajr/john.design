@@ -149,9 +149,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   showHideFooter();
 });
 
-// window.setInterval(showHideFooter(), 10000);
-
-
 
 // Hide Header on on scroll down
 var didScroll;
