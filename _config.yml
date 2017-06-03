@@ -1,6 +1,5 @@
 ---
 title: John Choura Jr.
-description: The Design Work & Journal of John Choura Jr.
 timezone: UTC
 collections:
   journal:
@@ -24,6 +23,7 @@ defaults:
     author: John Choura Jr.
     layout: journal
 url: http://john.design
+description: The Design Work & Journal of John Choura Jr.
 email: hi@john.design
 twitter: http://twitter.com/johnchourajr
 dribbble: http://dribbble.com/johnchourajr
