@@ -64,7 +64,7 @@ h3, h4, h5, h6 {
 .display {
 
   &-1 {
-    font-size: ($display-1 * .5);
+    font-size: ($display-1 * .525);
     line-height: $line-height-1;
     letter-spacing: -.025em;
     @include media-query(sm) {

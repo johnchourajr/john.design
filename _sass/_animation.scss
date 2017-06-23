@@ -31,7 +31,14 @@ a {
   body.#{$name}, body.#{$name} .doc {background-color: $colorbkg !important; color: $color !important;}
   body.#{$name} .logo-black #logo {fill: $color !important;}
   body.#{$name} a {color: $color !important;}
-  .txt-big.#{$name} {opacity: 1; height: 100vh; background-image: url('/img/home/#{$img}.gif'); mix-blend-mode: $blend;}
+  .txt-big.#{$name} {
+    opacity: 1;
+    height: 100vh;
+    @if $img == null {} @else {
+      background-image: url('/img/home/#{$img}.gif');
+    }
+    mix-blend-mode: $blend;
+  }
 }
 
 @include home-hover(😁, #00ff12, black, design, screen);
@@ -40,8 +47,8 @@ a {
 @include home-hover(☕️, blue, aqua, coffee, screen);
 @include home-hover(☀️, white, yellow, lbc, multiply);
 
-@include home-hover(👋, black, white, foo, none);
-@include home-hover(twitter, white, $text-twitter, foo, none);
-@include home-hover(dribbble, white, $text-dribbble, foo, none);
-@include home-hover(instagram, white, $text-instagram, foo, none);
-@include home-hover(github, white, gray, foo, none);
+@include home-hover(👋, black, white, null, none);
+@include home-hover(twitter, white, $text-twitter, null, none);
+@include home-hover(dribbble, white, $text-dribbble, null, none);
+@include home-hover(instagram, white, $text-instagram, null, none);
+@include home-hover(github, white, gray, null, none);
