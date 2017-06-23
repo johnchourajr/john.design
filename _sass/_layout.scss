@@ -27,22 +27,40 @@
 
 .nav-down {
   .nav-items {
-    opacity: 1,
+    opacity: 1;
   }
 
 }
 .nav-up {
+  margin-top: -6rem;
+  transition: margin-top .5s $easeOutCubic;
+
+  @include media-query(sm) {
+    margin-top: 0;
+  }
+
   .nav-items {
-    opacity: 0,
+    opacity: 0;
+  }
+
+  .logo {
+    opacity: 0;
+    transition: opacity .5s $easeOutCubic;
+
+    @include media-query(sm) {
+      opacity: 1;
+    }
   }
 }
 .nav-max {
+  transition: all .5s $easeOutCubic;
   padding-top: $space-sm;
   @include media-query(md) {
     padding-top: $space-md;
   }
 }
 .nav-min {
+  transition: all .5s $easeOutCubic;
   padding-top: ($space-sm * .5);
   @include media-query(md) {
     padding-top: ($space-sm * 1);

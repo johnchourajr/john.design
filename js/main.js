@@ -27,7 +27,7 @@ $('a[href*=#]:not([href=#])').click(function() {
 });
 
 $(document).ready(function() {
-   $(window).resize();
+  $(window).resize();
 });
 
 
@@ -56,12 +56,12 @@ $(document).ready(function(){
     low = 0;
     high = nums.length -1;
     while(low <= high){
-        mid = parseInt((low + high) >> 1);
-        if(key <= nums[mid]){
-            high = mid - 1;
-        }else {
-            low = mid +1;
-        }
+      mid = parseInt((low + high) >> 1);
+      if(key <= nums[mid]){
+        high = mid - 1;
+      } else {
+        low = mid +1;
+      }
     }
     return high;
   }
@@ -124,7 +124,7 @@ function showHideFooter() {
   let scrollBottom = $(window).scrollTop() + $(window).height()
 
   if (windowWidth >= 832) {
-    $(document).scroll(function () {
+    $(window).scroll(function () {
       docHeight = $(document).height();
       footer = $('footer').height();
       delta = docHeight - (footer/2);
@@ -162,46 +162,46 @@ $(window).scroll(function(event){
 });
 
 setInterval(function() {
-    if (didScroll) {
-        hasScrolled();
-        didScroll = false;
-    }
+  if (didScroll) {
+    hasScrolled();
+    didScroll = false;
+  }
 }, 250);
 
 function hasScrolled() {
-    var st = $(this).scrollTop();
+  var st = $(this).scrollTop();
 
-    // Make sure they scroll more than delta
-    if(Math.abs(lastScrollTop - st) <= delta)
-        return;
+  // Make sure they scroll more than delta
+  if(Math.abs(lastScrollTop - st) <= delta)
+    return;
 
-    // If they scrolled down and are past the navbar, add class .nav-up.
-    // This is necessary so you never see what is "behind" the navbar.
-    if (st > lastScrollTop && st > navbarHeight){
-        // Scroll Down
-        $('nav').removeClass('nav-down').addClass('nav-up');
-        $('.sort-header').removeClass('sort-header__init').addClass('sort-header__move');
-    } else {
-        // Scroll Up
-        if(st + $(window).height() < $(document).height()) {
-            $('nav').removeClass('nav-up').addClass('nav-down');
-            $('.sort-header').removeClass('sort-header__move').addClass('sort-header__init');
-        }
+  // If they scrolled down and are past the navbar, add class .nav-up.
+  // This is necessary so you never see what is "behind" the navbar.
+  if (st > lastScrollTop && st > navbarHeight){
+    // Scroll Down
+    $('nav').removeClass('nav-down').addClass('nav-up');
+    $('.sort-header').removeClass('sort-header__init').addClass('sort-header__move');
+  } else {
+    // Scroll Up
+    if(st + $(window).height() < $(document).height()) {
+      $('nav').removeClass('nav-up').addClass('nav-down');
+      $('.sort-header').removeClass('sort-header__move').addClass('sort-header__init');
     }
+  }
 
-    lastScrollTop = st;
+  lastScrollTop = st;
 }
 
 $(function() {
-    //caches a jQuery object containing the header element
-    var header = $("nav");
-    $(window).scroll(function() {
-        var scroll = $(window).scrollTop();
+  //caches a jQuery object containing the header element
+  var header = $("nav");
+  $(window).scroll(function() {
+    var scroll = $(window).scrollTop();
 
-        if (scroll >= navbarHeight) {
-            header.removeClass('nav-max').addClass("nav-min");
-        } else {
-            header.removeClass("nav-min").addClass('nav-max');
-        }
-    });
+    if (scroll >= navbarHeight) {
+      header.removeClass('nav-max').addClass("nav-min");
+    } else {
+      header.removeClass("nav-min").addClass('nav-max');
+    }
+  });
 });
