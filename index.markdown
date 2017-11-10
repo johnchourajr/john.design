@@ -1,9 +1,9 @@
 ---
 title: Info
-layout: default
 header: white
 order: 1
 contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%20website%20and%20wanted%20to%20say%20hello%21
+layout: default
 ---
 
 <div class="txt-big"></div>
@@ -19,7 +19,7 @@ contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%2
 <section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(236,255,254,1)">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
-        <h1 class="display-1 text-black">Currently Product Design Lead at Payoff. Adjunct Professor of Design at Biola University. <del>Previously at Envoy, Signal, and Biola.</del></h1>
+        <h1 class="display-1 text-black">Currently Directing Product Design at Happy Money. Adjunct Professor of Design at Biola University. <del>Previously at Envoy, Signal, and Biola.</del></h1>
       </div>
   </div>
 </section>
