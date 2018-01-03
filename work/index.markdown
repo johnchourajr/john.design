@@ -4,10 +4,10 @@ header: white
 weight: 2
 headline: Work
 clients:
-- name: Joy App
+- name: Joy Money App
   role: Product Design Lead
   link: http://findjoy.com/
-  year: 2017
+  year: 2017-Present
 - name: Arcade Coffee Roasters
   role: Contract Brand/Identity Design
   link: http://arcadecoffeeroasters.com
