@@ -16,14 +16,41 @@
 }
 
 a {
-  transition: color .2s $easeOutCubic, opacity .2s $easeOutCubic, background-color .2s $easeOutCubic;
+  transition: color .5s $easeOutCubic, opacity .5s $easeOutCubic, background-color .5s $easeOutCubic;
 }
+
+a.txt {
+  position: relative;
+  transition: color .4s $easeOutCubic,;
+
+  &:hover {
+    text-decoration-line: none;
+
+    &:after {
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    background-color: transparent !important;
+    top: 0.1em;
+    right: -0.12em;
+    bottom: 0.025em;
+    left: -0.12em;
+    z-index: -1;
+    border-radius: .1rem;
+    transition: background-color .5s $easeOutCubic;
+  }
+}
+
+
 
 
 
 // 😁 Designer
 // 😬 Developer
-// 😵 Maker
+// 😵 Artist
 // ☕️ Coffee
 // ☀️ Long Beach
 
@@ -31,21 +58,33 @@ a {
   body.#{$name}, body.#{$name} .doc {background-color: $colorbkg !important; color: $color !important;}
   body.#{$name} .logo-black #logo {fill: $color !important;}
   body.#{$name} a {color: $color !important;}
+  body.#{$name} a.txt {
+
+    &:hover {
+      color: $colorbkg !important;
+
+      &:after {
+        background-color: $color !important;
+      }
+    }
+
+
+  }
   .txt-big.#{$name} {
     opacity: 1;
     height: 100vh;
     @if $img == null {} @else {
-      background-image: url('/img/home/#{$img}.gif');
+      background-image: url('/img/home/#{$img}');
     }
     mix-blend-mode: $blend;
   }
 }
 
-@include home-hover(😁, #00ff12, black, design, screen);
-@include home-hover(😬, black, #00ff12, dev, screen);
-@include home-hover(😵, red, white, maker, screen);
-@include home-hover(☕️, blue, aqua, coffee, screen);
-@include home-hover(☀️, white, yellow, lbc, multiply);
+@include home-hover(😁, #1C5CFF, #E0BABA, 'design.gif', none);
+@include home-hover(😬, #000000, #80FF00, 'dev.gif', none);
+@include home-hover(😵, #EB5757, #C2FFE2, 'artist.gif', none);
+@include home-hover(☕️, #BAC0E0, #1C5CFF, 'coffee.gif', none);
+@include home-hover(☀️, #F5F37B, #3E3EFA, 'lbc.gif', none);
 
 @include home-hover(👋, black, white, null, none);
 @include home-hover(twitter, white, $text-twitter, null, none);
