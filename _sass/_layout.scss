@@ -112,11 +112,11 @@ nav {
 
   &-white #logo {
     fill: #fff;
-    transition: all .5s $easeOutCubic;
+    transition: all .3s $easeOutCubic;
   }
   &-black #logo {
     fill: #000;
-    transition: all .5s $easeOutCubic;
+    transition: all .3s $easeOutCubic;
   }
 }
 
@@ -125,7 +125,7 @@ footer {
   bottom: 0;
   z-index: -1;
   background-color: $fill-black;
-  transition: all .4s $easeOutCubic;
+  transition: all .3s $easeOutCubic;
 
 
 
@@ -134,7 +134,7 @@ footer {
 
     &.hidden {
       opacity: 0;
-      transition: opacity .4s $easeOutCubic;
+      transition: opacity .3s $easeOutCubic;
     }
   }
 
@@ -233,7 +233,7 @@ footer {
 
 .designer {
   cursor: pointer;
-  transition: color .2s $easeOutCubic;
+  transition: color .3s $easeOutCubic;
   position: relative;
 
   &:hover {
@@ -263,7 +263,7 @@ footer {
     height: .1em;
     width: 0;
     background: transparent;
-    transition: all .2s $easeOutCubic;
+    transition: all .3s $easeOutCubic;
   }
 
   &.active {
@@ -275,7 +275,7 @@ footer {
     &:after {
       width: calc(100% - 1em);
       background: #fff;
-      transition: all .2s $easeOutCubic;
+      transition: all .3s $easeOutCubic;
     }
   }
 }

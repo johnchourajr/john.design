@@ -81,7 +81,7 @@ layout: default
 <script type="text/javascript">
   $.jribbble.setToken('ddb8861ee535f012c39ce85126a6e6987b245585883bb591390360f48def34d7');
 
-  $.jribbble.users('johnchourajr').shots({per_page: 14}).then(function(shots) {
+  $.jribbble.users('johnchourajr').shots({per_page: 16}).then(function(shots) {
     var html = [];
 
     shots.forEach(function(shot) {
