@@ -24,7 +24,8 @@
   <link rel="icon" type="image/png" href="/img/favicon.ico"/>
   <meta name="theme-color" content="#e55033">
 
-  <title>{{site.title}} > {{page.title}}</title>
+
+  <title>{% if page.title == 'Info' %}{{site.title}} Design{% else %}{{site.title}} Design > {{page.title}}{% endif %}</title>
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@JohnChouraJr">
