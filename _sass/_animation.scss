@@ -1,3 +1,7 @@
+// body {
+//   transition: color .1s $easeOutCubic, opacity .1s $easeOutCubic, background-color .1s $easeOutCubic;
+// }
+
 .tog-show {
   display: block;
 }
@@ -10,38 +14,51 @@
   opacity: 0;
   width: 100vw;
   position: fixed;
-  transition: opacity .5s $easeOutCubic;
+  transition: opacity .4s $easeOutCubic;
   background-size: cover;
   background-position: center center;
 }
 
 a {
-  transition: color .5s $easeOutCubic, opacity .5s $easeOutCubic, background-color .5s $easeOutCubic;
+  transition: color .4s $easeOutCubic, opacity .4s $easeOutCubic, background-color .4s $easeOutCubic;
+
+  &:after {
+    transition: color .4s $easeOutCubic, opacity .4s $easeOutCubic, background-color .4s $easeOutCubic;
+  }
 }
 
 a.txt {
   position: relative;
-  transition: color .4s $easeOutCubic,;
+  transition: color .4s $easeOutCubic;
+  // text-decoration-line: none;
 
   &:hover {
-    text-decoration-line: none;
+    // text-decoration-line: none;
 
-    &:after {
-    }
+    // &:after {
+    //   background-color: transparent !important;
+    //   top: 0.1em;
+    //   right: -0.11em;
+    //   bottom: 0.025em;
+    //   left: -0.09em;
+    //   z-index: -1;
+    //   border-radius: .1rem;
+    //   transition: background-color .4s $easeOutCubic;
+    // }
   }
 
-  &:after {
-    content: "";
-    position: absolute;
-    background-color: transparent !important;
-    top: 0.1em;
-    right: -0.12em;
-    bottom: 0.025em;
-    left: -0.12em;
-    z-index: -1;
-    border-radius: .1rem;
-    transition: background-color .5s $easeOutCubic;
-  }
+  // &:after {
+  //   content: "";
+  //   position: absolute;
+  //   background-color: $fill-black;
+  //   top: 1.05em;
+  //   right: 0;
+  //   bottom: 0.025em;
+  //   left: 0;
+  //   z-index: -1;
+  //   border-radius: .1rem;
+  //   transition: background-color .2s $easeOutCubic;
+  // }
 }
 
 
@@ -59,16 +76,8 @@ a.txt {
   body.#{$name} .logo-black #logo {fill: $color !important;}
   body.#{$name} a {color: $color !important;}
   body.#{$name} a.txt {
-
-    &:hover {
-      color: $colorbkg !important;
-
-      &:after {
-        background-color: $color !important;
-      }
-    }
-
-
+    &:hover { color: $color !important; }
+    // &:after { background-color: $color !important; }
   }
   .txt-big.#{$name} {
     opacity: 1;
