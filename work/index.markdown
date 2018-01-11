@@ -1,6 +1,5 @@
 ---
 title: Work
-layout: default
 header: white
 weight: 2
 headline: Work
@@ -58,6 +57,7 @@ projects:
   year: 2015
   link: http://socal.coffee
   img: hero-agoodpair.jpg
+layout: default
 ---
 
 {% include globals/page-header.html %}
