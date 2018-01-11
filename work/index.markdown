@@ -55,7 +55,7 @@ projects:
 - name: A Good Pair
   desc: A Husband and Wife's curated journal of complementary food and drink pairings.
   year: 2015
-  link: http://socal.coffee
+  link: http://agoodpair.com
   img: hero-agoodpair.jpg
 layout: default
 ---
