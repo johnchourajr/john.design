@@ -43,7 +43,8 @@ clients:
   year: 2014
 projects:
 - name: Fart Sounds Podcast
-  desc: A fun little podcast by John Choura Jr. where people talk about their favorite fart sounds.
+  desc: A fun little podcast by John Choura Jr. where people talk about their favorite
+    fart sounds.
   year: 2017
   link: http://fartsounds.show
   img: fartsounds.png
