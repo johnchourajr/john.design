@@ -1,5 +1,6 @@
 ---
 title: Work
+layout: default
 header: white
 weight: 2
 headline: Work
@@ -41,9 +42,21 @@ clients:
   link: http://biola.edu
   year: 2014
 projects:
+- name: Fart Sounds Podcast
+  desc: A fun little podcast by John Choura Jr. where people talk about their favorite fart sounds.
+  year: 2017
+  link: http://fartsounds.show
+  img: fartsounds.png
 - name: So. Cal. Craft Coffee
+  desc: A hand selected list of the best craft coffee in Southern California.
+  year: 2016
   link: http://socal.coffee
-layout: default
+  img: socalcoffee.png
+- name: A Good Pair
+  desc: A Husband and Wife's curated journal of complementary food and drink pairings.
+  year: 2015
+  link: http://socal.coffee
+  img: hero-agoodpair.jpg
 ---
 
 {% include globals/page-header.html %}
@@ -72,6 +85,27 @@ layout: default
           <div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block client-col">
             <h2 class="xs-mb2 xs-pr6"><a href="{{item.link}}">{{item.name}}</a></h2>
             <h4 class="-xs-pr6">{{item.role}}</h4>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+</section>
+
+<section class="page-body">
+  <div class="post-content wrapper xs-mt3">
+      <div class="xs-block gutters">
+        <div class="col xs-col-12 xs-mb4">
+          <div class="xs-col-12 xs-overflow-hidden line-span">
+            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Personal Projects</h4>
+          </div>
+        </div>
+        {% for item in page.projects %}
+          <div class="col xs-col-12 xs-mb4 xs-mt3 xs-block ">
+            <div class="md-col-6">
+              <h6>{{item.year}}</h6>
+              <h2 class="xs-mb2 xs-pr6"><a href="{{item.link}}">{{item.name}}</a></h2>
+              <p >{{item.desc}}</p>
+            </div>
           </div>
         {% endfor %}
       </div>
