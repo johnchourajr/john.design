@@ -56,7 +56,7 @@ projects:
   desc: A Husband and Wife's curated journal of complementary food and drink pairings.
   year: 2015
   link: http://agoodpair.com
-  img: hero-agoodpair.jpg
+  img: agoodpair-hero.jpg
 layout: default
 ---
 
@@ -101,11 +101,14 @@ layout: default
           </div>
         </div>
         {% for item in page.projects %}
-          <div class="col xs-col-12 xs-mb4 xs-mt3 xs-block ">
-            <div class="md-col-6">
+          <div class="col xs-col-12 xs-mb4 xs-mt6 xs-block ">
+            <div>
               <h6>{{item.year}}</h6>
-              <h2 class="xs-mb2 xs-pr6"><a href="{{item.link}}">{{item.name}}</a></h2>
-              <p >{{item.desc}}</p>
+              <div class="col md-col-6 lg-col-5 xs-mb3 xs-pr6">
+                <h2 class="xs-mb2"><a href="{{item.link}}">{{item.name}}</a></h2>
+                <h5><a href="{{item.link}}">Visit Site</a></h5>
+              </div>
+              <p class="col md-col-5 lg-col-5 xs-pb2">{{item.desc}}</p>
               <img src="uploads/{{item.img}}" />
             </div>
           </div>
