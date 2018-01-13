@@ -46,12 +46,12 @@ projects:
   desc: A fun little podcast by John Choura Jr. where people talk about their favorite fart sounds.
   year: 2017
   link: http://fartsounds.show
-  img: fartsounds.png
+  img: fartsounds-hero.jpg
 - name: So. Cal. Craft Coffee
   desc: A hand selected list of the best craft coffee in Southern California.
   year: 2016
   link: http://socal.coffee
-  img: socalcoffee.png
+  img: socalcoffee-hero.jpg
 - name: A Good Pair
   desc: A Husband and Wife's curated journal of complementary food and drink pairings.
   year: 2015
@@ -105,6 +105,7 @@ projects:
               <h6>{{item.year}}</h6>
               <h2 class="xs-mb2 xs-pr6"><a href="{{item.link}}">{{item.name}}</a></h2>
               <p >{{item.desc}}</p>
+              <img src="uploads/{{item.img}}" />
             </div>
           </div>
         {% endfor %}
