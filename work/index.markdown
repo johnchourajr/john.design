@@ -1,6 +1,5 @@
 ---
 title: Work
-layout: default
 header: white
 weight: 2
 headline: Work
@@ -43,7 +42,8 @@ clients:
   year: 2014
 projects:
 - name: Fart Sounds Podcast
-  desc: A fun little podcast by John Choura Jr. where people talk about their favorite fart sounds.
+  desc: A fun little podcast by John Choura Jr. where people talk about their favorite
+    fart sounds.
   year: 2017
   link: http://fartsounds.show
   img: fartsounds-hero.jpg
@@ -55,8 +55,9 @@ projects:
 - name: A Good Pair
   desc: A Husband and Wife's curated journal of complementary food and drink pairings.
   year: 2015
-  link: http://socal.coffee
+  link: http://agoodpair.com
   img: hero-agoodpair.jpg
+layout: default
 ---
 
 {% include globals/page-header.html %}
