@@ -47,18 +47,23 @@ projects:
   year: 2017
   link: http://fartsounds.show
   img: fartsounds-hero.jpg
+  data: fartsounds
 - name: So. Cal. Craft Coffee
   desc: A hand selected list of the best craft coffee in Southern California.
   year: 2016
   link: http://socal.coffee
   img: socalcoffee-hero.jpg
+  data: socalcoffee
 - name: A Good Pair
   desc: A Husband and Wife's curated journal of complementary food and drink pairings.
   year: 2015
   link: http://agoodpair.com
   img: agoodpair-hero.jpg
+  data: agoodpair
 layout: default
 ---
+
+<div class="txt-big"></div>
 
 {% include globals/page-header.html %}
 
@@ -101,15 +106,14 @@ layout: default
           </div>
         </div>
         {% for item in page.projects %}
-          <div class="col xs-col-12 xs-mb4 xs-mt6 xs-block ">
-            <div>
+          <div class="col xs-col-12 xs-mb3 xs-mt6 xs-block ">
+            <div class="">
               <h6>{{item.year}}</h6>
-              <div class="col md-col-6 lg-col-5 xs-mb3 xs-pr6">
+              <div class="col md-col-6 lg-col-5 xs-mb3 xs-pr6 txt" data-txt="{{item.data}}">
                 <h2 class="xs-mb2"><a href="{{item.link}}">{{item.name}}</a></h2>
                 <h5><a href="{{item.link}}">Visit Site</a></h5>
               </div>
               <p class="col md-col-5 lg-col-5 xs-pb2">{{item.desc}}</p>
-              <img src="uploads/{{item.img}}" />
             </div>
           </div>
         {% endfor %}
