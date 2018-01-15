@@ -30,46 +30,13 @@ a {
 a.txt {
   position: relative;
   transition: color .4s $easeOutCubic;
-  // text-decoration-line: none;
-
-  &:hover {
-    // text-decoration-line: none;
-
-    // &:after {
-    //   background-color: transparent !important;
-    //   top: 0.1em;
-    //   right: -0.11em;
-    //   bottom: 0.025em;
-    //   left: -0.09em;
-    //   z-index: -1;
-    //   border-radius: .1rem;
-    //   transition: background-color .4s $easeOutCubic;
-    // }
-  }
-
-  // &:after {
-  //   content: "";
-  //   position: absolute;
-  //   background-color: $fill-black;
-  //   top: 1.05em;
-  //   right: 0;
-  //   bottom: 0.025em;
-  //   left: 0;
-  //   z-index: -1;
-  //   border-radius: .1rem;
-  //   transition: background-color .2s $easeOutCubic;
-  // }
 }
 
 
 
 
 
-// 😁 Designer
-// 😬 Developer
-// 😵 Artist
-// ☕️ Coffee
-// ☀️ Long Beach
+
 
 @mixin home-hover($name, $colorbkg, $color, $img, $blend) {
   body.#{$name}, body.#{$name} .doc {background-color: $colorbkg !important; color: $color !important;}
@@ -83,20 +50,31 @@ a.txt {
     opacity: 1;
     height: 100vh;
     @if $img == null {} @else {
-      background-image: url('/img/home/#{$img}');
+      background-image: url('#{$img}');
     }
     mix-blend-mode: $blend;
   }
 }
 
-@include home-hover(😁, #1C5CFF, #E0BABA, 'design.gif', none);
-@include home-hover(😬, #000000, #80FF00, 'dev.gif', none);
-@include home-hover(😵, #EB5757, #C2FFE2, 'artist.gif', none);
-@include home-hover(☕️, #BAC0E0, #1C5CFF, 'coffee.gif', none);
-@include home-hover(☀️, #F5F37B, #3E3EFA, 'lbc.gif', none);
+// 😁 Designer
+// 😬 Developer
+// 😵 Artist
+// ☕️ Coffee
+// ☀️ Long Beach
+
+@include home-hover(😁, #1C5CFF, #E0BABA, '/img/home/design.gif', none);
+@include home-hover(😬, #000000, #80FF00, '/img/home/dev.gif', none);
+@include home-hover(😵, #EB5757, #C2FFE2, '/img/home/artist.gif', none);
+@include home-hover(☕️, #BAC0E0, #1C5CFF, '/img/home/coffee.gif', none);
+@include home-hover(☀️, #F5F37B, #3E3EFA, '/img/home/lbc.gif', none);
+
+// 👋 Email
 
 @include home-hover(👋, black, white, null, none);
 @include home-hover(twitter, white, $text-twitter, null, none);
 @include home-hover(dribbble, white, $text-dribbble, null, none);
 @include home-hover(instagram, white, $text-instagram, null, none);
 @include home-hover(github, white, gray, null, none);
+@include home-hover(agoodpair, white, black, '/img/work/agoodpair-hero.jpg', none);
+@include home-hover(socalcoffee, #E2FFFB, black, '/img/work/socalcoffee-hero.jpg', none);
+@include home-hover(fartsounds, #FFFFEC, black, '/img/work/fartsounds-hero.jpg', none);
