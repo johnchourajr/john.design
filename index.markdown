@@ -19,7 +19,7 @@ layout: default
 <section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(236,255,254,1)">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
-        <h1 class="display-1 text-black">Currently Leading Product Design at Happy Money. Occasional Adjunct Deisgn Professor at Biola University. <del>Previously at Envoy, Signal, and Biola.</del></h1>
+        <h1 class="display-1 text-black">Currently Leading Product Design at Happy Money. Occasional Adjunct Design Professor at Biola University. <del>Previously at Envoy, Signal, and Biola.</del></h1>
       </div>
   </div>
 </section>
