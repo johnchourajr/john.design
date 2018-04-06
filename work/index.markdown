@@ -72,6 +72,10 @@ layout: default
       <div class="xs-block gutters">
           <div class="col xs-col-12">
             <h4 class="xs-mt3 xs-mb2 xs-pr1 xs-inline-block">Recent Work</h4>
+
+<div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block client-col">
+            <h2 class="xs-mb2 xs-pr6"><a href="https://dribbble.com/johnchourajr">View on Dribbble</a></h2>
+          </div>
           </div>
       </div>
   </div>
