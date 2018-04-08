@@ -63,7 +63,6 @@ projects:
 layout: default
 ---
 
-<div class="txt-big"></div>
 
 {% include globals/page-header.html %}
 
@@ -72,9 +71,6 @@ layout: default
       <div class="xs-block gutters">
           <div class="col xs-col-12">
             <h4 class="xs-mt3 xs-mb2 xs-pr1 xs-inline-block">Recent Work</h4>
-          </div>
-<div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block client-col">
-            <h2 class="xs-mb2 xs-pr6"><a href="https://dribbble.com/johnchourajr">View on Dribbble</a></h2>
           </div>
       </div>
   </div>
@@ -125,18 +121,16 @@ layout: default
 </section>
 
 <script type="text/javascript">
-  $.jribbble.setToken('ddb8861ee535f012c39ce85126a6e6987b245585883bb591390360f48def34d7');
 
-  $.jribbble.users('johnchourajr').shots({per_page: 16}).then(function(shots) {
-    var html = [];
+{% comment %}
+  https://fish-roll.glitch.me/
+  https://glitch.com/edit/#!/fish-roll?path=README.md:1:0
+{% endcomment %}
 
-    shots.forEach(function(shot) {
-      html.push('<span class="shots--shot">');
-      html.push('<a href="' + shot.html_url + '" target="_blank">');
-      html.push('<img src="' + shot.images.hidpi + '">');
-      html.push('</a></span>');
-    });
+jribbble.shots({token: "7e7b1c2be2b0462dc24d1b553439eaf0f9200e28fc74a2da77a3b72e3ac1ed75"}, function(shots) {
+  document.querySelector(".shots").innerHTML = shots.reduce(function(html, shot) {
+    return html + '<span class="shots--shot"><a href="'+  shot.html_url + '" target="_blank"><img src="' + shot.images.hidpi + '"></a></span>';
+  }, "");
+});
 
-    $('.shots').html(html.join(''));
-  });
 </script>

@@ -6,7 +6,6 @@ contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%2
 layout: default
 ---
 
-<div class="txt-big"></div>
 <section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="rgb(238, 238, 238)">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
