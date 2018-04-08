@@ -46,6 +46,9 @@ a.txt {
     &:hover { color: $color !important; }
     // &:after { background-color: $color !important; }
   }
+  body.#{$name} *::after {
+    background-color: $color !important;
+  }
   .txt-big.#{$name} {
     opacity: 1;
     height: 100vh;
@@ -78,3 +81,6 @@ a.txt {
 @include home-hover(agoodpair, white, initial, '/img/work/agoodpair-hero.jpg', none);
 @include home-hover(socalcoffee, #E2FFFB, initial, '/img/work/socalcoffee-hero.jpg', none);
 @include home-hover(fartsounds, #FFFFEC, initial, '/img/work/fartsounds-hero.jpg', none);
+@include home-hover(joy, #FFEBEE, transparent, '/img/work/joy-hero.jpg', none);
+@include home-hover(fermensch, #FFCE00, transparent, '/img/work/fermensch-hero.jpg', none);
+@include home-hover(arcade, #FFF, transparent, '/img/work/arcade-hero.jpg', none);
