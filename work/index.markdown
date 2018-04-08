@@ -63,7 +63,6 @@ projects:
 layout: default
 ---
 
-
 {% include globals/page-header.html %}
 
 <section class="page-body">
