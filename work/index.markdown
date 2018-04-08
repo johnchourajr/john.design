@@ -127,9 +127,9 @@ layout: default
   https://glitch.com/edit/#!/fish-roll?path=README.md:1:0
 {% endcomment %}
 
-jribbble.shots({token: "7e7b1c2be2b0462dc24d1b553439eaf0f9200e28fc74a2da77a3b72e3ac1ed75"}, function(shots) {
+jribbble.shots({token: "7e7b1c2be2b0462dc24d1b553439eaf0f9200e28fc74a2da77a3b72e3ac1ed75", 'per_page': 16,}, function(shots) {
   document.querySelector(".shots").innerHTML = shots.reduce(function(html, shot) {
-    return html + '<span class="shots--shot"><a href="'+  shot.html_url + '" target="_blank"><img src="' + shot.images.hidpi + '"></a></span>';
+    return html + `<span class="shots--shot"><a href="${shot.html_url}" target="_blank"><img src="${shot.images.hidpi}"></a></span>`;
   }, "");
 });
 
