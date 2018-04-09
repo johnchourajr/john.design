@@ -500,10 +500,10 @@ ul li h4 p {
     &:nth-child(2n) {
       width: $grid*6;
     }
-    &:nth-child(3) {
+    &:nth-child(3), $:nth-child(15) {
       width: $grid*8;
     }
-    &:nth-child(4) {
+    &:nth-child(4), $:nth-child(16) {
       width: $grid*7;
       padding-left: $grid*2;
     }

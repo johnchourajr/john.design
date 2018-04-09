@@ -129,7 +129,7 @@ layout: default
       <div class="xs-block gutters">
         <div class="col xs-col-12 xs-mb4">
           <div class="xs-col-12 xs-overflow-hidden line-span">
-            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Recent Dribbble Shots</h4>
+            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block"><a href="http://dribbble.com/johnchourajr">Recent Dribbble Shots</a></h4>
           </div>
         </div>
       </div>
@@ -148,12 +148,14 @@ layout: default
 jribbble.setToken("7e7b1c2be2b0462dc24d1b553439eaf0f9200e28fc74a2da77a3b72e3ac1ed75");
 
 jribbble.shots(
-  {'per_page': 16,},
+  {'per_page': 24,},
   function(shots) {
     console.log(shots);
     document.querySelector(".shots").innerHTML = shots.reduce(
       function(html, shot) {
-        return html + `<span class="shots--shot"><a href="${shot.html_url}" target="_blank"><img src="${shot.images.hidpi}"></a></span>`;
+        if (!shot.low_profile) {
+          return html + `<span class="shots--shot"><a href="${shot.html_url}" target="_blank"><img src="${shot.images.hidpi}"></a></span>`;
+        } else return html + ``
       }
     , "");
   }

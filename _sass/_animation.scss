@@ -92,11 +92,7 @@ a.txt {
   &:hover {
     color: initial !important;
 
-    h2 {
-      color: initial !important;
-    }
-
-    a {
+    h2, a {
       color: initial !important;
     }
   }
