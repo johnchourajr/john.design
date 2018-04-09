@@ -1,6 +1,6 @@
 ---
 title: 404 Error
-headline: 404
+headline: 😵
 header: white
 hide: true
 layout: default
