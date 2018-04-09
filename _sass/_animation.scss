@@ -75,9 +75,9 @@ a.txt {
 @include home-hover(dribbble, white, $text-dribbble, null, none);
 @include home-hover(instagram, white, $text-instagram, null, none);
 @include home-hover(github, white, gray, null, none);
-@include home-hover(agoodpair, white, initial, '/img/work/agoodpair-hero.jpg', none);
-@include home-hover(socalcoffee, #E2FFFB, initial, '/img/work/socalcoffee-hero.jpg', none);
-@include home-hover(fartsounds, #FFFFEC, initial, '/img/work/fartsounds-hero.jpg', none);
+@include home-hover(agoodpair, white, transparent, '/img/work/agoodpair-hero.jpg', none);
+@include home-hover(socalcoffee, #E2FFFB, transparent, '/img/work/socalcoffee-hero.jpg', none);
+@include home-hover(fartsounds, #FFFFEC, transparent, '/img/work/fartsounds-hero.jpg', none);
 @include home-hover(joy, #FFEBEE, transparent, '/img/work/joy-hero.jpg', none);
 @include home-hover(fermensch, #FFCE00, transparent, '/img/work/fermensch-hero.jpg', none);
 @include home-hover(arcade, #FFF, transparent, '/img/work/arcade-hero.jpg', none);
@@ -88,9 +88,13 @@ a.txt {
 @include home-hover(blossom, #FFF, transparent, '/img/work/blossom-hero.jpg', none);
 @include home-hover(biola, #cf102d, transparent, '/img/work/biola-hero.jpg', none);
 
-.client-col h2 {
+.client-col h2, .project-col {
   &:hover {
     color: initial !important;
+
+    h2 {
+      color: initial !important;
+    }
 
     a {
       color: initial !important;
