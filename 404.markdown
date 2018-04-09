@@ -1,6 +1,6 @@
 ---
 title: 404 Error
-headline: 😵
+headline: "\U0001F635"
 header: white
 hide: true
 layout: default
