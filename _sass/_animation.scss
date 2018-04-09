@@ -34,17 +34,12 @@ a.txt {
 
 
 
-
-
-
-
 @mixin home-hover($name, $colorbkg, $color, $img, $blend) {
   body.#{$name}, body.#{$name} .doc {background-color: $colorbkg !important; color: $color !important;}
   body.#{$name} .logo-black #logo {fill: $color !important;}
   body.#{$name} a {color: $color !important;}
   body.#{$name} a.txt {
     &:hover { color: $color !important; }
-    // &:after { background-color: $color !important; }
   }
   body.#{$name} *::after {
     background-color: $color !important;
@@ -59,12 +54,14 @@ a.txt {
   }
 }
 
+// 🙌 Me
 // 😁 Designer
 // 😬 Developer
 // 😵 Artist
 // ☕️ Coffee
 // ☀️ Long Beach
 
+@include home-hover(🙌, #49FCB1, initial, '/img/home/me-hero.jpg', multiply);
 @include home-hover(😁, #1C5CFF, #E0BABA, '/img/home/design.gif', none);
 @include home-hover(😬, #000000, #80FF00, '/img/home/dev.gif', none);
 @include home-hover(😵, #EB5757, #C2FFE2, '/img/home/artist.gif', none);
@@ -84,3 +81,19 @@ a.txt {
 @include home-hover(joy, #FFEBEE, transparent, '/img/work/joy-hero.jpg', none);
 @include home-hover(fermensch, #FFCE00, transparent, '/img/work/fermensch-hero.jpg', none);
 @include home-hover(arcade, #FFF, transparent, '/img/work/arcade-hero.jpg', none);
+@include home-hover(grandfandb, #FDF8EB, transparent, '/img/work/grandfandb-hero.jpg', none);
+@include home-hover(amazinggrass, #F5F5F5, transparent, '/img/work/amazinggrass-hero.jpg', none);
+@include home-hover(vizio, #D1E9E7, transparent, '/img/work/vizio-hero.jpg', none);
+@include home-hover(kareo, #FFE8CC, transparent, '/img/work/kareo-hero.jpg', none);
+@include home-hover(blossom, #FFF, transparent, '/img/work/blossom-hero.jpg', none);
+@include home-hover(biola, #cf102d, transparent, '/img/work/biola-hero.jpg', none);
+
+.client-col h2 {
+  &:hover {
+    color: initial !important;
+
+    a {
+      color: initial !important;
+    }
+  }
+}
