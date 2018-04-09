@@ -26,8 +26,8 @@ clients:
   role: Creative/Tech Director
   link: http://grandfandb.com
   year: 2016
-  img: grand-hero.jpg
-  data: grand
+  img: grandfandb-hero.jpg
+  data: grandfandb
 - name: Amazing Grass
   role: Logo/Packaging Design
   link: http://amazinggrass.com
@@ -101,20 +101,6 @@ layout: default
 </section>
 
 <section class="page-body">
-  <div class="post-content wrapper xs-mb6">
-      <div class="xs-block gutters">
-        <div class="col xs-col-12 xs-mb4">
-          <div class="xs-col-12 xs-overflow-hidden line-span">
-            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Recent Dribbble Shots</h4>
-          </div>
-        </div>
-      </div>
-  </div>
-</section>
-
-<div class="shots"></div>
-
-<section class="page-body">
   <div class="post-content wrapper xs-mt3">
       <div class="xs-block gutters">
         <div class="col xs-col-12 xs-mb4">
@@ -137,6 +123,20 @@ layout: default
       </div>
   </div>
 </section>
+
+<section class="page-body">
+  <div class="post-content wrapper xs-mb6">
+      <div class="xs-block gutters">
+        <div class="col xs-col-12 xs-mb4">
+          <div class="xs-col-12 xs-overflow-hidden line-span">
+            <h4 class="xs-mt6 xs-mb3 xs-pr1 xs-inline-block">Recent Dribbble Shots</h4>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<div class="shots"></div>
 
 <script type="text/javascript">
 

@@ -10,7 +10,7 @@ layout: default
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
         <h1 class="display-1 text-black">
-          John Choura Jr. is a <a href="#" class="txt" data-txt="😁">Designer</a>, <a href="#" class="txt" data-txt="😬">Developer</a>, <a href="#" class="txt" data-txt="😵">Artist</a>, and <a href="#" class="txt" data-txt="☕️">Craft Coffee</a> enthusiast in <a href="#" class="txt" data-txt="☀️">Long Beach</a>, California.
+          <a href="#" class="txt" data-txt="🙌">John Choura Jr.</a> is a <a href="#" class="txt" data-txt="😁">Designer</a>, <a href="#" class="txt" data-txt="😬">Developer</a>, <a href="#" class="txt" data-txt="😵">Artist</a>, and <a href="#" class="txt" data-txt="☕️">Craft Coffee</a> drinker in <a href="#" class="txt" data-txt="☀️">Long Beach</a>, California.
         </h1>
       </div>
   </div>
