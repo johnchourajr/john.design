@@ -53,7 +53,7 @@ clients:
   img: blossom-hero.jpg
   data: blossom
 - name: Biola University
-  role: Designer
+  role: Art Director/Logo Designer
   link: http://biola.edu
   year: 2014
   img: biola-hero.jpg
@@ -112,7 +112,7 @@ layout: default
           <div class="col xs-col-12 xs-mb3 xs-mt6 xs-block ">
             <div class="">
               <h6>{{item.year}}</h6>
-              <div class="col md-col-6 lg-col-5 xs-mb3 xs-pr6 txt" data-txt="{{item.data}}">
+              <div class="col md-col-6 lg-col-5 xs-mb3 xs-pr6 project-col txt" data-txt="{{item.data}}">
                 <h2 class="xs-mb2"><a href="{{item.link}}">{{item.name}}</a></h2>
                 <h5><a href="{{item.link}}">Visit Site</a></h5>
               </div>
