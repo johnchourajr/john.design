@@ -53,7 +53,7 @@ clients:
   img: blossom-hero.jpg
   data: blossom
 - name: Biola University
-  role: Designer
+  role: Art Director/Logo Designer
   link: http://biola.edu
   year: 2014
   img: biola-hero.jpg
