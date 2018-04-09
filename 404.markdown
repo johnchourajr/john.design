@@ -24,7 +24,7 @@ layout: default
       </div>
 
       <div class="col md-col-8 lg-col-7 xl-col-6">
-        <h1 class="display"><a href="/">Move along</a>,</br>nothing to see here.</h1>
+        <h1 class="display"><a href="/">Move along</a>,<br/>nothing to see here.</h1>
       </div>
 
     </div>
