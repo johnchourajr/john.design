@@ -31,12 +31,20 @@
   <meta name="twitter:site" content="@JohnChouraJr">
   <meta name="twitter:title" content="{{site.title}}" />
   <meta name="twitter:description" content="{{site.description}}">
-  <meta name="twitter:image" content="{{ "/img/twitter-card.jpg" | prepend: site.baseurl }}" />
+  {% if post.cover %}
+    <meta name="twitter:image" content="{{ "/journal/uploads/{{ post.cover }}" | prepend: site.baseurl }}" />
+  {% else %}
+    <meta name="twitter:image" content="{{ "/img/twitter-card.jpg" | prepend: site.baseurl }}" />
+  {% endif %}
   <meta property="og:title" content="{{site.title}}" />
   <meta property="og:description" content="{{site.description}}" />
   <meta property="og:type" content="summary" />
   <meta property="og:url" content="{{permalink}}" />
-  <meta property="og:image" content="{{ "/img/twitter-card.jpg" | prepend: site.baseurl }}" />
+  {% if post.cover %}
+    <meta property="og:image" content="{{ "/journal/uploads/{{ post.cover }}" | prepend: site.baseurl }}" />
+  {% else %}
+    <meta property="og:image" content="{{ "/img/twitter-card.jpg" | prepend: site.baseurl }}" />
+  {% endif %}
   <meta name="google-site-verification" content="A2QZkbiNcO36PZ2ALwVrqnmQshrlkt5qRnQ_pXCJoNY" />
 
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
