@@ -27,6 +27,7 @@ After 4 months of working with a contractor, plumbers, builders, electricians, e
 ![lg](/journal/uploads/home-yard-sq.jpg)
 ![xs](/journal/uploads/home-full.jpg)
 ![lg](/journal/uploads/home-deck.jpg)
+![lg](/journal/uploads/home-firepit.jpg)
 
 ![twoup](/journal/uploads/home-kitty.jpg)
 ![twoup](/journal/uploads/home-puppy.jpg)
