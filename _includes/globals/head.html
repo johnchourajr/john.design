@@ -27,7 +27,7 @@
 
   <title>{% if page.title == 'Info' %}{{site.title}} Design{% else %}{{site.title}} Design > {{page.title}}{% endif %}</title>
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@JohnChouraJr">
   <meta name="twitter:title" content="{{site.title}}" />
   <meta name="twitter:description" content="{{site.description}}">
@@ -38,7 +38,7 @@
   {% endif %}
   <meta property="og:title" content="{{site.title}}" />
   <meta property="og:description" content="{{site.description}}" />
-  <meta property="og:type" content="summary" />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="{{permalink}}" />
   {% if post.cover %}
     <meta property="og:image" content="{{ "/journal/uploads/{{ post.cover }}" | prepend: site.baseurl }}" />
