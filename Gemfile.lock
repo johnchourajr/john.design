@@ -10,8 +10,14 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     eventmachine (1.2.3)
+    eventmachine (1.2.3-java)
+    eventmachine (1.2.3-x64-mingw32)
+    eventmachine (1.2.3-x86-mingw32)
     execjs (2.7.0)
     ffi (1.9.18)
+    ffi (1.9.18-java)
+    ffi (1.9.18-x64-mingw32)
+    ffi (1.9.18-x86-mingw32)
     formatador (0.2.5)
     forwardable-extended (2.6.0)
     guard (2.14.1)
@@ -35,6 +41,7 @@ GEM
       multi_json (~> 1.8)
     htmlcompressor (0.3.1)
     http_parser.rb (0.6.0)
+    http_parser.rb (0.6.0-java)
     jekyll (3.4.3)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -58,6 +65,7 @@ GEM
     jekyll-watch (1.5.0)
       listen (~> 3.0, < 3.1)
     json (2.1.0)
+    json (2.1.0-java)
     kramdown (1.13.2)
     liquid (3.0.6)
     listen (3.0.8)
@@ -77,6 +85,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry (0.10.4-java)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      spoon (~> 0.0)
     public_suffix (2.0.5)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.8)
@@ -86,13 +99,25 @@ GEM
     sass (3.4.24)
     shellany (0.0.1)
     slop (3.6.0)
+    spoon (0.0.6)
+      ffi
     thor (0.19.4)
+    thread_safe (0.3.6)
+    thread_safe (0.3.6-java)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    tzinfo-data (1.2018.4)
+      tzinfo (>= 1.0.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
 
 PLATFORMS
+  java
   ruby
+  x64-mingw32
+  x86-mingw32
+  x86-mswin32
 
 DEPENDENCIES
   guard
@@ -101,5 +126,10 @@ DEPENDENCIES
   jekyll (= 3.4.3)
   jekyll-feed (~> 0.6)
   jekyll-minifier (~> 0.1.1)
-  rb-fsevent (<= 0.9.4)
   tzinfo-data
+
+RUBY VERSION
+   ruby 2.3.3p222
+
+BUNDLED WITH
+   1.16.1

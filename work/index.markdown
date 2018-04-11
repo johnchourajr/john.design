@@ -161,4 +161,10 @@ jribbble.shots(
   }
 );
 
+var preload_images = [ {% for item in page.clients %}'/img/work/{{item.img}}',{% endfor %}{% for item in page.projects %}'/img/work/{{item.img}}',{% endfor %} ];
+
+for (var i = 0, len = preload_images.length; i < len; i++) {
+  new Image().src = preload_images[i];
+}
+
 </script>
