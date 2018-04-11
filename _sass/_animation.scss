@@ -146,11 +146,13 @@ a.txt {
 .pace-running .logo svg {
   display: block;
   transform-origin: center center;
-  animation: pace-spinner 1000ms $easeOutCubic infinite;
-  transition: all .4s $easeOutCubic;
+  animation: pace-spinner 1000ms linear infinite;
+  animation-delay: 7500ms;
+  transition: all 400ms $easeOutCubic;
   opacity: 1;
 }
 @keyframes pace-spinner {
-  0% { opacity: .25; }
-  100% { opacity: .75; }
+  0% { opacity: 1; }
+  50% { opacity: .25; }
+  100% { opacity: 1; }
 }
