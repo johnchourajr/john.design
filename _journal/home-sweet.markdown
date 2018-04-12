@@ -17,16 +17,18 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 ###### Rendered Some Plans with SketchUp.
 ![lg](/journal/uploads/home-vid.gif)
 
+###### 4 of Work
+After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, our dream became a reality.
+
 ![twoup](/journal/uploads/home-timelapse.gif)
 ![twoup](/journal/uploads/home-timelapse-02.gif)
 
 ## 😍 And Ended With This
 
-After 4 months of working with a contractor, plumbers, builders, electricians, engineers, drywallers, our dream became a reality.
-
-200 addition square feet to the house by adding on a bathroom to the master bedroom. Our outdoor living space is equipped with an outdoor fire pit, built-in bbq countertop with mini fridge, and an above ground jacuzzi. To create our newly hard scaped space we poured 2 truck loads of new concrete, laid down new sod grass, and did custom landscaping with new display rocks and succulent plants.
-
 ![lg](/journal/uploads/home-yard-sq.jpg)
+
+200 addition square feet to the house by adding on a bathroom to the master bedroom. Our outdoor living space is equipped with an outdoor fire pit, built-in bbq countertop with mini fridge, and an above ground jacuzzi. To create our newly hardscaped space we poured 2 truck loads of new concrete, laid down new sod grass, and did custom landscaping with new display rocks and succulent plants.
+
 ![xs](/journal/uploads/home-full.jpg)
 ![lg](/journal/uploads/home-deck.jpg)
 ![lg](/journal/uploads/home-firepit.jpg)
