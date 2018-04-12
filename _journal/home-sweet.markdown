@@ -17,8 +17,8 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 ###### Rendered Some Plans with SketchUp.
 ![lg](/journal/uploads/home-vid.gif)
 
-###### 4 of Work
-After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, our dream became a reality.
+###### Work work work
+After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, we worked hard to make our dream home a reality.
 
 ![twoup](/journal/uploads/home-timelapse.gif)
 ![twoup](/journal/uploads/home-timelapse-02.gif)
