@@ -40,4 +40,4 @@ After 4 months of working with a contractor, plumbers, builders, electricians, e
 
 Doing work on our home was one of the most fun challenges that we've experienced as home owners. The process is stressful and exciting, coordinating and project managing contract workers. In the end it all pays off, and we get to enjoy the fruit of our labors.
 
-🙂 That is all, thx for reading.
+🙂 That's all, at some point I'll write a follow up post showing what we did to the interior. Thx for reading.
