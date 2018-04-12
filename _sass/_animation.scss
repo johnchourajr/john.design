@@ -93,6 +93,7 @@ a.txt {
 @include hover-magic(kareo, #FFE8CC, transparent, '/img/work/kareo-hero.jpg', none);
 @include hover-magic(blossom, #FFF, transparent, '/img/work/blossom-hero.jpg', none);
 @include hover-magic(biola, #CF102D, transparent, '/img/work/biola-hero.jpg', none);
+@include hover-magic(signal, #65BCAE, transparent, '/img/work/signal-hero.jpg', none);
 
 .client-col h2, .project-col {
   &:hover {
