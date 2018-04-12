@@ -36,11 +36,6 @@ layout: default
 <script type="text/javascript">
 var preload_images = [
   '/img/home/me-hero.jpg',
-  '/img/home/design.gif',
-  '/img/home/dev.gif',
-  '/img/home/artist.gif',
-  '/img/home/coffee.gif',
-  '/img/home/lbc.gif',
 ];
 
 for (var i = 0, len = preload_images.length; i < len; i++) {
