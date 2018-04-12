@@ -32,3 +32,18 @@ layout: default
 <section class="slide" data-background="rgb(238, 238, 238)">
   {% include home/most-recent-post.html %}
 </section>
+
+<script type="text/javascript">
+var preload_images = [
+  '/img/home/me-hero.jpg',
+  '/img/home/design.gif',
+  '/img/home/dev.gif',
+  '/img/home/artist.gif',
+  '/img/home/coffee.gif',
+  '/img/home/lbc.gif',
+];
+
+for (var i = 0, len = preload_images.length; i < len; i++) {
+  new Image().src = preload_images[i];
+}
+</script>
