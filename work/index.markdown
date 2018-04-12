@@ -58,6 +58,12 @@ clients:
   year: 2014
   img: biola-hero.jpg
   data: biola
+- name: Signal App
+  role: Lead Product/Brand Designer
+  link: https://dribbble.com/johnchourajr/projects/33586-Signal
+  year: 2013
+  img: signal-hero.jpg
+  data: signal
 projects:
 - name: Fart Sounds Podcast
   desc: A fun little podcast by John Choura Jr. where people talk about their favorite
