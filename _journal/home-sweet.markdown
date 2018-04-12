@@ -11,7 +11,7 @@ Tags:
 
 Home is something that's hard to explain, but we've had the opportunity to make something really amazing that I'm so proud to call my "home." As a designer, designing for a physical environment/living space presented a whole new set of exciting challenges.
 
-## 🔨 We Started From This
+###### 🔨 We Started From This
 ![lg](/journal/uploads/home-before.jpg)
 
 ###### Rendered Some Plans with SketchUp.
@@ -23,7 +23,7 @@ After 4 months of working with a contractor, plumbers, builders, electricians, e
 ![twoup](/journal/uploads/home-timelapse.gif)
 ![twoup](/journal/uploads/home-timelapse-02.gif)
 
-## 😍 And Ended With This
+###### 😍 And Ended With This
 
 ![lg](/journal/uploads/home-yard-sq.jpg)
 
