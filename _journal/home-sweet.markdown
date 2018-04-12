@@ -13,6 +13,8 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 
 ## 🔨 We Started From This
 ![lg](/journal/uploads/home-before.jpg)
+
+###### Rendered Some Plans with SketchUp.
 ![lg](/journal/uploads/home-vid.gif)
 
 ![twoup](/journal/uploads/home-timelapse.gif)
