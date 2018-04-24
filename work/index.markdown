@@ -5,65 +5,59 @@ weight: 2
 headline: Work
 clients:
 - name: Joy Money App
-  role: Product Design Lead
+  role: Lead of Product Design/Product Owner
   link: http://findjoy.com/
   year: 2016-Present
   img: joy-hero.jpg
   data: joy
 - name: Arcade Coffee Roasters
-  role: Brand/Identity Design
+  role: Designed Brand/Identity
   link: http://arcadecoffeeroasters.com
   year: 2018
   img: arcade-hero.jpg
   data: arcade
 - name: Fermensch Kombucha
-  role: Brand/Identity Design
+  role: Designed Brand/Identity
   link: http://fermensch.com
   year: 2017
   img: fermensch-hero.jpg
   data: fermensch
 - name: Grand Food & Beverage
-  role: Creative/Tech Director
+  role: Creative Director & Tech Director
   link: http://grandfandb.com
   year: 2016
   img: grandfandb-hero.jpg
   data: grandfandb
 - name: Amazing Grass
-  role: Logo/Packaging Design
+  role: Art Director for Brand & Packaging
   link: http://amazinggrass.com
   year: 2015
   img: amazinggrass-hero.jpg
   data: amazinggrass
 - name: Vizio
-  role: Product Designer
+  role: Product Designer for SmartCast Product
   link: http://vizio.com
   year: 2015
   img: vizio-hero.jpg
   data: vizio
 - name: Kareo
-  role: Art Director
+  role: Art Director for Brand Re-Launch
   link: http://kareo.com
   year: 2015
   img: kareo-hero.jpg
   data: kareo
 - name: Blossom
-  role: 'Brand Designer '
+  role: Designed Packaging and Physical Product LED Array
   link: http://getblossom.com
   year: 2015
   img: blossom-hero.jpg
   data: blossom
 - name: Biola University
-  role: Art Director/Logo Designer
+  role: Art Director & Logo Designer
   link: http://biola.edu
   year: 2014
   img: biola-hero.jpg
   data: biola
-- name: Signal App
-  role: Lead Product/Brand Designer
-  link: https://dribbble.com/johnchourajr/projects/33586-Signal
-  year: 2013
-  img: signal-hero.jpg
-  data: signal
 projects:
 - name: Fart Sounds Podcast
   desc: A fun little podcast by John Choura Jr. where people talk about their favorite
