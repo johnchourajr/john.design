@@ -92,7 +92,7 @@ layout: default
 
         {% for item in page.clients %}
           <div class="col xs-col-12 md-col-6 lg-col-4 xs-mb4 xs-mt3 xs-inline-block client-col">
-            <h2 class="xs-mb2 xs-pr6 txt" style="max-width: 350px;" data-txt="{{item.data}}"><a href="{{item.link}}">{{item.name}}</a></h2>
+            <h2 class="xs-mb2 xs-pr4 lg-pr6 txt" style="max-width: 350px;" data-txt="{{item.data}}"><a href="{{item.link}}">{{item.name}}</a></h2>
             <h4 class="sm-pr4 md-pr6" style="max-width: 350px;">{{item.role}}</h4>
           </div>
         {% endfor %}
