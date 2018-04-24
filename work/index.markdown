@@ -5,7 +5,7 @@ weight: 2
 headline: Work
 clients:
 - name: Joy Money App
-  role: Lead of Product Design & Product Owner
+  role: Product Design Lead & Product Owner
   link: http://findjoy.com/
   year: 2016-Present
   img: joy-hero.jpg
