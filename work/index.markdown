@@ -5,19 +5,19 @@ weight: 2
 headline: Work
 clients:
 - name: Joy Money App
-  role: Lead of Product Design/Product Owner
+  role: Lead of Product Design & Product Owner
   link: http://findjoy.com/
   year: 2016-Present
   img: joy-hero.jpg
   data: joy
 - name: Arcade Coffee Roasters
-  role: Designed Brand/Identity
+  role: Creative Director of Brand & Identity
   link: http://arcadecoffeeroasters.com
   year: 2018
   img: arcade-hero.jpg
   data: arcade
 - name: Fermensch Kombucha
-  role: Designed Brand/Identity
+  role: Creative Director of Brand/Identity
   link: http://fermensch.com
   year: 2017
   img: fermensch-hero.jpg
