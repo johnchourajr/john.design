@@ -4,6 +4,7 @@ backend:
   branch: master
   site_domain: elastic-payne-24cb37.netlify.com
 media_folder: "journal/uploads"
+publish_mode: editorial_workflow
 collections:
   - name: "journal" # Used in routes, e.g. /admin/collections/blog
     label: "Journal" # Used in the UI
