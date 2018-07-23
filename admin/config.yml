@@ -16,3 +16,13 @@ collections:
       - {label: "Cover Art", name: "cover", widget: "image"}
       - {label: "Tags", name: "Tags", widget: "list"}
       - {label: "Body", name: "body", widget: "markdown"}
+  - label: "Pages"
+    name: "pages"
+    files:
+      - label: "Home"
+        name: "home"
+        file: "index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: "Body", name: "body", widget: "markdown"}
