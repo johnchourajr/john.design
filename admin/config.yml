@@ -1,0 +1,83 @@
+backend:
+  name: github
+  repo: johnchourajr/john.design
+  branch: master
+  site_domain: elastic-payne-24cb37.netlify.com
+media_folder: "journal/uploads"
+publish_mode: editorial_workflow
+collections:
+  - name: "journal" # Used in routes, e.g. /admin/collections/blog
+    label: "Journal" # Used in the UI
+    folder: "_journal" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template i.e. YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Cover Art", name: "cover", widget: "image"}
+      - {label: "Tags", name: "Tags", widget: "list"}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - label: "Pages"
+    name: "pages"
+    files:
+      - label: "Home"
+        name: "home"
+        file: "index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Work"
+        name: "work"
+        file: "work/index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Headline, name: headline, widget: string}
+          - label: Clients
+            name: clients
+            widget: list
+            fields: 
+              - {label: Name, name: name, widget: string}
+              - {label: Role, name: role, widget: string}
+              - {label: Link, name: link, widget: string}
+              - {label: Year, name: year, widget: string}
+              - {label: Image, name: img, widget: string}
+              - {label: Data, name: data, widget: string}
+          - label: Projects
+            name: projects
+            widget: list
+            fields: 
+              - {label: Name, name: name, widget: string}
+              - {label: Description, name: description, widget: string}
+              - {label: Link, name: link, widget: string}
+              - {label: Year, name: year, widget: string}
+              - {label: Image, name: img, widget: string}
+              - {label: Data, name: data, widget: string}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Journal"
+        name: "journal"
+        file: "journal/index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Headline, name: headline, widget: string}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Credit"
+        name: "credit"
+        file: "credit/index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Headline, name: headline, widget: string}
+          - {label: Technical, name: technical, widget: list}
+          - {label: Other, name: other, widget: list}
+          - {label: "Body", name: "body", widget: "markdown"}      
+      - label: "404"
+        name: "404"
+        file: "404.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Headline, name: headline, widget: string}
+          - {label: "Body", name: "body", widget: "markdown"}
