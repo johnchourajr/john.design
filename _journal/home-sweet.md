@@ -1,5 +1,6 @@
 ---
 title: Home Sweet
+date: 2018-04-10 02:58:00 Z
 cover: home-yard-sq.jpg
 Tags:
 - Life
@@ -11,21 +12,16 @@ Tags:
 Home is something that's hard to explain, but we've had the opportunity to make something really amazing that I'm so proud to call my "home." As a designer, designing for a physical environment/living space presented a whole new set of exciting challenges.
 
 ### 🔨 We Started From This
-
 ![lg](/journal/uploads/home-before.jpg)
 
 ### 💻 Rendered Some Plans with SketchUp.
-
 ![lg](/journal/uploads/home-vid.gif)
 
 ### 💪 Work work work
-
 After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, we worked hard to make our dream home a reality.
 
 ![twoup](/journal/uploads/home-timelapse.gif)
 ![twoup](/journal/uploads/home-timelapse-02.gif)
-
-
 
 ### 😍 And Ended With This
 
