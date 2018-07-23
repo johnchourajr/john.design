@@ -2,9 +2,10 @@
 title: Home Sweet
 cover: home-yard-sq.jpg
 Tags:
-  - Life
-  - Home
+- Life
+- Home
 ---
+
 # Last year my wife Alex and I did some work to our house. I love it some much that I just want to brag about it. 😀
 
 Home is something that's hard to explain, but we've had the opportunity to make something really amazing that I'm so proud to call my "home." As a designer, designing for a physical environment/living space presented a whole new set of exciting challenges.
