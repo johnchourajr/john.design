@@ -4,11 +4,10 @@ header: white
 hide: true
 headline: Site Credits
 technical:
-- Hosted on [AWS](https://aws.amazon.com/)
+- Hosted and Deployed with [Netlify](https://www.netlify.com/)
 - Domains with [Google Domains](https://domains.google/#/)
 - Code Managed with [GitHub](https://github.com/) [(View)](https://github.com/johnchourajr/john.design)
 - Built with [Jekyll](https://jekyllrb.com/)
-- CMS with [Siteleaf](https://www.siteleaf.com/)
 - Code Written on [Atom](https://atom.io/)
 - CSS Framework with [Solid CSS by Buzzfeed](http://solid.buzzfeed.com/)
 - Web Tech [Liquid](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers),
