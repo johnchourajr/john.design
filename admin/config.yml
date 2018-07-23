@@ -54,6 +54,24 @@ collections:
               - {label: Image, name: img, widget: string}
               - {label: Data, name: data, widget: string}
           - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Journal"
+        name: "journal"
+        file: "journal/index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Headline, name: headline, widget: string}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Credit"
+        name: "credit"
+        file: "credit/index.md"
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Headline, name: headline, widget: string}
+          - {label: Technical, name: technical, widget: list}
+          - {label: Other, name: other, widget: list}
+          - {label: "Body", name: "body", widget: "markdown"}      
       - label: "404"
         name: "404"
         file: "404.md"
