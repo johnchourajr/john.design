@@ -14,4 +14,5 @@ collections:
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Cover Art", name: "cover", widget: "string"}
+      - {label: "Tags", name: "Tags", widget: "list"}
       - {label: "Body", name: "body", widget: "markdown"}
