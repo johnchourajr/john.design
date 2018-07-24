@@ -1,5 +1,6 @@
 ---
 title: Work
+layout: default
 header: white
 weight: 2
 headline: Work
@@ -78,7 +79,6 @@ projects:
   link: http://agoodpair.com
   img: agoodpair-hero.jpg
   data: agoodpair
-layout: default
 ---
 
 {% include globals/page-header.html %}
