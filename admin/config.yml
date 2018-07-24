@@ -20,8 +20,8 @@ collections:
   - label: "Pages"
     name: "pages"
     files:
-      - label: "Home"
-        name: "home"
+      - label: "Info"
+        name: "info"
         file: "index.md"
         fields:
           - {label: Title, name: title, widget: string}
