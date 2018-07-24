@@ -27,7 +27,8 @@ collections:
           - {label: Title, name: title, widget: string}
           - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Layout, name: layout, widget: hidden, default: default}
-          - {label: Body, name: body, widget: markdown}
+          - {label: Hello, name: hello, widget: markdown}
+          - {label: Work, name: work, widget: markdown}
       - label: "Work"
         name: "work"
         file: "work/index.md"
@@ -83,4 +84,3 @@ collections:
           - {label: Headline, name: headline, widget: string}
           - {label: Subhead, name: subhead, widget: string}
           - {label: Note, name: note, widget: markdown}
-          - {label: Body, name: body, widget: markdown}
