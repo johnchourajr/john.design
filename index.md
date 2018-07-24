@@ -1,5 +1,5 @@
 ---
-title: Info
+title: Home
 header: white
 order: 1
 contact: mailto:hi@john.design?Subject=Hello%21&Body=Was%20looking%20at%20your%20website%20and%20wanted%20to%20say%20hello%21
