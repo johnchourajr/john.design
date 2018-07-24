@@ -2,29 +2,29 @@
 layout: default
 ---
 
-<section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="rgb(238, 238, 238)">
+<section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="{{ page.hello.color }}">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
         <h1 class="display-1 text-black">
-          {{ page.hello }}
+          {{ page.hello.body }}
         </h1>
       </div>
   </div>
 </section>
-<section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(236,255,254,1)">
+<section class="slide page-header vh_90 display-flex align-items-center" data-background="{{ page.work.color }}">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
         <h1 class="display-1 text-black">
-          {{ page.work }}
+          {{ page.work.body }}
         </h1>
       </div>
   </div>
 </section>
-<section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(255,254,236,1)">
+<section class="slide page-header vh_90 display-flex align-items-center" data-background="{{ page.social.color }}">
   <div class="page-header--upper inline-table wrapper xs-pb6">
       <div class="col md-col-12">
         <h1 class="display-1 text-black">
-          {{ page.social }}
+          {{ page.social.body }}
         </h1>
       </div>
   </div>
