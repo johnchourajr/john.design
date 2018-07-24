@@ -1,5 +1,6 @@
 ---
 title: Site Credits
+layout: credit
 header: white
 hide: true
 headline: Site Credits
@@ -22,30 +23,4 @@ other:
 - I like to write reflections and life notes in my Journal, even if no one reads them.
 - All of the gif's on my homepage were created and animated by me. Don't steal.
 - "Lastly, special shoutout to emoji's, I even used them when writing some code \U0001F918."
-layout: default
 ---
-
-{% include globals/page-header.html %}
-
-<section class="page-body md-pt6">
-  <div class="post-content wrapper xs-mt3">
-    <div class="xs-block gutters">
-      <div class="col md-col-5">
-        <h1>Technical</h1>
-        <ul class="xs-mb6">
-          {% for item in page.technical %}
-            <li><h4 class="text-black xs-mb1">{{ item | markdownify }}</h4></li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col md-col-5 md-offset-2">
-        <h1>Acknowledgements</h1>
-          {% for item in page.other %}
-            <h2 class="text-black">
-              {{ item }}
-            </h2>
-          {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>

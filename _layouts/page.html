@@ -2,6 +2,6 @@
 layout: default
 ---
 
-<section id="{{ page.title | downcase }}" class="page-body">
-  {{ content }}
-</section>
+{% include globals/page-header.html %}
+
+{{ content }}
