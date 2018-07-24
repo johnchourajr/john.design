@@ -6,17 +6,17 @@ backend:
 media_folder: "journal/uploads"
 publish_mode: editorial_workflow
 collections:
-  - name: "journal"
-    label: "Journal"
-    folder: "_journal"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Cover Art", name: "cover", widget: "image"}
-      - {label: "Tags", name: "Tags", widget: "list"}
-      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "journal" # Used in routes, e.g. /admin/collections/blog
+    label: "Journal" # Used in the UI
+    folder: "_journal" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template i.e. YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: Layout, name: layout, widget: hidden, default: post}
+      - {label: Title, name: title, widget: string}
+      - {label: Cover Art, name: cover, widget: image}
+      - {label: Tags, name: Tags, widget: list}
+      - {label: Body, name: body, widget: markdown}
   - label: "Pages"
     name: "pages"
     files:
@@ -25,16 +25,15 @@ collections:
         file: "index.md"
         fields:
           - {label: Title, name: title, widget: string}
-          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
-          - {label: "Hello Statement", name: "hello", widget: "markdown"}
-          - {label: "Work Statement", name: "work", widget: "markdown"}
-          - {label: "Contact Statement", name: "contact", widget: "markdown"}
+          - {label: Header, name: header, widget: select, default: white, options: [white, black]}
+          - {label: Layout, name: layout, widget: hidden, default: default}
+          - {label: Body, name: body, widget: markdown}
       - label: "Work"
         name: "work"
         file: "work/index.md"
         fields:
           - {label: Title, name: title, widget: string}
-          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Headline, name: headline, widget: string}
           - label: Clients
             name: clients
@@ -56,30 +55,32 @@ collections:
               - {label: Year, name: year, widget: string}
               - {label: Image, name: img, widget: string}
               - {label: Data, name: data, widget: string}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: Body, name: body, widget: markdown}
       - label: "Journal"
         name: "journal"
         file: "journal/index.md"
         fields:
           - {label: Title, name: title, widget: string}
-          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Headline, name: headline, widget: string}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: Body, name: body, widget: markdown}
       - label: "Credit"
         name: "credit"
         file: "credit/index.md"
         fields:
           - {label: Title, name: title, widget: string}
-          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Headline, name: headline, widget: string}
           - {label: Technical, name: technical, widget: list}
           - {label: Other, name: other, widget: list}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: Body, name: body, widget: markdown}
       - label: "404"
         name: "404"
         file: "404.md"
         fields:
           - {label: Title, name: title, widget: string}
-          - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
+          - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Headline, name: headline, widget: string}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: Subhead, name: subhead, widget: string}
+          - {label: Note, name: note, widget: markdown}
+          - {label: Body, name: body, widget: markdown}
