@@ -26,7 +26,9 @@ collections:
         fields:
           - {label: Title, name: title, widget: string}
           - {label: Header, name: header, widget: select, default: "white", options: ["white", "black"]}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: "Hello Statement", name: "hello", widget: "markdown"}
+          - {label: "Work Statement", name: "work", widget: "markdown"}
+          - {label: "Contact Statement", name: "contact", widget: "markdown"}
       - label: "Work"
         name: "work"
         file: "work/index.md"
