@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<section class="slide page-header xs-mt6 xs-pt6 vh_90 display-flex align-items-center" data-background="rgb(238, 238, 238)">
+  <div class="page-header--upper inline-table wrapper xs-pb6">
+      <div class="col md-col-12">
+        <h1 class="display-1 text-black">
+          {{ page.hello }}
+        </h1>
+      </div>
+  </div>
+</section>
+<section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(236,255,254,1)">
+  <div class="page-header--upper inline-table wrapper xs-pb6">
+      <div class="col md-col-12">
+        <h1 class="display-1 text-black">
+          {{ page.work }}
+        </h1>
+      </div>
+  </div>
+</section>
+<section class="slide page-header vh_90 display-flex align-items-center" data-background="rgba(255,254,236,1)">
+  <div class="page-header--upper inline-table wrapper xs-pb6">
+      <div class="col md-col-12">
+        <h1 class="display-1 text-black">
+          {{ page.social }}
+        </h1>
+      </div>
+  </div>
+</section>
+<section class="slide" data-background="rgb(238, 238, 238)">
+  {% include home/most-recent-post.html %}
+</section>
+
+<script type="text/javascript">
+var preload_images = [
+  '/img/home/me-hero.jpg',
+];
+
+for (var i = 0, len = preload_images.length; i < len; i++) {
+  new Image().src = preload_images[i];
+}
+</script>
