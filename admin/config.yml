@@ -84,6 +84,7 @@ collections:
           - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Layout, name: layout, widget: hidden, default: default}
           - {label: Headline, name: headline, widget: string}
+          - {label: Top Section, name: top_section, widget: string}
       - label: "Credit"
         name: "credit"
         file: "credit/index.md"
