@@ -28,8 +28,26 @@ collections:
           - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Layout, name: layout, widget: hidden, default: default}
           - {label: Layout, name: layout, widget: hidden, default: default}
-          - {label: Hello, name: hello, widget: markdown}
-          - {label: Work, name: work, widget: markdown}
+          # - {label: Hello, name: hello, widget: markdown}
+          # - {label: Work, name: work, widget: markdown}
+          - label: Hello
+            name: hello
+            widget: object
+            fields:
+              - {label: Color, name: color, widget: string}
+              - {label: Body, name: body, widget: markdown}
+          - label: Work
+            name: work
+            widget: object
+            fields:
+              - {label: Color, name: color, widget: string}
+              - {label: Body, name: body, widget: markdown}
+          - label: Social
+            name: social
+            widget: object
+            fields:
+              - {label: Color, name: color, widget: string}
+              - {label: Body, name: body, widget: markdown}
       - label: "Work"
         name: "work"
         file: "work/index.md"
@@ -58,7 +76,6 @@ collections:
               - {label: Year, name: year, widget: string}
               - {label: Image, name: img, widget: string}
               - {label: Data, name: data, widget: string}
-          - {label: Body, name: body, widget: markdown}
       - label: "Journal"
         name: "journal"
         file: "journal/index.md"
@@ -67,7 +84,6 @@ collections:
           - {label: Header, name: header, widget: select, default: white, options: [white, black]}
           - {label: Layout, name: layout, widget: hidden, default: default}
           - {label: Headline, name: headline, widget: string}
-          - {label: Body, name: body, widget: markdown}
       - label: "Credit"
         name: "credit"
         file: "credit/index.md"
@@ -78,7 +94,6 @@ collections:
           - {label: Headline, name: headline, widget: string}
           - {label: Technical, name: technical, widget: list}
           - {label: Other, name: other, widget: list}
-          - {label: Body, name: body, widget: markdown}
       - label: "404"
         name: "404"
         file: "404.md"
