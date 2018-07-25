@@ -73,6 +73,15 @@ h3, h4, h5, h6 {
     @include media-query(md) {
       font-size: $display-1;
     }
+    @include media-query(lg) {
+      font-size: $display-1 * 1.15;
+    }
+    @include media-query(xl) {
+      font-size: $display-1 * 1.25;
+    }
+    @include media-query(xxl) {
+      font-size: $display-1 * 1.25;
+    }
   }
 
   &-2 {
@@ -85,6 +94,15 @@ h3, h4, h5, h6 {
     @include media-query(md) {
       font-size: $display-2;
     }
+    @include media-query(lg) {
+      font-size: $display-2 * 1.15;
+    }
+    @include media-query(xl) {
+      font-size: $display-2 * 1.25;
+    }
+    @include media-query(xxl) {
+      font-size: $display-2 * 1.25;
+    }
   }
 
   &-3 {
@@ -96,6 +114,15 @@ h3, h4, h5, h6 {
     }
     @include media-query(md) {
       font-size: $display-3;
+    }
+    @include media-query(lg) {
+      font-size: $display-3 * 1.15;
+    }
+    @include media-query(xl) {
+      font-size: $display-3 * 1.25;
+    }
+    @include media-query(xxl) {
+      font-size: $display-3 * 1.25;
     }
   }
 }
