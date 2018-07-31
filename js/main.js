@@ -205,17 +205,3 @@ $(function() {
     }
   });
 });
-
-const access_token = "_LAi__eFhDVZeVgsWuWyG9CwdXIcEjx50MHr-OOtRhpit59roVfsgtLQZaklHdCOv2QJ4bLI8D3CcQQNZaV-E0OmoMxpi2nCbWuzkUV8nAKTBFSqvvvD8oo5Fg7dWnYx";
-
-let myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer " + access_token);
-
-
-fetch("https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/neat-coffee-costa-mesa", {
-  headers: myHeaders
-}).then((res) => {
-  return res.json();
-}).then((json) => {
-  console.log(json);
-});
