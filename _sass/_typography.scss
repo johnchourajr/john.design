@@ -80,7 +80,7 @@ h3, h4, h5, h6 {
       font-size: $display-1 * 1.25;
     }
     @include media-query(xxl) {
-      font-size: $display-1 * 1.25;
+      font-size: $display-1 * 1.5;
     }
   }
 
