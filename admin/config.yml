@@ -12,8 +12,8 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: Layout, name: layout, widget: hidden, default: post}
       - {label: Title, name: title, widget: string}
+      - {label: Date, name: date, widget: date, default: "", format: "YYYY-MM-DD"}
       - {label: Cover Art, name: cover, widget: image}
       - {label: Tags, name: Tags, widget: list}
       - {label: Body, name: body, widget: markdown}
