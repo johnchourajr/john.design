@@ -10,7 +10,7 @@ collections:
     label: "Journal"
     folder: "_journal"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: Title, name: title, widget: string}
       - {label: Date, name: date, widget: date, default: "", format: "YYYY-MM-DD"}
