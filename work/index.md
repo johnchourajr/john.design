@@ -1,82 +1,87 @@
 ---
 title: Work
-layout: work
 header: white
-weight: 2
+layout: work
 headline: Work
 clients:
-- name: Joy Money App
-  role: Product Design Lead & Product Owner
-  link: http://findjoy.com/
-  year: 2016-Present
-  img: joy-hero.jpg
-  data: joy
-- name: Arcade Coffee Roasters
-  role: Creative Director of Brand & Identity
-  link: http://arcadecoffeeroasters.com
-  year: 2018
-  img: arcade-hero.jpg
-  data: arcade
-- name: Fermensch Kombucha
-  role: Creative Director of Brand/Identity
-  link: http://fermensch.com
-  year: 2017
-  img: fermensch-hero.jpg
-  data: fermensch
-- name: Grand Food & Beverage
-  role: Creative Director & Tech Director
-  link: http://grandfandb.com
-  year: 2016
-  img: grandfandb-hero.jpg
-  data: grandfandb
-- name: Amazing Grass
-  role: Art Director for Brand & Packaging
-  link: http://amazinggrass.com
-  year: 2015
-  img: amazinggrass-hero.jpg
-  data: amazinggrass
-- name: Vizio
-  role: Product Designer for SmartCast Product
-  link: http://vizio.com
-  year: 2015
-  img: vizio-hero.jpg
-  data: vizio
-- name: Kareo
-  role: Art Director for Brand Re-Launch
-  link: http://kareo.com
-  year: 2015
-  img: kareo-hero.jpg
-  data: kareo
-- name: Blossom
-  role: Designed Packaging and Physical Product LED Array
-  link: http://getblossom.com
-  year: 2015
-  img: blossom-hero.jpg
-  data: blossom
-- name: Biola University
-  role: Art Director & Logo Designer
-  link: http://biola.edu
-  year: 2014
-  img: biola-hero.jpg
-  data: biola
+  - data: happymoney
+    link: 'https://design.happymoney.com'
+    name: Happy Money
+    role: 'Design Director, Product and UI Engineering'
+    year: 2018-Present
+  - data: joy
+    img: joy-hero.jpg
+    link: 'http://findjoy.com/'
+    name: Joy Money App
+    role: Product Design Lead & Product Owner
+    year: 2016-Present
+  - data: goldenstate
+    name: Golden State Coffee Roasters
+    role: Brand and Packaging Designer
+    year: '2018'
+  - data: arcade
+    img: arcade-hero.jpg
+    link: 'http://arcadecoffeeroasters.com'
+    name: Arcade Coffee Roasters
+    role: Creative Director of Brand & Identity
+    year: 2018
+  - data: fermensch
+    img: fermensch-hero.jpg
+    link: 'http://fermensch.com'
+    name: Fermensch Kombucha
+    role: Creative Director of Brand/Identity
+    year: 2017
+  - data: grandfandb
+    img: grandfandb-hero.jpg
+    link: 'http://grandfandb.com'
+    name: Grand Food & Beverage
+    role: Creative Director & Tech Director
+    year: 2016
+  - data: amazinggrass
+    img: amazinggrass-hero.jpg
+    link: 'http://amazinggrass.com'
+    name: Amazing Grass
+    role: Art Director for Brand & Packaging
+    year: 2015
+  - data: vizio
+    img: vizio-hero.jpg
+    link: 'http://vizio.com'
+    name: Vizio
+    role: Product Designer for SmartCast Product
+    year: 2015
+  - data: kareo
+    img: kareo-hero.jpg
+    link: 'http://kareo.com'
+    name: Kareo
+    role: Art Director for Brand Re-Launch
+    year: 2015
+  - data: blossom
+    img: blossom-hero.jpg
+    link: 'http://getblossom.com'
+    name: Blossom
+    role: Designed Packaging and Physical Product LED Array
+    year: 2015
+  - data: biola
+    img: biola-hero.jpg
+    link: 'http://biola.edu'
+    name: Biola University
+    role: Art Director & Logo Designer
+    year: 2014
 projects:
-- name: Fart Sounds Podcast
-  desc: A fun little podcast by John Choura Jr. where people talk about their favorite
-    fart sounds.
-  year: 2017
-  link: http://fartsounds.show
-  img: fartsounds-hero.jpg
-  data: fartsounds
-- name: So. Cal. Craft Coffee
-  desc: A hand selected list of the best craft coffee in Southern California.
-  year: 2016
-  link: http://socal.coffee
-  img: socalcoffee-hero.jpg
-  data: socalcoffee
-- name: A Good Pair
-  desc: A Husband and Wife's curated journal of complementary food and drink pairings.
-  year: 2015
-  link: http://agoodpair.com
-  img: agoodpair-hero.jpg
-  data: agoodpair
+  - data: fartsounds
+    img: fartsounds-hero.jpg
+    link: 'http://fartsounds.show'
+    name: Fart Sounds Podcast
+    year: 2017
+  - data: socalcoffee
+    img: socalcoffee-hero.jpg
+    link: 'http://socal.coffee'
+    name: So. Cal. Craft Coffee
+    year: 2016
+  - data: agoodpair
+    img: agoodpair-hero.jpg
+    link: 'http://agoodpair.com'
+    name: A Good Pair
+    year: 2015
 ---
+
