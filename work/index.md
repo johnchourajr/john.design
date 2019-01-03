@@ -5,10 +5,16 @@ header: white
 weight: 2
 headline: Work
 clients:
+- name: Happy Money Design
+  role: Design Director
+  link: http://design.happymoney.com/
+  year: 2016-Present
+  img: happy-money-hero.jpg
+  data: happymoney
 - name: Joy Money App
   role: Product Design Lead & Product Owner
   link: http://findjoy.com/
-  year: 2016-Present
+  year: 2016-2018
   img: joy-hero.jpg
   data: joy
 - name: Arcade Coffee Roasters
