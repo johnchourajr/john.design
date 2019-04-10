@@ -8,7 +8,7 @@ clients:
 - name: Happy Money Design
   role: Design Director
   link: http://design.happymoney.com/
-  year: 2016-Present
+  year: 2018-Present
   img: happy-money-hero.jpg
   data: happymoney
 - name: Joy Money App
