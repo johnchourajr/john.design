@@ -51,6 +51,23 @@ a.txt {
   transition: color 0.4s $easeOutCubic;
 }
 
+@mixin theme($page, $colorbkg, $color) {
+  body.body-#{$page},
+  body.body-#{$page} .doc {
+    background-color: $colorbkg !important;
+    color: $color !important;
+  }
+  body.body-#{$page} .logo-black #logo {
+    fill: $color !important;
+  }
+  body.body-#{$page} a {
+    color: $color !important;
+  }
+  body.body-#{$page} *::after {
+    background-color: $color !important;
+  }
+}
+
 @mixin hover-magic($name, $colorbkg, $color, $img, $blend) {
   body.#{$name},
   body.#{$name} .doc {
@@ -80,6 +97,8 @@ a.txt {
     mix-blend-mode: $blend;
   }
 }
+
+@include theme("art", #000000, #eeeeee);
 
 // 🙌 Me
 // 😁 Designer
