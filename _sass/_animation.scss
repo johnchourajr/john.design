@@ -10,45 +10,72 @@
   display: none;
 }
 
+$coversize: 80;
+$coverratio: 0.6423611111;
+
+.txt-big-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
 .txt-big {
   opacity: 0;
-  width: 100vw;
-  position: fixed;
-  transition: opacity .4s $easeOutCubic;
+  width: #{$coversize}vw;
+  height: #{$coversize * $coverratio}vw;
+  transition: opacity 0.4s $easeOutCubic;
+  transition: transform 4s cubic-bezier(0, 0.01, 0.14, 1.19);
   background-size: cover;
   background-position: center center;
+  background-color: transparent;
+  outline: 1px solid transparent;
+  backface-visibility: hidden;
 }
 
 a {
-  transition: color .4s $easeOutCubic, opacity .4s $easeOutCubic, background-color .4s $easeOutCubic;
+  transition: color 0.4s $easeOutCubic, opacity 0.4s $easeOutCubic,
+    background-color 0.4s $easeOutCubic;
 
   &:after {
-    transition: color .4s $easeOutCubic, opacity .4s $easeOutCubic, background-color .4s $easeOutCubic;
+    transition: color 0.4s $easeOutCubic, opacity 0.4s $easeOutCubic,
+      background-color 0.4s $easeOutCubic;
   }
 }
 
 a.txt {
   position: relative;
-  transition: color .4s $easeOutCubic;
+  transition: color 0.4s $easeOutCubic;
 }
 
-
-
 @mixin hover-magic($name, $colorbkg, $color, $img, $blend) {
-  body.#{$name}, body.#{$name} .doc {background-color: $colorbkg !important; color: $color !important;}
-  body.#{$name} .logo-black #logo {fill: $color !important;}
-  body.#{$name} a {color: $color !important;}
+  body.#{$name},
+  body.#{$name} .doc {
+    background-color: $colorbkg !important;
+    color: $color !important;
+  }
+  body.#{$name} .logo-black #logo {
+    fill: $color !important;
+  }
+  body.#{$name} a {
+    color: $color !important;
+  }
   body.#{$name} a.txt {
-    &:hover { color: $color !important; }
+    &:hover {
+      color: $color !important;
+    }
   }
   body.#{$name} *::after {
     background-color: $color !important;
   }
   .txt-big.#{$name} {
     opacity: 1;
-    height: 100vh;
-    @if $img == null {} @else {
-      background-image: url('#{$img}');
+    @if $img == null {
+    } @else {
+      background-image: url("#{$img}");
     }
     mix-blend-mode: $blend;
   }
@@ -64,43 +91,122 @@ a.txt {
 // 👨‍🏫 Biola Adjunct
 // 👋 Email
 
-@include hover-magic(🙌, #49FCB1, initial, '/img/home/me-hero.jpg', multiply);
-@include hover-magic(😁, #1C5CFF, #E0BABA, '/img/home/design.gif', none);
-@include hover-magic(😬, #000000, #80FF00, '/img/home/dev.gif', none);
-@include hover-magic(😵, #EB5757, #C2FFE2, '/img/home/artist.gif', none);
-@include hover-magic(☕️, #BAC0E0, #1C5CFF, '/img/home/coffee.gif', none);
-@include hover-magic(☀️, #F5F37B, #3E3EFA, '/img/home/lbc.gif', none);
-@include hover-magic(🎈, white, #F2117A, null, none);
-@include hover-magic(👨‍🏫, white, #CF102D, null, none);
-@include hover-magic(👋, black, white, null, none);
-
+@include hover-magic(🙌, #eeeeee, initial, "/img/home/me-hero.jpg", multiply);
+@include hover-magic(😁, #e0baba, initial, "/img/home/design.gif", unset);
+@include hover-magic(😬, #80ff00, #80ff00, "/img/home/dev.gif", unset);
+@include hover-magic(😵, #c2ffe2, initial, "/img/home/artist.gif", unset);
+@include hover-magic(☕️, #bac0e0, #1c5cff, "/img/home/coffee.gif", unset);
+@include hover-magic(☀️, #3e3efa, initial, "/img/home/lbc.gif", unset);
+@include hover-magic(🎈, #f65996, #242021, null, unset);
+@include hover-magic(👨‍🏫, white, #cf102d, null, unset);
+@include hover-magic(👋, black, white, null, unset);
 
 // Other Hover Events
 
-@include hover-magic(twitter, white, $text-twitter, null, none);
-@include hover-magic(dribbble, white, $text-dribbble, null, none);
-@include hover-magic(instagram, white, $text-instagram, null, none);
-@include hover-magic(github, white, gray, null, none);
-@include hover-magic(agoodpair, white, transparent, '/img/work/agoodpair-hero.jpg', none);
-@include hover-magic(socalcoffee, #E2FFFB, transparent, '/img/work/socalcoffee-hero.jpg', none);
-@include hover-magic(fartsounds, #FFFFEC, transparent, '/img/work/fartsounds-hero.jpg', none);
-@include hover-magic(happymoney, #FED1CF, transparent, '/img/work/happy-money-hero.jpg', none);
-@include hover-magic(joy, #FFEBEE, transparent, '/img/work/joy-hero.jpg', none);
-@include hover-magic(fermensch, #FFCE00, transparent, '/img/work/fermensch-hero.jpg', none);
-@include hover-magic(arcade, #FFF, transparent, '/img/work/arcade-hero.jpg', none);
-@include hover-magic(grandfandb, #FDF8EB, transparent, '/img/work/grandfandb-hero.jpg', none);
-@include hover-magic(amazinggrass, #F5F5F5, transparent, '/img/work/amazinggrass-hero.jpg', none);
-@include hover-magic(vizio, #D1E9E7, transparent, '/img/work/vizio-hero.jpg', none);
-@include hover-magic(kareo, #FFE8CC, transparent, '/img/work/kareo-hero.jpg', none);
-@include hover-magic(blossom, #FFF, transparent, '/img/work/blossom-hero.jpg', none);
-@include hover-magic(biola, #CF102D, transparent, '/img/work/biola-hero.jpg', none);
-@include hover-magic(signal, #65BCAE, transparent, '/img/work/signal-hero.jpg', none);
+@include hover-magic(twitter, white, $text-twitter, null, unset);
+@include hover-magic(dribbble, white, $text-dribbble, null, unset);
+@include hover-magic(instagram, white, $text-instagram, null, unset);
+@include hover-magic(github, white, gray, null, unset);
+@include hover-magic(
+  agoodpair,
+  white,
+  transparent,
+  "/img/work/agoodpair-hero.jpg",
+  none
+);
+@include hover-magic(
+  socalcoffee,
+  #e2fffb,
+  transparent,
+  "/img/work/socalcoffee-hero.jpg",
+  none
+);
+@include hover-magic(
+  fartsounds,
+  #ffffec,
+  transparent,
+  "/img/work/fartsounds-hero.jpg",
+  none
+);
+@include hover-magic(
+  happymoney,
+  #f65996,
+  transparent,
+  "/img/work/happy-money-hero.jpg",
+  none
+);
+@include hover-magic(joy, #ffffff, transparent, "/img/work/joy-hero.jpg", none);
+@include hover-magic(
+  fermensch,
+  #ffce00,
+  transparent,
+  "/img/work/fermensch-hero.jpg",
+  none
+);
+@include hover-magic(
+  arcade,
+  #fff,
+  transparent,
+  "/img/work/arcade-hero.jpg",
+  none
+);
+@include hover-magic(
+  grandfandb,
+  #ffffff,
+  transparent,
+  "/img/work/grandfandb-hero.jpg",
+  none
+);
+@include hover-magic(
+  amazinggrass,
+  #ffffff,
+  transparent,
+  "/img/work/amazinggrass-hero.jpg",
+  none
+);
+@include hover-magic(
+  vizio,
+  #ffffff,
+  transparent,
+  "/img/work/vizio-hero.jpg",
+  none
+);
+@include hover-magic(
+  kareo,
+  #ffffff,
+  transparent,
+  "/img/work/kareo-hero.jpg",
+  none
+);
+@include hover-magic(
+  blossom,
+  #3dd4cf,
+  transparent,
+  "/img/work/blossom-hero.jpg",
+  none
+);
+@include hover-magic(
+  biola,
+  #000000,
+  transparent,
+  "/img/work/biola-hero.jpg",
+  none
+);
+@include hover-magic(
+  signal,
+  #65bcae,
+  transparent,
+  "/img/work/signal-hero.jpg",
+  none
+);
 
-.client-col h2, .project-col {
+.client-col h2,
+.project-col {
   &:hover {
     color: initial !important;
 
-    h2, a {
+    h2,
+    a {
       color: initial !important;
     }
   }
@@ -137,7 +243,7 @@ a.txt {
   width: 100px;
   height: 100%;
   box-shadow: 0 0 10px $fill-black, 0 0 5px $fill-black;
-  opacity: 1.0;
+  opacity: 1;
   -webkit-transform: rotate(3deg) translate(0px, -4px);
   -moz-transform: rotate(3deg) translate(0px, -4px);
   -ms-transform: rotate(3deg) translate(0px, -4px);
@@ -154,7 +260,13 @@ a.txt {
   opacity: 1;
 }
 @keyframes pace-spinner {
-  0% { opacity: 1; }
-  50% { opacity: .25; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
 }
