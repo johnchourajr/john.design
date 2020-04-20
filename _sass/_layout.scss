@@ -1,5 +1,5 @@
 ::selection {
-  background: rgba($brand-yellow,.5);
+  background: rgba($brand-yellow, 0.5);
 }
 
 .doc {
@@ -9,7 +9,7 @@
   padding-bottom: $space-md;
   overflow-x: hidden;
   // box-shadow: 0 5px 0px $fill-black;
-  transition: all .5s $easeOutCubic;
+  transition: all 0.5s $easeOutCubic;
 
   @include media-query(md) {
     margin-bottom: 22em;
@@ -29,11 +29,10 @@
   .nav-items {
     opacity: 1;
   }
-
 }
 .nav-up {
   margin-top: -6rem;
-  transition: margin-top .5s $easeOutCubic;
+  transition: margin-top 0.5s $easeOutCubic;
 
   @include media-query(sm) {
     margin-top: 0;
@@ -45,7 +44,7 @@
 
   .logo {
     opacity: 0;
-    transition: opacity .5s $easeOutCubic;
+    transition: opacity 0.5s $easeOutCubic;
 
     @include media-query(sm) {
       opacity: 1;
@@ -53,29 +52,29 @@
   }
 }
 .nav-max {
-  transition: all .5s $easeOutCubic;
+  transition: all 0.5s $easeOutCubic;
   padding-top: $space-sm;
   @include media-query(md) {
     padding-top: $space-md;
   }
 }
 .nav-min {
-  transition: all .5s $easeOutCubic;
-  padding-top: ($space-sm * .5);
+  transition: all 0.5s $easeOutCubic;
+  padding-top: ($space-sm * 0.5);
   @include media-query(md) {
     padding-top: ($space-sm * 1);
   }
 }
 
 nav {
-  transition: all .5s $easeOutCubic;
+  transition: all 0.5s $easeOutCubic;
 
   .nav-items {
     width: 100%;
     display: flex;
     align-items: space-between;
     justify-content: space-between;
-    transition: opacity .25s $easeOutCubic, margin-top .75s $easeOutCubic;
+    transition: opacity 0.25s $easeOutCubic, margin-top 0.75s $easeOutCubic;
 
     a {
       padding: 1em 0;
@@ -83,11 +82,11 @@ nav {
       display: inline-block;
 
       @include media-query(sm) {
-        padding: .65em 0;
+        padding: 0.65em 0;
       }
 
       &.active {
-        opacity: .3;
+        opacity: 0.3;
       }
     }
   }
@@ -100,23 +99,21 @@ nav {
 }
 
 .logo {
-
   svg {
-    transform: scale(.75);
+    transform: scale(0.75);
     transform-origin: left;
     @include media-query(sm) {
       transform: scale(1);
     }
   }
 
-
   &-white #logo {
     fill: #fff;
-    transition: all .3s $easeOutCubic;
+    transition: all 0.3s $easeOutCubic;
   }
   &-black #logo {
     fill: #000;
-    transition: all .3s $easeOutCubic;
+    transition: all 0.3s $easeOutCubic;
   }
 }
 
@@ -125,16 +122,14 @@ footer {
   bottom: 0;
   z-index: -1;
   background-color: $fill-black;
-  transition: all .3s $easeOutCubic;
-
-
+  transition: all 0.3s $easeOutCubic;
 
   @include media-query(md) {
     position: fixed;
 
     &.hidden {
       opacity: 0;
-      transition: opacity .3s $easeOutCubic;
+      transition: opacity 0.3s $easeOutCubic;
     }
   }
 
@@ -148,7 +143,7 @@ footer {
 
   .copyright {
     color: $text-white;
-    opacity: .4;
+    opacity: 0.4;
     // max-width: 60%;
     a {
       color: $text-white;
@@ -195,7 +190,7 @@ footer {
     h1 {
       font-size: 30vw;
       font-family: $sans;
-      color: rgba(255,255,255, .15);
+      color: rgba(255, 255, 255, 0.15);
       margin-bottom: 0 !important;
 
       @include media-query(sm) {
@@ -216,7 +211,6 @@ footer {
 }
 
 .page-body {
-
   &.pad {
     padding-top: $space-md;
 
@@ -238,7 +232,7 @@ footer {
 
 .designer {
   cursor: pointer;
-  transition: color .3s $easeOutCubic;
+  transition: color 0.3s $easeOutCubic;
   position: relative;
 
   &:hover {
@@ -254,7 +248,7 @@ footer {
     color: $brand-red;
     font-style: normal;
     font-family: serif;
-    margin-left: -.2em;
+    margin-left: -0.2em;
     top: -3px;
     position: relative;
     display: inline;
@@ -263,12 +257,12 @@ footer {
   &:after {
     content: "";
     position: absolute;
-    top: .75em;
+    top: 0.75em;
     left: 0;
-    height: .1em;
+    height: 0.1em;
     width: 0;
     background: transparent;
-    transition: all .3s $easeOutCubic;
+    transition: all 0.3s $easeOutCubic;
   }
 
   &.active {
@@ -280,7 +274,7 @@ footer {
     &:after {
       width: calc(100% - 1em);
       background: #fff;
-      transition: all .3s $easeOutCubic;
+      transition: all 0.3s $easeOutCubic;
     }
   }
 }
@@ -288,10 +282,10 @@ footer {
 .multi {
   overflow: hidden;
   display: block;
-  transition: all .3s $easeOutCubic;
+  transition: all 0.3s $easeOutCubic;
   font-family: monospace;
   font-weight: normal;
-  font-size: .45em;
+  font-size: 0.45em;
   display: block;
   line-height: 2.2em;
 
@@ -334,7 +328,7 @@ footer {
 
     @include media-query(lg) {
       width: 100%;
-      margin-left: calc(-7.5vw - .5rem);
+      margin-left: calc(-7.5vw - 0.5rem);
     }
     @include media-query(xl) {
       // margin-left: 0;
@@ -426,7 +420,12 @@ footer {
   position: relative;
   overflow-x: hidden;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     z-index: $z2;
   }
 
@@ -438,7 +437,6 @@ footer {
     z-index: $z1;
     background: $fill-black;
     bottom: 1.85em;
-
   }
 }
 
@@ -449,19 +447,22 @@ footer {
 
 video {
   &::-webkit-media-controls-panel {
-      background-color: transparent !important;
+    background-color: transparent !important;
   }
-  &::-webkit-media-controls-play-button, &::-webkit-media-controls-volume-slider,
+  &::-webkit-media-controls-play-button,
+  &::-webkit-media-controls-volume-slider,
   &::-webkit-media-controls-mute-button,
   &::-webkit-media-controls-fullscreen-button {
     display: none;
   }
-  &::-webkit-media-controls-current-time-display, &::-webkit-media-controls-time-remaining-display {
+  &::-webkit-media-controls-current-time-display,
+  &::-webkit-media-controls-time-remaining-display {
     color: $text-black;
   }
 }
 
-input[type="range" i]::-webkit-slider-thumb, input[type="range" i]::-webkit-media-slider-thumb {
+input[type="range" i]::-webkit-slider-thumb,
+input[type="range" i]::-webkit-media-slider-thumb {
   -webkit-appearance: none !important;
 }
 
@@ -471,12 +472,12 @@ ul li h4 p {
 
 .portrait {
   font-size: 0.48vw;
-  color: rgba($fill-black,.35);
+  color: rgba($fill-black, 0.35);
   font-family: monospace;
   white-space: pre-wrap;
   line-height: 1.22;
   display: inline-block;
-  z-index: 0
+  z-index: 0;
 }
 
 .el-image {
@@ -497,36 +498,38 @@ ul li h4 p {
 
   &--shot {
     padding-left: $grid;
-    margin-bottom: $grid*0.75;
+    margin-bottom: $grid * 0.75;
 
     &:nth-child(1n) {
-      width: $grid*4;
+      width: $grid * 4;
     }
     &:nth-child(2n) {
-      width: $grid*6;
+      width: $grid * 6;
     }
     &:nth-child(3) {
-      width: $grid*8;
+      width: $grid * 8;
     }
     &:nth-child(4) {
-      width: $grid*7;
-      padding-left: $grid*2;
+      width: $grid * 7;
+      padding-left: $grid * 2;
     }
-    &:nth-child(6), &:nth-child(13) {
-      width: $grid*3.6666666666;
+    &:nth-child(6),
+    &:nth-child(13) {
+      width: $grid * 3.6666666666;
     }
-    &:nth-child(7), &:nth-child(14) {
-      width: $grid*7.3333333333;
+    &:nth-child(7),
+    &:nth-child(14) {
+      width: $grid * 7.3333333333;
     }
     &:nth-child(10) {
-      width: $grid*11;
-      padding-left: $grid*4;
+      width: $grid * 11;
+      padding-left: $grid * 4;
     }
     &:nth-child(11) {
-      width: $grid*6;
+      width: $grid * 6;
     }
     &:nth-child(12) {
-      width: $grid*3.6666666666;
+      width: $grid * 3.6666666666;
     }
   }
 }

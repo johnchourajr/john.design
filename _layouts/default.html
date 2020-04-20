@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html>
-
   {% include globals/head.html %}
 
   <body>
-
     <div id="doc" class="doc">
-
       {% include globals/header.html %}
 
-      <div class="txt-big"></div>
+      <div class="txt-big-wrap">
+        <div id="txt-big" class="txt-big"></div>
+      </div>
 
-      {{ content }}
-
-      {% include globals/scripts.html %}
-
+      {{ content }} {% include globals/scripts.html %}
     </div>
 
     {% include globals/footer.html %}
-
   </body>
-
 </html>
