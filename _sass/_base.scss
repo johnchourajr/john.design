@@ -1,15 +1,25 @@
-
 /**
  * Reset some basic elements
  */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+hr,
+dl,
+dd,
+ol,
+ul,
+figure {
   margin: 0;
   padding: 0;
 }
-
-
 
 /**
  * Basic styling
@@ -38,9 +48,13 @@ body {
   @include media-query(md) {
     font-size: 120%;
   }
+  @include media-query(xxl) {
+    font-size: 140%;
+  }
+  @include media-query(xxxl) {
+    font-size: 150%;
+  }
 }
-
-
 
 /**
  * Images
@@ -51,8 +65,6 @@ img {
   vertical-align: middle;
   border-radius: $border-radius;
 }
-
-
 
 /**
  * Figures
@@ -70,22 +82,20 @@ figcaption {
   font-size: $small-font-size;
 }
 
-
-
 /**
  * Lists
  */
-ul, ol {
+ul,
+ol {
   margin-left: ($space-1 * 2.5);
 }
 
 li {
   > ul,
   > ol {
-     margin-bottom: 0;
+    margin-bottom: 0;
   }
 }
-
 
 /**
  * Wrapper
@@ -101,43 +111,38 @@ li {
 
   @include media-query(lg) {
     max-width: -webkit-calc(#{$content-width} - (#{$space-1}));
-    max-width:         calc(#{$content-width} - (#{$space-1}));
+    max-width: calc(#{$content-width} - (#{$space-1}));
     padding-right: $space-1 / 2;
     padding-left: $space-1 / 2;
   }
 
   @include media-query(xl) {
     $unit: 5;
-    max-width: -webkit-calc(#{$content-width} - (#{($space-1*$unit)}));
-    max-width:         calc(#{$content-width} - (#{($space-1*$unit)}));
-    padding-right: ($space-1*$unit) / 2;
-    padding-left: ($space-1*$unit) / 2;
+    max-width: -webkit-calc(#{$content-width} - (#{($space-1 * $unit)}));
+    max-width: calc(#{$content-width} - (#{($space-1 * $unit)}));
+    padding-right: ($space-1 * $unit) / 2;
+    padding-left: ($space-1 * $unit) / 2;
   }
 
   @include media-query(xxl) {
     $unit: 5vw;
     max-width: -webkit-calc(#{$content-width} - #{($unit)});
-    max-width:         calc(#{$content-width} - #{($unit)});
+    max-width: calc(#{$content-width} - #{($unit)});
     padding-right: $unit / 2;
     padding-left: $unit / 2;
   }
 }
 
-
-
 /**
  * Clearfix
  */
 %clearfix {
-
   &:after {
     content: "";
     display: table;
     clear: both;
   }
 }
-
-
 
 /**
  * Footer
@@ -150,21 +155,21 @@ footer {
 //   transition: all .2s $easeOutCubic;
 // }
 
-
-body.is-Loading #doc, body.is-Loading footer {
-    padding-top: 200px;
-    /* background: black; */
-    opacity: 0;
+body.is-Loading #doc,
+body.is-Loading footer {
+  padding-top: 200px;
+  /* background: black; */
+  opacity: 0;
 }
 
 body.is-Loading::after {
-    content: '👋';
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: white;
+  content: "👋";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
 }
 
 body.is-Loading {
-    background: black;
+  background: black;
 }
