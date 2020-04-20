@@ -110,104 +110,127 @@ a.txt {
 @include hover-magic(
   agoodpair,
   white,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/agoodpair-hero.jpg",
   none
 );
 @include hover-magic(
   socalcoffee,
   #e2fffb,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/socalcoffee-hero.jpg",
   none
 );
 @include hover-magic(
   fartsounds,
   #ffffec,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/fartsounds-hero.jpg",
+  none
+);
+@include hover-magic(
+  happymoney-hq,
+  #f65996,
+  rgba(0, 0, 0, 0.25),
+  "/img/work/hm-hq.jpg",
+  none
+);
+@include hover-magic(
+  happymoney-marketing,
+  #fcdb35,
+  rgba(0, 0, 0, 0.25),
+  "/img/work/hm-marketing.png",
   none
 );
 @include hover-magic(
   happymoney,
   #f65996,
-  transparent,
-  "/img/work/happy-money-hero.jpg",
+  rgba(0, 0, 0, 0.25),
+  "/img/work/hm-brand.gif",
   none
 );
-@include hover-magic(joy, #ffffff, transparent, "/img/work/joy-hero.jpg", none);
+@include hover-magic(
+  joy,
+  #ffffff,
+  rgba(0, 0, 0, 0.25),
+  "/img/work/joy-hero.jpg",
+  none
+);
 @include hover-magic(
   fermensch,
   #ffce00,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/fermensch-hero.jpg",
   none
 );
 @include hover-magic(
   arcade,
   #fff,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/arcade-hero.jpg",
   none
 );
 @include hover-magic(
   grandfandb,
   #ffffff,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/grandfandb-hero.jpg",
   none
 );
 @include hover-magic(
   amazinggrass,
   #ffffff,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/amazinggrass-hero.jpg",
   none
 );
 @include hover-magic(
   vizio,
   #ffffff,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/vizio-hero.jpg",
   none
 );
 @include hover-magic(
   kareo,
   #ffffff,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/kareo-hero.jpg",
   none
 );
 @include hover-magic(
   blossom,
   #3dd4cf,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/blossom-hero.jpg",
   none
 );
 @include hover-magic(
   biola,
   #000000,
-  transparent,
+  rgba(255, 255, 255, 0.25),
   "/img/work/biola-hero.jpg",
   none
 );
 @include hover-magic(
   signal,
   #65bcae,
-  transparent,
+  rgba(0, 0, 0, 0.25),
   "/img/work/signal-hero.jpg",
   none
 );
 
+.client-col,
 .client-col h2,
 .project-col {
   &:hover {
     color: initial !important;
+    transition: color 0.2s ease;
 
     h2,
     a {
       color: initial !important;
+      transition: color 0.2s ease;
     }
   }
 }

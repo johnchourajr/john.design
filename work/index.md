@@ -5,15 +5,27 @@ header: white
 weight: 2
 headline: Work
 clients:
+  - name: Happy Money HQ
+    role: Design Director
+    link: https://happymoney.com/
+    year: 2018-Present
+    img: hm-hq.jpg
+    data: happymoney-hq
+  - name: Happy Money Marketing Site
+    role: Design Director
+    link: https://happymoney.com/
+    year: 2018-Present
+    img: hm-marketing.jpg
+    data: happymoney-marketing
   - name: Happy Money Brand Identity
     role: Design Director
-    link: http://design.happymoney.com/
+    link: https://design.happymoney.com/
     year: 2018-Present
     img: happy-money-hero.jpg
     data: happymoney
   - name: Joy Money App
     role: Product Design Lead & Product Owner
-    link: http://findjoy.com/
+    link: https://findjoy.com/
     year: 2016-2018
     img: joy-hero.jpg
     data: joy
