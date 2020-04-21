@@ -21,12 +21,9 @@ $font-smoothing: true !default;
 // "mr-eaves-xl-modern"
 // "Europa"
 // $sans: "canada-type-gibson", "Helvetica", sans-serif;
-$sans: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+$sans: "SF Display", sans-serif;
 // $mono: "Space Mono", monospace;
-$mono: "Roboto Mono", monospace;
+$mono: "SF Mono", monospace;
 $serif: "freight-big-pro", "Times-New-Roman", serif;
 $slab: "Caponi-Slab-Semibold", Georgia, serif;
 
@@ -39,10 +36,10 @@ $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 // -------------------------
 
 $space-1: 0.5rem; //  8px
-$space-2:   1rem; // 16px
+$space-2: 1rem; // 16px
 $space-3: 1.5rem; // 24px
-$space-4:   2rem; // 32px
-$space-5:   3rem; // 48px
+$space-4: 2rem; // 32px
+$space-5: 3rem; // 48px
 $space-6: 4.5rem; // 72px
 
 $space-sm: ($space-4 * 2); // 64px
@@ -61,10 +58,10 @@ $z4: 400;
 // -------------------------
 
 // Brand
-$brand-red: #FF641C;
-$brand-yellow: #FFE631;
+$brand-red: #ff641c;
+$brand-yellow: #ffe631;
 $brand-blue: #0035ff;
-$brand-green: #5DE33F;
+$brand-green: #5de33f;
 
 // Fills
 $fill-red: #e32;
@@ -132,27 +129,27 @@ $border-radius: 0.15em;
 $base-font-family: $mono;
 $base-font-size: 16px;
 
-$base-font-weight: 700;
-$small-font-size:  $base-font-size * 0.875;
+$base-font-weight: 600;
+$small-font-size: $base-font-size * 0.875;
 $base-line-height: 1.5;
 
-$display-1: 3.5em;      // 72px
-$display-2: 3em;    // 50px
-$display-3: 2.5em;     // 44px
+$display-1: 3.5em; // 72px
+$display-2: 3em; // 50px
+$display-3: 2.5em; // 44px
 
-$text-1: 2.25em;        // 36px
-$text-2: 1.8em;         // 22px
-$text-3: 1.35em;       // 18px
-$text-4: 1em;           // 16px
-$text-5: .875em;        // 14px
-$text-6: .75em;         // 12px
+$text-1: 2.25em; // 36px
+$text-2: 1.8em; // 22px
+$text-3: 1.35em; // 18px
+$text-4: 1em; // 16px
+$text-5: 0.875em; // 14px
+$text-6: 0.75em; // 12px
 
-$line-height-1: 1.25;    // 40px
-$line-height-2: 1.2;   // 26px
-$line-height-3: 1.2;   // 22px
-$line-height-4: 1.2;   // 24px
-$line-height-5: 1.2;      // 20px
-$line-height-6: 1.2;      // 16px
+$line-height-1: 1.25; // 40px
+$line-height-2: 1.2; // 26px
+$line-height-3: 1.2; // 22px
+$line-height-4: 1.2; // 24px
+$line-height-5: 1.2; // 20px
+$line-height-6: 1.2; // 16px
 
 $regular: 400;
 $bold: 600;
@@ -160,7 +157,7 @@ $bold: 600;
 // Layout
 // -------------------------
 
-$content-width:    85vw;
+$content-width: 85vw;
 
 // SVG
 // -------------------------
@@ -190,4 +187,4 @@ $text-gray--lightest: #999;
 
 // @TODO remove in Solid 2.0
 // -------------------------
-$border--lighter: 0.1em solid rgba(0, 0, 0, .1);
+$border--lighter: 0.1em solid rgba(0, 0, 0, 0.1);
