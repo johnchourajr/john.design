@@ -1,5 +1,5 @@
 ---
-title: Art
+# title: Art
 layout: art
 header: white
 weight: 3
