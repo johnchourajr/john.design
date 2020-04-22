@@ -60,16 +60,16 @@ clients:
     img: vizio-hero.jpg
     data: vizio
   - name: Kareo
-    role: Art Director for Brand Re-Launch
+    role: Art Director for Brand Videos
     link: http://kareo.com
     year: 2015
-    img: kareo-hero.jpg
+    img: kareo-hero.gif
     data: kareo
   - name: Blossom
     role: Designed Packaging and Physical Product LED Array
     link: http://getblossom.com
     year: 2015
-    img: blossom-hero.jpg
+    img: blossom-hero.gif
     data: blossom
   - name: Biola University
     role: Art Director & Logo Designer
