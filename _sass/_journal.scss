@@ -47,11 +47,19 @@
     z-index: 10;
 
     > {
-      h1, h2, h3, h4, h5, h6, p {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
         margin-bottom: 1.5rem;
       }
 
-      h4, h5, h6 {
+      h4,
+      h5,
+      h6 {
         margin-top: 2.5rem;
       }
 
@@ -60,26 +68,32 @@
       }
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       line-height: 1.55;
     }
 
     img + em {
       display: block;
-      opacity: .25;
+      opacity: 0.25;
       margin-top: $space-2;
       color: $text-gray-lightest;
       font-family: $mono;
-      font-size: .45em;
+      font-size: 0.45em;
       font-style: normal;
       font-weight: $bold;
       text-align: right;
       text-transform: uppercase;
-      letter-spacing: .2em;
+      letter-spacing: 0.2em;
     }
 
     img {
       margin-top: $space-2;
+
+      &[alt~="xs"] {
+        width: 50% !important;
+        max-width: none;
+      }
 
       &[alt~="twoup"] {
         margin-top: 0;
@@ -113,7 +127,6 @@
       }
 
       @include media-query(lg) {
-
         &[alt~="lg"] {
           margin-left: -73%;
           width: 173% !important;
