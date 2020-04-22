@@ -15,7 +15,7 @@ clients:
     role: Design Director
     link: https://happymoney.com/
     year: 2018-Present
-    img: hm-marketing.jpg
+    img: hm-marketing.png
     data: happymoney-marketing
   - name: Happy Money Brand Identity
     role: Design Director
@@ -27,7 +27,7 @@ clients:
     role: Product Design Lead & Product Owner
     link: https://findjoy.com/
     year: 2016-2018
-    img: joy-hero.jpg
+    img: joy-hero.png
     data: joy
   - name: Arcade Coffee Roasters
     role: Creative Director of Brand & Identity
@@ -45,7 +45,7 @@ clients:
     role: Creative Director & Tech Director
     link: http://grandfandb.com
     year: 2016
-    img: grandfandb-hero.jpg
+    img: grandfandb-hero.png
     data: grandfandb
   - name: Amazing Grass
     role: Art Director for Brand & Packaging
@@ -60,16 +60,16 @@ clients:
     img: vizio-hero.jpg
     data: vizio
   - name: Kareo
-    role: Art Director for Brand Re-Launch
+    role: Art Director for Brand Videos
     link: http://kareo.com
     year: 2015
-    img: kareo-hero.jpg
+    img: kareo-hero.gif
     data: kareo
   - name: Blossom
     role: Designed Packaging and Physical Product LED Array
     link: http://getblossom.com
     year: 2015
-    img: blossom-hero.jpg
+    img: blossom-hero.gif
     data: blossom
   - name: Biola University
     role: Art Director & Logo Designer
