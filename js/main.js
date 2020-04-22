@@ -99,6 +99,7 @@ $("." + el).hover(
   function () {
     let data = $(this).data(el);
     $(".txt-big").addClass(data);
+    $(".txt-big-wrap").addClass("active");
     $("body").addClass(data);
     $(tog).addClass("tog-hide");
     $(tog).removeClass("tog-show");
@@ -106,6 +107,7 @@ $("." + el).hover(
   function () {
     let data = $(this).data(el);
     $(".txt-big").removeClass(data);
+    $(".txt-big-wrap").removeClass("active");
     $("body").removeClass(data);
     $(tog).addClass("tog-show");
     $(tog).removeClass("tog-hide");
