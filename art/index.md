@@ -2,7 +2,7 @@
 title: Art
 layout: art
 header: white
-weight: 3
+weight: 2
 headline: Artwork
 art:
   - title: "Title"
