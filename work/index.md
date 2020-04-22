@@ -2,7 +2,7 @@
 title: Work
 layout: work
 header: white
-weight: 2
+weight: 1
 headline: Work
 clients:
   - name: Happy Money HQ
