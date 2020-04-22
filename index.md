@@ -3,7 +3,7 @@ title: Info
 header: white
 layout: info
 hello:
-  body: "<a href=\"#\" class=\"txt\" data-txt=\"\U0001F64C\">John Choura Jr.</a> is a <a href=\"#\" class=\"txt\" data-txt=\"\U0001F601\">Multidisciplinary Designer</a> and <a href=\"#\" class=\"txt\" data-txt=\"\U0001F635\">Artist</a> in <a href=\"#\" class=\"txt\" data-txt=\"☀️\">Long Beach</a>, California.\n"
+  body: "<a href=\"#\" class=\"txt\" data-txt=\"\U0001F64C\">John Choura</a> is a <a href=\"#\" class=\"txt\" data-txt=\"\U0001F601\">Multidisciplinary Designer</a> and <a href=\"#\" class=\"txt\" data-txt=\"\U0001F635\">Artist</a> in <a href=\"#\" class=\"txt\" data-txt=\"☀️\">Long Beach</a>, California.\n"
   color: "rgb(238, 238, 238)"
 work:
   body: "Currently Design Director at <a href=\"http://happymoney.com\" class=\"txt\" data-txt=\"\U0001F388\">Happy Money</a>. <del>Previously at Biola Art Dept., Envoy, Signal, and Biola Marketing.</del>"

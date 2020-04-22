@@ -14,13 +14,18 @@ $coversize: 80;
 $coverratio: 0.6423611111;
 
 .txt-big-wrap {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: -1;
+
+  &.active {
+    z-index: 0;
+    display: flex;
+  }
 }
 
 .txt-big {
@@ -34,6 +39,7 @@ $coverratio: 0.6423611111;
   background-color: transparent;
   outline: 1px solid transparent;
   backface-visibility: hidden;
+  z-index: -9999;
 }
 
 a {
@@ -170,9 +176,9 @@ a.txt {
 );
 @include hover-magic(
   joy,
-  #ffffff,
+  #ffebee,
   rgba(0, 0, 0, 0.25),
-  "/img/work/joy-hero.jpg",
+  "/img/work/joy-hero.png",
   none
 );
 @include hover-magic(
@@ -184,16 +190,16 @@ a.txt {
 );
 @include hover-magic(
   arcade,
-  #fff,
+  #feeaed,
   rgba(0, 0, 0, 0.25),
   "/img/work/arcade-hero.jpg",
   none
 );
 @include hover-magic(
   grandfandb,
-  #ffffff,
+  #fdf8eb,
   rgba(0, 0, 0, 0.25),
-  "/img/work/grandfandb-hero.jpg",
+  "/img/work/grandfandb-hero.png",
   none
 );
 @include hover-magic(
@@ -214,14 +220,14 @@ a.txt {
   kareo,
   #ffffff,
   rgba(0, 0, 0, 0.25),
-  "/img/work/kareo-hero.jpg",
+  "/img/work/kareo-hero.gif",
   none
 );
 @include hover-magic(
   blossom,
   #3dd4cf,
   rgba(0, 0, 0, 0.25),
-  "/img/work/blossom-hero.jpg",
+  "/img/work/blossom-hero.gif",
   none
 );
 @include hover-magic(
