@@ -2,31 +2,43 @@
 layout: default
 ---
 
-<section class="slide page-header home-header xs-mt6 xs-pt6 display-flex align-items-center" data-background="{{ page.hello.color }}">
+<section
+  id="top"
+  class="slide page-header home-header xs-mt6 xs-pt6 display-flex align-items-center"
+  data-background="{{ page.hello.color }}"
+>
   <div class="page-header--upper inline-table wrapper xs-pb6">
-      <div class="col md-col-12">
-        <h1 class="display-1 text-black">
-          {{ page.hello.body }}
-        </h1>
-      </div>
+    <div class="col md-col-12">
+      <h1 class="display-1 text-black">
+        {{ page.hello.body }}
+      </h1>
+    </div>
   </div>
 </section>
-<section class="slide page-header home-header display-flex align-items-center" data-background="{{ page.work.color }}">
+<section
+  id="career"
+  class="slide page-header home-header display-flex align-items-center"
+  data-background="{{ page.work.color }}"
+>
   <div class="page-header--upper inline-table wrapper xs-pb6">
-      <div class="col md-col-12">
-        <h1 class="display-1 text-black">
-          {{ page.work.body }}
-        </h1>
-      </div>
+    <div class="col md-col-12">
+      <h1 class="display-1 text-black">
+        {{ page.work.body }}
+      </h1>
+    </div>
   </div>
 </section>
-<section class="slide page-header home-header display-flex align-items-center" data-background="{{ page.social.color }}">
+<section
+  id="contact"
+  class="slide page-header home-header display-flex align-items-center"
+  data-background="{{ page.social.color }}"
+>
   <div class="page-header--upper inline-table wrapper xs-pb6">
-      <div class="col md-col-12">
-        <h1 class="display-1 text-black">
-          {{ page.social.body }}
-        </h1>
-      </div>
+    <div class="col md-col-12">
+      <h1 class="display-1 text-black">
+        {{ page.social.body }}
+      </h1>
+    </div>
   </div>
 </section>
 <section class="slide" data-background="rgb(238, 238, 238)">
@@ -34,11 +46,9 @@ layout: default
 </section>
 
 <script type="text/javascript">
-var preload_images = [
-  '/img/home/me-hero.jpg',
-];
+  var preload_images = ["/img/home/me-hero.jpg"];
 
-for (var i = 0, len = preload_images.length; i < len; i++) {
-  new Image().src = preload_images[i];
-}
+  for (var i = 0, len = preload_images.length; i < len; i++) {
+    new Image().src = preload_images[i];
+  }
 </script>
