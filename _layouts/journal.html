@@ -3,33 +3,50 @@ layout: default
 ---
 
 <article class="post-body" itemscope itemtype="http://schema.org/BlogPosting">
-
   <header class="post-header">
     <div class="wrapper">
       <div class="gutters">
-        <div class="col md-col-8 lg-col-7 xl-col-6">
-            <h1 class="display-1 xs-mb3" itemprop="name headline">{{ page.title }}</h1>
+        <div class="col md-col-8 lg-col-7 xl-col-8">
+          <h1 class="display-1 xs-mb3" itemprop="name headline">
+            {{ page.title }}
+          </h1>
         </div>
       </div>
-      <div class="post-hero" style="background-image: url('/journal/uploads/{{ page.cover }}');">
-      </div>
+      <div
+        class="post-hero"
+        style="background-image: url('/journal/uploads/{{ page.cover }}');"
+      ></div>
     </div>
   </header>
 
   <div class="wrapper">
     <div class="gutters">
       <div class="col md-col-4 lg-col-5 text-gray-lightest xs-mb4">
-          <h5 class="xs-block">Published on <time class="text-gray-lightest" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time> {% if page.author %}<span itemprop="author" itemscope itemtype="http://schema.org/Person"><br/>by <span class="text-gray-lightest xs-inline-block" itemprop="name">{{ page.author }}</span></span>{% endif %}</h5>
-          {% assign wordcount = content | number_of_words %}
-          {% assign avgwpm = 200 %}
-          <!-- {{wordcount}} words read at {{avgwpm}} words per minute equals the estimated read time -->
-          {% if  wordcount >= avgwpm %}
-            <h5 class="xs-block">{{ wordcount | divided_by: avgwpm | floor }} Minute Read</h5>
-          {% else %}
-            <h5 class="xs-block">1 Minute Read</h5>
-          {% endif %}
-
-
+        <h5 class="xs-block">
+          Published on
+          <time class="text-gray-lightest" itemprop="datePublished"
+            >{{ page.date | date: "%b %-d, %Y" }}</time
+          >
+          {% if page.author %}<span
+            itemprop="author"
+            itemscope
+            itemtype="http://schema.org/Person"
+            ><br />by
+            <span class="text-gray-lightest xs-inline-block" itemprop="name"
+              >{{ page.author }}</span
+            ></span
+          >{% endif %}
+        </h5>
+        {% assign wordcount = content | number_of_words %} {% assign avgwpm =
+        200 %}
+        <!-- {{wordcount}} words read at {{avgwpm}} words per minute equals the estimated read time -->
+        {% if wordcount >= avgwpm %}
+        <h5 class="xs-block">
+          {{ wordcount | divided_by: avgwpm | floor }} Minute Read
+        </h5>
+        {% else %}
+        <h5 class="xs-block">1 Minute Read</h5>
+        {% endif %}
       </div>
       <div class="col xs-col-12 -md-offset-4 md-col-8 -lg-offset-5 lg-col-7">
         <div class="post-content" itemprop="articleBody">
@@ -38,5 +55,4 @@ layout: default
       </div>
     </div>
   </div>
-
 </article>
