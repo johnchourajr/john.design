@@ -25,7 +25,7 @@ clients:
     data: happymoney
   - name: Joy Money App
     role: Product Design Lead & Product Owner
-    link: https://findjoy.com/
+    link: https://www.findjoy.com/
     year: 2016-2018
     img: joy-hero.png
     data: joy
