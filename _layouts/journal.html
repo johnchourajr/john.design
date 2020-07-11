@@ -5,17 +5,21 @@ layout: default
 <article class="post-body" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="wrapper">
-      <div class="gutters">
+      <div class="gutters xs-inline-block">
         <div class="col md-col-8 lg-col-7 xl-col-8">
           <h1 class="display-1 xs-mb3" itemprop="name headline">
             {{ page.title }}
           </h1>
         </div>
       </div>
+      {%- if page.cover -%}
       <div
         class="post-hero"
         style="background-image: url('/journal/uploads/{{ page.cover }}');"
       ></div>
+      {%- else -%}
+      <h1 class="xs-mb4" itemprop="name headline">—</h1>
+      {%- endif -%}
     </div>
   </header>
 
