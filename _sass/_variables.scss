@@ -21,7 +21,8 @@ $font-smoothing: true !default;
 // "mr-eaves-xl-modern"
 // "Europa"
 // $sans: "canada-type-gibson", "Helvetica", sans-serif;
-$sans: "SF Display", sans-serif;
+$sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
+  Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 // $mono: "Space Mono", monospace;
 $mono: "SF Mono", monospace;
 $serif: "freight-big-pro", "Times-New-Roman", serif;
