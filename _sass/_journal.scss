@@ -36,6 +36,10 @@
 
 .post-header {
   margin-top: ($space-6 * 3);
+
+  h1.display-1 {
+    line-height: 1;
+  }
 }
 
 .post-img {
