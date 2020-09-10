@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+<article class="post-body" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="wrapper">
+      <div class="gutters">
+        <div class="col md-col-6 lg-col-5 xl-col-4">
+          <h1 class="display-1 xs-mb3 " itemprop="name headline">
+            Hello
+          </h1>
+        </div>
+      </div>
+      <div class="post-hero post-hero-overflow xs-mb6">
+        {% include play/godaddy.html %}
+      </div>
+    </div>
+  </header>
+
+  <!-- <button type="button" onclick="gdOnClick()" name="button" id="gd-button">Press</button> -->
+
+  <div class="wrapper">
+    <div class="gutters">
+      <div class="col md-col-4 lg-col-5 text-gray-lightest">
+        <h6 class="post-meta">
+          <time itemprop="datePublished"
+            >{{ page.date | date: "%b %-d, %Y" }}</time
+          >{% if page.author %}
+          <span class="xs-px3 text-gray-lightest">—</span>
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person"
+            ><span class="text-gray-lightest xs-inline-block" itemprop="name"
+              >{{ page.author }}</span
+            ></span
+          >{% endif %}
+        </h6>
+      </div>
+      <div class="col xs-col-12 -md-offset-4 md-col-8 -lg-offset-5 lg-col-7">
+        <div class="post-content" itemprop="articleBody">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
