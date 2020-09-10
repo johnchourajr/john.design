@@ -130,6 +130,10 @@ li {
   }
 }
 
+a:active {
+  cursor: grabbing;
+}
+
 /**
  * Clearfix
  */
