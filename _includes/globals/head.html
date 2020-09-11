@@ -31,24 +31,28 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@JohnChouraJr">
-  <meta name="twitter:title" content="{{site.title}}" />
   <meta name="twitter:description" content="{{site.description}}">
-  {% if page.cover %}
-    <meta name="twitter:image" content="{{ site.url }}/journal/uploads/{{ page.cover }}" />
-  {% elsif page.meta_cover %}
-    <meta name="twitter:image" content="{{ site.url }}/journal/uploads/{{ page.meta_cover }}" />
-  {% else %}
-    <meta name="twitter:image" content="{{ "/img/twitter-card.jpg" | prepend: site.url }}" />
-  {% endif %}
-  <meta property="og:title" content="{{site.title}}" />
   <meta property="og:description" content="{{site.description}}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{permalink}}" />
   {% if page.cover %}
+    <meta name="twitter:image" content="{{ site.url }}/journal/uploads/{{ page.cover }}" />
+    <meta name="twitter:title" content="{{page.title}} : {{site.title}} Design" />
     <meta property="og:image" content="{{ site.url }}/journal/uploads/{{ page.cover }}" />
+    <meta property="og:title" content="{{page.title}} : {{site.title}} Design" />
+  {% elsif page.meta_cover %}
+    <meta name="twitter:image" content="{{ site.url }}/journal/uploads/{{ page.meta_cover }}" />
+    <meta name="twitter:title" content="{{page.title}} : {{site.title}} Design" />
+    <meta property="og:image" content="{{ site.url }}/journal/uploads/{{ page.meta_cover }}" />
+    <meta property="og:title" content="{{page.title}} : {{site.title}} Design" />
   {% else %}
+    <meta name="twitter:image" content="{{ "/img/twitter-card.jpg" | prepend: site.url }}" />
+    <meta name="twitter:title" content="{{site.title}} Design" />
     <meta property="og:image" content="{{ "/img/twitter-card.jpg" | prepend: site.url }}" />
+    <meta property="og:title" content="{{site.title}}" />
   {% endif %}
+
+
   <meta name="google-site-verification" content="A2QZkbiNcO36PZ2ALwVrqnmQshrlkt5qRnQ_pXCJoNY" />
 
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
