@@ -14,6 +14,15 @@ $diff-tm-half: #{$diff-tm / 2};
 $timing: 5;
 $timing-offset: 0.03;
 
+@include hover-magic(gd-scrolled, #ffffff, #1bdbdb, null, unset);
+
+body.gd-scrolled {
+  svg.godaddy-mark path[data-color="blue"] {
+    fill: #1bdbdb !important;
+    mix-blend-mode: none !important;
+  }
+}
+
 @mixin gd-letters-move(
   $color: "black",
   $opacity: 1,
@@ -83,7 +92,7 @@ svg.godaddy-mark {
     @include gd-letters-move("black", 1, 0, 0, 0, 0deg);
 
     &:active {
-      transform: scale(.95);
+      transform: scale(0.95);
       cursor: grabbing;
 
       @include gd-letters-move(
@@ -110,7 +119,6 @@ svg.godaddy-mark {
   }
 
   &.scrolled {
-
     @include gd-letters-move(
       "black",
       0,
@@ -136,8 +144,6 @@ svg.godaddy-mark {
       @include gd-letters-move("blue", 0, 0, 0, 0, 5deg);
     }
   }
-
-
 
   // path[data-color="blue"] {
   //   @mixin gd-animate($name, $el, $timing) {
