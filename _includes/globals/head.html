@@ -35,6 +35,8 @@
   <meta name="twitter:description" content="{{site.description}}">
   {% if page.cover %}
     <meta name="twitter:image" content="{{ site.url }}/journal/uploads/{{ page.cover }}" />
+  {% elsif page.meta_cover %}
+    <meta name="twitter:image" content="{{ site.url }}/journal/uploads/{{ page.meta_cover }}" />
   {% else %}
     <meta name="twitter:image" content="{{ "/img/twitter-card.jpg" | prepend: site.url }}" />
   {% endif %}
