@@ -16,8 +16,10 @@
       window.requestAnimationFrame(function() {
         if (last_known_scroll_position >= 60) {
           gd_el.classList.add("scrolled");
+          document.body.classList.add("gd-scrolled");
         } else if (last_known_scroll_position < 60) {
           gd_el.classList.remove("scrolled");
+          document.body.classList.remove("gd-scrolled");
         }
         ticking = false;
       });
