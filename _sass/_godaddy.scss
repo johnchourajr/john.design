@@ -21,7 +21,7 @@ body.gd-scrolled {
     fill: #1bdbdb !important;
   }
 
-  svg.godaddy-mark path[data-color="black"] {
+  svg.godaddy-mark:active path[data-color="black"] {
     fill: white !important;
   }
 
