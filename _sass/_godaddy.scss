@@ -81,9 +81,9 @@ svg.godaddy-mark {
   @include gd-letters-move(
     "black",
     0,
-    -$diff-mark-half,
-    -$diff-letters-half,
-    -$diff-tm-half,
+    -$diff-mark,
+    -$diff-letters,
+    -$diff-tm,
     0deg
   );
   @include gd-letters-move(
