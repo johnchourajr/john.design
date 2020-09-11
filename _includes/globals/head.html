@@ -10,11 +10,13 @@
 
     + WEBSITE CREDITS
 
-    + Design, Development by John Choura Jr. in 2017
+    + Design, Development by John Choura Jr. in 2020
 
     + Frameworks and Technologies Used
-      solid.1.6.0
-      jquery-2.1.4
+      jekyll 3.8.4
+      solid 1.6.0
+      jquery 2.1.4
+      vanilla javascript
 
     -->
 
@@ -25,7 +27,7 @@
   <meta name="theme-color" content="#e55033">
 
 
-  <title>{% if page.title == 'Info' %}{{site.title}} Design{% else %}{{site.title}} Design > {{page.title}}{% endif %}</title>
+  <title>{% if page.title == 'Info' %}{{site.title}} Design{% else %}{{page.title}} : {{site.title}} Design{% endif %}</title>
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@JohnChouraJr">
