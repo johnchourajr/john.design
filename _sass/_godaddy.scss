@@ -1,0 +1,159 @@
+.body-hello-godaddy .post-hero {
+  height: 15vw;
+  min-height: 50px;
+}
+
+$svg-height: calc((85vw - (0.5rem)) * 0.35);
+$diff-mark: -206.5px;
+$diff-mark-half: #{$diff-mark / 2};
+$diff-letters: -131.5px;
+$diff-letters-half: #{$diff-letters / 2};
+$diff-tm: -20.5px;
+$diff-tm-half: #{$diff-tm / 2};
+
+$timing: 5;
+$timing-offset: 0.03;
+
+@include hover-magic(gd-scrolled, #111111, #1bdbdb, null, unset);
+
+body.gd-scrolled {
+  svg.godaddy-mark path[data-color="blue"] {
+    fill: #1bdbdb !important;
+  }
+
+  .post-hero-overflow {
+    mix-blend-mode: unset !important;
+  }
+}
+
+@mixin gd-letters-move(
+  $color: "black",
+  $opacity: 1,
+  $mark: 0,
+  $letters: 0,
+  $tm: 0,
+  $rotate: 0deg
+) {
+  path[data-color="#{$color}"] {
+    opacity: $opacity;
+
+    &[data-object="mark"] {
+      transform: translate3d(0, $mark, 0) rotate($rotate);
+    }
+
+    &[data-object="g"],
+    &[data-object="o"],
+    &[data-object="d1"],
+    &[data-object="a"],
+    &[data-object="d2"],
+    &[data-object="d3"],
+    &[data-object="y"] {
+      transform: translate3d(0, $letters, 0) rotate($rotate);
+    }
+
+    &[data-object="tm"] {
+      transform: translate3d(0, $tm, 0) rotate($rotate);
+    }
+  }
+}
+
+svg.godaddy-mark {
+  width: 100%;
+  min-height: $svg-height;
+  font-size: 16px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center center;
+  overflow: visible;
+  cursor: pointer;
+  will-change: transform, opacity;
+
+  path {
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, opacity;
+  }
+
+  @include gd-letters-move(
+    "black",
+    0,
+    -$diff-mark-half,
+    -$diff-letters-half,
+    -$diff-tm-half,
+    0deg
+  );
+  @include gd-letters-move(
+    "blue",
+    0,
+    $diff-mark-half,
+    $diff-letters-half,
+    $diff-tm-half,
+    5deg
+  );
+
+  &.initial {
+    @include gd-letters-move("black", 1, 0, 0, 0, 0deg);
+
+    &:active {
+      transform: scale(0.95);
+      cursor: grabbing;
+
+      @include gd-letters-move(
+        "black",
+        0,
+        $diff-mark-half,
+        $diff-letters-half,
+        $diff-tm-half,
+        -10deg
+      );
+      @include gd-letters-move(
+        "blue",
+        1,
+        $diff-mark,
+        $diff-letters,
+        $diff-tm,
+        0deg
+      );
+    }
+  }
+
+  &:hover {
+    // transform: scale(1.05);
+  }
+
+  &.scrolled {
+    @include gd-letters-move(
+      "black",
+      0,
+      $diff-mark-half,
+      $diff-letters-half,
+      $diff-tm-half,
+      -10deg
+    );
+    @include gd-letters-move(
+      "blue",
+      1,
+      $diff-mark,
+      $diff-letters,
+      $diff-tm,
+      0deg
+    );
+
+    &:active {
+      transform: scale(1);
+      cursor: grabbing;
+
+      @include gd-letters-move("black", 1, 0, 0, 0, 0deg);
+      @include gd-letters-move("blue", 0, 0, 0, 0, 5deg);
+    }
+  }
+
+  @for $i from 0 through 8 {
+    $offset: ($i * $timing-offset);
+
+    path[data-sequence="#{$i}"] {
+      animation-delay: #{$offset}s;
+      transition-delay: #{$offset}s;
+    }
+  }
+}
