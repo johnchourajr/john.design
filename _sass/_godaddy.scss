@@ -14,12 +14,15 @@ $diff-tm-half: #{$diff-tm / 2};
 $timing: 5;
 $timing-offset: 0.03;
 
-@include hover-magic(gd-scrolled, #ffffff, #1bdbdb, null, unset);
+@include hover-magic(gd-scrolled, #111111, #1bdbdb, null, unset);
 
 body.gd-scrolled {
   svg.godaddy-mark path[data-color="blue"] {
     fill: #1bdbdb !important;
-    mix-blend-mode: none !important;
+  }
+
+  .post-hero-overflow {
+    mix-blend-mode: unset !important;
   }
 }
 
@@ -35,7 +38,7 @@ body.gd-scrolled {
     opacity: $opacity;
 
     &[data-object="mark"] {
-      transform: translate(0, $mark) rotate($rotate);
+      transform: translate3d(0, $mark, 0) rotate($rotate);
     }
 
     &[data-object="g"],
@@ -45,11 +48,11 @@ body.gd-scrolled {
     &[data-object="d2"],
     &[data-object="d3"],
     &[data-object="y"] {
-      transform: translate(0, $letters) rotate($rotate);
+      transform: translate3d(0, $letters, 0) rotate($rotate);
     }
 
     &[data-object="tm"] {
-      transform: translate(0, $tm) rotate($rotate);
+      transform: translate3d(0, $tm, 0) rotate($rotate);
     }
   }
 }
