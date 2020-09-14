@@ -17,7 +17,7 @@ A few things came natural; my desire and ability to create a thriving culture of
 
 As time has went on, so much has become abundantly clear to me on how a designer needs to lead. To be honest, many of my realizations are painfully simple, however the direct experience has helped me truly realize them.
 
-I wrote all of these in a voice that speaks of my personal experience and is directed to the past, present, and future design leader. Here's what I've got.
+I wrote all of these in a voice that speaks of my personal experience and is directed to any past, present, or future design leader. Here's what I've got.
 
 <h1 class="post-text-num" data-num="1">1. Release your grip</h1>
 
@@ -71,9 +71,9 @@ The more important lesson for me was one of humility. It takes self awareness an
 
 <h1 class="post-text-num" data-num="7">7. Get a coach</h1>
 
-Just over one year into being a design leader, I was feeling wayward and in need of guidance. Since I was the top design leader in my organization, I didn't have anyone with design leadership experience to lead and guide me through the challenges I was facing. That's when I came across the [Design Dept.](https://www.designdept.co/), they're a women-led design leadership community that offers coaching and workshops. I instantly sent out an inquiry about coaching, and not to long after I was paired with [April Nuefeld](https://www.linkedin.com/in/aprilneufeld/) as my coach, and haven't looked back since.
+Just over one year into being a design leader, I was feeling wayward and in need of guidance. Since I was the top design leader in my organization, I didn't have anyone with design leadership experience to lead and guide me through the challenges I was facing. That's when I came across the [Design Dept.](https://www.designdept.co/), they're a women-led design leadership community that offers coaching and workshops. I instantly sent out an inquiry about coaching, and not to long after I was paired with my coach, and haven't looked back since.
 
-April has been instrumental in helping me navigate the challenges of being a design leader. In fact, much of the reflection contained in these lessons is directly from conversations April and I have had.
+My coach has been instrumental in helping me navigate the challenges of being a design leader. In fact, much of the reflection contained in these lessons is directly from conversations her and I have had.
 
 Having a design leadership mentor and a coach is crucial to circumnavigating the challenges of leading a team of designers. Having someone who can speak from deep experience about the things you're actively working through is a _must_. While there is a cost associated, any organization that cares about the professional development of their leaders will make the investment.
 
@@ -81,7 +81,7 @@ Having a design leadership mentor and a coach is crucial to circumnavigating the
 
 Well, what do you know. That's all I've got.
 
-I'm so insanely indebted to everyone who helped make my experience as a leader a thoughtful and fruitful one. Quick shout out to my former manager and CPO of Happy Money, Adam Zarlengo. He supported so much along the way. I also would not have learned the lessons that I did, if not for my former team. Shout out to David Garvin, Scott Branch, Sally Alvarado, Sar Issagholian, Mark Hsieh, Kristine White, Jonathan Wagoner, Jeff Weimer, Laura Zinssmeister, and Cat Freeman. Thanks for bearing with me, as I was figuring my shit out.
+I'm so insanely indebted to everyone who helped make my experience as a leader a thoughtful and fruitful one. Thanks to my design leadership coach [April Nuefeld](https://www.linkedin.com/in/aprilneufeld/), I'm grateful for everything your insight and perspective brings to me. Shout out to my former manager and CPO of Happy Money, Adam Zarlengo, thanks for your support and trust in my ability to lead. I also would not have learned the lessons that I did, if not for my former team. Shout out to David Garvin, Scott Branch, Sally Alvarado, Sar Issagholian, Kathy Speer, Mark Hsieh, Sarah Ohye, Kristine White, Jonathan Wagoner, Joey Belardi, Jeff Weimer, Laura Zinssmeister, and Cat Freeman. Thanks for bearing with me, as I was figuring out my shit.
 
 –JC
 
