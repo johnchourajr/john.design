@@ -40,14 +40,14 @@ After 4 months of working with a contractor, plumbers, builders, electricians, e
 
 200 addition square feet to the house by adding on a bathroom to the master bedroom. Our outdoor living space is equipped with an outdoor fire pit, built-in bbq countertop with mini fridge, and an above ground jacuzzi. To create our newly hardscaped space we poured 2 truck loads of new concrete, laid down new sod grass, and did custom landscaping with new display rocks and succulent plants.
 
-![xs](/journal/uploads/home-full.jpg)
+![sm](/journal/uploads/home-full.jpg)
 ![lg](/journal/uploads/home-deck.jpg)
 ![lg](/journal/uploads/home-firepit.jpg)
 
 ![twoup](/journal/uploads/home-kitty.jpg)
 ![twoup](/journal/uploads/home-puppy.jpg)
 
-![xs](/journal/uploads/home-chairs.jpg)
+![sm](/journal/uploads/home-chairs.jpg)
 
 Doing work on our home was one of the most fun challenges that we've experienced as home owners. The process is stressful and exciting, coordinating and project managing contract workers. In the end it all pays off, and we get to enjoy the fruit of our labors.
 
