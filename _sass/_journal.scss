@@ -72,6 +72,12 @@
       }
     }
 
+    hr {
+      margin: 2.5rem 0;
+      border-width: 2px;
+      border-color: black;
+    }
+
     h1,
     h2 {
       line-height: 1.55;
@@ -152,5 +158,39 @@
 
   .text-1 {
     font-weight: 600;
+  }
+}
+
+.post-text-num {
+  position: relative;
+
+  &[data-num]:before {
+    @include media-query(md) {
+      content: attr(data-num);
+      color: white;
+      position: absolute;
+      top: -0.4em;
+      bottom: 0;
+      left: -37vw;
+      font-size: 40vw;
+      text-align: center;
+      width: 37vw;
+    }
+
+    @include media-query(lg) {
+      font-size: 35vw;
+    }
+
+    @include media-query(xl) {
+      font-size: 30vw;
+    }
+
+    @include media-query(xxl) {
+      font-size: 20vw;
+    }
+
+    @media (min-width: 2400px) {
+      font-size: 18vw;
+    }
   }
 }
