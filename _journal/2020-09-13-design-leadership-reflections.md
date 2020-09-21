@@ -81,7 +81,7 @@ Having a design leadership mentor and a coach is crucial to circumnavigating the
 
 Well, what do you know. That's all I've got.
 
-I'm so insanely indebted to everyone who helped make my experience as a leader a thoughtful and fruitful one. Thanks to my design leadership coach [April Nuefeld](https://www.linkedin.com/in/aprilneufeld/), I'm grateful for everything your insight and perspective brings to me. Shout out to my former manager and CPO of Happy Money, Adam Zarlengo, thanks for your support and trust in my ability to lead. I also would not have learned the lessons that I did, if not for my former team. Shout out to David Garvin, Scott Branch, Sally Alvarado, Sar Issagholian, Kathy Speer, Jonathan Wagoner, Sarah Ohye, Mark Hsieh, Kristine White, Joey Belardi, Jeff Weimer, Laura Zinssmeister, and Cat Freeman. Thanks for bearing with me, as I was figuring out my shit.
+I'm so insanely indebted to everyone who helped make my experience as a leader a thoughtful and fruitful one. Thanks to my design leadership coach [April Neufeld](https://www.linkedin.com/in/aprilneufeld/), I'm grateful for everything your insight and perspective brings to me. Shout out to my former manager and CPO of Happy Money, Adam Zarlengo, thanks for your support and trust in my ability to lead. I also would not have learned the lessons that I did, if not for my former team. Shout out to David Garvin, Scott Branch, Sally Alvarado, Sar Issagholian, Kathy Speer, Jonathan Wagoner, Sarah Ohye, Mark Hsieh, Kristine White, Joey Belardi, Jeff Weimer, Laura Zinssmeister, and Cat Freeman. Thanks for bearing with me, as I was figuring out my shit.
 
 –JC
 
