@@ -6,3 +6,4 @@ _drafts
 config.codekit
 node_modules
 .*
+/public
