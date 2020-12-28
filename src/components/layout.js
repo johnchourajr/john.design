@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "gatsby";
+import { Helmet } from "react-helmet";
+import Head from "./globals/head";
 
 const pageStyles = {
 	color: "#232129",
@@ -8,11 +11,31 @@ const pageStyles = {
 	padding: `0 1rem`,
 };
 
-export default function Layout({ children }) {
+export default function Layout({ children, pageTitle }) {
 	return (
-		<div style={pageStyles}>
-			<div>Nav</div>
-			{children}
-		</div>
+		<>
+			<Head />
+			<div style={pageStyles}>
+				<Helmet>
+					<title>{pageTitle}</title>
+					<meta name="description" content="Helmet application" />
+				</Helmet>
+				<div>John.Design</div>
+				<div>
+					<ul>
+						<li>
+							<Link to="/">Home</Link>
+						</li>
+						<li>
+							<Link to="/work">Work</Link>
+						</li>
+						<li>
+							<Link to="/journal">Journal</Link>
+						</li>
+					</ul>
+				</div>
+				{children}
+			</div>
+		</>
 	);
 }
