@@ -9,5 +9,10 @@ const pageStyles = {
 };
 
 export default function Layout({ children }) {
-	return <div style={pageStyles}>{children}</div>;
+	return (
+		<div style={pageStyles}>
+			<div>Nav</div>
+			{children}
+		</div>
+	);
 }
