@@ -46,6 +46,11 @@ module.exports = {
 				path: `${__dirname}/src/pages/journal/posts`,
 			},
 		},
-		`gatsby-transformer-remark`,
+		{
+			resolve: `gatsby-plugin-mdx`,
+			options: {
+				extensions: [`.md`, `.mdx`],
+			},
+		},
 	],
 };

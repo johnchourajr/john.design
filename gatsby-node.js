@@ -5,7 +5,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
 	const result = await graphql(`
 		{
-			allMarkdownRemark(
+			allMdx(
 				sort: { order: DESC, fields: [frontmatter___date] }
 				limit: 1000
 			) {
@@ -15,6 +15,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 							slug
 							template
 						}
+						id
 					}
 				}
 			}
@@ -27,7 +28,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 		return;
 	}
 
-	result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+	result.data.allMdx.edges.forEach(({ node }) => {
 		const template = node.frontmatter.template
 			? node.frontmatter.template
 			: "pageTemplate";
@@ -37,6 +38,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 			context: {
 				// additional data can be passed via context
 				slug: node.frontmatter.slug,
+				id: node.id,
 			},
 		});
 	});
