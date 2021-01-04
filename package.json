@@ -30,11 +30,12 @@
     "gatsby-plugin-sitemap": "^2.9.0",
     "gatsby-plugin-styled-components": "^3.7.0",
     "gatsby-source-filesystem": "^2.8.1",
-    "gatsby-transformer-remark": "^2.13.1",
     "gatsby-transformer-sharp": "^2.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-page-visibility": "^6.3.0",
+    "react-ticker": "^1.2.2",
     "styled-components": "^5.2.1"
   }
 }
