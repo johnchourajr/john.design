@@ -30,3 +30,24 @@ export const colors = {
 	gray6: "#F2F2F2",
 	white: "#ffffff",
 };
+
+export const animation = {
+	timingFunction: {
+		js: [0.1, 0.25, 0.3, 1],
+		css: `cubic-bezier(0.1, 0.25, 0.3, 1)`,
+	},
+	duration: {
+		100: {
+			js: 0.3,
+			css: "300ms",
+		},
+		200: {
+			js: 0.5,
+			css: "500ms",
+		},
+		300: {
+			js: 0.6,
+			css: "600ms",
+		},
+	},
+};

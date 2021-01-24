@@ -32,14 +32,16 @@ export default function Tick(props) {
 
 const TickerWrapper = styled.div`
 	.ticker {
-		width: 100vw;
+		width: 107vw;
 		transform: translate3d(-7vw, 0, 0);
 		overflow: visible !important;
+		display: inline-flex;
 	}
 
 	.ticker__element {
 		display: inline-flex;
 		flex-wrap: nowrap;
-		width: min-content;
+		width: fit-content;
+		white-space: pre;
 	}
 `;
