@@ -61,10 +61,7 @@ export const indexQuery = graphql`
 	query indexQuery {
 		allMdx(
 			filter: {
-				frontmatter: {
-					title: { eq: "Home" }
-					type: { eq: "topLevelPage" }
-				}
+				frontmatter: { title: { eq: "Home" }, type: { eq: "topLevelPage" } }
 			}
 		) {
 			edges {

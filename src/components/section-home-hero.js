@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Wrapper } from "../components/style/global-styles";
 import Tick from "../components/tick";
+import { stringToSlug } from "../functions/util";
 
 export default function SectionHomeHero({ data }) {
 	const [tickerSpeed, setTickerSpeed] = useState(15);
@@ -23,7 +24,11 @@ export default function SectionHomeHero({ data }) {
 								return null;
 							} else {
 								return (
-									<H2Center key={i} className="display">
+									<H2Center
+										key={i}
+										className="display"
+										data-name={stringToSlug(item)}
+									>
 										{item}
 										{" / "}
 									</H2Center>
@@ -55,7 +60,8 @@ const H2Center = styled.h2`
 `;
 
 const HomeSection = styled.section`
-	min-height: calc(95vh - 8rem);
+	min-height: calc(60rem);
+	height: calc(95vh - 8rem);
 	display: flex;
 	align-items: center;
 `;
