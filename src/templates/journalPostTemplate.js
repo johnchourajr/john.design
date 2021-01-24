@@ -10,8 +10,8 @@ export default function Template({ pageContext, data }) {
 	const { mdx } = data;
 	const { frontmatter, body, timeToRead } = mdx;
 	const { next, previous } = pageContext;
-	const hasNext = next.frontmatter.template.includes("journal");
-	const hasPrev = previous.frontmatter.template.includes("journal");
+	const hasNext = next?.frontmatter.template.includes("journal");
+	const hasPrev = previous?.frontmatter.template.includes("journal");
 
 	return (
 		<Layout pageTitle={frontmatter.title}>
