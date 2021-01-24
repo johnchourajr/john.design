@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { Wrapper } from "../components/style/global-styles";
 import Tick from "../components/tick";
 import { repeatTitle } from "../functions/util";
 
-const rotations = ["-6.69deg", "-12.78deg", "-33.78deg", "17.51deg"];
+// const rotations = ["-6.69deg", "-12.78deg", "-33.78deg", "17.51deg"];
 
 export default function PageHeader(props) {
-	const [rotation, setRotation] = useState(rotations[0]);
+	// const [rotation, setRotation] = React.useState(rotations[0]);
 
-	useEffect(() => {
-		const random = Math.floor(Math.random() * rotations.length);
-		setRotation(rotations[random]);
-	}, []);
+	// React.useEffect(() => {
+	// 	const random = Math.floor(Math.random() * rotations.length);
+	// 	setRotation(rotations[random]);
+	// }, []);
 
 	const title = repeatTitle(`${props.title}`);
 
