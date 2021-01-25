@@ -61,7 +61,7 @@ const H2Center = styled.h2`
 
 const HomeSection = styled.section`
 	min-height: calc(60rem);
-	height: calc(95vh - 8rem);
+	height: calc(85vh - 8rem);
 	display: flex;
 	align-items: center;
 `;

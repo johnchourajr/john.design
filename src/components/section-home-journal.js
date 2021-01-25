@@ -1,5 +1,5 @@
 import React from "react";
-import { StaticQuery } from "gatsby";
+import { StaticQuery, graphql } from "gatsby";
 import JournalItem from "./journal-item";
 
 export default function SectionHomeJournal() {
@@ -8,11 +8,7 @@ export default function SectionHomeJournal() {
 			query={graphql`
 				query journalFeature {
 					allMdx(
-						filter: {
-							frontmatter: {
-								template: { eq: "journalPostTemplate" }
-							}
-						}
+						filter: { frontmatter: { template: { eq: "journalPostTemplate" } } }
 						limit: 1
 						sort: { fields: frontmatter___date, order: DESC }
 					) {
