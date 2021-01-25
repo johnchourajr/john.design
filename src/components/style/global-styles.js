@@ -63,13 +63,9 @@ export const PageWrapper = styled.div`
 	h1,
 	.h1 {
 		font-size: ${clampBuilder(2.5, 3.25)};
-		line-height: 140%;
+		line-height: 132%;
 		letter-spacing: -0.01em;
 		font-feature-settings: "ss02" on, "ss05" on, "calt" off, "liga" off;
-
-		@media ${(props) => props.theme.device.laptopLg} {
-			line-height: 120%;
-		}
 
 		&-display,
 		&.display,
@@ -100,6 +96,13 @@ export const PageWrapper = styled.div`
 		line-height: 120%;
 		letter-spacing: -0.01em;
 		font-feature-settings: "ss02" on, "ss05" on, "calt" off, "liga" off;
+
+		&-display,
+		&.display,
+		&[data-display] {
+			font-size: ${clampBuilder(2.5, 6.25)};
+			line-height: 100%;
+		}
 	}
 
 	h4,
@@ -148,10 +151,13 @@ export const PageWrapper = styled.div`
 		color: ${(props) => props.theme.colors.black};
 		transition: color ${(props) => props.theme.animation.duration[100].css}
 			${(props) => props.theme.animation.timingFunction.css};
+		text-decoration-thickness: 0;
 		opacity: 1;
 
 		&:hover {
 			color: ${(props) => props.theme.colors.gray1};
+			text-decoration-skip-ink: auto;
+			text-decoration-thickness: 0.065em;
 		}
 	}
 
@@ -168,5 +174,10 @@ export const Wrapper = styled.div`
 	@media ${(props) => props.theme.device.tablet} {
 		padding: 0 7vw;
 		width: 86vw;
+	}
+
+	&.pV {
+		padding-top: 7vw;
+		padding-bottom: 7vw;
 	}
 `;

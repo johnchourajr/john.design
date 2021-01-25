@@ -39,15 +39,15 @@ export const animation = {
 	duration: {
 		100: {
 			js: 0.3,
-			css: "300ms",
+			css: `300ms`,
 		},
 		200: {
 			js: 0.5,
-			css: "500ms",
+			css: `500ms`,
 		},
 		300: {
 			js: 0.6,
-			css: "600ms",
+			css: `600ms`,
 		},
 	},
 };

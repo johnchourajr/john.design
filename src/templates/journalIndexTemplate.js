@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { graphql } from "gatsby";
 import JournalItem from "../components/journal-item";
 import Layout from "../components/layout";
 import PageHeader from "../components/page-header";

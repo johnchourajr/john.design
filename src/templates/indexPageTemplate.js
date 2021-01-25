@@ -5,6 +5,8 @@ import Layout from "../components/layout";
 import { Wrapper } from "../components/style/global-styles";
 import SectionHomeHero from "../components/section-home-hero";
 import SectionHomeJournal from "../components/section-home-journal";
+import SectionJobs from "../components/section-home-jobs";
+import SectionBrands from "../components/section-home-brands";
 
 export default function Template({
 	data: {
@@ -16,32 +18,8 @@ export default function Template({
 	return (
 		<Layout pageTitle={frontmatter.title}>
 			<SectionHomeHero data={frontmatter} />
-			<Wrapper>
-				<section>
-					<ul>
-						{frontmatter.section_resume.map((item, i) => (
-							<li key={i}>
-								<h1>
-									<span>{item.title} </span>
-									<span>{item.name} </span>
-									<span>{item.date} </span>
-								</h1>
-							</li>
-						))}
-					</ul>
-				</section>
-			</Wrapper>
-			<Wrapper>
-				<section>
-					<ul>
-						{frontmatter.section_brands.map((item, i) => (
-							<li key={i}>
-								<h1>{item.name} </h1>
-							</li>
-						))}
-					</ul>
-				</section>
-			</Wrapper>
+			<SectionJobs jobs={frontmatter.section_resume} />
+			<SectionBrands brands={frontmatter.section_brands} />
 			<Wrapper>
 				<section>
 					{frontmatter.section_art.headline}
