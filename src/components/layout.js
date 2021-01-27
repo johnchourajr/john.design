@@ -1,7 +1,14 @@
 import React from "react";
+import { renderToString } from "react-dom/server";
+
 import Head from "./globals/head";
 import Nav from "./globals/nav";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import {
+	ThemeProvider,
+	createGlobalStyle,
+	ServerStyleSheet,
+	StyleSheetManager,
+} from "styled-components";
 import { device, colors, animation } from "../data/baseTheme";
 import { PageWrapper } from "./style/global-styles";
 
