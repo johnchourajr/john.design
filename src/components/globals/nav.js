@@ -36,9 +36,7 @@ function NavLinks() {
 				query={graphql`
 					query navQuery {
 						allMdx(
-							filter: {
-								frontmatter: { type: { eq: "topLevelPage" } }
-							}
+							filter: { frontmatter: { type: { eq: "topLevelPage" } } }
 							sort: { fields: frontmatter___weight, order: ASC }
 						) {
 							edges {
@@ -74,16 +72,18 @@ export default function Nav() {
 
 const NavWrapper = styled.nav`
 	display: flex;
-	position: relative;
+	position: fixed;
 	align-items: center;
 	justify-content: space-between;
 	height: 6rem;
 	margin: 0 1rem;
 	width: calc(100vw - 2rem);
+	left: 0;
+
 	z-index: 10;
 
 	@media ${(props) => props.theme.device.tablet} {
-		margin: 0 auto;
+		margin: 0 7vw;
 		width: 86vw;
 		height: 8rem;
 	}

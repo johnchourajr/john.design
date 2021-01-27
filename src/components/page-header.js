@@ -33,7 +33,8 @@ export default function PageHeader(props) {
 }
 
 const PageHeaderWrapper = styled.div`
-	height: 30vh;
+	height: 50vh;
+	min-height: 500px;
 	display: flex;
 	align-items: center;
 	overflow: visible;

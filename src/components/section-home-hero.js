@@ -3,11 +3,34 @@ import styled from "styled-components";
 
 import { Wrapper } from "../components/style/global-styles";
 import Tick from "../components/tick";
-import { stringToSlug } from "../functions/util";
+import { stringToSlug, changeBodyClass } from "../functions/util";
+import { SuperStateContext } from "./layout";
+
+function TickerText({ item, slug }) {
+	return (
+		<SuperStateContext.Consumer>
+			{(context) => {
+				return (
+					<H2Center
+						className="display"
+						data-name={slug}
+						onMouseEnter={() => changeBodyClass("enter", slug)}
+						onMouseLeave={() => changeBodyClass("exit", slug)}
+					>
+						{item}
+						<span>{" / "}</span>
+					</H2Center>
+				);
+			}}
+		</SuperStateContext.Consumer>
+	);
+}
 
 export default function SectionHomeHero({ data }) {
 	const [tickerSpeed, setTickerSpeed] = useState(15);
 	const sectionHeroLength = data.section_hero.length - 1;
+
+	// console.log(data.section_hero.map((item) => stringToSlug(item)));
 
 	return (
 		<HomeSection>
@@ -20,19 +43,11 @@ export default function SectionHomeHero({ data }) {
 				>
 					{() =>
 						data.section_hero.map((item, i) => {
+							const slug = stringToSlug(item);
 							if (i === 0 || i === sectionHeroLength) {
 								return null;
 							} else {
-								return (
-									<H2Center
-										key={i}
-										className="display"
-										data-name={stringToSlug(item)}
-									>
-										{item}
-										{" / "}
-									</H2Center>
-								);
+								return <TickerText key={i} slug={slug} item={item} />;
 							}
 						})
 					}
