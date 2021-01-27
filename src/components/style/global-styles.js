@@ -1,5 +1,25 @@
 import styled from "styled-components";
-import { clampBuilder } from "../../functions/util";
+// import { clampBuilder } from "../../functions/util";
+
+export function clampBuilder(minFontSize, maxFontSize) {
+	if (typeof document !== `undefined`) {
+		// const root = document.querySelector("html");
+		// const pixelsPerRem = Number(getComputedStyle(root).fontSize.slice(0, -2));
+
+		// console.log({ root, pixelsPerRem });
+
+		const pixelsPerRem = 16;
+		const minWidth = 375 / pixelsPerRem;
+		const maxWidth = 1440 / pixelsPerRem;
+
+		const slope = (maxFontSize - minFontSize) / (maxWidth - minWidth);
+		const yAxisIntersection = -minWidth * slope + minFontSize;
+
+		return `clamp( ${minFontSize}rem, ${yAxisIntersection}rem + ${
+			slope * 100
+		}vw, ${maxFontSize}rem )`;
+	}
+}
 
 export const PageWrapper = styled.div`
 	@font-face {
@@ -19,9 +39,6 @@ export const PageWrapper = styled.div`
 	font-family: "LabilGrotesk-Medium", sans-serif;
 	font-style: normal;
 	font-weight: 500;
-
-	@media ${(props) => props.theme.device.tablet} {
-	}
 
 	a {
 		text-decoration: none;
