@@ -1,25 +1,31 @@
 import React from "react";
 import { Wrapper } from "./style/global-styles";
 import styled from "styled-components";
+import { changeBodyClass, stringToSlug } from "../functions/util";
 
 export default function SectionJobs({ jobs }) {
 	return (
 		<JobSection className="pV">
-			{jobs.map((item, i) => (
-				<JobItem
-					key={i}
-					className={`${
-						!item.date.includes("Present") ? `inactive` : `active`
-					}`}
-				>
-					<h3 className="display">{item.title} </h3>
+			{jobs.map((item, i) => {
+				const slug = stringToSlug(item.name);
+				return (
+					<JobItem
+						key={i}
+						className={`${
+							!item.date.includes("Present") ? `inactive` : `active`
+						}`}
+						onMouseEnter={() => changeBodyClass("enter", `job-${slug}`)}
+						onMouseLeave={() => changeBodyClass("exit", `job-${slug}`)}
+					>
+						<h3 className="display">{item.title} </h3>
 
-					<aside>
-						<h4>{item.name} </h4>
-						<h4>{item.date} </h4>
-					</aside>
-				</JobItem>
-			))}
+						<aside>
+							<h4>{item.name} </h4>
+							<h4>{item.date} </h4>
+						</aside>
+					</JobItem>
+				);
+			})}
 		</JobSection>
 	);
 }
