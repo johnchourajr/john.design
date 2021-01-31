@@ -5,7 +5,8 @@ import { animation } from '../data/baseTheme';
 /**
  * Renders a <MotionScroll /> component
  * @component
- * @param {React.Element} props.children react children
+ * @param {Object} props
+ * @param {any} props.children react children
  * @param {Boolean} props.span when true wraps render in span
  * @param {Number} props.yOffset any number that will be rendered as a pixel value for transforming the y axis of the element
  * @param {Object} props.easing [number, number, number, number] | "linear" | "easeIn" | "easeOut" | "easeInOut" | "circIn" | "circOut" | "circInOut" | "backIn" | "backOut" | "backInOut" | "anticipate" | EasingFunction
@@ -36,6 +37,7 @@ export default function MotionScroll({
     if (!ref.current) return;
 
     const setValues = () => {
+      // @ts-ignore
       setElementTop(ref.current.offsetTop);
       // setElementBottom(ref.current.offsetTop + ref.current.offsetHeight);
       // setElementHeight(ref.current.offsetHeight);
@@ -76,6 +78,7 @@ export default function MotionScroll({
     scrollY,
     yOpacityRange,
     opacityRange,
+    // @ts-ignore
     'anticipate'
   );
 

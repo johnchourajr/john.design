@@ -2,8 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 export const BodyStyles = createGlobalStyle`
     body {
-        background-color: ${(props) => props.theme.colors.gray5};
-        color: ${(props) => props.theme.colors.black};
+        background-color: ${(props) =>
+          // @ts-ignore
+          props.theme.colors.gray5};
+        color: ${(props) =>
+          // @ts-ignore
+          props.theme.colors.black};
         font-family: "LabilGrotesk-Medium", sans-serif;
         font-style: normal;
 		font-weight: 500;
@@ -11,6 +15,7 @@ export const BodyStyles = createGlobalStyle`
 
     * {
         transition-timing-function: ${(props) =>
+          // @ts-ignore
           props.theme.animation.timingFunction.css};
     }
 `;
