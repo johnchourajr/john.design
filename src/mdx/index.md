@@ -1,67 +1,73 @@
 ---
-template: "indexPageTemplate"
-slug: "/"
-title: "Home"
-type: "topLevelPage"
+template: 'indexPageTemplate'
+slug: '/'
+title: 'Home'
+type: 'topLevelPage'
 weight: 1
 section_hero:
-  - "John Choura is a"
-  - "Guy"
-  - "Designer"
-  - "Human"
-  - "Developer"
-  - "Artist"
-  - "Craftsman"
-  - "INFJ"
-  - "Family Man"
-  - "Tinkerer"
-  - "Coffee Drinker"
-  - "Learner"
-  - "You still reading this?"
-  - "in Long Beach, Calif."
+  - 'John Choura is a'
+  - 'Guy'
+  - 'Designer'
+  - 'Human'
+  - 'Developer'
+  - 'Artist'
+  - 'Craftsman'
+  - 'INFJ'
+  - 'Family Man'
+  - 'Tinkerer'
+  - 'Coffee Drinker'
+  - 'Learner'
+  - 'You still reading this?'
+  - 'in Long Beach, Calif.'
 section_resume:
-  - title: "Principal UX Designer"
-    name: "GoDaddy"
-    date: "2020-Present"
-  - title: "Design Director"
-    name: "Happy Money"
-    date: "2018-2020"
-  - title: "Adjunct Design Prof."
-    name: "Biola Art Dept."
-    date: "2017-2018"
-  - title: "Product Design Lead"
-    name: "Happy Money"
-    date: "2015-2018"
-  - title: "Designer & Art Director"
-    name: "Envoy"
-    date: "2014-2015"
-  - title: "Designer"
-    name: "Biola University Marketing"
-    date: "2011-2014"
+  - title: 'Principal UX Designer'
+    name: 'GoDaddy'
+    url: 'https://godaddy.com/'
+    date: '2020-Present'
+  - title: 'Design Director'
+    name: 'Happy Money'
+    url: 'https://happymoney.com/'
+    date: '2018-2020'
+  - title: 'Adjunct Design Prof.'
+    name: 'Biola Art Dept.'
+    url: 'https://www.biola.edu/art/'
+    date: '2017-2018'
+  - title: 'Product Design Lead'
+    name: 'Happy Money'
+    url: 'https://happymoney.com/'
+    date: '2015-2018'
+  - title: 'Designer & Art Director'
+    name: 'Envoy'
+    url: 'https://weareenvoy.com/'
+    date: '2014-2015'
+  - title: 'Designer'
+    name: 'Biola University Marketing'
+    url: 'https://www.biola.edu/'
+    date: '2011-2014'
 section_brands:
-  - name: "GoDaddy"
-    url: "https://godaddy.com/"
-  - name: "Vizio"
-    url: "https://vizio.com/"
-  - name: "Kareo"
-    url: "https://kareo.com/"
-  - name: "Happy Money"
-    url: "https://happymoney.com/"
-  - name: "Coral"
-    url: "https://getcoral.app/"
-  - name: "Amazing Grass"
-    url: "https://amazinggrass.com/"
-  - name: "Gro (fka Blossom)"
-    url: "https://www.mygro.com/"
-  - name: "Grand Food & Beverage"
-    url: "https://thegrandlb.com/"
-  - name: "Arcade Coffee Roasters"
-    url: "https://www.arcadecoffeeroasters.com/"
-  - name: "Fermensch Kombucha"
-    url: "https://fermensch.com/"
-  - name: "Golden State Coffee Roasters"
-    url: "https://www.goldenstate.coffee/"
+  - name: 'GoDaddy'
+    url: 'https://godaddy.com/'
+  - name: 'Vizio'
+    url: 'https://vizio.com/'
+  - name: 'Kareo'
+    url: 'https://kareo.com/'
+  - name: 'Happy Money'
+    url: 'https://happymoney.com/'
+  - name: 'Coral'
+    url: 'https://getcoral.app/'
+  - name: 'Amazing Grass'
+    url: 'https://amazinggrass.com/'
+  - name: 'Gro (fka Blossom)'
+    url: 'https://www.mygro.com/'
+  - name: 'Grand Food & Beverage'
+    url: 'https://thegrandlb.com/'
+  - name: 'Arcade Coffee Roasters'
+    url: 'https://www.arcadecoffeeroasters.com/'
+  - name: 'Fermensch Kombucha'
+    url: 'https://fermensch.com/'
+  - name: 'Golden State Coffee Roasters'
+    url: 'https://www.goldenstate.coffee/'
 section_art:
-  headline: ""
-  img: ""
+  headline: ''
+  img: ''
 ---
