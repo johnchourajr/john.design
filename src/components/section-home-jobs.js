@@ -16,13 +16,13 @@ export default function SectionJobs({ jobs }) {
         <JobList>
           {jobs.map((item, i) => {
             const slug = stringToSlug(item.name);
-            console.log(slug);
+            const active = !item.date.includes('Present')
+              ? `inactive`
+              : `active`;
             return (
               <JobItem
                 key={i}
-                className={`${
-                  !item.date.includes('Present') ? `inactive` : `active`
-                }`}
+                className={`${active}`}
                 onMouseEnter={() => changeBodyClass('enter', `job-${slug}`)}
                 onMouseLeave={() => changeBodyClass('exit', `job-${slug}`)}
                 fadeIn={true}
@@ -55,7 +55,7 @@ const JobList = styled.div`
   flex-direction: column;
 
   &:hover {
-    ${JobItem} h3, ${JobItem} h4 {
+    ${MotionScroll} h3, ${MotionScroll} h4 {
       opacity: 0.35 !important;
     }
   }

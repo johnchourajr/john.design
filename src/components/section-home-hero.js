@@ -7,6 +7,7 @@ import { stringToSlug, changeBodyClass } from '../functions/util';
 
 /**
  *
+ * @param {Object} props
  * @param {String} props.item
  * @param {String} props.slug
  */
