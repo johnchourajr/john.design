@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const BodyStyles = createGlobalStyle`
     body {
@@ -7,6 +7,11 @@ export const BodyStyles = createGlobalStyle`
         font-family: "LabilGrotesk-Medium", sans-serif;
         font-style: normal;
 		font-weight: 500;
+    }
+
+    * {
+        transition-timing-function: ${(props) =>
+          props.theme.animation.timingFunction.css};
     }
 `;
 
