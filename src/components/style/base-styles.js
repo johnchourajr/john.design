@@ -14,9 +14,28 @@ export const BodyStyles = createGlobalStyle`
     }
 
     * {
+        box-sizing: border-box;
+        /* cursor: none; */
         transition-timing-function: ${(props) =>
           // @ts-ignore
           props.theme.animation.timingFunction.css};
+    }
+
+    body[data-hover=true] {
+      .hover-buddy {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    body.theme--artist,
+    body.theme--infj {
+        .indefinite-article-a {
+            display: none;
+        }
+        .indefinite-article-an {
+            display: inline-block;
+        }
     }
 `;
 

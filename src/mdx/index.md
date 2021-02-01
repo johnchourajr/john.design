@@ -5,7 +5,6 @@ title: 'Home'
 type: 'topLevelPage'
 weight: 1
 section_hero:
-  - 'John Choura is a'
   - 'Guy'
   - 'Designer'
   - 'Human'
@@ -18,7 +17,7 @@ section_hero:
   - 'Coffee Drinker'
   - 'Learner'
   - 'You still reading this?'
-  - 'in Long Beach, Calif.'
+  - '    '
 section_resume:
   - title: 'Principal UX Designer'
     name: 'GoDaddy'
