@@ -51,7 +51,7 @@ const JobSection = styled(MotionScroll)`
 `;
 
 const JobList = styled.div`
-  display: list-item;
+  display: inline;
   flex-direction: column;
 
   &:hover {

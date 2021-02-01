@@ -107,42 +107,48 @@ const homeJobs = [
     name: 'job-godaddy',
     styles: {
       foreground: 'white',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/gd.png'
     }
   },
   {
     name: 'job-happy-money',
     styles: {
       foreground: 'red',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/hm.png'
     }
   },
   {
     name: 'job-biola-art-dept',
     styles: {
       foreground: 'white',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/bu.png'
     }
   },
   {
     name: 'job-happy-money',
     styles: {
       foreground: 'red',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/hm.png'
     }
   },
   {
     name: 'job-envoy',
     styles: {
       foreground: 'white',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/e.png'
     }
   },
   {
     name: 'job-biola-university-marketing',
     styles: {
       foreground: 'red',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/bu.png'
     }
   }
 ];
@@ -174,20 +180,22 @@ body.theme--${item.name} {
         background-color: transparent;
 		transition:
 			background-color ${animation.duration[200].css} ${animation.timingFunction.css};
-    }
+		}
+
+		.hover-buddy {
+			background-image: url(${item.styles.image});
+		}
 }
 
 body {
 	transition:
 		background-color ${animation.duration[200].css} ${animation.timingFunction.css},
 		color ${animation.duration[200].css} ${animation.timingFunction.css};
-	// transition-delay: ${animation.duration[100].css}
 }
 
 section, .section {
 	transition:
 			background-color ${animation.duration[200].css} ${animation.timingFunction.css};
-	// transition-delay: ${animation.duration[100].css}
 }
         `;
   });

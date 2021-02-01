@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import { Wrapper } from '../components/style/global-styles';
 import Tick from '../components/tick';
@@ -27,16 +28,20 @@ function TickerText({ item, slug }) {
 
 /**
  *
- * @param {Object} data mdxRemark data
+ * @param {Object} props.data mdxRemark data
  */
 export default function SectionHomeHero({ data, ...rest }) {
+  const ref = useRef();
+
   const [tickerSpeed, setTickerSpeed] = useState(15);
-  const sectionHeroLength = data.section_hero.length - 1;
 
   return (
-    <HomeSection triggerPoint={2} yOffset={400} {...rest}>
+    <HomeSection ref={ref}>
       <Wrapper>
-        <H2Left className="display">{data.section_hero[0]} </H2Left>
+        <H2Left className="display">
+          John Choura is <span className="indefinite-article-a">a</span>
+          <span className="indefinite-article-an">an</span>{' '}
+        </H2Left>
         <TickWrapper
           onMouseEnter={() => setTickerSpeed(5)}
           onMouseLeave={() => setTickerSpeed(15)}
@@ -45,18 +50,12 @@ export default function SectionHomeHero({ data, ...rest }) {
           {() =>
             data.section_hero.map((item, i) => {
               const slug = stringToSlug(item);
-              if (i === 0 || i === sectionHeroLength) {
-                return null;
-              } else {
-                return <TickerText key={i} slug={slug} item={item} />;
-              }
+              return <TickerText key={i} slug={slug} item={item} />;
             })
           }
         </TickWrapper>
 
-        <H2Right className="display">
-          {data.section_hero[sectionHeroLength]}
-        </H2Right>
+        <H2Right className="display">in Long Beach, Calif.</H2Right>
       </Wrapper>
     </HomeSection>
   );
@@ -64,7 +63,7 @@ export default function SectionHomeHero({ data, ...rest }) {
 
 const H2Left = styled.h2`
   text-align: left;
-  padding-top: 10vw;
+  padding-top: 5vw;
 `;
 
 const H2Right = styled.h2`
@@ -104,9 +103,10 @@ const H2Center = styled.h2`
   }
 `;
 
-const HomeSection = styled.section`
+const HomeSection = styled(motion.section)`
   min-height: calc(60rem);
   height: calc(95vh - 8rem);
   display: flex;
   align-items: center;
+  position: relative;
 `;
