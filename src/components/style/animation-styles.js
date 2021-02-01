@@ -106,48 +106,48 @@ const homeJobs = [
   {
     name: 'job-godaddy',
     styles: {
-      foreground: 'white',
-      background: 'black',
+      foreground: '#111111',
+      background: '#1BDBDB',
       image: '/hover-buddy/gd.png'
     }
   },
   {
     name: 'job-happy-money',
     styles: {
-      foreground: 'red',
-      background: 'black',
+      foreground: '#111111',
+      background: '#F65996',
       image: '/hover-buddy/hm.png'
     }
   },
   {
     name: 'job-biola-art-dept',
     styles: {
-      foreground: 'white',
-      background: 'black',
+      foreground: '#111111',
+      background: '#EA0E2E',
       image: '/hover-buddy/bu.png'
     }
   },
   {
     name: 'job-happy-money',
     styles: {
-      foreground: 'red',
-      background: 'black',
+      foreground: '#111111',
+      background: '#F65996',
       image: '/hover-buddy/hm.png'
     }
   },
   {
     name: 'job-envoy',
     styles: {
-      foreground: 'white',
-      background: 'black',
+      foreground: '#111111',
+      background: '#CECECE',
       image: '/hover-buddy/e.png'
     }
   },
   {
     name: 'job-biola-university-marketing',
     styles: {
-      foreground: 'red',
-      background: 'black',
+      foreground: '#111111',
+      background: '#EA0E2E',
       image: '/hover-buddy/bu.png'
     }
   }
