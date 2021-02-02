@@ -28,6 +28,7 @@ function TickerText({ item, slug }) {
 
 /**
  *
+ * @param {Object} props
  * @param {Object} props.data mdxRemark data
  */
 export default function SectionHomeHero({ data, ...rest }) {
@@ -104,9 +105,14 @@ const H2Center = styled.h2`
 `;
 
 const HomeSection = styled(motion.section)`
-  min-height: calc(60rem);
-  height: calc(95vh - 8rem);
+  min-height: calc(30rem);
+  height: calc(100vw);
   display: flex;
   align-items: center;
   position: relative;
+
+  @media ${(props) => props.theme.device.tablet} {
+    min-height: calc(60rem);
+    height: calc(85vh);
+  }
 `;

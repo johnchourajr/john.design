@@ -3,101 +3,75 @@ import { animation } from '../../data/baseTheme';
 
 const homeHero = [
   {
-    name: 'john-choura-is-a',
-    styles: {
-      foreground: 'white',
-      background: ''
-    }
-  },
-  {
     name: 'guy',
     styles: {
       foreground: '#E7C8D8',
-      background: '#1659BE'
+      background: '#1659BE',
+      image: '/hover-buddy/guy.png'
     }
   },
   {
     name: 'designer',
     styles: {
       foreground: '#FF0000',
-      background: '#000000'
+      background: '#000000',
+      image: '/hover-buddy/designer.png'
     }
   },
   {
     name: 'human',
     styles: {
       foreground: '#4965CA',
-      background: '#FF8C8C'
+      background: '#FF8C8C',
+      image: '/hover-buddy/human.png'
     }
   },
   {
     name: 'developer',
     styles: {
       foreground: '#007305',
-      background: '#00FF19'
+      background: '#00FF19',
+      image: '/hover-buddy/dev.png'
     }
   },
   {
     name: 'artist',
     styles: {
       foreground: '#49CA84',
-      background: '#1A3052'
+      background: '#1A3052',
+      image: '/hover-buddy/artist.png'
     }
   },
   {
     name: 'craftsman',
     styles: {
       foreground: '#FFDB5E',
-      background: '#992500'
+      background: '#992500',
+      image: '/hover-buddy/craftsman.png'
     }
   },
   {
     name: 'infj',
     styles: {
       foreground: 'white',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/infj.png'
     }
   },
   {
     name: 'family-man',
     styles: {
       foreground: 'white',
-      background: 'black'
-    }
-  },
-  {
-    name: 'tinkerer',
-    styles: {
-      foreground: 'white',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/family-man.png'
     }
   },
   {
     name: 'coffee-drinker',
     styles: {
       foreground: 'white',
-      background: 'black'
-    }
-  },
-  {
-    name: 'learner',
-    styles: {
-      foreground: 'white',
-      background: 'black'
-    }
-  },
-  {
-    name: 'you-still-reading-this',
-    styles: {
-      foreground: '#FF5C00',
-      background: '#27AB64'
-    }
-  },
-  {
-    name: 'in-long-beach-calif',
-    styles: {
-      foreground: 'white',
-      background: 'black'
+      background: 'black',
+      image: '/hover-buddy/coffee.png'
     }
   }
 ];

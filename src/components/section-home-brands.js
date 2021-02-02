@@ -14,27 +14,25 @@ function commaSeparate(i, total) {
 export default function SectionJobs({ brands }) {
   return (
     <Section className="pV">
-      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={60}>
+      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={25}>
         <h4>Brands Worked With</h4>
         <br />
       </MotionScroll>
-      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={100}>
-        <h1>
-          {brands.map((item, i) => (
-            <MotionScroll
-              fadeIn={true}
-              triggerPoint={0.85}
-              yOffset={10}
-              span={true}
-            >
-              <Word href={item.url} target="_blank">
-                {item.name}
-              </Word>
-              {commaSeparate(i + 1, brands)}
-            </MotionScroll>
-          ))}
-        </h1>
-      </MotionScroll>
+      <h1>
+        {brands.map((item, i) => (
+          <MotionScroll
+            fadeIn={true}
+            triggerPoint={0.85}
+            yOffset={150}
+            useSpan={true}
+          >
+            <Word href={item.url} target="_blank">
+              {item.name}
+            </Word>
+            {commaSeparate(i + 1, brands)}
+          </MotionScroll>
+        ))}
+      </h1>
     </Section>
   );
 }

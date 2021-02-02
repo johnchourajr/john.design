@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { device, colors, animation } from '../data/baseTheme';
 import { PageWrapper } from './style/global-styles';
@@ -8,9 +8,10 @@ import { AnimationStyles } from './style/animation-styles';
 import Head from './globals/head';
 import Nav from './globals/nav';
 
-export const SuperStateContext = createContext(null);
-
 export default function Layout({ children, pageTitle }) {
+  // React.useEffect(() => {
+  //   console.log(location);
+  // });
   return (
     <>
       <Head title={pageTitle} />
@@ -21,8 +22,8 @@ export default function Layout({ children, pageTitle }) {
         <BodyStyles />
         <AnimationStyles />
         <PageWrapper>
-          <Nav />
-          {children}
+          <Nav componentId={'...'} />
+          <main id="main">{children}</main>
         </PageWrapper>
       </ThemeProvider>
     </>

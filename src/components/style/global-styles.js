@@ -20,11 +20,33 @@ export const PageWrapper = styled.div`
   font-style: normal;
   font-weight: 500;
 
+  main {
+  }
+
   a {
     text-decoration: none;
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  *:focus-visible {
+    outline: none;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: -3px;
+      left: -3px;
+      bottom: 0;
+      right: 0;
+      border: solid 3px white;
+      border-radius: 4px;
+      mix-blend-mode: difference;
     }
   }
 
@@ -176,11 +198,10 @@ export const PageWrapper = styled.div`
 
 export const Wrapper = styled.section`
   padding: 0 1rem;
-  width: calc(100vw - 2rem);
+  width: 100%;
 
   @media ${(props) => props.theme.device.tablet} {
     padding: 0 7vw;
-    width: 100%;
   }
 
   &.pV {

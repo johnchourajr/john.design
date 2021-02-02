@@ -13,11 +13,8 @@ section_hero:
   - 'Craftsman'
   - 'INFJ'
   - 'Family Man'
-  - 'Tinkerer'
   - 'Coffee Drinker'
-  - 'Learner'
-  - 'You still reading this?'
-  - '    '
+  - '   '
 section_resume:
   - title: 'Principal UX Designer'
     name: 'GoDaddy'

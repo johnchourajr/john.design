@@ -19,7 +19,9 @@ export default function Template({ pageContext, data }) {
       <PostWrapper className="blog-post">
         <Wrapper>
           <PostHeader>
-            <h2 className="display">{frontmatter.title}</h2>
+            <MotionScroll triggerPoint={0} yOffset={50}>
+              <h2 className="display">{frontmatter.title}</h2>
+            </MotionScroll>
           </PostHeader>
 
           {frontmatter.cover && (
@@ -27,14 +29,14 @@ export default function Template({ pageContext, data }) {
               style={{ backgroundImage: `url(${frontmatter.cover})` }}
             ></PostImage>
           )}
-          <MotionScroll fadeIn triggerPoint={1} yOffset={100}>
+          <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
               <h4>
                 by John Choura / {frontmatter.date} / {timeToRead} Minute Read
               </h4>
             </PostCredit>
           </MotionScroll>
-          <MotionScroll fadeIn triggerPoint={1} yOffset={200}>
+          <MotionScroll fadeIn triggerPoint={0.85} yOffset={100} id="post">
             <ContentWrapper>
               <MDXRenderer>{body}</MDXRenderer>
             </ContentWrapper>
