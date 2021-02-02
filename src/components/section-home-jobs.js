@@ -5,11 +5,10 @@ import { changeBodyClass, stringToSlug } from '../functions/util';
 import MotionScroll from './motion-scroll';
 
 export default function SectionJobs({ jobs }) {
-  console.log({ jobs });
   return (
-    <JobSection className="section" fadeIn triggerPoint={1.5} yOffset={200}>
+    <JobSection className="section">
       <Wrapper className="pV">
-        <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={60}>
+        <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={30}>
           <h4>Past and Present</h4>
           <br />
         </MotionScroll>
@@ -27,7 +26,7 @@ export default function SectionJobs({ jobs }) {
                 onMouseLeave={() => changeBodyClass('exit', `job-${slug}`)}
                 fadeIn={true}
                 triggerPoint={0.85}
-                yOffset={100}
+                yOffset={50}
               >
                 <h3 className="display">{item.title} </h3>
 
@@ -46,7 +45,7 @@ export default function SectionJobs({ jobs }) {
   );
 }
 
-const JobSection = styled(MotionScroll)`
+const JobSection = styled.section`
   background-color: ${(props) => props.theme.colors.gray4};
 `;
 
@@ -104,8 +103,11 @@ const JobItem = styled(MotionScroll)`
 
   aside {
     text-align: right;
+    padding-left: 1rem;
+    max-width: 12rem;
 
     * {
+      display: inline;
       margin: 0;
     }
   }

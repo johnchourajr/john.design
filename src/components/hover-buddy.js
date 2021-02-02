@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 export default function HoverBuddy() {
@@ -11,7 +11,6 @@ export default function HoverBuddy() {
   useEffect(() => {
     if (typeof document !== `undefined`) {
       const moveCursor = (e) => {
-        console.log(e);
         const windowWidth = e.view.innerWidth;
         const windowHeight = e.view.innerWidth;
         const elWidth = windowWidth * 0.6;
@@ -33,7 +32,7 @@ export default function HoverBuddy() {
         window.removeEventListener('mousemove', moveCursor);
       };
     }
-  }, []);
+  }, [cursorX, cursorY, cursorRotateX, cursorRotateY]);
 
   const springConfig = { damping: 20, stiffness: 100 };
   const cursorXSpring = useSpring(cursorX, springConfig);

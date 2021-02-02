@@ -1,13 +1,20 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { motion, useViewportScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useViewportScroll,
+  useTransform,
+  useSpring
+} from 'framer-motion';
 import { animation } from '../data/baseTheme';
+
+const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
 
 /**
  * Renders a <MotionScroll /> component
  * @component
  * @param {Object} props
  * @param {any} props.children react children
- * @param {Boolean} props.span when true wraps render in span
+ * @param {Boolean} props.useSpan when true wraps render in span
  * @param {Number} props.yOffset any number that will be rendered as a pixel value for transforming the y axis of the element
  * @param {Object} props.easing [number, number, number, number] | "linear" | "easeIn" | "easeOut" | "easeInOut" | "circIn" | "circOut" | "circInOut" | "backIn" | "backOut" | "backInOut" | "anticipate" | EasingFunction
  * @param {Number} props.triggerPoint value between 0 and 1 (top and bottom of the window), point to start animation
@@ -18,7 +25,7 @@ import { animation } from '../data/baseTheme';
  */
 export default function MotionScroll({
   children,
-  span = false,
+  useSpan = false,
   yOffset = 0.5,
   easing = animation.timingFunction.js,
   triggerPoint = 0.1,
@@ -26,21 +33,20 @@ export default function MotionScroll({
   fadeIn = false,
   ...rest
 }) {
+  /**
+   * Element Setup
+   */
   const ref = useRef();
   const { scrollY } = useViewportScroll();
   const [elementTop, setElementTop] = useState(0);
-  //   const [elementBottom, setElementBottom] = useState(0);
-  // const [elementHeight, setElementHeight] = useState(0);
   const [clientHeight, setClientHeight] = useState(0);
+  const Component = useSpan ? motion.span : motion.div;
 
   useEffect(() => {
     if (!ref.current) return;
 
     const setValues = () => {
-      // @ts-ignore
       setElementTop(ref.current.offsetTop);
-      // setElementBottom(ref.current.offsetTop + ref.current.offsetHeight);
-      // setElementHeight(ref.current.offsetHeight);
       setClientHeight(window.innerHeight);
     };
 
@@ -54,50 +60,60 @@ export default function MotionScroll({
     };
   }, [ref, yOffset]);
 
-  const yOffsetValue = yOffset;
-  const yOffsetArray = fadeIn ? [yOffsetValue, 0] : [0, -yOffsetValue];
-
+  /**
+   * Brackets Setup
+   * @var transformInitialValue sets up trigger point 1 for the bottom 0 for the top
+   * @var transformFinalValue for fadeOut animation, this sets the end bracket point
+   * @var transformFinalValueInverted for fadeIn animation, this sets the end bracket point
+   */
   const transformInitialValue = elementTop - clientHeight * triggerPoint;
-  const transformFinalValue = elementTop + yOffsetValue;
+  const transformFinalValue = elementTop + yOffset * 2;
+  const transformFinalValueInverted = transformInitialValue + yOffset * 2;
 
+  /**
+   * Translate Y Setup
+   * @var yTransformRange the transform brakets set in place, booled by fadeIn or !fadeIn
+   * @var yOffsetArray the bool that determines which direction the y offset moves in
+   * @var y the y axis transform function
+   */
   const yTransformRange = fadeIn
-    ? [transformInitialValue, elementTop * 0.65]
+    ? [transformInitialValue, transformFinalValueInverted]
     : [transformInitialValue, transformFinalValue];
-
+  const yOffsetArray = fadeIn ? [yOffset, 0] : [0, -yOffset];
   const y = useTransform(scrollY, yTransformRange, yOffsetArray, easing);
 
+  /**
+   * Opacity Setup
+   * @var opacityInitialValue a bool to set initial value of opacity
+   * @var opacityRange a memoized output of opacity range
+   * @var yOpacityRange the opacity brakets set in place, booled by fadeIn or !fadeIn
+   * @var opacity the opacity transform function
+   */
   const opacityInitialValue = fadeOut ? 0 : 1;
   const opacityRange = useMemo(() => [opacityInitialValue, 1], [
     opacityInitialValue
   ]);
-
   const yOpacityRange = fadeIn
-    ? [transformInitialValue, elementTop * 0.65]
+    ? [transformInitialValue, transformFinalValueInverted]
     : [transformFinalValue, transformInitialValue];
-  const opacity = useTransform(
-    scrollY,
-    yOpacityRange,
-    opacityRange,
-    // @ts-ignore
-    'anticipate'
-  );
+  const opacity = useTransform(scrollY, yOpacityRange, opacityRange, easing);
 
-  if (span) {
-    return (
-      <motion.span
-        ref={ref}
-        initial={{ y: 0 }}
-        style={{ y, opacity }}
-        {...rest}
-      >
-        {children}
-      </motion.span>
-    );
-  }
+  /**
+   * Spring-y-ness Setup
+   * @var springY the useSpring value for transforming the objects against the y axis
+   * @var springOpacity the useSpring value for transforming the objects opacity
+   */
+  const springY = useSpring(y, physics); // apply easing to the negative scroll value
+  const springOpacity = useSpring(opacity, physics); // apply easing to the negative scroll value
 
   return (
-    <motion.div ref={ref} initial={{ y: 0 }} style={{ y, opacity }} {...rest}>
+    <Component
+      ref={ref}
+      initial={{ y: 0 }}
+      style={{ y: springY, opacity: springOpacity, position: 'relative' }}
+      {...rest}
+    >
       {children}
-    </motion.div>
+    </Component>
   );
 }
