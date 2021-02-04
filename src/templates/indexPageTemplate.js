@@ -57,7 +57,10 @@ export const indexQuery = graphql`
               name
               url
             }
-            section_hero
+            section_hero {
+              title
+              figma_id
+            }
             section_resume {
               date
               name

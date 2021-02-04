@@ -23,6 +23,18 @@ export function changeBodyClass(state, slug) {
   }
 }
 
+export function changeFigmaDataState(state, figmaId) {
+  if (typeof document !== `undefined`) {
+    if (state === 'enter') {
+      document.body.setAttribute('data-iframe', 'true');
+      document.body.setAttribute('data-figma-id', figmaId);
+    } else {
+      document.body.setAttribute('data-iframe', 'false');
+      document.body.setAttribute('data-figma-id', figmaId);
+    }
+  }
+}
+
 export function stringToSlug(str) {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
