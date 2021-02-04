@@ -22,7 +22,14 @@ export const BodyStyles = createGlobalStyle`
     }
 
     body[data-hover=true] {
-      .hover-buddy {
+      .hover-image {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    body[data-iframe=true] {
+      .hover-iframe {
         visibility: visible;
         opacity: 1;
       }

@@ -5,16 +5,26 @@ title: 'Home'
 type: 'topLevelPage'
 weight: 1
 section_hero:
-  - 'Guy'
-  - 'Designer'
-  - 'Human'
-  - 'Developer'
-  - 'Artist'
-  - 'Craftsman'
-  - 'INFJ'
-  - 'Family Man'
-  - 'Coffee Drinker'
-  - '   '
+  - title: 'Guy'
+    figma_id: '253A16' # artist
+  - title: 'Designer'
+    figma_id: '253A71' # designer
+  - title: 'Human'
+    figma_id: '253A24' # human
+  - title: 'Developer'
+    figma_id: '253A16' # artist
+  - title: 'Artist'
+    figma_id: '253A16' # artist
+  - title: 'Craftsman'
+    figma_id: '253A16' # artist
+  - title: 'INFJ'
+    figma_id: '253A16' # artist
+  - title: 'Family Man'
+    figma_id: '253A16' # artist
+  - title: 'Coffee Drinker'
+    figma_id: '253A16' # artist
+  - title: '   '
+    figma_id: ''
 section_resume:
   - title: 'Principal UX Designer'
     name: 'GoDaddy'

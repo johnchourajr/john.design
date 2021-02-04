@@ -6,72 +6,81 @@ const homeHero = [
     name: 'guy',
     styles: {
       foreground: '#E7C8D8',
-      background: '#1659BE',
-      image: '/hover-buddy/guy.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/guy.png',
+      figma_id: '253A16' // artist
     }
   },
   {
     name: 'designer',
     styles: {
       foreground: '#FF0000',
-      background: '#000000',
-      image: '/hover-buddy/designer.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/designer.png',
+      figma_id: '253A71' // designer
     }
   },
   {
     name: 'human',
     styles: {
       foreground: '#4965CA',
-      background: '#FF8C8C',
-      image: '/hover-buddy/human.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/human.png',
+      figma_id: '253A24' // human
     }
   },
   {
     name: 'developer',
     styles: {
       foreground: '#007305',
-      background: '#00FF19',
-      image: '/hover-buddy/dev.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/dev.png',
+      figma_id: '253A16' // artist
     }
   },
   {
     name: 'artist',
     styles: {
       foreground: '#49CA84',
-      background: '#1A3052',
-      image: '/hover-buddy/artist.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/artist.png',
+      figma_id: '253A16' // artist
     }
   },
   {
     name: 'craftsman',
     styles: {
       foreground: '#FFDB5E',
-      background: '#992500',
-      image: '/hover-buddy/craftsman.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/craftsman.png',
+      figma_id: '253A16' // artist
     }
   },
   {
     name: 'infj',
     styles: {
       foreground: 'white',
-      background: 'black',
-      image: '/hover-buddy/infj.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/infj.png',
+      figma_id: '253A16' // artist
     }
   },
   {
     name: 'family-man',
     styles: {
       foreground: 'white',
-      background: 'black',
-      image: '/hover-buddy/family-man.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/family-man.png',
+      figma_id: '253A16' // artist
     }
   },
   {
     name: 'coffee-drinker',
     styles: {
       foreground: 'white',
-      background: 'black',
-      image: '/hover-buddy/coffee.png'
+      background: '#E0E0E0',
+      // image: '/hover-buddy/coffee.png',
+      figma_id: '253A16' // artist
     }
   }
 ];
@@ -156,8 +165,14 @@ body.theme--${item.name} {
 			background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 		}
 
-		.hover-buddy {
+		.hover-image {
 			background-image: url(${item.styles.image});
+		}
+
+		.shim {
+			background-color: ${item.styles.background};
+			transition:
+				background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 		}
 }
 
@@ -199,6 +214,7 @@ export const AnimationStyles = createGlobalStyle`
 				background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 			will-change: background-color;
 		}
+
 	}
 
     ${createThemeStyles(homeHero)}

@@ -4,7 +4,11 @@ import { motion } from 'framer-motion';
 
 import { Wrapper } from '../components/style/global-styles';
 import Tick from '../components/tick';
-import { stringToSlug, changeBodyClass } from '../functions/util';
+import {
+  stringToSlug,
+  changeBodyClass,
+  changeFigmaDataState
+} from '../functions/util';
 
 /**
  *
@@ -17,10 +21,10 @@ function TickerText({ item, slug }) {
     <H2Center
       className="display"
       data-name={slug}
-      onMouseEnter={() => changeBodyClass('enter', slug)}
-      onMouseLeave={() => changeBodyClass('exit', slug)}
+      onMouseEnter={() => changeBodyClass('enter', slug, item.figma_id)}
+      onMouseLeave={() => changeBodyClass('exit', slug, item.figma_id)}
     >
-      <span className="text">{item}</span>
+      <span className="text">{item.title}</span>
       <span className="slash">{' / '}</span>
     </H2Center>
   );
@@ -32,12 +36,14 @@ function TickerText({ item, slug }) {
  * @param {Object} props.data mdxRemark data
  */
 export default function SectionHomeHero({ data, ...rest }) {
-  const ref = useRef();
-
+  const [figmaId, setFigmaId] = useState('253A9');
   const [tickerSpeed, setTickerSpeed] = useState(15);
 
   return (
-    <HomeSection ref={ref}>
+    <HomeSection
+      onMouseEnter={() => changeFigmaDataState('enter', figmaId)}
+      onMouseLeave={() => changeFigmaDataState('exit', figmaId)}
+    >
       <Wrapper>
         <H2Left className="display">
           John Choura is <span className="indefinite-article-a">a</span>
@@ -50,7 +56,7 @@ export default function SectionHomeHero({ data, ...rest }) {
         >
           {() =>
             data.section_hero.map((item, i) => {
-              const slug = stringToSlug(item);
+              const slug = stringToSlug(item.title);
               return <TickerText key={i} slug={slug} item={item} />;
             })
           }
