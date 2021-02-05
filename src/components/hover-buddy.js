@@ -26,7 +26,7 @@ export default function HoverBuddy() {
   });
 
   useEffect(() => {
-    if (typeof document !== `undefined`) {
+    if (typeof document !== `undefined` && typeof window !== `undefined`) {
       const moveCursor = (e) => {
         setId(document.body.getAttribute('data-figma-id'));
         setUseIframe(document.body.getAttribute('data-iframe'));
@@ -73,7 +73,7 @@ export default function HoverBuddy() {
               rotateY: cursorRotateY
             }}
           ></Image>
-          {useIframe && typeof document !== `undefined` && (
+          {useIframe && typeof window !== `undefined` && (
             <Frame
               src={file}
               className={`hover-iframe`}
