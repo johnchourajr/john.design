@@ -27,11 +27,7 @@ export default function Template({
           {frontmatter.section_art.img}
         </section>
       </Wrapper>
-      <Wrapper>
-        <section>
-          <SectionHomeJournal />
-        </section>
-      </Wrapper>
+      <SectionHomeJournal />
       <HoverBuddy />
     </Layout>
   );
@@ -60,12 +56,17 @@ export const indexQuery = graphql`
             section_hero {
               title
               figma_id
+              foreground
+              background
             }
             section_resume {
               date
-              name
               title
+              role
               url
+              foreground
+              background
+              image
             }
           }
         }

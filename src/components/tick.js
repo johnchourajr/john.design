@@ -36,6 +36,7 @@ const TickerWrapper = styled.div`
     transform: translate3d(-7vw, 0, 0);
     overflow: visible !important;
     display: inline-flex;
+    user-select: none;
   }
 
   .ticker__element {

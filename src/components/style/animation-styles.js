@@ -1,158 +1,73 @@
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { animation } from '../../data/baseTheme';
+import { stringToSlug } from '../../functions/util';
+import { useJournalData } from '../hooks/use-journal-data';
+import { useHomepageData } from '../hooks/use-homepage-data';
 
-const homeHero = [
-  {
-    name: 'guy',
-    styles: {
-      foreground: '#FF5631',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'designer',
-    styles: {
-      foreground: '#2861FF',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'human',
-    styles: {
-      foreground: '#FF1D1D',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'developer',
-    styles: {
-      foreground: '#00CB39',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'artist',
-    styles: {
-      foreground: '#EF36FF',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'craftsman',
-    styles: {
-      foreground: '#42D7BC',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'infj',
-    styles: {
-      foreground: '#FF5631',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'family-man',
-    styles: {
-      foreground: '#2861FF',
-      background: '#E0E0E0'
-    }
-  },
-  {
-    name: 'coffee-drinker',
-    styles: {
-      foreground: '#FF1D1D',
-      background: '#E0E0E0'
-    }
-  }
-];
-
-const homeJobs = [
-  {
-    name: 'job-godaddy',
-    styles: {
-      foreground: '#111111',
-      background: '#1BDBDB',
-      image: '/hover-buddy/gd.png'
-    }
-  },
-  {
-    name: 'job-happy-money',
-    styles: {
-      foreground: '#111111',
-      background: '#F65996',
-      image: '/hover-buddy/hm.png'
-    }
-  },
-  {
-    name: 'job-biola-art-dept',
-    styles: {
-      foreground: '#111111',
-      background: '#EA0E2E',
-      image: '/hover-buddy/bu.png'
-    }
-  },
-  {
-    name: 'job-happy-money',
-    styles: {
-      foreground: '#111111',
-      background: '#F65996',
-      image: '/hover-buddy/hm.png'
-    }
-  },
-  {
-    name: 'job-envoy',
-    styles: {
-      foreground: '#111111',
-      background: '#CECECE',
-      image: '/hover-buddy/e.png'
-    }
-  },
-  {
-    name: 'job-biola-university-marketing',
-    styles: {
-      foreground: '#111111',
-      background: '#EA0E2E',
-      image: '/hover-buddy/bu.png'
-    }
-  }
-];
-
-function createThemeStyles(array) {
+/**
+ * createThemeStyles function
+ *
+ * @param {Object} array
+ * @param {String} option
+ */
+function createThemeStyles(array, option = '') {
+  /**
+   * Takes in an array of items
+   */
   return array.map((item) => {
+    /**
+     * if the array is a journal post, we have to mutate the item query
+     */
+    if (option === 'journal') {
+      item = item.node.frontmatter;
+    }
+
+    /**
+     * Ternaries for the options
+     */
+    const foreground = item.foreground ? item.foreground : '#111111';
+    const background = item.background ? item.background : '#E0E0E0';
+    const cover = item.cover ? item.cover : '';
+    const image = item.image ? item.image : cover;
+    const slug = stringToSlug(item.title);
+
+    /**
+     * Generative return, this blob of styles is looped over for every object in the array
+     */
     return `
-body.theme--${item.name} {
-    background-color: ${item.styles.background};
-    color: ${item.styles.foreground};
-	transition:
-		background-color ${animation.duration[200].css} ${animation.timingFunction.css},
-		color ${animation.duration[200].css} ${animation.timingFunction.css};
+body.theme--${slug} {
+    background-color: ${background};
+    color: ${foreground};
+		transition:
+			background-color ${animation.duration[200].css} ${animation.timingFunction.css},
+			color ${animation.duration[200].css} ${animation.timingFunction.css};
 
     h1, h2, h3, h4, h5, h6, p, a, .nav > a {
-				color: ${item.styles.foreground} !important;
-				text-decoration-color: ${item.styles.foreground} !important;
-				transition:
-					color ${animation.duration[200].css} ${animation.timingFunction.css},
-					text-decoration-color ${animation.duration[200].css} ${animation.timingFunction.css};
+			color: ${foreground} !important;
+			text-decoration-color: ${foreground} !important;
+			transition:
+				color ${animation.duration[200].css} ${animation.timingFunction.css},
+				text-decoration-color ${animation.duration[200].css} ${animation.timingFunction.css};
     }
 
     svg {
-		fill: ${item.styles.foreground};
-		transition: fill ${animation.duration[200].css} ${animation.timingFunction.css}
+			fill: ${foreground};
+			transition: fill ${animation.duration[200].css} ${animation.timingFunction.css}
     }
 
     section, .section {
-        background-color: transparent;
-		transition:
-			background-color ${animation.duration[200].css} ${animation.timingFunction.css};
+      background-color: transparent;
+			transition:
+				background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 		}
 
 		.hover-image {
-			background-image: url(${item.styles.image});
+			background-image: url(${image});
 		}
 
 		.shim {
-			background-color: ${item.styles.background};
+			background-color: ${background};
 			transition:
 				background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 		}
@@ -166,13 +81,27 @@ body {
 
 section, .section {
 	transition:
-			background-color ${animation.duration[200].css} ${animation.timingFunction.css};
+		background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 }
         `;
   });
 }
 
-export const AnimationStyles = createGlobalStyle`
+/**
+ * AnimationStyles Component
+ * Exports all rendered styles
+ */
+export function AnimationStyles() {
+  /**
+   * Hooks
+   */
+  const { section_hero, section_resume } = useHomepageData();
+  const journal_data = useJournalData();
+
+  /**
+   * Create global styles
+   */
+  const Styles = createGlobalStyle`
     body {
         transition:
 			background-color ${animation.duration[200].css} ${animation.timingFunction.css},
@@ -196,9 +125,15 @@ export const AnimationStyles = createGlobalStyle`
 				background-color ${animation.duration[200].css} ${animation.timingFunction.css};
 			will-change: background-color;
 		}
-
 	}
 
-    ${createThemeStyles(homeHero)}
-		${createThemeStyles(homeJobs)}
+  ${createThemeStyles(section_hero)}
+  ${createThemeStyles(section_resume)}
+	${createThemeStyles(journal_data, 'journal')}
 `;
+
+  /**
+   * Component is returned and consumed into the common layout
+   */
+  return <Styles />;
+}
