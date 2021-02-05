@@ -1,8 +1,16 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion';
 import React, { useEffect } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 
 export default function HoverBuddy() {
+  if (typeof window == `undefined`) {
+    return <></>;
+  } else {
+    return <HoverBuddyInner />;
+  }
+}
+
+function HoverBuddyInner() {
   const [id, setId] = React.useState('253A71');
   const [mounted, setMounted] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
@@ -73,7 +81,7 @@ export default function HoverBuddy() {
               rotateY: cursorRotateY
             }}
           ></Image>
-          {useIframe && typeof window !== `undefined` && (
+          {useIframe && (
             <Frame
               src={file}
               className={`hover-iframe`}
