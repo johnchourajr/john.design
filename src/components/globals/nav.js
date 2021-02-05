@@ -11,19 +11,11 @@ function NavLinkItem({
   return (
     <>
       {edges.map(({ node: { frontmatter } }, i) => {
-        if (frontmatter.slug === '/') {
-          return (
-            <Link key={i} to={frontmatter.slug} className="h5">
-              /
-            </Link>
-          );
-        } else {
-          return (
-            <Link key={i} to={frontmatter.slug} className="h5">
-              /{frontmatter.title}
-            </Link>
-          );
-        }
+        return (
+          <NavLink key={i} to={frontmatter.slug} className="h5">
+            {frontmatter.slug === '/' ? '/' : `/${frontmatter.title}`}
+          </NavLink>
+        );
       })}
     </>
   );
@@ -67,15 +59,14 @@ function SkipWrapper({}) {
   );
 }
 
-export default function Nav({ location }) {
-  console.log(location);
+export default function Nav() {
   return (
     <>
       <SkipWrapper />
       <NavWrapper>
-        <Link to="/">
+        <NavLink to="/">
           <Logo />
-        </Link>
+        </NavLink>
         <NavLinks />
       </NavWrapper>
     </>
@@ -91,7 +82,7 @@ const NavWrapper = styled.nav`
   margin: 0 1rem;
   width: calc(100vw - 2rem);
   left: 0;
-
+  pointer-events: none;
   z-index: 10;
 
   @media ${(props) => props.theme.device.tablet} {
@@ -115,6 +106,10 @@ const NavLinksWrapper = styled.div`
     margin: 0;
     color: ${(props) => props.theme.colors.black};
   }
+`;
+
+const NavLink = styled(Link)`
+  pointer-events: bounding-box;
 `;
 
 const SkipToContent = styled(Link)`

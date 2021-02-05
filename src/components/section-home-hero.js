@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -36,13 +36,14 @@ function TickerText({ item, slug }) {
  * @param {Object} props.data mdxRemark data
  */
 export default function SectionHomeHero({ data, ...rest }) {
-  const [figmaId, setFigmaId] = useState('253A9');
   const [tickerSpeed, setTickerSpeed] = useState(15);
+  const figmaId = '253A9';
 
   return (
     <HomeSection
       onMouseEnter={() => changeFigmaDataState('enter', figmaId)}
       onMouseLeave={() => changeFigmaDataState('exit', figmaId)}
+      {...rest}
     >
       <Wrapper>
         <H2Left className="display">
@@ -61,7 +62,6 @@ export default function SectionHomeHero({ data, ...rest }) {
             })
           }
         </TickWrapper>
-
         <H2Right className="display">in Long Beach, Calif.</H2Right>
       </Wrapper>
     </HomeSection>

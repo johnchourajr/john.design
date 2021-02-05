@@ -58,7 +58,7 @@ export default function HoverBuddy() {
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
-  const file = `https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FrY8kva5mMuZ76jr1In7a3g%2FMotion%3Fnode-id%3D1%${id}%26viewport%3D768%252C638%252C0.5647107362747192%26scaling%3Dcontain%26hotspot-hints%3D0%26hide-ui%3D1`;
+  const file = `https://www.figma.com/embed?embed_host=astra&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FrY8kva5mMuZ76jr1In7a3g%2FMotion%3Fnode-id%3D1%${id}%26viewport%3D768%252C638%252C0.5647107362747192%26scaling%3Dcontain%26hotspot-hints%3D0%26hide-ui%3D1`;
 
   return (
     <HoverBuddyWrapper>
@@ -73,7 +73,7 @@ export default function HoverBuddy() {
               rotateY: cursorRotateY
             }}
           ></Image>
-          {useIframe && (
+          {useIframe && typeof document !== `undefined` && (
             <Frame
               src={file}
               className={`hover-iframe`}
