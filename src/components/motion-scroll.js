@@ -9,6 +9,12 @@ import { animation } from '../data/baseTheme';
 
 const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
 
+export default function MotionScroll(props) {
+  if (typeof window !== `undefined`) {
+    return <MotionScrollInner {...props} />;
+  } else return <></>;
+}
+
 /**
  * Renders a <MotionScroll /> component
  * @component
@@ -23,7 +29,7 @@ const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth 
  * @param {object} props.rest the rest of any props
  * @returns an element wrapped in scroll motion paramaters
  */
-export default function MotionScroll({
+function MotionScrollInner({
   children,
   useSpan = false,
   yOffset = 0.5,
