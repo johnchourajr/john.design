@@ -14,7 +14,7 @@ export default function SectionJobs({ jobs }) {
         </MotionScroll>
         <JobList>
           {jobs.map((item, i) => {
-            const slug = stringToSlug(item.name);
+            const slug = stringToSlug(item.title);
             const active = !item.date.includes('Present')
               ? `inactive`
               : `active`;
@@ -22,17 +22,17 @@ export default function SectionJobs({ jobs }) {
               <JobItem
                 key={i}
                 className={`${active}`}
-                onMouseEnter={() => changeBodyClass('enter', `job-${slug}`)}
-                onMouseLeave={() => changeBodyClass('exit', `job-${slug}`)}
+                onMouseEnter={() => changeBodyClass('enter', `${slug}`)}
+                onMouseLeave={() => changeBodyClass('exit', `${slug}`)}
                 fadeIn={true}
                 triggerPoint={0.85}
                 yOffset={50}
               >
-                <h3 className="display">{item.title} </h3>
+                <h3 className="display">{item.role} </h3>
 
                 <aside>
                   <a href={item.url} target="_blank" rel="noreferrer">
-                    <h4>{item.name} </h4>
+                    <h4>{item.title} </h4>
                     <h4>{item.date} </h4>
                   </a>
                 </aside>

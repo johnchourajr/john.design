@@ -28,6 +28,14 @@ export const PageWrapper = styled.div`
 
     &:hover {
       text-decoration: underline;
+
+      p {
+        text-decoration: underline;
+      }
+
+      * {
+        text-decoration: none !important;
+      }
     }
   }
 
@@ -178,11 +186,6 @@ export const PageWrapper = styled.div`
       text-decoration-skip-ink: auto;
       text-decoration-thickness: 0.065em;
     }
-  }
-
-  .no-underline,
-  a:hover > .no-underline {
-    text-decoration: none !important;
   }
 
   .indefinite-article {
