@@ -3,11 +3,9 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 
 export default function HoverBuddy() {
-  if (typeof window == `undefined`) {
-    return <></>;
-  } else {
+  if (typeof window !== `undefined`) {
     return <HoverBuddyInner />;
-  }
+  } else return <></>;
 }
 
 function HoverBuddyInner() {
