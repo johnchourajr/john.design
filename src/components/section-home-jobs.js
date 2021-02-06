@@ -92,12 +92,9 @@ const JobItem = styled(MotionScroll)`
       opacity: 0.5;
       text-decoration: line-through;
       text-decoration-thickness: 0.065em;
-      /* text-decoration-color: ${(props) => props.theme.colors.gray2};
-      color: ${(props) => props.theme.colors.gray3}; */
     }
     h4 {
       opacity: 0.5;
-      /* color: ${(props) => props.theme.colors.gray3}; */
     }
   }
 

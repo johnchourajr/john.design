@@ -51,7 +51,7 @@ function NavLinks() {
   );
 }
 
-function SkipWrapper({}) {
+function SkipWrapper() {
   return (
     <SkipToContent className="skip-to-content-link" to="#main">
       Skip to content
