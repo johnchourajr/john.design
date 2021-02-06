@@ -1,6 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const BodyStyles = createGlobalStyle`
+    body, html {
+      height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+    }
+
     body {
         background-color: ${(props) =>
           // @ts-ignore

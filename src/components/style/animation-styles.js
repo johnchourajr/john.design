@@ -44,8 +44,10 @@ body.theme--${slug} {
 			color ${animation.duration[200].css} ${animation.timingFunction.css};
 
     h1, h2, h3, h4, h5, h6, p, a, .nav > a {
-			color: ${foreground} !important;
+			color: ${foreground};
+      -webkit-text-stroke-color: ${foreground};
 			text-decoration-color: ${foreground} !important;
+
 			transition:
 				color ${animation.duration[200].css} ${animation.timingFunction.css},
 				text-decoration-color ${animation.duration[200].css} ${animation.timingFunction.css};

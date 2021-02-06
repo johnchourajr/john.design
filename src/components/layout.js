@@ -7,6 +7,7 @@ import { AnimationStyles } from './style/animation-styles';
 
 import Head from './globals/head';
 import Nav from './globals/nav';
+import HoverBuddy from './hover-buddy';
 
 export default function Layout({ children, pageTitle }) {
   // React.useEffect(() => {
@@ -25,6 +26,7 @@ export default function Layout({ children, pageTitle }) {
           <Nav componentId={'...'} />
           <main id="main">{children}</main>
         </PageWrapper>
+        <HoverBuddy />
       </ThemeProvider>
     </>
   );

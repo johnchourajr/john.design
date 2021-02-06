@@ -49,6 +49,6 @@ const PageHeaderWrapper = styled.div`
   h1 {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
-    color: transparent;
+    color: transparent !important;
   }
 `;

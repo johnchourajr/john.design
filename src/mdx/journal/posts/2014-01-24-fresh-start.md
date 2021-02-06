@@ -1,16 +1,17 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/fresh-start"
-date: "2014-01-24"
+template: 'journalPostTemplate'
+slug: '/journal/fresh-start'
+date: '2014-01-24'
 title: Object Matter
 cover: /journal-img/01-objsbj-poster.jpg
+thumb: /journal-img/01-objsbj-poster.jpg
 refer: |-
-    1 [Trent Walton](http://trentwalton.com), [Jessica Hische](http://jessicahische.is), [Noah Stokes](http://esbueno.noahstokes.com), [Jonnie Hallman](http://destroytoday.com), [Skylar Challand](https://twitter.com/sskylar), and [Oak](http://oak.is).
+  1 [Trent Walton](http://trentwalton.com), [Jessica Hische](http://jessicahische.is), [Noah Stokes](http://esbueno.noahstokes.com), [Jonnie Hallman](http://destroytoday.com), [Skylar Challand](https://twitter.com/sskylar), and [Oak](http://oak.is).
 
-    2 [Siteleaf](http://siteleaf.com) is the Content Management System I built this site with.
+  2 [Siteleaf](http://siteleaf.com) is the Content Management System I built this site with.
 Tags:
-    - Life
-    - Work
+  - Life
+  - Work
 ---
 
 Let's take time to make some introductions.

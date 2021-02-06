@@ -51,7 +51,7 @@ function NavLinks() {
   );
 }
 
-function SkipWrapper({}) {
+function SkipWrapper() {
   return (
     <SkipToContent className="skip-to-content-link" to="#main">
       Skip to content
@@ -79,16 +79,20 @@ const NavWrapper = styled.nav`
   align-items: center;
   justify-content: space-between;
   height: 6rem;
-  margin: 0 1rem;
-  width: calc(100vw - 2rem);
+  padding: 0 1rem;
+  width: 100%;
   left: 0;
   pointer-events: none;
   z-index: 10;
 
   @media ${(props) => props.theme.device.tablet} {
-    margin: 0 7vw;
-    width: 86vw;
+    padding: 0 7vw;
+    width: 100%;
     height: 8rem;
+  }
+
+  @media ${(props) => props.theme.device.desktopLg} {
+    padding: 0 10vw;
   }
 `;
 
@@ -116,14 +120,15 @@ const SkipToContent = styled(Link)`
   color: ${(props) => props.theme.colors.white} !important;
   background: ${(props) => props.theme.colors.black};
   left: 0;
-  padding: 1.5rem;
+  height: 59px;
+  padding: 1.25rem;
   position: absolute;
-  transform: translateY(-100%);
+  transform: translate3d(0, -100%, 0);
   transition: transform ${(props) => props.theme.animation.duration[200].css}
     ${(props) => props.theme.animation.timingFunction.css};
   z-index: 9999;
 
-  &:focus-visible {
-    transform: translateY(0%);
+  &:focus-within {
+    transform: translate3d(0, 0, 0);
   }
 `;

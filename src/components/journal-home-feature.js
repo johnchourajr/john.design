@@ -64,6 +64,10 @@ const Card = styled.div`
       text-decoration: none !important;
     }
   }
+
+  &:active {
+    transform: scale3d(0.99, 0.99, 0.99);
+  }
 `;
 
 const CardLower = styled.div`

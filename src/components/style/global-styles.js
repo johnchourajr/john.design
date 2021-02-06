@@ -24,21 +24,25 @@ export const PageWrapper = styled.div`
   }
 
   a {
+    /* transition: transform ${(props) =>
+      props.theme.animation.duration[300].css}; */
+    /* will-change: transform; */
     text-decoration: none;
 
     &:hover {
+      /* transform: scale3d(1.01, 1.01, 1.01); */
       text-decoration: underline;
 
       p {
         text-decoration: underline;
       }
+    }
 
-      * {
-        text-decoration: none !important;
-      }
+    &:active {
+      /* transform: scale3d(0.99, 0.99, 0.99); */
     }
   }
-
+  /*
   *:focus-visible {
     outline: none;
     position: relative;
@@ -56,7 +60,7 @@ export const PageWrapper = styled.div`
       border-radius: 4px;
       mix-blend-mode: difference;
     }
-  }
+  } */
 
   pre {
     font-family: monospace;
@@ -184,7 +188,7 @@ export const PageWrapper = styled.div`
     &:hover {
       color: ${(props) => props.theme.colors.gray1};
       text-decoration-skip-ink: auto;
-      text-decoration-thickness: 0.065em;
+      /* text-decoration-thickness: 0.065em; */
     }
   }
 
@@ -203,12 +207,21 @@ export const Wrapper = styled.section`
   padding: 0 1rem;
   width: 100%;
 
+  &.pV {
+    padding-top: 7vw;
+    padding-bottom: 7vw;
+  }
+
   @media ${(props) => props.theme.device.tablet} {
     padding: 0 7vw;
   }
 
-  &.pV {
-    padding-top: 7vw;
-    padding-bottom: 7vw;
+  @media ${(props) => props.theme.device.desktopLg} {
+    padding: 0 10vw;
+
+    &.pV {
+      padding-top: 10vw;
+      padding-bottom: 10vw;
+    }
   }
 `;

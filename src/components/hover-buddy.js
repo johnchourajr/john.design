@@ -71,7 +71,7 @@ function HoverBuddyInner() {
       {mounted && (
         <>
           <Image
-            className="hover-image"
+            className={`buddy-item hover-image`}
             style={{
               translateX: cursorXSpring,
               translateY: cursorYSpring,
@@ -82,7 +82,7 @@ function HoverBuddyInner() {
           {useIframe && (
             <Frame
               src={file}
-              className={`hover-iframe`}
+              className={`buddy-item hover-iframe`}
               style={{
                 translateX: cursorXSpring,
                 translateY: cursorYSpring,
@@ -100,22 +100,13 @@ function HoverBuddyInner() {
 }
 
 const Frame = styled(motion.iframe)`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 60vw;
-  height: 40vw;
-  z-index: 0;
-  visibility: hidden;
-  opacity: 0;
-  transform-origin: center center;
-  transition: opacity ${(props) => props.theme.animation.duration[300].css}
-    ${(props) => props.theme.animation.timingFunction.css};
-  will-change: transform, opacity;
-  background-size: cover;
-  backface-visibility: hidden;
+  width: 120vw;
+  height: 80vw;
+
+  @media ${(props) => props.theme.device.tablet} {
+    width: 80vw;
+    height: 52vw;
+  }
 
   &[data-loaded='false'] {
     visibility: hidden !important;
@@ -124,19 +115,13 @@ const Frame = styled(motion.iframe)`
 `;
 
 const Image = styled(motion.div)`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 60vw;
-  height: 40vw;
-  visibility: hidden;
-  opacity: 0;
-  transform-origin: center center;
-  transition: opacity ${(props) => props.theme.animation.duration[300].css}
-    ${(props) => props.theme.animation.timingFunction.css};
-  will-change: transform, opacity;
-  background-size: cover;
-  backface-visibility: hidden;
+  width: 120vw;
+  height: 80vw;
+
+  @media ${(props) => props.theme.device.tablet} {
+    width: 60vw;
+    height: 40vw;
+  }
 
   &[data-iframe='true'] {
     visibility: hidden !important;
@@ -153,7 +138,6 @@ const HoverBuddyWrapper = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: solid 5px red; */
   pointer-events: none;
   perspective: 100vw;
   z-index: -10;
@@ -161,4 +145,51 @@ const HoverBuddyWrapper = styled(motion.div)`
   backface-visibility: hidden;
   padding: 1px;
   background-clip: content-box;
+
+  .buddy-item {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transform-origin: center center;
+    transition: opacity ${(props) => props.theme.animation.duration[300].css}
+      ${(props) => props.theme.animation.timingFunction.css};
+    will-change: transform, opacity;
+    background-size: cover;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  /* .buddy-size-lg {
+    width: 120vw;
+    height: 80vw;
+
+    @media ${(props) => props.theme.device.tablet} {
+      width: 100vw;
+      height: 66vw;
+    }
+
+    @media ${(props) => props.theme.device.desktop} {
+      width: 60vw;
+      height: 40vw;
+    }
+  }
+
+  .buddy-size-sm {
+    width: 60vw;
+    height: 40vw;
+
+    @media ${(props) => props.theme.device.tablet} {
+      width: 50vw;
+      height: 33vw;
+    }
+
+    @media ${(props) => props.theme.device.desktop} {
+      width: 30vw;
+      height: 20vw;
+    }
+  } */
 `;

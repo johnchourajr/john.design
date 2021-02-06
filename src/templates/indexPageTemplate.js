@@ -7,7 +7,6 @@ import SectionHomeHero from '../components/section-home-hero';
 import SectionHomeJournal from '../components/section-home-journal';
 import SectionJobs from '../components/section-home-jobs';
 import SectionBrands from '../components/section-home-brands';
-import HoverBuddy from '../components/hover-buddy';
 
 export default function Template({
   data: {
@@ -28,7 +27,7 @@ export default function Template({
         </section>
       </Wrapper>
       <SectionHomeJournal />
-      <HoverBuddy />
+      {/* <HoverBuddy /> */}
     </Layout>
   );
 }

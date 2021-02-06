@@ -1,11 +1,12 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/back-to-school"
-date: "2017-01-23"
+template: 'journalPostTemplate'
+slug: '/journal/back-to-school'
+date: '2017-01-23'
 title: Back to School
 cover: /journal-img/to-teach-3.gif
+thumb: /journal-img/to-teach-3.gif
 Tags:
-    - Life
+  - Life
 ---
 
 ## I'm going back to school... But, errrr uh... probably not in the way you're thinking.

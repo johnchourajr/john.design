@@ -1,11 +1,12 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/designer-meets-react-native"
-date: "2018-09-28"
+template: 'journalPostTemplate'
+slug: '/journal/designer-meets-react-native'
+date: '2018-09-28'
 title: Designer Meets React Native
 cover: /journal-img/01-joy-rn.jpg
+thumb: /journal-img/01-joy-rn.jpg
 Tags:
-    - work
+  - work
 ---
 
 ### 4 Lessons Learned Building Joy with React Native
