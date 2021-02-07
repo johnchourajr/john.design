@@ -105,6 +105,7 @@ const NavLinksWrapper = styled.div`
   a.h5 {
     margin: 0;
     color: ${(props) => props.theme.colors.black};
+    pointer-events: visible;
   }
 `;
 
