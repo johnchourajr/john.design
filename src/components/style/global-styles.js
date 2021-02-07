@@ -14,7 +14,7 @@ export const PageWrapper = styled.div`
 
   margin: 0 auto;
   width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
   color: ${(props) => props.theme.colors.black};
   font-family: 'LabilGrotesk-Medium', sans-serif;
   font-style: normal;

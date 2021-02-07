@@ -33,8 +33,24 @@ export default function JournalIndexList({ items }) {
           return (
             <Post
               key={i}
-              onMouseEnter={() => changeBodyClass('enter', `${slug}`)}
-              onMouseLeave={() => changeBodyClass('exit', `${slug}`)}
+              onMouseEnter={() =>
+                changeBodyClass(
+                  'enter',
+                  slug,
+                  node.frontmatter.foreground,
+                  node.frontmatter.background,
+                  node.frontmatter.thumb
+                )
+              }
+              onMouseLeave={() =>
+                changeBodyClass(
+                  'exit',
+                  slug,
+                  node.frontmatter.foreground,
+                  node.frontmatter.background,
+                  node.frontmatter.thumb
+                )
+              }
               fadeIn={true}
               triggerPoint={0.95}
               yOffset={50}
