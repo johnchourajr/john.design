@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import Layout from '../components/layout';
 import { Wrapper } from '../components/style/global-styles';
 import PageHeader from '../components/page-header';
 
