@@ -11,14 +11,19 @@ export function clampBuilder(minFontSize, maxFontSize) {
   }vw, ${maxFontSize}rem )`;
 }
 
-export function changeBodyClass(state, slug) {
+export function changeBodyClass(state, slug, foreground, background, image) {
   if (typeof document !== `undefined`) {
     if (state === 'enter') {
-      document.body.classList.add(`theme--${slug}`);
+      document.body.classList.add(`theme--hover`);
       document.body.setAttribute('data-hover', 'true');
+      document.body.setAttribute(
+        'style',
+        `--hover-background: ${background}; --hover-foreground: ${foreground}; --hover-image: url('${image}') `
+      );
     } else {
-      document.body.classList.remove(`theme--${slug}`);
+      document.body.classList.remove(`theme--hover`);
       document.body.setAttribute('data-hover', 'false');
+      document.body.setAttribute('style', '');
     }
   }
 }
