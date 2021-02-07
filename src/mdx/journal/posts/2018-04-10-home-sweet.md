@@ -1,12 +1,13 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/home-sweet"
-date: "2018-04-10"
+template: 'journalPostTemplate'
+slug: '/journal/home-sweet'
+date: '2018-04-10'
 title: Home Sweet
 cover: /journal-img/home-yard-sq.jpg
+thumb: /journal-img/home-yard-sq.jpg
 Tags:
-    - Life
-    - Home
+  - Life
+  - Home
 ---
 
 # Last year my wife Alex and I did some work to our house. I love it some much that I just want to brag about it. 😀

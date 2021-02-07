@@ -68,9 +68,32 @@ export default function SectionHomeHero({ data, ...rest }) {
         </TickWrapper>
         <H2Right className="display">in Long Beach, Calif.</H2Right>
       </Wrapper>
+      <Attr>
+        <p>
+          Background created in{' '}
+          <a
+            href="https://www.figma.com/file/rY8kva5mMuZ76jr1In7a3g/?node-id=0%3A1"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Figma
+          </a>
+        </p>
+      </Attr>
     </HomeSection>
   );
 }
+
+const Attr = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+
+  p {
+    margin: 0;
+    opacity: 0.3;
+  }
+`;
 
 const H2Left = styled.h2`
   text-align: left;
@@ -96,6 +119,7 @@ const TickWrapper = styled(Tick)`
 `;
 
 const H2Center = styled.h2`
+  position: relative;
   text-align: center;
   white-space: pre;
 
@@ -104,13 +128,14 @@ const H2Center = styled.h2`
 
     span.text {
       opacity: 1 !important;
-      transform: scale(2) !important;
+      transform: scale3d(2, 2, 2) !important;
     }
   }
 
   span {
     transition: opacity ${(props) => props.theme.animation.duration[100].css};
     will-change: opacity, transform;
+    position: relative;
   }
 `;
 

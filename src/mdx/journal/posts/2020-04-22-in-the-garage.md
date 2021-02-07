@@ -1,12 +1,13 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/in-the-garage"
-date: "2020-04-22"
+template: 'journalPostTemplate'
+slug: '/journal/in-the-garage'
+date: '2020-04-22'
 title: In The Garage
 cover: /journal-img/inthegarage-2.gif
+thumb: /journal-img/inthegarage-2.gif
 Tags:
-    - art
-    - life
+  - art
+  - life
 ---
 
 ## Let's get real.

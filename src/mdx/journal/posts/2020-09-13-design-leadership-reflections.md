@@ -1,12 +1,15 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/design-leadership-reflections"
-date: "2020-09-12"
+template: 'journalPostTemplate'
+slug: '/journal/design-leadership-reflections'
+date: '2020-09-12'
 title: What I Learned From Two Years as a Design Leader
 cover: /journal-img/design-leadership-cover.jpg
+thumb: /journal-img/design-leadership-cover.jpg
+foreground: '#E0E0E0'
+background: '#111111'
 Tags:
-    - design leadership
-    - life
+  - design leadership
+  - life
 ---
 
 ## As my time was ending at Happy Money, where I spent the last five years of my career, I began reflecting on the lessons I learned as a first time design leader.

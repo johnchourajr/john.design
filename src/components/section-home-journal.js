@@ -6,6 +6,7 @@ import { Wrapper } from './style/global-styles';
 import { repeatTitle } from '../functions/util';
 import Tick from './tick';
 import JournalHomeFeature from './journal-home-feature';
+import MotionScroll from './motion-scroll';
 
 export default function SectionHomeJournal() {
   return (
@@ -59,24 +60,31 @@ function JournalSectionContent({
 
   return (
     <Wrapper className="pV">
-      <PageHeaderWrapper>
-        <Tick tickerSpeed={2} offset={''}>
-          {() => (
-            <span>
-              <h1 className="display funky">{title}</h1>
-            </span>
-          )}
-        </Tick>
-      </PageHeaderWrapper>
-      <h4>Most Recent Post</h4>
-      <JournalHomeFeature
-        slug={frontmatter.slug}
-        title={frontmatter.title}
-        date={frontmatter.date}
-        timeToRead={timeToRead}
-        excerpt={excerpt}
-        cover={frontmatter.cover}
-      />
+      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={50}>
+        <PageHeaderWrapper>
+          <Tick tickerSpeed={2} offset={''}>
+            {() => (
+              <span>
+                <h1 className="display funky">{title}</h1>
+              </span>
+            )}
+          </Tick>
+        </PageHeaderWrapper>
+      </MotionScroll>
+      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={30}>
+        <h4>Most Recent Post</h4>
+      </MotionScroll>
+      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={50}>
+        <JournalHomeFeature
+          slug={frontmatter.slug}
+          title={frontmatter.title}
+          date={frontmatter.date}
+          timeToRead={timeToRead}
+          excerpt={excerpt}
+          cover={frontmatter.cover}
+        />
+      </MotionScroll>
+
       <LowerLink>
         <Link to="/journal">
           <h4>View All →</h4>
