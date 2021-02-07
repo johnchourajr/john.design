@@ -21,8 +21,12 @@ function TickerText({ item, slug }) {
     <H2Center
       className="display"
       data-name={slug}
-      onMouseEnter={() => changeBodyClass('enter', slug, item.figma_id)}
-      onMouseLeave={() => changeBodyClass('exit', slug, item.figma_id)}
+      onMouseEnter={() =>
+        changeBodyClass('enter', slug, item.foreground, item.background)
+      }
+      onMouseLeave={() =>
+        changeBodyClass('exit', slug, item.foreground, item.background)
+      }
     >
       <span className="text">{item.title}</span>
       <span className="slash">{' / '}</span>

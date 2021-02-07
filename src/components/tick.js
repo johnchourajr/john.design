@@ -18,7 +18,7 @@ export default function Tick(props) {
         {pageIsVisible && (
           <Ticker
             move={true}
-            direction="toLeft"
+            direction={props.direction ? props.direction : 'toLeft'}
             offset={props.offset}
             speed={speed}
           >

@@ -22,8 +22,24 @@ export default function SectionJobs({ jobs }) {
               <JobItem
                 key={i}
                 className={`${active}`}
-                onMouseEnter={() => changeBodyClass('enter', `${slug}`)}
-                onMouseLeave={() => changeBodyClass('exit', `${slug}`)}
+                onMouseEnter={() =>
+                  changeBodyClass(
+                    'enter',
+                    slug,
+                    item.foreground,
+                    item.background,
+                    item.image
+                  )
+                }
+                onMouseLeave={() =>
+                  changeBodyClass(
+                    'exit',
+                    slug,
+                    item.foreground,
+                    item.background,
+                    item.image
+                  )
+                }
                 fadeIn={true}
                 triggerPoint={0.85}
                 yOffset={50}
