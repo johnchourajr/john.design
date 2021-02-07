@@ -1,24 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
+import { animation, colors } from '../../data/baseTheme';
 
 export const BodyStyles = createGlobalStyle`
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
     body {
-        background-color: ${(props) =>
-          // @ts-ignore
-          props.theme.colors.gray5};
-        color: ${(props) =>
-          // @ts-ignore
-          props.theme.colors.black};
+        background-color: ${colors.gray5};
+        color: ${colors.black};
         font-family: "LabilGrotesk-Medium", sans-serif;
         font-style: normal;
-		font-weight: 500;
+        font-weight: 500;
     }
 
     * {
         box-sizing: border-box;
-        /* cursor: none; */
-        transition-timing-function: ${(props) =>
-          // @ts-ignore
-          props.theme.animation.timingFunction.css};
+        transition-timing-function: ${animation.timingFunction.css};
     }
 
     body[data-hover=true] {
