@@ -1,12 +1,13 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/sedona-trip"
-date: "2016-11-25"
+template: 'journalPostTemplate'
+slug: '/journal/sedona-trip'
+date: '2016-11-25'
 title: Sedona Trip
 cover: /journal-img/Sedona-New-sm-1.jpg
+thumb: /journal-img/Sedona-New-sm-1.jpg
 Tags:
-    - Life
-    - Photos
+  - Life
+  - Photos
 ---
 
 ## My wife and I took a little vacation to Sedona, AZ, and here are some of our favorite photos from the trip. Enjoy.

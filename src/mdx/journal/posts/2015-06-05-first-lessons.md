@@ -1,13 +1,14 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/first-lessons"
-date: "2015-06-05"
+template: 'journalPostTemplate'
+slug: '/journal/first-lessons'
+date: '2015-06-05'
 title: The Engineer and the Artist
 cover: /journal-img/05-GP-poster.jpg
+thumb: /journal-img/05-GP-poster.jpg
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
 Tags:
-    - Life
-    - Family
+  - Life
+  - Family
 ---
 
 This is a story about my maternal grandfather, _Walter Clifford Dix_. Born in 1918 and grew up near and around the Ohio area. He eventually ended up serving in the army until 1943, and after that, went on to earn a degree in engineering from USC. He then spent the lump-sum of his career working as an industrial engineer at [Rockwell International^1](#refer) in Downey, CA contributing to the Apollo space program. He was a precise and intelligent engineer. I'm told he designed and wired control panels for the spacecraft.

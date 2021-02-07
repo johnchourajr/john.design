@@ -1,8 +1,9 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/joining-payoff"
-date: "2015-08-05"
+template: 'journalPostTemplate'
+slug: '/journal/joining-payoff'
+date: '2015-08-05'
 title: Joining Payoff
+thumb: '/' # @todo: thumbnail
 refer: 1 Some of the original JS logic goes to [this Codepen](http://codepen.io/Bergability/pen/EjRRXx).
 ---
 

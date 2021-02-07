@@ -1,11 +1,12 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/user-interface-hierarchy"
-date: "2018-12-08"
+template: 'journalPostTemplate'
+slug: '/journal/user-interface-hierarchy'
+date: '2018-12-08'
 title: User Interface Hierarchy
 cover: /journal-img/hierarchy-1.png
+thumb: /journal-img/hierarchy-1.png
 Tags:
-    - work
+  - work
 ---
 
 ### How ordering information hierarchy can make or break an interface experience

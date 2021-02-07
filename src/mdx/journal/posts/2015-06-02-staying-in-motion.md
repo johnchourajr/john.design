@@ -1,9 +1,10 @@
 ---
-template: "journalPostTemplate"
-slug: "/journal/staying-in-motion"
-date: "2015-06-02"
+template: 'journalPostTemplate'
+slug: '/journal/staying-in-motion'
+date: '2015-06-02'
 title: Staying in Motion
 cover: /journal-img/06-new-poster-1.jpg
+thumb: /journal-img/06-new-poster-1.jpg
 refer: Illustration by John Choura Jr.
 ---
 
