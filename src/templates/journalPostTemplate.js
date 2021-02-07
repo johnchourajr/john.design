@@ -3,7 +3,6 @@ import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 
-import Layout from '../components/layout';
 import { Wrapper } from '../components/style/global-styles';
 import MotionScroll from '../components/motion-scroll';
 
@@ -13,14 +12,6 @@ export default function Template({ pageContext, data }) {
   const { next, previous } = pageContext;
   const hasNext = next?.frontmatter.template.includes('journal');
   const hasPrev = previous?.frontmatter.template.includes('journal');
-
-  // React.useEffect(() => {
-  //   if (typeof document !== `undefined`) {
-  //     document.body.classList.remove(`theme--hover`);
-  //     document.body.setAttribute('data-hover', 'false');
-  //     document.body.setAttribute('style', '');
-  //   }
-  // }, []);
 
   return (
     <>

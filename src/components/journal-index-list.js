@@ -12,7 +12,6 @@ export default function JournalIndexList({ items }) {
         <h4>Most Recent Post</h4>
       </MotionScroll>
       {items.map(({ node }, i) => {
-        const slug = stringToSlug(node.frontmatter.title);
         if (i === 0) {
           return (
             <>
@@ -28,7 +27,7 @@ export default function JournalIndexList({ items }) {
               </MotionScroll>
             </>
           );
-        }
+        } else return null;
       })}
       <PostList>
         {items.map(({ node }, i) => {
@@ -78,7 +77,7 @@ export default function JournalIndexList({ items }) {
                 </aside>
               </MotionScroll>
             );
-          }
+          } else return null;
         })}
       </PostList>
     </>
