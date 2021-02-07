@@ -17,7 +17,7 @@ export default function Template({
   const { frontmatter } = edges[0].node;
 
   return (
-    <Layout pageTitle={frontmatter.title}>
+    <>
       <SectionHomeHero data={frontmatter} triggerPoint={0} />
       <SectionJobs jobs={frontmatter.section_resume} />
       <SectionBrands brands={frontmatter.section_brands} />
@@ -29,7 +29,7 @@ export default function Template({
       </Wrapper>
       <SectionHomeJournal />
       <HoverBuddy />
-    </Layout>
+    </>
   );
 }
 

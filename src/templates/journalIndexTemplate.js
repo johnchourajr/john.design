@@ -14,13 +14,13 @@ export default function JournalIndexPage({
   }
 }) {
   return (
-    <Layout pageTitle={frontmatter.title}>
+    <>
       <PageHeader title={frontmatter.title} />
       <Wrapper>
         <JournalIndexList items={edges} />
       </Wrapper>
-      <HoverBuddy size="sm" />
-    </Layout>
+      <HoverBuddy />
+    </>
   );
 }
 
@@ -38,6 +38,9 @@ export const pageQuery = graphql`
             slug
             date(formatString: "MMM DD, yyyy")
             cover
+            thumb
+            foreground
+            background
           }
           timeToRead
           excerpt

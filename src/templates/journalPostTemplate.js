@@ -15,7 +15,7 @@ export default function Template({ pageContext, data }) {
   const hasPrev = previous?.frontmatter.template.includes('journal');
 
   return (
-    <Layout pageTitle={frontmatter.title}>
+    <>
       <PostWrapper className="blog-post">
         <Wrapper>
           <PostHeader>
@@ -69,7 +69,7 @@ export default function Template({ pageContext, data }) {
           )}
         </PostSegue>
       </PostWrapper>
-    </Layout>
+    </>
   );
 }
 
