@@ -113,7 +113,7 @@ const NavLinksWrapper = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  pointer-events: bounding-box;
+  pointer-events: visible;
 `;
 
 const SkipToContent = styled(Link)`
