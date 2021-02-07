@@ -178,13 +178,13 @@ export const PageWrapper = styled.div`
     color: ${(props) => props.theme.colors.black};
     transition: color ${(props) => props.theme.animation.duration[100].css}
       ${(props) => props.theme.animation.timingFunction.css};
-    text-decoration-thickness: 0;
+    /* text-decoration-thickness: 0; */
     opacity: 1;
 
     &:hover {
       color: ${(props) => props.theme.colors.gray1};
-      text-decoration-skip-ink: auto;
-      text-decoration-thickness: 0.065em;
+      /* text-decoration-skip-ink: auto; */
+      /* text-decoration-thickness: 0.2em; */
     }
   }
 

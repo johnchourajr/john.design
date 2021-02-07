@@ -14,6 +14,14 @@ export default function Template({ pageContext, data }) {
   const hasNext = next?.frontmatter.template.includes('journal');
   const hasPrev = previous?.frontmatter.template.includes('journal');
 
+  // React.useEffect(() => {
+  //   if (typeof document !== `undefined`) {
+  //     document.body.classList.remove(`theme--hover`);
+  //     document.body.setAttribute('data-hover', 'false');
+  //     document.body.setAttribute('style', '');
+  //   }
+  // }, []);
+
   return (
     <>
       <PostWrapper className="blog-post">
