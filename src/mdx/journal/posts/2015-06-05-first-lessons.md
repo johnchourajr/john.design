@@ -3,8 +3,8 @@ template: 'journalPostTemplate'
 slug: '/journal/first-lessons'
 date: '2015-06-05'
 title: The Engineer and the Artist
-cover: /journal-img/05-GP-poster.jpg
-thumb: /journal-img/05-GP-poster.jpg
+cover: ../../../images/journal/05-GP-poster.jpg
+thumb: ../../../images/journal/05-GP-poster.jpg
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
 Tags:
   - Life
@@ -15,7 +15,7 @@ This is a story about my maternal grandfather, _Walter Clifford Dix_. Born in 19
 
 When he wasn't working though, he would sketch, draw, paint, and doodle. On almost anything and everything. We still have his notebooks, loads of notebooks, filled with all these little sketches. In my mind he was truly the meeting point of an engineer and an artist.
 
-![sm](/journal-img/notebook.jpg)
+![sm](../../../images/journal/notebook.jpg)
 
 As a young boy, I have a clear memory about my grandfather teaching me how to draw. I have this distinct image in my mind of his little house that he lived in for 50+ years, with those half-drawn curtains and the way light came through, and that distinct musty old-man smell. I remember knowing that he could draw and paint, and I would ask him to draw a pictures of me; little 6-or-younger-year-old me. It was like a magic trick. He would move his hand across his notepad, with no effort. And with anticipation, I would wait for that moment when he would flip his page around, and show me what his pencil markings had made. I was always mesmerized and it made me determined to learn to draw.
 
@@ -23,7 +23,7 @@ His line work was shaky, not _just_ because of his age, but it was his style. He
 
 Back then, my drawing trouble area with drawing people was always the human mouth. I mean it's essentially just two tube-like things stacked, right? Nope! This lesson always stuck with me, he told me, "Look at the light ... the upper lip is always shadowed, and the lower lip is always lighter." His lesson to me wasn't to teach me to draw shapes, he was teaching me to draw the shadows responding to the light. No more would I draw the mouth as two side-ways banana-like shapes, with a bunch of little chunky teeth. It's the light that shapes everything, and drawing is a matter of seeing the light and the space around it. I didn't know it then, but he was teaching light logic to a 6-year-old. I love that.
 
-![xsm](/journal-img/apollo-img.png)
+![xsm](../../../images/journal/apollo-img.png)
 
 I can point back to these moments as a child and fully recognize them as my point of origin as a designer and an artist. These lessons laid a foundation for who I am.
 
@@ -35,4 +35,4 @@ Whenever I talk about design or vocation, I'm always led back here to this dicho
 
 Here is to you grandpa. 🍻
 
-![lg](/journal-img/05-GP-poster.jpg)
+![lg](../../../images/journal/05-GP-poster.jpg)

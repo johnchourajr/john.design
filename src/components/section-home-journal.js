@@ -25,7 +25,14 @@ export default function SectionHomeJournal() {
                   slug
                   date(formatString: "MMM DD, yyyy")
                   title
-                  cover
+                  cover {
+                    childImageSharp {
+                      fluid(maxWidth: 2500) {
+                        ...GatsbyImageSharpFluid
+                      }
+                    }
+                    publicURL
+                  }
                 }
                 timeToRead
                 excerpt

@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 
+/**
+ * HoverBuddy Function
+ *
+ * Takes no props
+ */
 export default function HoverBuddy() {
-  if (typeof window !== `undefined`) {
-    return <HoverBuddyInner />;
-  } else return <></>;
-}
-
-function HoverBuddyInner() {
   const [id, setId] = React.useState('253A71');
   const [mounted, setMounted] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
@@ -65,6 +64,10 @@ function HoverBuddyInner() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   const file = `https://www.figma.com/embed?embed_host=astra&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FrY8kva5mMuZ76jr1In7a3g%2FMotion%3Fnode-id%3D1%${id}%26viewport%3D768%252C638%252C0.5647107362747192%26scaling%3Dcontain%26hotspot-hints%3D0%26hide-ui%3D1`;
+
+  if (typeof window == `undefined`) {
+    return <></>;
+  }
 
   return (
     <HoverBuddyWrapper>

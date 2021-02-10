@@ -12,6 +12,10 @@ export default function Template({ pageContext, data }) {
   const { next, previous } = pageContext;
   const hasNext = next?.frontmatter.template.includes('journal');
   const hasPrev = previous?.frontmatter.template.includes('journal');
+  const isChildImageSharp = frontmatter?.cover?.childImageSharp;
+  const image = isChildImageSharp
+    ? frontmatter?.cover?.childImageSharp?.fluid
+    : frontmatter?.cover?.publicURL;
 
   return (
     <>
@@ -24,9 +28,17 @@ export default function Template({ pageContext, data }) {
           </PostHeader>
 
           {frontmatter.cover && (
-            <PostImage
-              style={{ backgroundImage: `url(${frontmatter.cover})` }}
-            ></PostImage>
+            <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
+              {isChildImageSharp ? (
+                <img
+                  sizes={image.sizes}
+                  srcSet={image.srcSet}
+                  alt={`${frontmatter.title} Cover Art`}
+                />
+              ) : (
+                <img src={image} alt={`${frontmatter.title} Cover Art`} />
+              )}
+            </PostImage>
           )}
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
@@ -79,6 +91,7 @@ const PostWrapper = styled.section`
 
 const PostHeader = styled.div`
   margin: 20vw 0 10vw;
+  height: fit-content;
 `;
 
 const PostImage = styled.figure`
@@ -86,9 +99,17 @@ const PostImage = styled.figure`
   min-height: 300px;
   height: 45vw;
   transform: translateX(-7.5vw);
-  background-size: cover;
-  background-position: center center;
+  background-color: white;
   margin: 3.5vw 0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale3d(1.01, 1.01, 1.01);
+    transition: transform ${(props) => props.theme.animation.duration[300].css};
+  }
 `;
 
 const PostCredit = styled.div`
@@ -204,7 +225,14 @@ export const pageQuery = graphql`
         date(formatString: "MMM DD, yyyy")
         slug
         title
-        cover
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 2500) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+          publicURL
+        }
       }
       timeToRead
       excerpt

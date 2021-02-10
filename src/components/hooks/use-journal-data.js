@@ -17,7 +17,13 @@ export const useJournalData = () => {
                 title
                 slug
                 date(formatString: "MMM DD, yyyy")
-                cover
+                cover {
+                  childImageSharp {
+                    fluid(maxWidth: 800, toFormat: WEBP) {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
               }
               timeToRead
               excerpt

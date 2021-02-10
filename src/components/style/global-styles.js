@@ -197,6 +197,10 @@ export const PageWrapper = styled.div`
       display: none;
     }
   }
+
+  .gatsby-resp-image-image {
+    box-shadow: none !important;
+  }
 `;
 
 export const Wrapper = styled.section`
