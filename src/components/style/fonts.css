@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'LabilGrotesk-Medium';
+  font-weight: 600;
+  src: url('/fonts/LabilGrotesk-Medium.otf') format('otf'),
+    url('/fonts/LabilGrotesk-Medium.woff') format('woff'),
+    url('/fonts/LabilGrotesk-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

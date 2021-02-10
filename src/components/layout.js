@@ -3,6 +3,7 @@ import { PageWrapper } from './style/global-styles';
 
 import Head from './globals/head';
 import Nav from './globals/nav';
+import './style/fonts.css';
 
 export default function Layout({ children, pageTitle }) {
   return (

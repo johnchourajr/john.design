@@ -2,11 +2,17 @@ import { createGlobalStyle } from 'styled-components';
 import { animation, colors } from '../../data/baseTheme';
 import { clampBuilder } from '../../functions/util';
 
-export const ResetStyles = createGlobalStyle`
+export const BaseStyles = createGlobalStyle`
+    @font-face {
+    font-family: 'LabilGrotesk-Medium';
+    font-weight: 600;
+    src: url('/fonts/LabilGrotesk-Medium.otf') format('otf'),
+      url('/fonts/LabilGrotesk-Medium.woff') format('woff'),
+      url('/fonts/LabilGrotesk-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
 
-`;
-
-export const BodyStyles = createGlobalStyle`
     html,
     body,
     div,
@@ -174,16 +180,6 @@ export const BodyStyles = createGlobalStyle`
             display: inline-block;
         }
     }
-
-      @font-face {
-    font-family: 'LabilGrotesk-Medium';
-    font-weight: 600;
-    src: url('/fonts/LabilGrotesk-Medium.otf') format('otf'),
-      url('/fonts/LabilGrotesk-Medium.woff') format('woff'),
-      url('/fonts/LabilGrotesk-Medium.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
 
   main {
   }
