@@ -10,7 +10,6 @@ export const wrapRootElement = ({ element, props }) => (
   <ThemeProvider
     theme={{ device: device, colors: colors, animation: animation }}
   >
-    <ResetStyles />
     <BodyStyles />
     <AnimationStyles />
     <Layout {...props}>{element}</Layout>
