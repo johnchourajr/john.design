@@ -5,6 +5,7 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-styled-components',
+    `gatsby-remark-images`,
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
@@ -21,13 +22,26 @@ module.exports = {
         icon: 'src/images/icon.png'
       }
     },
-    'gatsby-plugin-mdx',
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200
+            }
+          }
+        ],
+        extensions: [`.md`, `.mdx`]
+      }
+    },
     'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: './src/images/'
+        path: `${__dirname}/src/images/`
       },
       __key: 'images'
     },
@@ -35,7 +49,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'pages',
-        path: './src/mdx/'
+        path: `${__dirname}/src/mdx/`
       },
       __key: 'pages'
     },
@@ -44,12 +58,6 @@ module.exports = {
       options: {
         name: `journal-posts`,
         path: `${__dirname}/src/mdx/journal/posts`
-      }
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: [`.md`, `.mdx`]
       }
     },
     {

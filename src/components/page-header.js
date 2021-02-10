@@ -4,30 +4,27 @@ import styled from 'styled-components';
 import { Wrapper } from '../components/style/global-styles';
 import Tick from '../components/tick';
 import { repeatTitle } from '../functions/util';
+import MotionScroll from './motion-scroll';
 
-// const rotations = ["-6.69deg", "-12.78deg", "-33.78deg", "17.51deg"];
-
-export default function PageHeader(props) {
-  // const [rotation, setRotation] = React.useState(rotations[0]);
-
-  // React.useEffect(() => {
-  // 	const random = Math.floor(Math.random() * rotations.length);
-  // 	setRotation(rotations[random]);
-  // }, []);
-
-  const title = repeatTitle(`${props.title}`);
-
+/**
+ *
+ * @param {Object} props
+ * @param {String} props.title
+ */
+export default function PageHeader({ title }) {
   return (
     <Wrapper>
-      <PageHeaderWrapper>
-        <Tick tickerSpeed={2} offset={''}>
-          {() => (
-            <span>
-              <h1 className="display">{title}</h1>
-            </span>
-          )}
-        </Tick>
-      </PageHeaderWrapper>
+      <MotionScroll triggerPoint={0} yOffset={50}>
+        <PageHeaderWrapper>
+          <Tick tickerSpeed={2}>
+            {() => (
+              <span>
+                <h1 className="display">{repeatTitle(`${title}`)}</h1>
+              </span>
+            )}
+          </Tick>
+        </PageHeaderWrapper>
+      </MotionScroll>
     </Wrapper>
   );
 }

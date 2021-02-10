@@ -7,12 +7,28 @@ export default function JournalHomeFeature({
   cover,
   title,
   date,
-  timeToRead,
-  excerpt
+  timeToRead
 }) {
+  const isChildImageSharp = cover.childImageSharp;
+  const image = isChildImageSharp
+    ? cover.childImageSharp?.fluid
+    : cover.publicURL;
+
   return (
     <Card onClick={() => navigate(slug)}>
-      {cover && <Image style={{ backgroundImage: `url(${cover})` }}></Image>}
+      {cover && (
+        <Image>
+          {isChildImageSharp ? (
+            <img
+              sizes={image.sizes}
+              srcSet={image.srcSet}
+              alt={`${title} Cover Art`}
+            />
+          ) : (
+            <img src={image} alt={`${title} Cover Art`} />
+          )}
+        </Image>
+      )}
       <CardLower>
         <CardLowerTitle>
           <Link to={slug}>
@@ -37,8 +53,15 @@ const Image = styled.div`
   background-size: 105%;
   background-position: center center;
   border-radius: 0.1875rem;
-  transition: background-size
-    ${(props) => props.theme.animation.duration[300].css};
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale3d(1.01, 1.01, 1.01);
+    transition: transform ${(props) => props.theme.animation.duration[300].css};
+  }
 `;
 
 const Card = styled.div`
@@ -58,8 +81,8 @@ const Card = styled.div`
       text-decoration: underline;
     }
 
-    ${Image} {
-      background-size: 101%;
+    img {
+      transform: scale3d(1, 1, 1);
     }
 
     .arrow {

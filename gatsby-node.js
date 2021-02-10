@@ -1,10 +1,42 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+
+  createTypes(`
+    type Mdx implements Node {
+      frontmatter: MdxFrontmatter!
+    }
+    type MdxFrontmatter {
+      cover: File @fileByRelativePath
+      thumb: File @fileByRelativePath
+      clients: Clients! @link
+    }
+    type Clients @dontInfer {
+      year: String!
+    }
+  `);
+};
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
-  if (node.internal.type === `Mdx`) {
+
+  if (node.internal.type === 'Mdx') {
+    const date = new Date(node.frontmatter.date);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const year_month = `${year}-${month}`;
+    const day = date.getDate();
+
+    createNodeField({ node, name: 'year', value: year });
+    createNodeField({ node, name: 'month', value: month });
+    createNodeField({ node, name: 'year-month', value: year_month });
+    createNodeField({ node, name: 'day', value: day });
+
     const slug = createFilePath({ node, getNode, basePath: `pages` });
+
     createNodeField({
       node,
       name: `slug`,

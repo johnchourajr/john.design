@@ -4,8 +4,16 @@ import { graphql } from 'gatsby';
 import PageHeader from '../components/page-header';
 import { Wrapper } from '../components/style/global-styles';
 import JournalIndexList from '../components/journal-index-list';
-import HoverBuddy from '../components/hover-buddy';
 
+/**
+ *
+ * @param {Object} props
+ * @param {Object} props.data
+ * @param {Object} props.data.allMdx
+ * @param {Object} props.data.allMdx.edges
+ * @param {Object} props.data.mdx
+ * @param {Object} props.data.mdx.frontmatter
+ */
 export default function JournalIndexPage({
   data: {
     allMdx: { edges },
@@ -18,7 +26,6 @@ export default function JournalIndexPage({
       <Wrapper>
         <JournalIndexList items={edges} />
       </Wrapper>
-      <HoverBuddy />
     </>
   );
 }
@@ -36,8 +43,22 @@ export const pageQuery = graphql`
             title
             slug
             date(formatString: "MMM DD, yyyy")
-            cover
-            thumb
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 2500) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+              publicURL
+            }
+            thumb {
+              childImageSharp {
+                fluid(maxWidth: 650, toFormat: WEBP) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+              publicURL
+            }
             foreground
             background
           }
