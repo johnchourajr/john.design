@@ -51,14 +51,14 @@ function NavLinks() {
   );
 }
 
-function SkipWrapper({ template }) {
+function SkipWrapper(props) {
   return (
     <>
       <SkipToContent className="skip-to-content-link" to="#main">
         Skip to content
       </SkipToContent>
 
-      {template === 'journalPostTemplate' && (
+      {props?.pageContext?.template === 'journalPostTemplate' && (
         <SkipToContent className="skip-to-content-link" to="#post">
           Skip to post
         </SkipToContent>
@@ -67,12 +67,10 @@ function SkipWrapper({ template }) {
   );
 }
 
-export default function Nav({ pageContext: { title, template, slug } }) {
-  console.log(title, template, slug);
-
+export default function Nav(props) {
   return (
     <>
-      <SkipWrapper template={template} />
+      <SkipWrapper {...props} />
       <NavWrapper>
         <NavLink to="/">
           <Logo />
