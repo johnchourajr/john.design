@@ -19,6 +19,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
+        name: `John Choura Design`,
+        short_name: `John.Design`,
+        start_url: `/`,
+        background_color: `#E0E0E0`,
+        theme_color: `#EB5757`,
+        display: `standalone`,
         icon: 'src/images/icon.png'
       }
     },

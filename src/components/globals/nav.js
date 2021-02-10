@@ -51,18 +51,28 @@ function NavLinks() {
   );
 }
 
-function SkipWrapper() {
+function SkipWrapper({ template }) {
   return (
-    <SkipToContent className="skip-to-content-link" to="#main">
-      Skip to content
-    </SkipToContent>
+    <>
+      <SkipToContent className="skip-to-content-link" to="#main">
+        Skip to content
+      </SkipToContent>
+
+      {template === 'journalPostTemplate' && (
+        <SkipToContent className="skip-to-content-link" to="#post">
+          Skip to post
+        </SkipToContent>
+      )}
+    </>
   );
 }
 
-export default function Nav() {
+export default function Nav({ pageContext: { title, template, slug } }) {
+  console.log(title, template, slug);
+
   return (
     <>
-      <SkipWrapper />
+      <SkipWrapper template={template} />
       <NavWrapper>
         <NavLink to="/">
           <Logo />

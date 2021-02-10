@@ -53,8 +53,10 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             frontmatter {
+              type
               slug
               template
+              title
             }
             id
           }
@@ -85,6 +87,8 @@ exports.createPages = async ({ graphql, actions }) => {
         `./src/templates/${String(node.frontmatter.template)}.js`
       ),
       context: {
+        title: node.frontmatter.title,
+        template: node.frontmatter.template,
         slug: node.frontmatter.slug,
         id: node.id,
         next: next,
