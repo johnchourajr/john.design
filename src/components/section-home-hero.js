@@ -7,7 +7,8 @@ import Tick from '../components/tick';
 import {
   stringToSlug,
   changeBodyClass,
-  changeFigmaDataState
+  changeFigmaDataState,
+  clampBuilder
 } from '../functions/util';
 
 /**
@@ -108,6 +109,7 @@ const TickWrapper = styled(Tick)`
   transition: transform ${(props) => props.theme.animation.duration[300].css},
     opacity ${(props) => props.theme.animation.duration[200].css};
   will-change: transform;
+  min-height: 2rem;
 
   &:hover {
     transform: scale3d(0.95, 0.95, 0.95);
@@ -122,6 +124,7 @@ const H2Center = styled.h2`
   position: relative;
   text-align: center;
   white-space: pre;
+  height: 1em;
 
   &:hover {
     font-feature-settings: 'ss02' on, 'ss05' on, 'salt' on, 'ss01' on !important;
