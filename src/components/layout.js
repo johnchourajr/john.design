@@ -5,12 +5,12 @@ import Head from './globals/head';
 import Nav from './globals/nav';
 import './style/fonts.css';
 
-export default function Layout({ children, pageTitle }) {
+export default function Layout({ children, pageContext }) {
   return (
     <>
-      <Head title={pageTitle} />
+      <Head pageContext={pageContext} />
       <PageWrapper>
-        <Nav />
+        <Nav pageContext={pageContext} />
         <main id="main">{children}</main>
       </PageWrapper>
     </>
