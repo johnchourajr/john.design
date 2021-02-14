@@ -112,8 +112,8 @@ section_fam:
         of sleep; I WFH in my studio office that I built in my backyard;
         been learning how to take care of my mental health lately; running
         around in the backyard with my daughter is the best; I watch
-        seinfeld like clockwork; I’m a design nerd all-around and def work
-        too much.”'
+        Seinfeld like clockwork; I’m a design nerd all-around and def work
+        too much,” said me.'
       quote: true
   photos:
     - img: '../images/meta/fam-4.png'

@@ -7,8 +7,7 @@ import Tick from '../components/tick';
 import {
   stringToSlug,
   changeBodyClass,
-  changeFigmaDataState,
-  clampBuilder
+  changeFigmaDataState
 } from '../functions/util';
 
 /**

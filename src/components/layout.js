@@ -14,7 +14,7 @@ export default function Layout({ children, pageContext }) {
         <Nav pageContext={pageContext} />
         <main id="main">{children}</main>
       </PageWrapper>
-      <Footer />
+      <Footer pageContext={pageContext} />
     </>
   );
 }

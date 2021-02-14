@@ -181,7 +181,8 @@ export const BaseStyles = createGlobalStyle`
         }
     }
 
-  main {
+  main#main {
+    min-height: 90vh;
   }
 
   a {
@@ -222,6 +223,11 @@ export const BaseStyles = createGlobalStyle`
   pre {
     font-family: monospace;
     margin: 1rem 0;
+  }
+
+  hr {
+    border: solid 1.5px ${(props) => props.theme.colors.black};
+    margin: 3rem 0;
   }
 
   h1,

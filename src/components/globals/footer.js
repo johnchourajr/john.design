@@ -5,30 +5,35 @@ import useNavData from '../hooks/use-nav-data';
 import { useFooterData } from '../hooks/use-footer-data';
 import { Wrapper } from '../style/global-styles';
 import GatsbyImage from 'gatsby-image';
+import HoverGradient from '../hover-gradient';
 
 /**
  * Footer Component
  */
-export default function Footer() {
+export default function Footer({ pageContext }) {
+  const ref = React.useRef();
   const { edges } = useNavData();
   const {
     section_fam: { about_me, photos }
   } = useFooterData();
 
   return (
-    <FooterContainer>
-      <FooterUpperWrapper className="pV">
-        <div className="image-area">
-          <Image>
-            <GatsbyImage fluid={photos[0].img.childImageSharp.fluid} />
-          </Image>
-        </div>
-        <div className="text-area">
-          {about_me.map((item, i) => (
-            <h2 data-quote={item.quote}>{item.text}</h2>
-          ))}
-        </div>
-      </FooterUpperWrapper>
+    <FooterContainer id="footer" ref={ref}>
+      {pageContext?.title === 'Home' && (
+        <FooterUpperWrapper className="pV">
+          <div className="image-area">
+            <Image>
+              <GatsbyImage fluid={photos[0].img.childImageSharp.fluid} />
+            </Image>
+          </div>
+          <div className="text-area">
+            {about_me.map((item, i) => (
+              <h2 data-quote={item.quote}>{item.text}</h2>
+            ))}
+          </div>
+        </FooterUpperWrapper>
+      )}
+
       <FooterLowerWrapper>
         <FooterRow className="pV">
           <h2>Thx</h2>
@@ -43,6 +48,9 @@ export default function Footer() {
                 </Link>
               );
             })}
+            <Link key={'contact'} to={'/contact'} className="p">
+              /Contact
+            </Link>
             <Link key={'colophon'} to={'/colophon'} className="p">
               /Colophon
             </Link>
@@ -53,6 +61,7 @@ export default function Footer() {
           </p>
         </FooterRow>
       </FooterLowerWrapper>
+      <HoverGradient refContainer={ref} />
     </FooterContainer>
   );
 }
@@ -85,6 +94,7 @@ const FooterUpperWrapper = styled(Wrapper)`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    pointer-events: none;
 
     h2 {
       line-height: 150%;
@@ -144,19 +154,7 @@ const FooterLinks = styled.div`
 `;
 
 const FooterContainer = styled.footer`
-  background: conic-gradient(
-    from 137.17deg at 17.92% 22%,
-    #ff5959 -11.81deg,
-    #ff5959 8.13deg,
-    rgba(252, 255, 119, 0.817708) 65.63deg,
-    rgba(153, 255, 151, 0.625) 135deg,
-    rgba(97, 170, 255, 0.721875) 193.12deg,
-    rgba(167, 255, 98, 0.796875) 238.12deg,
-    rgba(35, 128, 180, 0.865625) 279.38deg,
-    rgba(82, 93, 255, 0.915625) 309.38deg,
-    #cf42ca 328.19deg,
-    #ff5959 348.19deg,
-    #ff5959 368.13deg
-  );
   margin-top: 7vw;
+  position: relative;
+  overflow: hidden;
 `;
