@@ -4,7 +4,7 @@ import { PageWrapper } from './style/global-styles';
 import Head from './globals/head';
 import Nav from './globals/nav';
 import './style/fonts.css';
-import Footer from './globals/Footer';
+import Footer from './globals/footer';
 
 export default function Layout({ children, pageContext }) {
   return (
