@@ -6,7 +6,7 @@ import MotionScroll from './motion-scroll';
 
 export default function SectionJobs({ jobs }) {
   return (
-    <JobSection className="section">
+    <JobSection id="jobs" className="section">
       <Wrapper className="pV">
         <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={30}>
           <h4>Past and Present</h4>
@@ -62,7 +62,7 @@ export default function SectionJobs({ jobs }) {
 }
 
 const JobSection = styled.section`
-  background-color: ${(props) => props.theme.colors.gray4};
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const JobList = styled.div`

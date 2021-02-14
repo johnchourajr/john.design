@@ -67,7 +67,7 @@ function JournalSectionContent({
 
   return (
     <Wrapper className="pV">
-      <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={50}>
+      <MotionScroll id="journal" fadeIn={true} triggerPoint={0.85} yOffset={50}>
         <PageHeaderWrapper>
           <Tick tickerSpeed={2} offset={''}>
             {() => (

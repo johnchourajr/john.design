@@ -145,7 +145,7 @@ export const BaseStyles = createGlobalStyle`
     }
 
     body {
-        background-color: ${colors.gray5};
+        background-color: ${colors.gray6};
         color: ${colors.black};
         font-family: "LabilGrotesk-Medium", sans-serif;
         font-style: normal;

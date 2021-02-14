@@ -127,6 +127,12 @@ const PostList = styled.div`
       z-index: -10;
     }
 
+    h1 {
+      @media (max-width: ${(props) => props.theme.size.tablet}) {
+        font-size: 1.5rem;
+      }
+    }
+
     h1,
     aside,
     ${Image} {
