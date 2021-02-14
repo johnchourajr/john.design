@@ -11,15 +11,21 @@ import MotionScroll from './motion-scroll';
  * @param {Object} props
  * @param {String} props.title
  */
-export default function PageHeader({ title }) {
+export default function PageHeader({ title, size }) {
   return (
     <Wrapper>
       <MotionScroll triggerPoint={0} yOffset={50}>
-        <PageHeaderWrapper>
+        <PageHeaderWrapper className={size ? size : 'lg'}>
           <Tick tickerSpeed={2}>
             {() => (
               <span>
-                <h1 className="display">{repeatTitle(`${title}`)}</h1>
+                <p
+                  className={`${
+                    size === 'lg' ? 'h1' : size === 'sm' ? 'h2' : 'h1'
+                  } display`}
+                >
+                  {repeatTitle(`${title}`)}
+                </p>
               </span>
             )}
           </Tick>
@@ -30,11 +36,17 @@ export default function PageHeader({ title }) {
 }
 
 const PageHeaderWrapper = styled.div`
-  height: 50vh;
-  min-height: 500px;
   display: flex;
   align-items: center;
   overflow: visible;
+  height: 50vh;
+  min-height: 500px;
+
+  &.sm {
+    height: 30vh;
+    min-height: 300px;
+    padding-top: 4rem;
+  }
 
   .ticker {
     position: relative;
@@ -43,9 +55,15 @@ const PageHeaderWrapper = styled.div`
     user-select: none;
   }
 
-  h1 {
-    -webkit-text-stroke-width: 2px;
+  p.h1,
+  p.h2,
+  p.h3 {
+    -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     color: transparent !important;
+
+    @media ${(props) => props.theme.device.mobileLg} {
+      -webkit-text-stroke-width: 2px;
+    }
   }
 `;

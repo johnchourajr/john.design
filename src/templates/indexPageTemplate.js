@@ -2,7 +2,6 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import { Wrapper } from '../components/style/global-styles';
-import Footer from '../components/globals/footer';
 import SectionHomeHero from '../components/section-home-hero';
 import SectionHomeJournal from '../components/section-home-journal';
 import SectionJobs from '../components/section-home-jobs';

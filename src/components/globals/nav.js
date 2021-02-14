@@ -1,5 +1,5 @@
 import React from 'react';
-import { StaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import Logo from '../svg/logo';
 import styled from 'styled-components';
 import useNavData from '../hooks/use-nav-data';
