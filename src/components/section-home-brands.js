@@ -13,7 +13,7 @@ function commaSeparate(i, total) {
 
 export default function SectionJobs({ brands }) {
   return (
-    <Section className="pV">
+    <Section id="brands" className="pV">
       <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={25}>
         <h4>Brands Worked With</h4>
         <br />
@@ -38,7 +38,7 @@ export default function SectionJobs({ brands }) {
 }
 
 const Section = styled(Wrapper)`
-  background-color: ${(props) => props.theme.colors.gray4};
+  background-color: ${(props) => props.theme.colors.white};
   padding-top: 0 !important;
 `;
 

@@ -7,31 +7,31 @@ weight: 1
 section_hero:
   - title: 'Guy'
     foreground: '#FF5631'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Designer'
     foreground: '#2861FF'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Human'
     foreground: '#FF1D1D'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Developer'
     foreground: '#00CB39'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Artist'
     foreground: '#EF36FF'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Craftsman'
     foreground: '#42D7BC'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'INFJ'
     foreground: '#FF5631'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Family Man'
     foreground: '#2861FF'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: 'Coffee Drinker'
     foreground: '#FF1D1D'
-    background: '#E0E0E0'
+    background: '#F2F2F2'
   - title: '   '
     figma_id: ''
 section_resume:
@@ -103,4 +103,18 @@ section_brands:
 section_art:
   headline: ''
   img: ''
+section_fam:
+  about_me:
+    - text: 'John Choura is a human living in Long Beach, California with his
+        wife, their daughter, and their animals.'
+      quote: false
+    - text: 'I can drink coffee all day and all night and still get a good night
+        of sleep; I WFH in my studio office that I built in my backyard;
+        been learning how to take care of my mental health lately; running
+        around in the backyard with my daughter is the best; I watch
+        seinfeld like clockwork; I’m a design nerd all-around and def work
+        too much.”'
+      quote: true
+  photos:
+    - img: '../images/meta/fam-4.png'
 ---

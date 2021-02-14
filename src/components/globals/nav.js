@@ -2,15 +2,12 @@ import React from 'react';
 import { StaticQuery, graphql, Link } from 'gatsby';
 import Logo from '../svg/logo';
 import styled from 'styled-components';
+import useNavData from '../hooks/use-nav-data';
 
-function NavLinkItem({
-  data: {
-    allMdx: { edges }
-  }
-}) {
+function NavLinkItem({ data }) {
   return (
     <>
-      {edges.map(({ node: { frontmatter } }, i) => {
+      {data.map(({ node: { frontmatter } }, i) => {
         return (
           <NavLink key={i} to={frontmatter.slug} className="h5">
             {frontmatter.slug === '/' ? '/' : `/${frontmatter.title}`}
@@ -22,31 +19,10 @@ function NavLinkItem({
 }
 
 function NavLinks() {
+  const { edges } = useNavData();
   return (
     <NavLinksWrapper>
-      <StaticQuery
-        query={graphql`
-          query navQuery {
-            allMdx(
-              filter: { frontmatter: { type: { eq: "topLevelPage" } } }
-              sort: { fields: frontmatter___weight, order: ASC }
-            ) {
-              edges {
-                node {
-                  id
-                  frontmatter {
-                    title
-                    type
-                    slug
-                    weight
-                  }
-                }
-              }
-            }
-          }
-        `}
-        render={(data) => <NavLinkItem data={data} />}
-      />
+      <NavLinkItem data={edges} />
     </NavLinksWrapper>
   );
 }

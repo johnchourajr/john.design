@@ -4,6 +4,7 @@ import { PageWrapper } from './style/global-styles';
 import Head from './globals/head';
 import Nav from './globals/nav';
 import './style/fonts.css';
+import Footer from './globals/Footer';
 
 export default function Layout({ children, pageContext }) {
   return (
@@ -13,6 +14,7 @@ export default function Layout({ children, pageContext }) {
         <Nav pageContext={pageContext} />
         <main id="main">{children}</main>
       </PageWrapper>
+      <Footer />
     </>
   );
 }

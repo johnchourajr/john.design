@@ -22,4 +22,12 @@ export const Wrapper = styled.section`
     padding-top: 7vw;
     padding-bottom: 7vw;
   }
+
+  &.pT {
+    padding-top: 7vw;
+  }
+
+  &.pB {
+    padding-bottom: 7vw;
+  }
 `;
