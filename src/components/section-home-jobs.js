@@ -1,9 +1,23 @@
 import React from 'react';
-import { Wrapper } from './style/global-styles';
 import styled from 'styled-components';
-import { changeBodyClass, stringToSlug } from '../functions/util';
+
+/**
+ * Local Components
+ */
 import MotionScroll from './motion-scroll';
 
+/**
+ * Local Styles/JS
+ */
+import { Wrapper } from './style/global-styles';
+import { changeBodyClass, stringToSlug } from '../functions/util';
+
+/**
+ * SectionJobs component
+ *
+ * @param {Object} props
+ * @param {Object} props.jobs
+ */
 export default function SectionJobs({ jobs }) {
   return (
     <JobSection id="jobs" className="section">

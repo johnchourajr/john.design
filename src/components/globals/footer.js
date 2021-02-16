@@ -1,14 +1,29 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import styled from 'styled-components';
-import useNavData from '../hooks/use-nav-data';
-import { useFooterData } from '../hooks/use-footer-data';
-import { Wrapper } from '../style/global-styles';
 import GatsbyImage from 'gatsby-image';
+import styled from 'styled-components';
+
+/**
+ * Local Components
+ */
 import HoverGradient from '../hover-gradient';
 
 /**
- * Footer Component
+ * Local styles
+ */
+import { Wrapper } from '../style/global-styles';
+
+/**
+ * Data hooks
+ */
+import useNavData from '../hooks/use-nav-data';
+import { useFooterData } from '../hooks/use-footer-data';
+
+/**
+ * Footer component
+ *
+ * @param {Object} props
+ * @param {Object} props.pageContext
  */
 export default function Footer({ pageContext }) {
   const ref = React.useRef();
@@ -28,7 +43,9 @@ export default function Footer({ pageContext }) {
           </div>
           <div className="text-area">
             {about_me.map((item, i) => (
-              <h2 data-quote={item.quote}>{item.text}</h2>
+              <h2 key={i} data-quote={item.quote}>
+                {item.text}
+              </h2>
             ))}
           </div>
         </FooterUpperWrapper>
@@ -56,7 +73,7 @@ export default function Footer({ pageContext }) {
             </Link>
           </FooterLinks>
 
-          <p className="legal">
+          <p className="caption legal">
             All work is copyright J. John Choura Jr. unless otherwise mentioned.
           </p>
         </FooterRow>
@@ -130,6 +147,7 @@ const FooterLowerWrapper = styled(Wrapper)`
 const FooterRow = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding-bottom: 2vw;
 
@@ -148,13 +166,15 @@ const FooterRow = styled.div`
 `;
 
 const FooterLinks = styled.div`
+  margin-bottom: 1rem;
+
   a {
     margin-right: 2vw;
   }
 `;
 
 const FooterContainer = styled.footer`
-  margin-top: 7vw;
+  /* margin-top: 7vw; */
   position: relative;
   overflow: hidden;
 `;

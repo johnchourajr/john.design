@@ -7,7 +7,7 @@ export const useJournalData = () => {
     graphql`
       query journalData {
         allMdx(
-          filter: { frontmatter: { template: { eq: "journalPostTemplate" } } }
+          filter: { frontmatter: { template: { eq: "journal-post-template" } } }
           sort: { fields: frontmatter___date, order: DESC }
         ) {
           edges {

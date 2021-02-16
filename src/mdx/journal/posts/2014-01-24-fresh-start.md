@@ -1,5 +1,5 @@
 ---
-template: 'journalPostTemplate'
+template: 'journal-post-template'
 slug: '/journal/fresh-start'
 date: '2014-01-24'
 title: Object Matter

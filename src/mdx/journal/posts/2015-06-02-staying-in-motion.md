@@ -1,5 +1,5 @@
 ---
-template: 'journalPostTemplate'
+template: 'journal-post-template'
 slug: '/journal/staying-in-motion'
 date: '2015-06-02'
 title: Staying in Motion

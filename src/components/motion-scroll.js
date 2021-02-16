@@ -5,6 +5,10 @@ import {
   useTransform,
   useSpring
 } from 'framer-motion';
+
+/**
+ * Local Theme
+ */
 import { animation } from '../data/baseTheme';
 
 const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll

@@ -1,5 +1,5 @@
 ---
-template: 'journalPostTemplate'
+template: 'journal-post-template'
 slug: '/journal/joining-payoff'
 date: '2015-08-05'
 title: Joining Payoff

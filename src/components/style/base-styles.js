@@ -1,6 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import { animation, colors } from '../../data/baseTheme';
-import { clampBuilder } from '../../functions/util';
 
 export const BaseStyles = createGlobalStyle`
     @font-face {
@@ -145,8 +143,8 @@ export const BaseStyles = createGlobalStyle`
     }
 
     body {
-        background-color: ${colors.gray6};
-        color: ${colors.black};
+        background-color: ${(props) => props.theme.colors.gray6};
+        color: ${(props) => props.theme.colors.black};
         font-family: "LabilGrotesk-Medium", sans-serif;
         font-style: normal;
         font-weight: 500;
@@ -154,7 +152,8 @@ export const BaseStyles = createGlobalStyle`
 
     * {
         box-sizing: border-box;
-        transition-timing-function: ${animation.timingFunction.css};
+        transition-timing-function: ${(props) =>
+          props.theme.animation.timingFunction.css};
     }
 
     body[data-hover=true] {
@@ -227,6 +226,7 @@ export const BaseStyles = createGlobalStyle`
 
   hr {
     border: solid 1.5px ${(props) => props.theme.colors.black};
+    background: ${(props) => props.theme.colors.black};
     margin: 3rem 0;
   }
 
@@ -256,7 +256,7 @@ export const BaseStyles = createGlobalStyle`
 
   h1,
   .h1 {
-    font-size: ${clampBuilder(2.5, 3.25)};
+    font-size: ${(props) => props.theme.fonts.h1};
     line-height: 132%;
     letter-spacing: -0.01em;
     font-feature-settings: 'ss02' on, 'ss05' on, 'calt' off, 'liga' off;
@@ -264,14 +264,14 @@ export const BaseStyles = createGlobalStyle`
     &-display,
     &.display,
     &[data-display] {
-      font-size: ${clampBuilder(4.5, 12.5)};
+      font-size: ${(props) => props.theme.fonts.d1};
       line-height: 100%;
     }
   }
 
   h2,
   .h2 {
-    font-size: ${clampBuilder(2, 2.5)};
+    font-size: ${(props) => props.theme.fonts.h2};
     line-height: 125%;
     letter-spacing: -0.01em;
     font-feature-settings: 'ss02' on, 'ss05' on, 'calt' off, 'liga' off;
@@ -279,14 +279,14 @@ export const BaseStyles = createGlobalStyle`
     &-display,
     &.display,
     &[data-display] {
-      font-size: ${clampBuilder(2.5, 8.25)};
+      font-size: ${(props) => props.theme.fonts.d2};
       line-height: 100%;
     }
   }
 
   h3,
   .h3 {
-    font-size: ${clampBuilder(1.5, 2)};
+    font-size: ${(props) => props.theme.fonts.h3};
     line-height: 120%;
     letter-spacing: -0.01em;
     font-feature-settings: 'ss02' on, 'ss05' on, 'calt' off, 'liga' off;
@@ -294,21 +294,21 @@ export const BaseStyles = createGlobalStyle`
     &-display,
     &.display,
     &[data-display] {
-      font-size: ${clampBuilder(2.5, 6.25)};
+      font-size: ${(props) => props.theme.fonts.d3};
       line-height: 100%;
     }
   }
 
   h4,
   .h4 {
-    font-size: ${clampBuilder(1, 1.25)};
+    font-size: ${(props) => props.theme.fonts.h4};
     line-height: 120%;
     font-feature-settings: 'ss02' on, 'ss05' on, 'calt' off, 'liga' off;
   }
 
   h5,
   .h5 {
-    font-size: ${clampBuilder(0.8125, 1)};
+    font-size: ${(props) => props.theme.fonts.h5};
     line-height: 120%;
     letter-spacing: 0.105em;
     text-transform: uppercase;
@@ -352,6 +352,19 @@ export const BaseStyles = createGlobalStyle`
       color: ${(props) => props.theme.colors.gray1};
       /* text-decoration-skip-ink: auto; */
       /* text-decoration-thickness: 0.2em; */
+    }
+  }
+
+  .content-styles {
+    a {
+    color: ${(props) => props.theme.colors.gray2};
+    transition: color ${(props) => props.theme.animation.duration[100].css}
+      ${(props) => props.theme.animation.timingFunction.css};
+    opacity: 1;
+
+      &:hover {
+        color: ${(props) => props.theme.colors.black};
+      }
     }
   }
 

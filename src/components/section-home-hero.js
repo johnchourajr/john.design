@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-import { Wrapper } from '../components/style/global-styles';
+/**
+ * Local Components
+ */
 import Tick from '../components/tick';
+import { Caption } from './type';
+
+/**
+ * Local Styles/JS
+ */
 import {
   stringToSlug,
   changeBodyClass,
   changeFigmaDataState
 } from '../functions/util';
+import { Wrapper } from '../components/style/global-styles';
 
 /**
  *
@@ -66,10 +74,10 @@ export default function SectionHomeHero({ data, ...rest }) {
             })
           }
         </TickWrapper>
-        <H2Right className="display">in Long Beach, Calif.</H2Right>
+        <H2Right className="display">in Long Beach, CA.</H2Right>
       </Wrapper>
       <Attr>
-        <p>
+        <Caption>
           Background created in{' '}
           <a
             href="https://www.figma.com/file/rY8kva5mMuZ76jr1In7a3g/?node-id=0%3A1"
@@ -78,7 +86,7 @@ export default function SectionHomeHero({ data, ...rest }) {
           >
             Figma
           </a>
-        </p>
+        </Caption>
       </Attr>
     </HomeSection>
   );
@@ -147,6 +155,7 @@ const HomeSection = styled(motion.section)`
   display: flex;
   align-items: center;
   position: relative;
+  padding-top: 4rem;
 
   @media ${(props) => props.theme.device.tablet} {
     min-height: calc(60rem);

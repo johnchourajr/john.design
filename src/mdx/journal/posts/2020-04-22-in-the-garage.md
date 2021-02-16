@@ -1,5 +1,5 @@
 ---
-template: 'journalPostTemplate'
+template: 'journal-post-template'
 slug: '/journal/in-the-garage'
 date: '2020-04-22'
 title: In The Garage

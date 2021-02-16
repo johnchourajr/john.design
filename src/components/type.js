@@ -1,26 +1,46 @@
-import React from "react";
+import React from 'react';
 
-export function Headline(props, { children, display, size, funky }) {
-	return (
-		<p
-			className={size}
-			data-display={display}
-			data-funky={funky}
-			{...props}
-		>
-			{children}
-		</p>
-	);
+/**
+ * Headline component
+ *
+ * @component
+ * @param {Object} props
+ * @param {any} props.children react children
+ * @param {Boolean} props.display
+ * @param {String} props.size
+ * @param {Boolean} props.funky
+ *
+ */
+export function Headline({ children, display, size, funky, ...rest }) {
+  return (
+    <p className={size} data-display={display} data-funky={funky} {...rest}>
+      {children}
+    </p>
+  );
 }
 
-export function Paragraph(props, { children }) {
-	return <p {...props}>{children}</p>;
+/**
+ * Paragraph component
+ *
+ * @component
+ * @param {Object} props
+ * @param {any} props.children react children
+ */
+export function Paragraph({ children, ...rest }) {
+  return <p {...rest}>{children}</p>;
 }
 
-export function Caption(props, { children }) {
-	return (
-		<p className="caption" {...props}>
-			{children}
-		</p>
-	);
+/**
+ * Caption component
+ *
+ * @component
+ * @param {Object} props
+ * @param {any} props.children react children
+ */
+export function Caption({ children, ...rest }) {
+  return (
+    <p className="caption" {...rest}>
+      {children}
+    </p>
+  );
 }

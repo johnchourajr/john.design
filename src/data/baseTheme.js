@@ -1,3 +1,10 @@
+import { clampBuilder } from '../functions/util';
+
+/**
+ * size const
+ *
+ * All screen sizes in pixel value
+ */
 export const size = {
   mobileSm: '320px',
   mobile: '375px',
@@ -9,6 +16,11 @@ export const size = {
   desktopLg: '2560px'
 };
 
+/**
+ * device const
+ *
+ * All device '@media' queries sizes in pixel value
+ */
 export const device = {
   mobileSm: `(min-width: ${size.mobileSm})`,
   mobile: `(min-width: ${size.mobile})`,
@@ -20,6 +32,11 @@ export const device = {
   desktopLg: `(min-width: ${size.desktopLg})`
 };
 
+/**
+ * colors const
+ *
+ * All colors
+ */
 export const colors = {
   black: '#111111',
   gray1: '#333333',
@@ -31,6 +48,27 @@ export const colors = {
   white: '#ffffff'
 };
 
+/**
+ * fonts const
+ *
+ * All dynamic font sizes
+ */
+export const fonts = {
+  d1: clampBuilder(4.5, 12.5),
+  d2: clampBuilder(2.5, 8.25),
+  d3: clampBuilder(2.5, 6.25),
+  h1: clampBuilder(2.5, 3.25),
+  h2: clampBuilder(2, 2.5),
+  h3: clampBuilder(1.5, 2),
+  h4: clampBuilder(1, 1.25),
+  h5: clampBuilder(0.8125, 1)
+};
+
+/**
+ * animation const
+ *
+ * All animation variables
+ */
 export const animation = {
   timingFunction: {
     js: [0.1, 0.25, 0.3, 1],

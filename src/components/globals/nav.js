@@ -1,9 +1,23 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Logo from '../svg/logo';
 import styled from 'styled-components';
+
+/**
+ * Svg
+ */
+import Logo from '../svg/logo';
+
+/**
+ * Data hooks
+ */
 import useNavData from '../hooks/use-nav-data';
 
+/**
+ * NavLinkItem component
+ *
+ * @param {Object} props
+ * @param {Object} props.data
+ */
 function NavLinkItem({ data }) {
   return (
     <>
@@ -18,15 +32,11 @@ function NavLinkItem({ data }) {
   );
 }
 
-function NavLinks() {
-  const { edges } = useNavData();
-  return (
-    <NavLinksWrapper>
-      <NavLinkItem data={edges} />
-    </NavLinksWrapper>
-  );
-}
-
+/**
+ * SkipWrapper component
+ *
+ * @param {Object} props
+ */
 function SkipWrapper(props) {
   return (
     <>
@@ -34,7 +44,7 @@ function SkipWrapper(props) {
         Skip to content
       </SkipToContent>
 
-      {props?.pageContext?.template === 'journalPostTemplate' && (
+      {props?.pageContext?.template === 'journal-post-template' && (
         <SkipToContent className="skip-to-content-link" to="#post">
           Skip to post
         </SkipToContent>
@@ -43,7 +53,14 @@ function SkipWrapper(props) {
   );
 }
 
+/**
+ * Nav component
+ *
+ * @param {Object} props
+ */
 export default function Nav(props) {
+  const { edges } = useNavData();
+
   return (
     <>
       <SkipWrapper {...props} />
@@ -51,7 +68,9 @@ export default function Nav(props) {
         <NavLink to="/">
           <Logo />
         </NavLink>
-        <NavLinks />
+        <NavLinksWrapper>
+          <NavLinkItem data={edges} />
+        </NavLinksWrapper>
       </NavWrapper>
     </>
   );

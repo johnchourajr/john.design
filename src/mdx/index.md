@@ -1,5 +1,5 @@
 ---
-template: 'indexPageTemplate'
+template: 'index-page-template'
 slug: '/'
 title: 'Home'
 type: 'topLevelPage'

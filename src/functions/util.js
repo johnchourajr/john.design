@@ -1,3 +1,9 @@
+/**
+ * clampBuilder function
+ *
+ * @param {Number} minFontSize
+ * @param {Number} maxFontSize
+ */
 export function clampBuilder(minFontSize, maxFontSize) {
   const pixelsPerRem = 16;
   const minWidth = 375 / pixelsPerRem;
@@ -11,6 +17,16 @@ export function clampBuilder(minFontSize, maxFontSize) {
   }vw, ${maxFontSize}rem )`;
 }
 
+/**
+ * changeBodyClass function
+ *
+ * @param {String} state
+ * @param {String} slug !deprecated
+ * @param {String} foreground
+ * @param {String} background
+ * @param {String} image
+ * @todo need to remove slug
+ */
 export function changeBodyClass(state, slug, foreground, background, image) {
   if (typeof document !== `undefined`) {
     if (state === 'enter') {
@@ -28,6 +44,12 @@ export function changeBodyClass(state, slug, foreground, background, image) {
   }
 }
 
+/**
+ * changeFigmaDataState function
+ *
+ * @param {String} state
+ * @param {String} figmaId
+ */
 export function changeFigmaDataState(state, figmaId) {
   if (typeof document !== `undefined`) {
     if (state === 'enter') {
@@ -40,6 +62,14 @@ export function changeFigmaDataState(state, figmaId) {
   }
 }
 
+/**
+ * stringToSlug function
+ *
+ * Takes strings and outputs slugs,
+ * eg. "This String" into "this-string"
+ *
+ * @param {String} str
+ */
 export function stringToSlug(str) {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
@@ -59,7 +89,25 @@ export function stringToSlug(str) {
   return str;
 }
 
+/**
+ * repeatTitle function
+ *
+ * @param {String} text
+ */
 export function repeatTitle(text) {
   const str = `${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} ${text} `;
   return str;
+}
+
+/**
+ *
+ * @param {Number} i
+ * @param {Object} total
+ */
+export function commaSeparate(i, total) {
+  if (i === total.length) {
+    return '.';
+  } else {
+    return ', ';
+  }
 }

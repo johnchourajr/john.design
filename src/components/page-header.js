@@ -1,15 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Wrapper } from '../components/style/global-styles';
+/**
+ * Local Components
+ */
 import Tick from '../components/tick';
-import { repeatTitle } from '../functions/util';
 import MotionScroll from './motion-scroll';
 
 /**
+ * Local Styles/JS
+ */
+import { Wrapper } from '../components/style/global-styles';
+import { repeatTitle } from '../functions/util';
+
+/**
+ * PageHeader Component
  *
  * @param {Object} props
  * @param {String} props.title
+ * @param {String} props.size
  */
 export default function PageHeader({ title, size }) {
   return (
@@ -58,7 +67,7 @@ const PageHeaderWrapper = styled.div`
   p.h1,
   p.h2,
   p.h3 {
-    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-width: 1.25px;
     -webkit-text-stroke-color: black;
     color: transparent !important;
 

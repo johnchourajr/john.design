@@ -1,5 +1,5 @@
 ---
-template: 'journalPostTemplate'
+template: 'journal-post-template'
 slug: '/journal/back-to-school'
 date: '2017-01-23'
 title: Back to School
