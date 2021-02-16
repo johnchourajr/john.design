@@ -9,7 +9,7 @@ import Helmet from 'react-helmet';
 function Head(props) {
   return (
     <Helmet>
-      <title>{`John Choura Design / ${
+      <title>{`John Choura Design™ / ${
         props?.pageContext?.title ? props?.pageContext?.title : 'Studio'
       }`}</title>
       <meta name="description" content="Helmet application" />

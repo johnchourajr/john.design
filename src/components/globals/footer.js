@@ -54,7 +54,7 @@ export default function Footer({ pageContext }) {
       <FooterLowerWrapper>
         <FooterRow className="pV">
           <h2>Thx</h2>
-          <h2>John.Design</h2>
+          <h2>John.Design™</h2>
         </FooterRow>
         <FooterRow className="links">
           <FooterLinks>
