@@ -2,6 +2,16 @@ import React from 'react';
 import { Link, navigate } from 'gatsby';
 import styled from 'styled-components';
 
+/**
+ * JournalHomeFeature Component
+ *
+ * @param {Object} props
+ * @param {String} props.slug
+ * @param {any} props.cover
+ * @param {String} props.title
+ * @param {String} props.date
+ * @param {String} props.timeToRead
+ */
 export default function JournalHomeFeature({
   slug,
   cover,
@@ -49,11 +59,16 @@ export default function JournalHomeFeature({
 
 const Image = styled.div`
   width: 100%;
-  height: 35vw;
+  height: 50vw;
   background-size: 105%;
   background-position: center center;
   border-radius: 0.1875rem;
   overflow: hidden;
+
+  @media ${(props) => props.theme.device.laptop} {
+    width: 100%;
+    height: 35vw;
+  }
 
   img {
     width: 100%;

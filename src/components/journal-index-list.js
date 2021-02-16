@@ -1,9 +1,19 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import MotionScroll from './motion-scroll';
 import { Link } from 'gatsby';
+import styled from 'styled-components';
+
+/**
+ * Local Components
+ */
+import MotionScroll from './motion-scroll';
 import JournalHomeFeature from './journal-home-feature';
 
+/**
+ * JournalIndexList Component
+ *
+ * @param {Object} props
+ * @param {Object} props.items
+ */
 export default function JournalIndexList({ items }) {
   return (
     <>

@@ -1,28 +1,30 @@
 import { useStaticQuery, graphql } from 'gatsby';
 
-export const useJournalData = () => {
+export const useJournalFeatureData = () => {
   const {
     allMdx: { edges }
   } = useStaticQuery(
     graphql`
-      query journalData {
+      query journalFeature {
         allMdx(
           filter: { frontmatter: { template: { eq: "journal-post-template" } } }
+          limit: 1
           sort: { fields: frontmatter___date, order: DESC }
         ) {
           edges {
             node {
               id
               frontmatter {
-                title
                 slug
                 date(formatString: "MMM DD, yyyy")
+                title
                 cover {
                   childImageSharp {
-                    fluid(maxWidth: 800, toFormat: WEBP) {
+                    fluid(maxWidth: 2500) {
                       ...GatsbyImageSharpFluid
                     }
                   }
+                  publicURL
                 }
               }
               timeToRead
@@ -33,5 +35,5 @@ export const useJournalData = () => {
       }
     `
   );
-  return edges;
+  return edges[0];
 };

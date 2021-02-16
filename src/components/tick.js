@@ -3,26 +3,40 @@ import Ticker from 'react-ticker';
 import styled from 'styled-components';
 import PageVisibility from 'react-page-visibility';
 
-export default function Tick(props) {
+/**
+ *
+ * @param {Object} props
+ * @param {Number} props.tickerSpeed
+ * @param {String} props.direction
+ * @param {any} props.offset
+ * @param {any} props.children
+ */
+export default function Tick({
+  tickerSpeed,
+  direction,
+  offset,
+  children,
+  ...rest
+}) {
   const [pageIsVisible, setPageIsVisible] = useState(true);
 
   const handleVisibilityChange = (isVisible) => {
     setPageIsVisible(isVisible);
   };
 
-  const speed = props.tickerSpeed ? props.tickerSpeed : 10;
+  const speed = tickerSpeed ? tickerSpeed : 10;
 
   return (
-    <TickerWrapper {...props}>
+    <TickerWrapper {...rest}>
       <PageVisibility onChange={handleVisibilityChange}>
         {pageIsVisible && (
           <Ticker
             move={true}
-            direction={props.direction ? props.direction : 'toLeft'}
-            offset={props.offset}
+            direction={direction ? direction : 'toLeft'}
+            offset={offset}
             speed={speed}
           >
-            {props.children}
+            {children}
           </Ticker>
         )}
       </PageVisibility>

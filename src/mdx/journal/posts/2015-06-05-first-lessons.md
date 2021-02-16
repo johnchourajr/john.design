@@ -1,5 +1,5 @@
 ---
-template: 'journalPostTemplate'
+template: 'journal-post-template'
 slug: '/journal/first-lessons'
 date: '2015-06-05'
 title: The Engineer and the Artist

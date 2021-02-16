@@ -1,6 +1,9 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+/**
+ * Creates custom schemas in GraphQL
+ */
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
 
@@ -19,6 +22,9 @@ exports.createSchemaCustomization = ({ actions }) => {
   `);
 };
 
+/**
+ * Creates field in GraphQL for a year field
+ */
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
@@ -45,6 +51,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
+/**
+ * Creates all pages
+ */
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`

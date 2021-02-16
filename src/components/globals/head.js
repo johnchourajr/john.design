@@ -1,6 +1,11 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
+/**
+ * Head component
+ *
+ * @param {Object} props
+ */
 function Head(props) {
   return (
     <Helmet>

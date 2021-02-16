@@ -1,16 +1,22 @@
 import React from 'react';
-import { Wrapper } from './style/global-styles';
 import styled from 'styled-components';
+
+/**
+ * Local Components
+ */
 import MotionScroll from './motion-scroll';
 
-function commaSeparate(i, total) {
-  if (i === total.length) {
-    return '.';
-  } else {
-    return ', ';
-  }
-}
+/**
+ * Local Styles/JS
+ */
+import { Wrapper } from './style/global-styles';
+import { commaSeparate } from '../functions/util';
 
+/**
+ *
+ * @param {Object} props
+ * @param {Object} props.brands
+ */
 export default function SectionJobs({ brands }) {
   return (
     <Section id="brands" className="pV">

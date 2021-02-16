@@ -1,14 +1,20 @@
 ---
-template: 'mdxTemplate'
+template: 'mdx-template'
 slug: '/type/'
 title: 'Typography'
 ---
 
+import { Headline, Caption } from '../components/type';
+
 —
 
-<h1 className="display">Display 1</h1>
+<Headline size="h1" display={true}>
+  Display 1
+</Headline>
 
-<h2 className="display">Display 2</h2>
+<Headline size="h2" display={true}>
+  Display 2
+</Headline>
 
 —
 
@@ -30,7 +36,7 @@ Nullam id dolor id nibh ultricies vehicula ut id elit. Aenean eu leo quam. Pelle
 
 —
 
-<p className="caption">
-	Caption Sociis natoque penatibus et magnis dis parturient montes, nascetur
-	ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
-</p>
+<Caption>
+  Caption Sociis natoque penatibus et magnis dis parturient montes, nascetur
+  ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
+</Caption>

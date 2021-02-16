@@ -1,51 +1,24 @@
-import * as React from "react";
-import { Link } from "gatsby";
-import Layout from "../components/layout";
+import React from 'react';
 
-// styles
+/**
+ * Local Components
+ */
+import { Wrapper } from '../components/style/global-styles';
+import PageHeader from '../components/page-header';
 
-const headingStyles = {
-	marginTop: 0,
-	marginBottom: 64,
-	maxWidth: 320,
-};
-
-const paragraphStyles = {
-	marginBottom: 48,
-};
-const codeStyles = {
-	color: "#8A6534",
-	padding: 4,
-	backgroundColor: "#FFF4DB",
-	fontSize: "1.25rem",
-	borderRadius: 4,
-};
-
-// markup
-const NotFoundPage = () => {
-	return (
-		<Layout pageTitle="Not Found">
-			<h1 style={headingStyles}>Page not found</h1>
-			<p style={paragraphStyles}>
-				Sorry{" "}
-				<span role="img" aria-label="Pensive emoji">
-					😔
-				</span>{" "}
-				we couldn’t find what you were looking for.
-				<br />
-				{process.env.NODE_ENV === "development" ? (
-					<>
-						<br />
-						Try creating a page in{" "}
-						<code style={codeStyles}>src/pages/</code>.
-						<br />
-					</>
-				) : null}
-				<br />
-				<Link to="/">Go home</Link>.
-			</p>
-		</Layout>
-	);
-};
-
-export default NotFoundPage;
+/**
+ * FourOhFour Component
+ *
+ * @param {Object} props
+ * @param {Object} props.path
+ */
+export default function FourOhFour({ path }) {
+  return (
+    <>
+      <PageHeader title={'404'} size="lg" />
+      <Wrapper>
+        <h1>Nothing found at {path}</h1>
+      </Wrapper>
+    </>
+  );
+}

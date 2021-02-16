@@ -1,68 +1,32 @@
 import React from 'react';
-import { StaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 
-import { Wrapper } from './style/global-styles';
-import { repeatTitle } from '../functions/util';
+/**
+ * Local Components
+ */
 import Tick from './tick';
 import JournalHomeFeature from './journal-home-feature';
 import MotionScroll from './motion-scroll';
 
-export default function SectionHomeJournal() {
-  return (
-    <StaticQuery
-      query={graphql`
-        query journalFeature {
-          allMdx(
-            filter: { frontmatter: { template: { eq: "journalPostTemplate" } } }
-            limit: 1
-            sort: { fields: frontmatter___date, order: DESC }
-          ) {
-            edges {
-              node {
-                id
-                frontmatter {
-                  slug
-                  date(formatString: "MMM DD, yyyy")
-                  title
-                  cover {
-                    childImageSharp {
-                      fluid(maxWidth: 2500) {
-                        ...GatsbyImageSharpFluid
-                      }
-                    }
-                    publicURL
-                  }
-                }
-                timeToRead
-                excerpt
-              }
-            }
-          }
-        }
-      `}
-      render={({ allMdx: { edges } }, i) => {
-        const { node } = edges[0];
-        return (
-          <JournalSectionContent
-            key={i}
-            content={node}
-            slug={node.frontmatter.slug}
-            title={node.frontmatter.title}
-            date={node.frontmatter.date}
-            timeToRead={node.timeToRead}
-            excerpt={node.excerpt}
-            cover={node.frontmatter.cover}
-          />
-        );
-      }}
-    />
-  );
-}
+/**
+ * Local Styles/JS
+ */
+import { Wrapper } from './style/global-styles';
+import { repeatTitle } from '../functions/util';
 
-function JournalSectionContent({
-  content: { frontmatter, timeToRead, excerpt }
-}) {
+/**
+ * Data Hooks
+ */
+import { useJournalFeatureData } from './hooks/use-journal-feature-data';
+
+/**
+ * SectionHomeJournal Component
+ */
+export default function SectionHomeJournal() {
+  const {
+    node: { frontmatter, timeToRead, excerpt }
+  } = useJournalFeatureData();
   const title = repeatTitle(`journal`);
 
   return (

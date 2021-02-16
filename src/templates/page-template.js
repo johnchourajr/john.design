@@ -4,9 +4,20 @@ import { graphql } from 'gatsby';
 import { Wrapper } from '../components/style/global-styles';
 import PageHeader from '../components/page-header';
 
-export default function Template({ data }) {
-  const { mdx } = data; // data.mdx holds your post data
-  const { frontmatter } = mdx;
+/**
+ * page-template Component
+ *
+ * @param {Object} props
+ * @param {Object} props.data
+ * @param {Object} props.data.mdx
+ * @param {Object} props.data.mdx.frontmatter
+ * @param {Object} props.data.mdx.body
+ */
+export default function Template({
+  data: {
+    mdx: { frontmatter }
+  }
+}) {
   return (
     <>
       <PageHeader title={frontmatter.title} />
@@ -15,6 +26,9 @@ export default function Template({ data }) {
   );
 }
 
+/**
+ * pageQuery
+ */
 export const pageQuery = graphql`
   query($id: String!) {
     mdx(id: { eq: $id }) {

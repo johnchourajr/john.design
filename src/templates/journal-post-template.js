@@ -3,19 +3,61 @@ import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 
+/**
+ * Local Components
+ */
 import { Wrapper } from '../components/style/global-styles';
 import MotionScroll from '../components/motion-scroll';
 
-export default function Template({ pageContext, data }) {
-  const { mdx } = data;
-  const { frontmatter, body, timeToRead } = mdx;
-  const { next, previous } = pageContext;
+/**
+ * journal-post-template Component
+ *
+ * @param {Object} props
+ * @param {Object} props.pageContext
+ * @param {Object} props.pageContext.next
+ * @param {Object} props.pageContext.previous
+ * @param {Object} props.data
+ * @param {Object} props.data.mdx
+ * @param {Object} props.data.mdx.frontmatter
+ * @param {Object} props.data.mdx.body
+ * @param {Object} props.data.mdx.timeToRead
+ */
+export default function Template({
+  pageContext: { next, previous },
+  data: {
+    mdx: { frontmatter, body, timeToRead }
+  }
+}) {
+  /**
+   * Check if page has next or previous post
+   */
   const hasNext = next?.frontmatter.template.includes('journal');
   const hasPrev = previous?.frontmatter.template.includes('journal');
-  const isChildImageSharp = frontmatter?.cover?.childImageSharp;
-  const image = isChildImageSharp
-    ? frontmatter?.cover?.childImageSharp?.fluid
-    : frontmatter?.cover?.publicURL;
+
+  /**
+   * Image Element
+   */
+  const Image = () => {
+    let isChildImageSharp = frontmatter?.cover?.childImageSharp;
+    let imageSrc = isChildImageSharp
+      ? frontmatter?.cover?.childImageSharp?.fluid
+      : frontmatter?.cover?.publicURL;
+    return (
+      frontmatter.cover && (
+        <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
+          {isChildImageSharp ? (
+            <img
+              sizes={imageSrc.sizes}
+              srcSet={imageSrc.srcSet}
+              alt={`${frontmatter.title} Cover Art`}
+            />
+          ) : (
+            <img src={imageSrc} alt={`${frontmatter.title} Cover Art`} />
+          )}
+        </PostImage>
+      )
+    );
+  };
 
   return (
     <>
@@ -26,20 +68,7 @@ export default function Template({ pageContext, data }) {
               <h2 className="display">{frontmatter.title}</h2>
             </MotionScroll>
           </PostHeader>
-
-          {frontmatter.cover && (
-            <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
-              {isChildImageSharp ? (
-                <img
-                  sizes={image.sizes}
-                  srcSet={image.srcSet}
-                  alt={`${frontmatter.title} Cover Art`}
-                />
-              ) : (
-                <img src={image} alt={`${frontmatter.title} Cover Art`} />
-              )}
-            </PostImage>
-          )}
+          {Image}
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
               <h4>
@@ -48,60 +77,71 @@ export default function Template({ pageContext, data }) {
             </PostCredit>
           </MotionScroll>
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={100} id="post">
-            <ContentWrapper>
+            <ContentWrapper className="content-styles">
               <MDXRenderer>{body}</MDXRenderer>
             </ContentWrapper>
           </MotionScroll>
         </Wrapper>
-        <PostSegue>
-          {hasPrev ? (
-            <SegueItem className="previous">
-              <h6 className="no-underline">Newer</h6>
-              <Link to={previous.frontmatter.slug}>
-                <h3>{previous.frontmatter.title}</h3>
-              </Link>
-            </SegueItem>
-          ) : (
-            <SegueItem className="previous none">
-              <h6 className="no-underline">Nothing Newer</h6>
-            </SegueItem>
-          )}
-          {hasNext ? (
-            <SegueItem className="next">
-              <h6 className="no-underline">Older</h6>
-              <Link to={next.frontmatter.slug}>
-                <h3>{next.frontmatter.title}</h3>
-              </Link>
-            </SegueItem>
-          ) : (
-            <SegueItem className="next none">
-              <h6 className="no-underline">Nothing Older</h6>
-            </SegueItem>
-          )}
-        </PostSegue>
       </PostWrapper>
+      <PostSegue>
+        {hasPrev ? (
+          <SegueItem className="previous">
+            <h6 className="no-underline">Newer Posts</h6>
+            <Link to={previous.frontmatter.slug}>
+              <h3>{previous.frontmatter.title}</h3>
+            </Link>
+          </SegueItem>
+        ) : (
+          <SegueItem className="previous none">
+            <h6 className="no-underline">This is the newest post</h6>
+          </SegueItem>
+        )}
+        {hasNext ? (
+          <SegueItem className="next">
+            <h6 className="no-underline">Older Posts</h6>
+            <Link to={next.frontmatter.slug}>
+              <h3>{next.frontmatter.title}</h3>
+            </Link>
+          </SegueItem>
+        ) : (
+          <SegueItem className="next none">
+            <h6 className="no-underline">This is the oldest post</h6>
+          </SegueItem>
+        )}
+      </PostSegue>
     </>
   );
 }
 
 const PostWrapper = styled.section`
   position: relative;
-  margin-bottom: 7vw;
 `;
 
 const PostHeader = styled.div`
-  margin: 20vw 0 10vw;
+  margin: 10rem 0 10vw;
   height: fit-content;
+
+  @media ${(props) => props.theme.device.laptop} {
+    margin: 20vw 0 10vw;
+  }
+
+  @media ${(props) => props.theme.device.desktop} {
+    margin: 15vw 0 8vw;
+  }
 `;
 
 const PostImage = styled.figure`
-  width: 101vw;
+  width: 100vw;
   min-height: 300px;
   height: 45vw;
-  transform: translateX(-7.5vw);
+  transform: translateX(-1rem);
   background-color: white;
   margin: 3.5vw 0;
   overflow: hidden;
+
+  @media ${(props) => props.theme.device.mobileLg} {
+    transform: translateX(-7vw);
+  }
 
   img {
     width: 100%;
@@ -113,7 +153,11 @@ const PostImage = styled.figure`
 `;
 
 const PostCredit = styled.div`
-  margin: 3.5vw 0;
+  margin: 2rem 0 3rem;
+
+  @media ${(props) => props.theme.device.laptop} {
+    margin: 3.5vw 0;
+  }
 `;
 
 const PostSegue = styled(Wrapper)`
@@ -200,23 +244,19 @@ const ContentWrapper = styled.div`
   }
 
   p {
-    font-size: 1.25rem;
+    font-size: 1rem;
     letter-spacing: 0.01em;
-  }
 
-  a {
-    color: ${(props) => props.theme.colors.gray2};
-    transition: color ${(props) => props.theme.animation.duration[100].css}
-      ${(props) => props.theme.animation.timingFunction.css};
-    opacity: 1;
-
-    &:hover {
-      color: ${(props) => props.theme.colors.black};
+    @media ${(props) => props.theme.device.laptop} {
+      font-size: 1.25rem;
     }
   }
 `;
 
-export const pageQuery = graphql`
+/**
+ * postQuery
+ */
+export const postQuery = graphql`
   query($id: String!) {
     mdx(id: { eq: $id }) {
       id
