@@ -37,27 +37,10 @@ export default function Template({
   /**
    * Image Element
    */
-  const Image = () => {
-    let isChildImageSharp = frontmatter?.cover?.childImageSharp;
-    let imageSrc = isChildImageSharp
-      ? frontmatter?.cover?.childImageSharp?.fluid
-      : frontmatter?.cover?.publicURL;
-    return (
-      frontmatter.cover && (
-        <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
-          {isChildImageSharp ? (
-            <img
-              sizes={imageSrc.sizes}
-              srcSet={imageSrc.srcSet}
-              alt={`${frontmatter.title} Cover Art`}
-            />
-          ) : (
-            <img src={imageSrc} alt={`${frontmatter.title} Cover Art`} />
-          )}
-        </PostImage>
-      )
-    );
-  };
+  const isChildImageSharp = frontmatter?.cover?.childImageSharp;
+  const imageSrc = isChildImageSharp
+    ? frontmatter?.cover?.childImageSharp?.fluid
+    : frontmatter?.cover?.publicURL;
 
   return (
     <>
@@ -68,7 +51,19 @@ export default function Template({
               <h2 className="display">{frontmatter.title}</h2>
             </MotionScroll>
           </PostHeader>
-          {Image}
+          {frontmatter.cover && (
+            <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
+              {isChildImageSharp ? (
+                <img
+                  sizes={imageSrc.sizes}
+                  srcSet={imageSrc.srcSet}
+                  alt={`${frontmatter.title} Cover Art`}
+                />
+              ) : (
+                <img src={imageSrc} alt={`${frontmatter.title} Cover Art`} />
+              )}
+            </PostImage>
+          )}
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
               <h4>
