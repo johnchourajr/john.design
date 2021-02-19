@@ -61,13 +61,17 @@ function SkipWrapper(props) {
  */
 export default function Nav(props) {
   const { edges } = useNavData();
-  const { scrollY } = useViewportScroll();
+  const { scrollY, scrollYProgress } = useViewportScroll();
   const [hidden, setHidden] = React.useState(false);
 
   function update() {
+    // console.log(scrollY);
     if (scrollY?.current > scrollY?.prev) {
       setHidden(true);
-    } else if (scrollY?.current < scrollY?.prev) {
+    } else if (
+      scrollYProgress?.current < 0.05 &&
+      scrollY?.current < scrollY?.prev
+    ) {
       setHidden(false);
     }
   }
@@ -130,10 +134,11 @@ const NavLinksWrapper = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10vw;
+  gap: 3rem;
   /* width: 75%; */
 
   @media ${(props) => props.theme.device.tablet} {
+    gap: 10vw;
     /* width: 50%; */
   }
 

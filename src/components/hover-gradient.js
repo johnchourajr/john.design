@@ -24,7 +24,7 @@ export default function HoverGradient({ refContainer }) {
       cursorX.set(cursorXCenter);
       cursorY.set(cursorYCenter);
     }
-  }, [ref]);
+  }, [cursorX, cursorY, ref]);
 
   useEffect(() => {
     const thisRefContainer = refContainer?.current;
@@ -50,7 +50,7 @@ export default function HoverGradient({ refContainer }) {
         thisRefContainer.removeEventListener('mousemove', moveCursor);
       };
     }
-  }, [cursorX, cursorY, cursorRotateZ]);
+  }, [cursorX, cursorY, cursorRotateZ, refContainer]);
 
   const springConfig = { damping: 50, stiffness: 100 };
   const cursorXSpring = useSpring(cursorX, springConfig);
