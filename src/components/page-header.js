@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 /**
  * Local Components
@@ -21,10 +22,21 @@ import { repeatTitle } from '../functions/util';
  * @param {String} props.size
  */
 export default function PageHeader({ title, size }) {
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 }
+  };
+
   return (
     <Wrapper>
       <MotionScroll triggerPoint={0} yOffset={50}>
-        <PageHeaderWrapper className={size ? size : 'lg'}>
+        <PageHeaderWrapper
+          className={size ? size : 'lg'}
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 1 }}
+        >
           <Tick tickerSpeed={2}>
             {() => (
               <span>
@@ -44,7 +56,7 @@ export default function PageHeader({ title, size }) {
   );
 }
 
-const PageHeaderWrapper = styled.div`
+const PageHeaderWrapper = styled(motion.div)`
   display: flex;
   align-items: center;
   overflow: visible;

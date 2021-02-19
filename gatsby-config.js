@@ -37,6 +37,13 @@ module.exports = {
             options: {
               maxWidth: 1200
             }
+          },
+          {
+            resolve: `gatsby-remark-highlight-code`,
+            options: {
+              terminal: 'carbon',
+              theme: 'one-light'
+            }
           }
         ],
         extensions: [`.md`, `.mdx`]

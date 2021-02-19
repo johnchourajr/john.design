@@ -366,6 +366,13 @@ export const BaseStyles = createGlobalStyle`
         color: ${(props) => props.theme.colors.black};
       }
     }
+
+    code {
+      font-family: monospace;
+      background: ${(props) => props.theme.colors.gray4};
+      padding: .25rem .35rem;
+      border-radius: .25rem;
+    }
   }
 
   .indefinite-article {
@@ -380,5 +387,29 @@ export const BaseStyles = createGlobalStyle`
 
   .gatsby-resp-image-image {
     box-shadow: none !important;
+  }
+
+  .deckgo-highlight-code-carbon {
+    box-shadow: none;
+    font-size: 0.85rem;
+    line-height: 1.45;
+
+    --deckgo-highlight-code-carbon-toolbar-display: none;
+    --deckgo-highlight-code-carbon-header-padding: 8px 1rem;
+    --deckgo-highlight-code-carbon-margin: 1.5rem 0 ;
+    --deckgo-highlight-code-carbon-border-radius: 0.55rem;
+    --deckgo-highlight-code-font-family: monospace;
+
+    --deckgo-highlight-code-carbon-background: #212121;
+    --deckgo-highlight-code-carbon-color: #F5815C;
+    --deckgo-highlight-code-token-atrule: #82AAFF;
+    --deckgo-highlight-code-token-comment: ${(props) =>
+      props.theme.colors.gray3};
+    --deckgo-highlight-code-token-function: #F9C669;
+    --deckgo-highlight-code-token-operator: #80CCEB;
+    --deckgo-highlight-code-token-property: #80CCEB;
+    --deckgo-highlight-code-token-punctuation: #80CCEB;
+    --deckgo-highlight-code-token-regex: #80CCEB;
+    --deckgo-highlight-code-token-selector: #C691E9;
   }
 `;
