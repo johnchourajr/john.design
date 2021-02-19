@@ -4,4 +4,8 @@ _drafts
 .jekyll-metadata
 .codekit-cache
 config.codekit
-.*
+node_modules
+/node_modules
+.cache
+/public
+.DS_Store
