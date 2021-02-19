@@ -116,5 +116,5 @@ section_fam:
         too much,” said me.'
       quote: true
   photos:
-    - img: '../images/meta/me2021.jpg'
+    - img: '../images/meta/fam-4.png'
 ---

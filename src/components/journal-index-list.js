@@ -23,18 +23,21 @@ export default function JournalIndexList({ items }) {
       {items.map(({ node }, i) => {
         if (i === 0) {
           return (
-            <>
-              <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={50}>
-                <JournalHomeFeature
-                  slug={node.frontmatter.slug}
-                  title={node.frontmatter.title}
-                  date={node.frontmatter.date}
-                  timeToRead={node.timeToRead}
-                  excerpt={node.excerpt}
-                  cover={node.frontmatter.cover}
-                />
-              </MotionScroll>
-            </>
+            <MotionScroll
+              key={i}
+              fadeIn={true}
+              triggerPoint={0.85}
+              yOffset={50}
+            >
+              <JournalHomeFeature
+                slug={node.frontmatter.slug}
+                title={node.frontmatter.title}
+                date={node.frontmatter.date}
+                timeToRead={node.timeToRead}
+                excerpt={node.excerpt}
+                cover={node.frontmatter.cover}
+              />
+            </MotionScroll>
           );
         } else return null;
       })}
