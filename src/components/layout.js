@@ -28,10 +28,6 @@ deckDeckGoHighlightElement();
  * @param {Object} props.pageContext
  */
 export default function Layout({ children, pageContext }) {
-  const { meta, og } = useSiteMetadata();
-
-  console.log(meta, og);
-
   return (
     <>
       <Head pageContext={pageContext} />
