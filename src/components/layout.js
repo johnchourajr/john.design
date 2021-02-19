@@ -17,6 +17,7 @@ import './style/fonts.css';
  * Code Highlighting styles
  */
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
+import useSiteMetadata from './hooks/use-site-metadata';
 deckDeckGoHighlightElement();
 
 /**
@@ -27,6 +28,10 @@ deckDeckGoHighlightElement();
  * @param {Object} props.pageContext
  */
 export default function Layout({ children, pageContext }) {
+  const { meta, og } = useSiteMetadata();
+
+  console.log(meta, og);
+
   return (
     <>
       <Head pageContext={pageContext} />
