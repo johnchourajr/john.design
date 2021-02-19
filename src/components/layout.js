@@ -17,7 +17,6 @@ import './style/fonts.css';
  * Code Highlighting styles
  */
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
-import useSiteMetadata from './hooks/use-site-metadata';
 deckDeckGoHighlightElement();
 
 /**
