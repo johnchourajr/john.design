@@ -117,4 +117,5 @@ section_fam:
       quote: true
   photos:
     - img: '../images/meta/fam-4.png'
+og: '../images/meta/og.png'
 ---

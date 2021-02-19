@@ -61,18 +61,14 @@ function SkipWrapper(props) {
  */
 export default function Nav(props) {
   const { edges } = useNavData();
-  const { scrollY, scrollYProgress } = useViewportScroll();
+  const { scrollY } = useViewportScroll();
   const [hidden, setHidden] = React.useState(false);
 
   function update() {
-    // console.log(scrollY);
-    if (scrollY?.current > scrollY?.prev) {
-      setHidden(true);
-    } else if (
-      scrollYProgress?.current < 0.05 &&
-      scrollY?.current < scrollY?.prev
-    ) {
+    if (scrollY?.current < scrollY?.prev) {
       setHidden(false);
+    } else if (scrollY?.current > 100 && scrollY?.current > scrollY?.prev) {
+      setHidden(true);
     }
   }
 
