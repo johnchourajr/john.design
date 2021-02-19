@@ -14,22 +14,6 @@ function Head({ pageContext }) {
     pageContext?.title ? pageContext?.title : 'Studio'
   }`;
 
-  const basicMeta = [
-    // Open Graph / Facebook
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: meta.siteUrl },
-    { property: 'og:title', content: title },
-    { property: 'og:description', content: meta.description },
-    { property: 'og:image', content: `${meta.siteUrl}${og}` },
-
-    // Twitter
-    { property: 'twitter:card', content: 'summary_large_image' },
-    { property: 'twitter:url', content: meta.siteUrl },
-    { property: 'twitter:title', content: title },
-    { property: 'twitter:description', content: meta.description },
-    { property: 'twitter:image', content: `${meta.siteUrl}${og}` }
-  ];
-
   return (
     <Helmet
       title={title}
@@ -42,7 +26,19 @@ function Head({ pageContext }) {
         { name: 'title', content: title },
         { name: 'description', content: meta.description },
 
-        ...basicMeta
+        // Open Graph / Facebook
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: meta.siteUrl },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: meta.description },
+        { property: 'og:image', content: `${meta.siteUrl}${og}` },
+
+        // Twitter
+        { property: 'twitter:card', content: 'summary_large_image' },
+        { property: 'twitter:url', content: meta.siteUrl },
+        { property: 'twitter:title', content: title },
+        { property: 'twitter:description', content: meta.description },
+        { property: 'twitter:image', content: `${meta.siteUrl}${og}` }
       ]}
     />
   );
