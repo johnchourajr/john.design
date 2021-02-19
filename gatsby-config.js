@@ -4,7 +4,6 @@ module.exports = {
     siteUrl: 'https://john.design'
   },
   plugins: [
-    'gatsby-plugin-styled-components',
     `gatsby-remark-images`,
     {
       resolve: 'gatsby-plugin-google-analytics',
