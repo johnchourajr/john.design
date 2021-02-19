@@ -78,6 +78,8 @@ module.exports = {
       options: {
         displayName: false
       }
-    }
+    },
+    'gatsby-plugin-layouts',
+    `gatsby-plugin-netlify`
   ]
 };

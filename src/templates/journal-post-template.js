@@ -246,6 +246,31 @@ const ContentWrapper = styled.div`
       font-size: 1.25rem;
     }
   }
+
+  .deckgo-highlight-code-carbon {
+    box-shadow: none;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    font-weight: 400;
+
+    --deckgo-highlight-code-carbon-toolbar-display: none;
+    --deckgo-highlight-code-carbon-header-padding: 8px 1rem;
+    --deckgo-highlight-code-carbon-margin: 1.5rem 0;
+    --deckgo-highlight-code-carbon-border-radius: 0.55rem;
+    --deckgo-highlight-code-font-family: 'Roboto Mono', monospace;
+
+    --deckgo-highlight-code-carbon-background: #212121;
+    --deckgo-highlight-code-carbon-color: #f5815c;
+    --deckgo-highlight-code-token-atrule: #82aaff;
+    --deckgo-highlight-code-token-comment: ${(props) =>
+      props.theme.colors.gray3};
+    --deckgo-highlight-code-token-function: #f9c669;
+    --deckgo-highlight-code-token-operator: #80cceb;
+    --deckgo-highlight-code-token-property: #80cceb;
+    --deckgo-highlight-code-token-punctuation: #80cceb;
+    --deckgo-highlight-code-token-regex: #80cceb;
+    --deckgo-highlight-code-token-selector: #c691e9;
+  }
 `;
 
 /**
