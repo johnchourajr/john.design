@@ -11,6 +11,11 @@ import { Wrapper } from '../components/style/global-styles';
 import MotionScroll from '../components/motion-scroll';
 
 /**
+ * Hooks
+ */
+import useSiteMetadata from '../components/hooks/use-site-metadata';
+
+/**
  * journal-post-template Component
  *
  * @param {Object} props
@@ -30,6 +35,8 @@ export default function Template({
     mdx: { frontmatter, body, timeToRead, excerpt }
   }
 }) {
+  const { meta } = useSiteMetadata();
+
   /**
    * Check if page has next or previous post
    */
@@ -55,7 +62,10 @@ export default function Template({
             content: `${frontmatter.title} / John Choura Design™`
           },
           { property: 'og:description', content: excerpt },
-          { property: 'og:image', content: frontmatter?.cover?.publicURL },
+          {
+            property: 'og:image',
+            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`
+          },
 
           // Twitter
           { property: 'twitter:card', content: 'summary_large_image' },
@@ -64,7 +74,10 @@ export default function Template({
             content: `${frontmatter.title} / John Choura Design™`
           },
           { property: 'twitter:description', content: excerpt },
-          { property: 'twitter:image', content: frontmatter?.cover?.publicURL }
+          {
+            property: 'twitter:image',
+            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`
+          }
         ]}
       />
       <PostWrapper className="blog-post">
