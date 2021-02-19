@@ -2,7 +2,7 @@
 template: 'page-template'
 slug: '/work/'
 title: 'Work'
-type: 'topLevelPage'
+# type: 'topLevelPage'
 weight: 2
 clients:
   - name: Happy Money HQ
