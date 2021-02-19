@@ -1,26 +1,50 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import useSiteMetadata from '../hooks/use-site-metadata';
 
 /**
  * Head component
  *
  * @param {Object} props
  */
-function Head(props) {
+function Head({ pageContext }) {
+  const { meta, og } = useSiteMetadata();
+
+  const title = `John Choura Design™ / ${
+    pageContext?.title ? pageContext?.title : 'Studio'
+  }`;
+
+  const basicMeta = [
+    // Open Graph / Facebook
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: meta.siteUrl },
+    { property: 'og:title', content: title },
+    { property: 'og:description', content: meta.description },
+    { property: 'og:image', content: `${meta.siteUrl}${og}` },
+
+    // Twitter
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:url', content: meta.siteUrl },
+    { property: 'twitter:title', content: title },
+    { property: 'twitter:description', content: meta.description },
+    { property: 'twitter:image', content: `${meta.siteUrl}${og}` }
+  ];
+
   return (
-    <Helmet>
-      <title>{`John Choura Design™ / ${
-        props?.pageContext?.title ? props?.pageContext?.title : 'Studio'
-      }`}</title>
-      <meta name="description" content="Helmet application" />
-      <meta name="robots" content="noindex" />
-      <meta name="googlebot" content="noindex" />
-      <meta name="googlebot-news" content="nosnippet" />
-      <meta
-        name="viewport"
-        content="width=device-width initial-scale=1 shrink-to-fit=no"
-      />
-    </Helmet>
+    <Helmet
+      title={title}
+      meta={[
+        // Basics
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, shrink-to-fit=yes'
+        },
+        { name: 'title', content: title },
+        { name: 'description', content: meta.description },
+
+        ...basicMeta
+      ]}
+    />
   );
 }
 
