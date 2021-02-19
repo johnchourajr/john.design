@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
+import { motion, useViewportScroll } from 'framer-motion';
 
 /**
  * Svg
@@ -60,15 +61,45 @@ function SkipWrapper(props) {
  */
 export default function Nav(props) {
   const { edges } = useNavData();
+  const { scrollY } = useViewportScroll();
+  const [hidden, setHidden] = React.useState(false);
+
+  function update() {
+    if (scrollY?.current > scrollY?.prev) {
+      setHidden(true);
+    } else if (scrollY?.current < scrollY?.prev) {
+      setHidden(false);
+    }
+  }
+
+  useEffect(() => {
+    return scrollY.onChange(() => update());
+  });
+
+  const variants = {
+    visible: { opacity: 1, y: 0 },
+    initial: { opacity: 0, y: -75 },
+    hidden: { opacity: 0, y: -25 }
+  };
 
   return (
     <>
       <SkipWrapper {...props} />
-      <NavWrapper>
+      <NavWrapper
+        initial="initial"
+        animate="visible"
+        variants={variants}
+        transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
+      >
         <NavLink to="/">
           <Logo />
         </NavLink>
-        <NavLinksWrapper>
+        <NavLinksWrapper
+          animate={hidden ? 'hidden' : 'visible'}
+          variants={variants}
+          onHoverStart={() => setHidden(false)}
+          transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
+        >
           <NavLinkItem data={edges} />
         </NavLinksWrapper>
       </NavWrapper>
@@ -76,7 +107,7 @@ export default function Nav(props) {
   );
 }
 
-const NavWrapper = styled.nav`
+const NavWrapper = styled(motion.nav)`
   display: flex;
   position: fixed;
   align-items: center;
@@ -95,7 +126,7 @@ const NavWrapper = styled.nav`
   }
 `;
 
-const NavLinksWrapper = styled.div`
+const NavLinksWrapper = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;

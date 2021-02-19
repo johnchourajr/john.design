@@ -51,10 +51,19 @@ export default function SectionHomeHero({ data, ...rest }) {
   const [tickerSpeed, setTickerSpeed] = useState(15);
   const figmaId = '253A9';
 
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 }
+  };
+
   return (
     <HomeSection
       onMouseEnter={() => changeFigmaDataState('enter', figmaId)}
       onMouseLeave={() => changeFigmaDataState('exit', figmaId)}
+      initial="hidden"
+      animate="visible"
+      variants={variants}
+      transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 1 }}
       {...rest}
     >
       <Wrapper>
@@ -160,5 +169,6 @@ const HomeSection = styled(motion.section)`
   @media ${(props) => props.theme.device.tablet} {
     min-height: calc(60rem);
     height: calc(85vh);
+    padding-top: 0;
   }
 `;
