@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { Helmet } from 'react-helmet';
 
 /**
  * Local Components
@@ -21,11 +22,12 @@ import MotionScroll from '../components/motion-scroll';
  * @param {Object} props.data.mdx.frontmatter
  * @param {Object} props.data.mdx.body
  * @param {Object} props.data.mdx.timeToRead
+ * @param {Object} props.data.mdx.excerpt
  */
 export default function Template({
   pageContext: { next, previous },
   data: {
-    mdx: { frontmatter, body, timeToRead }
+    mdx: { frontmatter, body, timeToRead, excerpt }
   }
 }) {
   /**
@@ -44,6 +46,27 @@ export default function Template({
 
   return (
     <>
+      <Helmet
+        meta={[
+          // Open Graph / Facebook
+          { property: 'og:type', content: 'website' },
+          {
+            property: 'og:title',
+            content: `${frontmatter.title} / John Choura Design™`
+          },
+          { property: 'og:description', content: excerpt },
+          { property: 'og:image', content: frontmatter?.cover?.publicURL },
+
+          // Twitter
+          { property: 'twitter:card', content: 'summary_large_image' },
+          {
+            property: 'twitter:title',
+            content: `${frontmatter.title} / John Choura Design™`
+          },
+          { property: 'twitter:description', content: excerpt },
+          { property: 'twitter:image', content: frontmatter?.cover?.publicURL }
+        ]}
+      />
       <PostWrapper className="blog-post">
         <Wrapper>
           <PostHeader>
