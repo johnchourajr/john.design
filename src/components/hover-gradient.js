@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import styled from 'styled-components';
  * @param {Object} props.refContainer
  */
 export default function HoverGradient({ refContainer }) {
-  const ref = React.useRef();
+  const ref = useRef();
   const cursorX = useMotionValue(-1000);
   const cursorY = useMotionValue(-1000);
   const cursorRotateZ = useMotionValue(0);
@@ -24,9 +24,11 @@ export default function HoverGradient({ refContainer }) {
       cursorX.set(cursorXCenter);
       cursorY.set(cursorYCenter);
     }
-  }, []);
+  }, [ref]);
 
   useEffect(() => {
+    const thisRefContainer = refContainer?.current;
+
     const moveCursor = (e) => {
       const elWidth = ref?.current?.offsetHeight;
       const elHeight = ref?.current?.offsetHeight;
@@ -42,10 +44,10 @@ export default function HoverGradient({ refContainer }) {
 
       cursorRotateZ.set(mouseX * 0.1);
     };
-    if (refContainer && refContainer.current) {
-      refContainer.current.addEventListener('mousemove', moveCursor);
+    if (thisRefContainer) {
+      thisRefContainer.addEventListener('mousemove', moveCursor);
       return () => {
-        refContainer.current.removeEventListener('mousemove', moveCursor);
+        thisRefContainer.removeEventListener('mousemove', moveCursor);
       };
     }
   }, [cursorX, cursorY, cursorRotateZ]);
