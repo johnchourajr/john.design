@@ -130,10 +130,11 @@ const NavLinksWrapper = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 75%;
+  gap: 10vw;
+  /* width: 75%; */
 
   @media ${(props) => props.theme.device.tablet} {
-    width: 50%;
+    /* width: 50%; */
   }
 
   a.h5 {

@@ -2,6 +2,6 @@
 template: 'page-template'
 slug: '/art/'
 title: 'Art'
-type: 'topLevelPage'
+# type: 'topLevelPage'
 weight: 3
 ---
