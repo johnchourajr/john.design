@@ -175,7 +175,7 @@ const SegueItem = styled.div`
 
   h3 {
     @media ${(props) => props.theme.device.tablet} {
-      max-width: 8em;
+      max-width: 12em;
     }
   }
 

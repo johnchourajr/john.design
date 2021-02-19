@@ -11,6 +11,7 @@ export const BaseStyles = createGlobalStyle`
     font-style: normal;
   }
 
+
     html,
     body,
     div,
@@ -219,8 +220,9 @@ export const BaseStyles = createGlobalStyle`
     }
   }
 
-  pre {
-    font-family: monospace;
+  pre, code {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
     margin: 1rem 0;
   }
 
@@ -368,9 +370,9 @@ export const BaseStyles = createGlobalStyle`
     }
 
     code {
-      font-family: monospace;
+      font-size: .9em;
       background: ${(props) => props.theme.colors.gray4};
-      padding: .25rem .35rem;
+      padding: .1rem .3rem;
       border-radius: .25rem;
     }
   }
@@ -389,16 +391,19 @@ export const BaseStyles = createGlobalStyle`
     box-shadow: none !important;
   }
 
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
+
   .deckgo-highlight-code-carbon {
     box-shadow: none;
     font-size: 0.85rem;
     line-height: 1.45;
+    font-weight: 400;
 
     --deckgo-highlight-code-carbon-toolbar-display: none;
     --deckgo-highlight-code-carbon-header-padding: 8px 1rem;
     --deckgo-highlight-code-carbon-margin: 1.5rem 0 ;
     --deckgo-highlight-code-carbon-border-radius: 0.55rem;
-    --deckgo-highlight-code-font-family: monospace;
+    --deckgo-highlight-code-font-family: 'Roboto Mono', monospace;
 
     --deckgo-highlight-code-carbon-background: #212121;
     --deckgo-highlight-code-carbon-color: #F5815C;
