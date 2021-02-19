@@ -159,12 +159,12 @@ export default function Nav() {
 
   /** this onUpdate function will be called in the `scrollY.onChange` callback **/
   function update() {
-    if (scrollY.current > scrollY.prev) {
-      setHidden(true);
-      console.log("hidden");
-    } else if (scrollY.current < scrollY.prev) {
+    if (scrollY?.current < scrollY?.prev) {
       setHidden(false);
       console.log("visible");
+    } else if (scrollY?.current > 100 && scrollY?.current > scrollY?.prev) {
+      setHidden(true);
+      console.log("hidden");
     }
   }
 
