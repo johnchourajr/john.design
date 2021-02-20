@@ -25,6 +25,7 @@ deckDeckGoHighlightElement();
  * @param {Object} props
  * @param {any} props.children
  * @param {Object} props.pageContext
+ * @returns page layouts
  */
 export default function Layout({ children, pageContext }) {
   return (
