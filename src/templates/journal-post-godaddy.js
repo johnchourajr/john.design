@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import JournalPost from '../components/journal-post';
+import { GoDaddyCover } from '../components/godaddy-cover';
 
 /**
  * journal-post-template Component
@@ -10,7 +11,13 @@ import JournalPost from '../components/journal-post';
  * @param {Object} props.data
  */
 export default function JournalPostTemplate({ pageContext, data }) {
-  return <JournalPost pageContext={pageContext} data={data} />;
+  return (
+    <JournalPost
+      pageContext={pageContext}
+      data={data}
+      customCover={<GoDaddyCover />}
+    />
+  );
 }
 
 /**

@@ -111,3 +111,50 @@ export function commaSeparate(i, total) {
     return ', ';
   }
 }
+
+// function letterMoveStyles(
+//   color = 'black',
+//   opacity = 1,
+//   mark = 0,
+//   letters = 0,
+//   tm = 0,
+//   rotate = '0deg'
+// ) {
+//   return `
+// path[data-color="${color}"] {
+//   opacity: ${opacity};
+
+//   &[data-object="mark"] {
+//     transform: translate3d(0, ${mark}px, 0) rotate(${rotate});
+//   }
+
+//   &[data-object="g"],
+//   &[data-object="o"],
+//   &[data-object="d1"],
+//   &[data-object="a"],
+//   &[data-object="d2"],
+//   &[data-object="d3"],
+//   &[data-object="y"] {
+//     transform: translate3d(0, ${letters}px, 0) rotate(${rotate});
+//   }
+
+//   &[data-object="tm"] {
+//     transform: translate3d(0, ${tm}px, 0) rotate(${rotate});
+//   }
+// }
+//   `;
+// }
+
+// function offsetTransitionDelay(stepMax = 10, offset = 0.03) {
+//   let list = [];
+
+//   for (let step = 0; step < stepMax; step++) {
+//     list.push(`
+// path[data-sequence="${step}"] {
+//   transition-delay: ${step * offset}s;
+// }
+//     `);
+//   }
+
+//   return list;
+// }
