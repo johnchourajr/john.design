@@ -39,7 +39,11 @@ export default function Template({
 export const pageQuery = graphql`
   query pageQuery($id: String!) {
     allMdx(
-      filter: { frontmatter: { template: { eq: "journal-post-template" } } }
+      filter: {
+        frontmatter: {
+          template: { in: ["journal-post-template", "journal-post-godaddy"] }
+        }
+      }
       sort: { fields: frontmatter___date, order: DESC }
     ) {
       edges {
