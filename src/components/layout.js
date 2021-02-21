@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 /**
  * Local Components
@@ -17,6 +17,7 @@ import './style/fonts.css';
  * Code Highlighting styles
  */
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
+import { changeBodyClass } from '../functions/util';
 deckDeckGoHighlightElement();
 
 /**
@@ -28,6 +29,12 @@ deckDeckGoHighlightElement();
  * @returns page layouts
  */
 export default function Layout({ children, pageContext }) {
+  useEffect(() => {
+    return () => {
+      changeBodyClass('exit', '', '', '', '');
+    };
+  });
+
   return (
     <>
       <Head pageContext={pageContext} />
