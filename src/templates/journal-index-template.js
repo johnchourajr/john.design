@@ -55,17 +55,23 @@ export const pageQuery = graphql`
             date(formatString: "MMM DD, yyyy")
             cover {
               childImageSharp {
-                fluid(maxWidth: 2500) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(
+                  placeholder: DOMINANT_COLOR
+                  layout: FULL_WIDTH
+                  formats: PNG
+                  blurredOptions: { toFormat: WEBP }
+                )
               }
               publicURL
             }
             thumb {
               childImageSharp {
-                fluid(maxWidth: 650, toFormat: WEBP) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(
+                  placeholder: DOMINANT_COLOR
+                  layout: FULL_WIDTH
+                  formats: PNG
+                  blurredOptions: { toFormat: WEBP }
+                )
               }
               publicURL
             }

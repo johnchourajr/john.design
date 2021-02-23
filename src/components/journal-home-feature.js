@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, navigate } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
 /**
@@ -21,23 +22,25 @@ export default function JournalHomeFeature({
 }) {
   const isChildImageSharp = cover.childImageSharp;
   const image = isChildImageSharp
-    ? cover.childImageSharp?.fluid
+    ? cover.childImageSharp?.gatsbyImageData
     : cover.publicURL;
 
   return (
     <Card onClick={() => navigate(slug)}>
       {cover && (
-        <Image>
+        <>
           {isChildImageSharp ? (
-            <img
-              sizes={image.sizes}
-              srcSet={image.srcSet}
-              alt={`${title} Cover Art`}
-            />
+            <Image>
+              <GatsbyImage image={image} alt={`${title} Cover Art`} />
+            </Image>
           ) : (
-            <img src={image} alt={`${title} Cover Art`} />
+            <Image
+              style={{
+                backgroundImage: `url(${image})`
+              }}
+            />
           )}
-        </Image>
+        </>
       )}
       <CardLower>
         <CardLowerTitle>
@@ -68,6 +71,11 @@ const Image = styled.div`
   @media ${(props) => props.theme.device.laptop} {
     width: 100%;
     height: 35vw;
+  }
+
+  .gatsby-image-wrapper {
+    height: 100%;
+    width: 100%;
   }
 
   img {

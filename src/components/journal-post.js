@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Helmet } from 'react-helmet';
@@ -13,7 +14,7 @@ function PostCover({ frontmatter, customCover }) {
    */
   const isChildImageSharp = frontmatter?.cover?.childImageSharp;
   const imageSrc = isChildImageSharp
-    ? frontmatter?.cover?.childImageSharp?.fluid
+    ? frontmatter?.cover?.childImageSharp?.gatsbyImageData
     : frontmatter?.cover?.publicURL;
 
   if (customCover) {
@@ -22,9 +23,8 @@ function PostCover({ frontmatter, customCover }) {
     return (
       <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
         {isChildImageSharp ? (
-          <img
-            sizes={imageSrc.sizes}
-            srcSet={imageSrc.srcSet}
+          <GatsbyImage
+            image={imageSrc}
             alt={`${frontmatter.title} Cover Art`}
           />
         ) : (
@@ -161,6 +161,7 @@ const PostHeader = styled.div`
     margin: 15vw 0 8vw;
   }
 `;
+
 const PostImage = styled.figure`
   width: 100vw;
   min-height: 300px;
@@ -172,6 +173,11 @@ const PostImage = styled.figure`
 
   @media ${(props) => props.theme.device.mobileLg} {
     transform: translateX(-7vw);
+  }
+
+  .gatsby-image-wrapper {
+    height: 100%;
+    width: 100%;
   }
 
   img {

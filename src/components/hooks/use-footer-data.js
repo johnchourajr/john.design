@@ -22,9 +22,12 @@ export const useFooterData = () => {
                   photos {
                     img {
                       childImageSharp {
-                        fluid(maxWidth: 800) {
-                          ...GatsbyImageSharpFluid
-                        }
+                        gatsbyImageData(
+                          placeholder: DOMINANT_COLOR
+                          layout: FULL_WIDTH
+                          formats: WEBP
+                          blurredOptions: { toFormat: WEBP }
+                        )
                       }
                     }
                   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import GatsbyImage from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
 /**
@@ -38,7 +38,9 @@ export default function Footer({ pageContext }) {
         <FooterUpperWrapper className="pV">
           <div className="image-area">
             <Image>
-              <GatsbyImage fluid={photos[0].img.childImageSharp.fluid} />
+              <GatsbyImage
+                image={photos[0].img.childImageSharp.gatsbyImageData}
+              />
             </Image>
           </div>
           <div className="text-area">

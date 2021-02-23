@@ -30,7 +30,7 @@ export const postQuery = graphql`
             gatsbyImageData(
               placeholder: DOMINANT_COLOR
               layout: FULL_WIDTH
-              formats: PNG
+              formats: WEBP
               blurredOptions: { toFormat: WEBP }
             )
           }

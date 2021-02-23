@@ -25,9 +25,12 @@ export const useSiteMetadata = () => {
                 og {
                   id
                   childImageSharp {
-                    fluid(maxWidth: 800) {
-                      ...GatsbyImageSharpFluid
-                    }
+                    gatsbyImageData(
+                      placeholder: DOMINANT_COLOR
+                      layout: FULL_WIDTH
+                      formats: WEBP
+                      blurredOptions: { toFormat: WEBP }
+                    )
                   }
                 }
               }
@@ -38,7 +41,7 @@ export const useSiteMetadata = () => {
     `
   );
 
-  const og = edges[0].node.frontmatter.og.childImageSharp.fluid.src;
+  const og = edges[0].node.frontmatter.og.childImageSharp.gatsbyImageData;
 
   return { meta: site.siteMetadata, og: og };
 };

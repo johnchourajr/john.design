@@ -19,9 +19,12 @@ export const useJournalData = () => {
                 date(formatString: "MMM DD, yyyy")
                 cover {
                   childImageSharp {
-                    fluid(maxWidth: 800, toFormat: WEBP) {
-                      ...GatsbyImageSharpFluid
-                    }
+                    gatsbyImageData(
+                      placeholder: DOMINANT_COLOR
+                      layout: FULL_WIDTH
+                      formats: WEBP
+                      blurredOptions: { toFormat: WEBP }
+                    )
                   }
                 }
               }

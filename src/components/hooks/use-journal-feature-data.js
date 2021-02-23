@@ -20,9 +20,12 @@ export const useJournalFeatureData = () => {
                 title
                 cover {
                   childImageSharp {
-                    fluid(maxWidth: 2500) {
-                      ...GatsbyImageSharpFluid
-                    }
+                    gatsbyImageData(
+                      placeholder: DOMINANT_COLOR
+                      layout: FULL_WIDTH
+                      formats: PNG
+                      blurredOptions: { toFormat: WEBP }
+                    )
                   }
                   publicURL
                 }

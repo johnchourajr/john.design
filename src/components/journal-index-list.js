@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
 /**
@@ -48,7 +49,7 @@ export default function JournalIndexList({ items }) {
         {items.map(({ node }, i) => {
           const isChildImageSharp = node?.frontmatter?.thumb?.childImageSharp;
           const image = isChildImageSharp
-            ? node?.frontmatter?.thumb?.childImageSharp?.fluid
+            ? node?.frontmatter?.thumb?.childImageSharp?.gatsbyImageData
             : node?.frontmatter?.thumb?.publicURL;
 
           if (i > 0) {
@@ -64,11 +65,9 @@ export default function JournalIndexList({ items }) {
                   <h1>{node.frontmatter.title} </h1>
 
                   {isChildImageSharp ? (
-                    <Image
-                      style={{
-                        backgroundImage: `url(${image.src})`
-                      }}
-                    />
+                    <Image>
+                      <GatsbyImage image={image} />
+                    </Image>
                   ) : (
                     <Image
                       style={{
@@ -76,6 +75,7 @@ export default function JournalIndexList({ items }) {
                       }}
                     />
                   )}
+
                   <aside>
                     <h4>{node.frontmatter.date} </h4>
                   </aside>
@@ -92,7 +92,7 @@ export default function JournalIndexList({ items }) {
 const Image = styled.div`
   position: absolute;
   right: 10vw;
-  top: 50%;
+  top: 25%;
   transform: scale3d(0.9, 0.9, 0.9) translateY(-50%);
   transform-origin: center center;
   height: 12vw;
@@ -101,7 +101,12 @@ const Image = styled.div`
   will-change: transform, opacity;
   background-size: cover;
   backface-visibility: hidden;
-  z-index: -5;
+  z-index: 10;
+
+  .gatsby-image-wrapper {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const PostList = styled.div`
