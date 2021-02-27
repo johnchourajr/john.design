@@ -64,9 +64,10 @@ function El(props) {
       onPointerDown={(e) => handlePressed(true)}
       onPointerUp={(e) => handlePressed(false)}
       castShadow
+      receiveShadow
     >
       <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 60]} />
-      <meshPhongMaterial attach="material" color="#72FFBB" />
+      <meshToonMaterial attach="material" color="#72FFBB" />
     </a.mesh>
   );
 }
@@ -75,7 +76,7 @@ function Slate(props) {
   return (
     <a.mesh receiveShadow rotation={[0, 0, 0]} position={[0, 0, -5]} {...props}>
       <planeBufferGeometry attach="geometry" args={[100, 100]} />
-      <meshPhongMaterial color="#FF7272" attach="material" />
+      <meshToonMaterial color="#FF7272" attach="material" />
     </a.mesh>
   );
 }
@@ -87,16 +88,10 @@ export default function PunchBoard() {
 
   return (
     <Wrap>
-      <Canvas colorManagement pixelRatio={window.devicePixelRatio}>
+      <Canvas colorManagement shadowMap pixelRatio={window.devicePixelRatio}>
         <Camera position={[0, 0, 16]} />
-        <ambientLight intensity={1} castShadow />
-        <spotLight
-          position={[10, 10, 0]}
-          angle={0.15}
-          penumbra={1}
-          castShadow
-        />
-        <pointLight position={[-10, -10, -10]} castShadow />
+        <ambientLight intensity={0.1} castShadow />
+        <directionalLight position={[3, 3, 10]} intensity={0.5} castShadow />
         <El position={[0, 0, -5]} />
         <El position={[-3, 0, -5]} />
         <El position={[3, 0, -5]} />
