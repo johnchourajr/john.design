@@ -9,7 +9,7 @@ import styled from 'styled-components';
  * @param {Object} props.refContainer
  */
 export default function HoverGradient({ refContainer }) {
-  const ref = useRef();
+  const ref = useRef(null);
   const cursorX = useMotionValue(-1000);
   const cursorY = useMotionValue(-1000);
   const cursorRotateZ = useMotionValue(0);

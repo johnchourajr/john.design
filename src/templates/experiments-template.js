@@ -5,6 +5,7 @@ import { Wrapper } from '../components/style/global-styles';
 import PageHeader from '../components/page-header';
 import PunchBoard from '../components/experiments/punchboard';
 import { createGlobalStyle } from 'styled-components';
+import Blotter from '../components/experiments/blotter';
 
 export const ExperimentStyles = createGlobalStyle`
   footer {
@@ -35,7 +36,8 @@ export default function Template({
   const { experiment } = frontmatter;
 
   const experiments = {
-    PunchBoard: PunchBoard
+    PunchBoard: PunchBoard,
+    Blotter: Blotter
   };
 
   const ExperimentComponent =

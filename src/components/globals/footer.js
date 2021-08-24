@@ -26,7 +26,7 @@ import { useFooterData } from '../hooks/use-footer-data';
  * @param {Object} props.pageContext
  */
 export default function Footer({ pageContext }) {
-  const ref = React.useRef();
+  const ref = React.useRef(null);
   const { edges } = useNavData();
   const {
     section_fam: { about_me, photos }

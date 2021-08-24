@@ -40,7 +40,11 @@ function Head({ pageContext }) {
         { property: 'twitter:description', content: meta.description },
         { property: 'twitter:image', content: `${meta.siteUrl}${og}` }
       ]}
-    />
+    >
+      <body>
+        {`<script src="https://unpkg.com/blotterjs-fork@0.1.0/build/blotter.min.js"></script>`}
+      </body>
+    </Helmet>
   );
 }
 

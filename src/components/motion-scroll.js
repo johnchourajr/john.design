@@ -46,7 +46,7 @@ function MotionScrollInner({
   /**
    * Element Setup
    */
-  const ref = useRef();
+  const ref = useRef(null);
   const { scrollY } = useViewportScroll();
   const [elementTop, setElementTop] = useState(0);
   const [clientHeight, setClientHeight] = useState(0);
