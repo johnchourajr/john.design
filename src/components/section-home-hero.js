@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
 
 /**
  * Local Components
  */
-import Tick from '../components/tick';
-import { Caption } from './type';
+import Tick from "../components/tick";
+import { Caption } from "./type";
 
 /**
  * Local Styles/JS
@@ -14,30 +14,33 @@ import { Caption } from './type';
 import {
   stringToSlug,
   changeBodyClass,
-  changeFigmaDataState
-} from '../functions/util';
-import { Wrapper } from '../components/style/global-styles';
+  scrollChangeBodyClass,
+} from "../functions/util";
+import { Wrapper } from "../components/style/global-styles";
+import ScrollSection from "./scroll-section";
 
 /**
  *
  * @param {Object} props
  * @param {String} props.item
  * @param {String} props.slug
+ * @param {String} props.background
+ * @param {String} props.foreground
  */
-function TickerText({ item, slug }) {
+function TickerText({ item, slug, background, foreground }) {
   return (
     <H2Center
       className="display"
       data-name={slug}
-      onMouseEnter={() =>
-        changeBodyClass('enter', slug, item.foreground, item.background)
-      }
-      onMouseLeave={() =>
-        changeBodyClass('exit', slug, item.foreground, item.background)
-      }
+      // onMouseEnter={() =>
+      //   changeBodyClass("enter", slug, foreground, background, null)
+      // }
+      // onMouseLeave={() =>
+      //   changeBodyClass("exit", slug, foreground, background, null)
+      // }
     >
       <span className="text">{item.title}</span>
-      <span className="slash">{' / '}</span>
+      <span className="slash">{" / "}</span>
     </H2Center>
   );
 }
@@ -46,46 +49,54 @@ function TickerText({ item, slug }) {
  *
  * @param {Object} props
  * @param {Object} props.data mdxRemark data
+ * @param {String} props.background
+ * @param {String} props.foreground
  */
-export default function SectionHomeHero({ data, ...rest }) {
-  const [tickerSpeed, setTickerSpeed] = useState(15);
-  const figmaId = '253A9';
-
+export default function SectionHomeHero({
+  data,
+  background,
+  foreground,
+  ...rest
+}) {
   const variants = {
     visible: { opacity: 1 },
-    hidden: { opacity: 0 }
+    hidden: { opacity: 0 },
   };
 
   return (
     <HomeSection
-      onMouseEnter={() => changeFigmaDataState('enter', figmaId)}
-      onMouseLeave={() => changeFigmaDataState('exit', figmaId)}
       initial="hidden"
       animate="visible"
       variants={variants}
       transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 1 }}
+      background={background}
+      foreground={foreground}
       {...rest}
     >
       <Wrapper>
         <H2Left className="display">
           John Choura is <span className="indefinite-article-a">a</span>
-          <span className="indefinite-article-an">an</span>{' '}
+          <span className="indefinite-article-an">an</span>{" "}
         </H2Left>
-        <TickWrapper
-          onMouseEnter={() => setTickerSpeed(5)}
-          onMouseLeave={() => setTickerSpeed(15)}
-          tickerSpeed={tickerSpeed}
-        >
+        <TickWrapper tickerSpeed={3}>
           {() =>
             data.section_hero.map((item, i) => {
               const slug = stringToSlug(item.title);
-              return <TickerText key={i} slug={slug} item={item} />;
+              return (
+                <TickerText
+                  key={i}
+                  slug={slug}
+                  item={item}
+                  background={background}
+                  foreground={foreground}
+                />
+              );
             })
           }
         </TickWrapper>
         <H2Right className="display">in Long Beach, CA.</H2Right>
       </Wrapper>
-      <Attr>
+      {/* <Attr>
         <Caption>
           Background created in{' '}
           <a
@@ -96,7 +107,7 @@ export default function SectionHomeHero({ data, ...rest }) {
             Figma
           </a>
         </Caption>
-      </Attr>
+      </Attr> */}
     </HomeSection>
   );
 }
@@ -126,14 +137,6 @@ const TickWrapper = styled(Tick)`
     opacity ${(props) => props.theme.animation.duration[200].css};
   will-change: transform;
   min-height: 2rem;
-
-  &:hover {
-    transform: scale3d(0.95, 0.95, 0.95);
-
-    h2 span {
-      opacity: 0.2;
-    }
-  }
 `;
 
 const H2Center = styled.h2`
@@ -143,7 +146,7 @@ const H2Center = styled.h2`
   height: 1em;
 
   &:hover {
-    font-feature-settings: 'ss02' on, 'ss05' on, 'salt' on, 'ss01' on !important;
+    font-feature-settings: "ss02" on, "ss05" on, "salt" on, "ss01" on !important;
 
     span.text {
       opacity: 1 !important;
@@ -158,7 +161,7 @@ const H2Center = styled.h2`
   }
 `;
 
-const HomeSection = styled(motion.section)`
+const HomeSection = styled(ScrollSection)`
   min-height: calc(30rem);
   height: calc(100vw);
   display: flex;

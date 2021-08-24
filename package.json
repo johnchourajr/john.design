@@ -44,6 +44,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-intersection-observer": "^8.32.0",
     "react-page-visibility": "^6.3.0",
     "react-text-fun": "^1.0.0",
     "react-three-fiber": "^5.3.19",

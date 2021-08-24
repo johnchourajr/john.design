@@ -1,26 +1,34 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 /**
  * Local Components
  */
-import MotionScroll from './motion-scroll';
+import MotionScroll from "./motion-scroll";
 
 /**
  * Local Styles/JS
  */
-import { Wrapper } from './style/global-styles';
-import { changeBodyClass, stringToSlug } from '../functions/util';
+import { Wrapper } from "./style/global-styles";
+import { changeBodyClass, stringToSlug } from "../functions/util";
+import ScrollSection from "./scroll-section";
 
 /**
  * SectionJobs component
  *
  * @param {Object} props
  * @param {Object} props.jobs
+ * @param {String} props.background
+ * @param {String} props.foreground
  */
-export default function SectionJobs({ jobs }) {
+export default function SectionJobs({ jobs, background, foreground }) {
   return (
-    <JobSection id="jobs" className="section">
+    <JobSection
+      id="jobs"
+      className="section"
+      foreground={foreground}
+      background={background}
+    >
       <Wrapper className="pV">
         <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={30}>
           <h4>Past and Present</h4>
@@ -29,7 +37,7 @@ export default function SectionJobs({ jobs }) {
         <JobList>
           {jobs.map((item, i) => {
             const slug = stringToSlug(item.title);
-            const active = !item.date.includes('Present')
+            const active = !item.date.includes("Present")
               ? `inactive`
               : `active`;
             return (
@@ -38,7 +46,7 @@ export default function SectionJobs({ jobs }) {
                 className={`${active}`}
                 onMouseEnter={() =>
                   changeBodyClass(
-                    'enter',
+                    "enter",
                     slug,
                     item.foreground,
                     item.background,
@@ -46,13 +54,7 @@ export default function SectionJobs({ jobs }) {
                   )
                 }
                 onMouseLeave={() =>
-                  changeBodyClass(
-                    'exit',
-                    slug,
-                    item.foreground,
-                    item.background,
-                    item.image
-                  )
+                  changeBodyClass("enter", slug, foreground, background, null)
                 }
                 fadeIn={true}
                 triggerPoint={0.85}
@@ -75,7 +77,7 @@ export default function SectionJobs({ jobs }) {
   );
 }
 
-const JobSection = styled.section`
+const JobSection = styled(ScrollSection)`
   background-color: ${(props) => props.theme.colors.white};
 `;
 
@@ -111,7 +113,7 @@ const JobItem = styled(MotionScroll)`
     h3,
     h4 {
       opacity: 1 !important;
-      font-feature-settings: 'ss02' on, 'ss05' on, 'salt' on, 'ss01' on !important;
+      font-feature-settings: "ss02" on, "ss05" on, "salt" on, "ss01" on !important;
     }
   }
 

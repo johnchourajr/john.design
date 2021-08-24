@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { animation } from '../../data/baseTheme';
+import { createGlobalStyle } from "styled-components";
+import { animation } from "../../data/baseTheme";
 
 /**
  * AnimationStyles Component
@@ -45,6 +45,10 @@ export const AnimationStyles = createGlobalStyle`
 				color ${animation.duration[200].css} ${animation.timingFunction.css},
 				text-decoration-color ${animation.duration[200].css} ${animation.timingFunction.css};
     }
+
+		.text-outline {
+			-webkit-text-stroke-color: var(--hover-foreground) !important;
+		}
 
     svg {
 			fill: var(--hover-foreground);

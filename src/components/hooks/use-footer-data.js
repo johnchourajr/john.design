@@ -8,7 +8,7 @@ export const useFooterData = () => {
       query footerData {
         allMdx(
           filter: {
-            frontmatter: { title: { eq: "Home" }, type: { eq: "topLevelPage" } }
+            frontmatter: { title: { eq: "Home" } }
           }
         ) {
           edges {

@@ -16,7 +16,7 @@ export const useSiteMetadata = () => {
         }
         allMdx(
           filter: {
-            frontmatter: { title: { eq: "Home" }, type: { eq: "topLevelPage" } }
+            frontmatter: { title: { eq: "Home" } }
           }
         ) {
           edges {

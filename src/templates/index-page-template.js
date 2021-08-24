@@ -1,15 +1,16 @@
-import React from 'react';
-import { graphql } from 'gatsby';
+import React, { useEffect } from "react";
+import { graphql } from "gatsby";
 
 /**
  * Local Components
  */
-import { Wrapper } from '../components/style/global-styles';
-import SectionHomeHero from '../components/section-home-hero';
-import SectionHomeJournal from '../components/section-home-journal';
-import SectionJobs from '../components/section-home-jobs';
-import SectionBrands from '../components/section-home-brands';
-import HoverBuddy from '../components/hover-buddy';
+import { Wrapper } from "../components/style/global-styles";
+import SectionHomeHero from "../components/section-home-hero";
+import SectionHomeJournal from "../components/section-home-journal";
+import SectionJobs from "../components/section-home-jobs";
+import SectionBrands from "../components/section-home-brands";
+import HoverBuddy from "../components/hover-buddy";
+import { scrollChangeBodyClass } from "../functions/util";
 
 /**
  * index-page-template
@@ -21,9 +22,13 @@ import HoverBuddy from '../components/hover-buddy';
  */
 export default function Template({
   data: {
-    allMdx: { edges }
-  }
+    allMdx: { edges },
+  },
 }) {
+  useEffect(() => {
+    scrollChangeBodyClass("white", "black");
+  }, []);
+
   /**
    * Destructure date
    */
@@ -31,16 +36,29 @@ export default function Template({
 
   return (
     <>
-      <SectionHomeHero data={frontmatter} triggerPoint={0} />
-      <SectionJobs jobs={frontmatter.section_resume} />
-      <SectionBrands brands={frontmatter.section_brands} />
-      <Wrapper>
+      <SectionHomeHero
+        data={frontmatter}
+        triggerPoint={0}
+        background={"black"}
+        foreground={"white"}
+      />
+      <SectionJobs
+        jobs={frontmatter.section_resume}
+        background={"black"}
+        foreground={"white"}
+      />
+      <SectionBrands
+        brands={frontmatter.section_brands}
+        background={"black"}
+        foreground={"white"}
+      />
+      {/* <Wrapper>
         <section>
           {frontmatter.section_art.headline}
           {frontmatter.section_art.img}
         </section>
-      </Wrapper>
-      <SectionHomeJournal />
+      </Wrapper> */}
+      <SectionHomeJournal background={null} foreground={null} />
       <HoverBuddy />
     </>
   );
@@ -51,11 +69,7 @@ export default function Template({
  */
 export const indexQuery = graphql`
   query indexQuery {
-    allMdx(
-      filter: {
-        frontmatter: { title: { eq: "Home" }, type: { eq: "topLevelPage" } }
-      }
-    ) {
+    allMdx(filter: { frontmatter: { title: { eq: "Home" } } }) {
       edges {
         node {
           id
