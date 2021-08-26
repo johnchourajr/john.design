@@ -20,7 +20,6 @@ export function ScrollSection({
 
   useEffect(() => {
     if (inView) {
-      // console.log(id, "visible");
       scrollChangeBodyClass(foreground, background);
     }
   }, [entry, inView]);

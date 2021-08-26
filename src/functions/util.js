@@ -29,12 +29,47 @@ export function clampBuilder(minFontSize, maxFontSize) {
  */
 export function scrollChangeBodyClass(foreground, background) {
   if (typeof document !== `undefined`) {
-    document.body.classList.add(`theme--hover`);
+    document.body.classList.add(`theme--change`);
     document.body.setAttribute("data-hover", "true");
     document.body.setAttribute(
       "style",
       `--hover-background: ${background}; --hover-foreground: ${foreground};`
     );
+  }
+}
+
+/**
+ * changeBodyClass function
+ *
+ * @param {String} className
+ * @param {String} state
+ * @param {String} slug !deprecated
+ * @param {String} foreground
+ * @param {String} background
+ * @param {String} image
+ * @todo need to remove slug
+ */
+export function changeBodyClassName(
+  className,
+  state,
+  slug,
+  foreground,
+  background,
+  image
+) {
+  if (typeof document !== `undefined`) {
+    if (state === "enter") {
+      document.body.classList.add(className, `theme--${slug}`);
+      document.body.setAttribute("data-hover", "true");
+      document.body.setAttribute(
+        "style",
+        `--hover-background: ${background}; --hover-foreground: ${foreground}; --hover-image: url('${image}') `
+      );
+    } else {
+      document.body.classList.remove(className, `theme--${slug}`);
+      document.body.setAttribute("data-hover", "false");
+      document.body.setAttribute("style", "");
+    }
   }
 }
 
@@ -51,14 +86,14 @@ export function scrollChangeBodyClass(foreground, background) {
 export function changeBodyClass(state, slug, foreground, background, image) {
   if (typeof document !== `undefined`) {
     if (state === "enter") {
-      document.body.classList.add(`theme--hover`, `theme--${slug}`);
+      document.body.classList.add(`theme--change`, `theme--${slug}`);
       document.body.setAttribute("data-hover", "true");
       document.body.setAttribute(
         "style",
         `--hover-background: ${background}; --hover-foreground: ${foreground}; --hover-image: url('${image}') `
       );
     } else {
-      document.body.classList.remove(`theme--hover`, `theme--${slug}`);
+      document.body.classList.remove(`theme--change`, `theme--${slug}`);
       document.body.setAttribute("data-hover", "false");
       document.body.setAttribute("style", "");
     }

@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { Link } from 'gatsby';
-import styled from 'styled-components';
-import { motion, useViewportScroll } from 'framer-motion';
+import React, { useEffect } from "react";
+import { Link } from "gatsby";
+import styled from "styled-components";
+import { motion, useViewportScroll } from "framer-motion";
 
 /**
  * Svg
  */
-import Logo from '../svg/logo';
+import Logo from "../svg/logo";
 
 /**
  * Data hooks
  */
-import useNavData from '../hooks/use-nav-data';
+import useNavData from "../hooks/use-nav-data";
 
 /**
  * NavLinkItem component
@@ -25,7 +25,7 @@ function NavLinkItem({ data }) {
       {data.map(({ node: { frontmatter } }, i) => {
         return (
           <NavLink key={i} to={frontmatter.slug} className="h5">
-            {frontmatter.slug === '/' ? '/' : `/${frontmatter.title}`}
+            {`/${frontmatter.title}`}
           </NavLink>
         );
       })}
@@ -45,7 +45,7 @@ function SkipWrapper(props) {
         Skip to content
       </SkipToContent>
 
-      {props?.pageContext?.template === 'journal-post-template' && (
+      {props?.pageContext?.template === "journal-post-template" && (
         <SkipToContent className="skip-to-content-link" to="#post">
           Skip to post
         </SkipToContent>
@@ -79,7 +79,7 @@ export default function Nav(props) {
   const variants = {
     visible: { opacity: 1, y: 0 },
     initial: { opacity: 0, y: -75 },
-    hidden: { opacity: 0, y: -25 }
+    hidden: { opacity: 0, y: -25 },
   };
 
   return (
@@ -95,7 +95,7 @@ export default function Nav(props) {
           <Logo />
         </NavLink>
         <NavLinksWrapper
-          animate={hidden ? 'hidden' : 'visible'}
+          animate={hidden ? "hidden" : "visible"}
           variants={variants}
           onHoverStart={() => setHidden(false)}
           transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}

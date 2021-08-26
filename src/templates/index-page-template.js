@@ -4,7 +4,6 @@ import { graphql } from "gatsby";
 /**
  * Local Components
  */
-import { Wrapper } from "../components/style/global-styles";
 import SectionHomeHero from "../components/section-home-hero";
 import SectionHomeJournal from "../components/section-home-journal";
 import SectionJobs from "../components/section-home-jobs";
@@ -29,16 +28,12 @@ export default function Template({
     scrollChangeBodyClass("white", "black");
   }, []);
 
-  /**
-   * Destructure date
-   */
   const { frontmatter } = edges[0].node;
 
   return (
     <>
       <SectionHomeHero
         data={frontmatter}
-        triggerPoint={0}
         background={"black"}
         foreground={"white"}
       />
@@ -52,12 +47,6 @@ export default function Template({
         background={"black"}
         foreground={"white"}
       />
-      {/* <Wrapper>
-        <section>
-          {frontmatter.section_art.headline}
-          {frontmatter.section_art.img}
-        </section>
-      </Wrapper> */}
       <SectionHomeJournal background={null} foreground={null} />
       <HoverBuddy />
     </>
@@ -75,10 +64,6 @@ export const indexQuery = graphql`
           id
           frontmatter {
             title
-            section_art {
-              headline
-              img
-            }
             section_brands {
               name
               url

@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import styled from 'styled-components';
+import React, { useRef, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import styled from "styled-components";
 
 /**
  * HoverGradient Function
@@ -45,9 +45,9 @@ export default function HoverGradient({ refContainer }) {
       cursorRotateZ.set(mouseX * 0.1);
     };
     if (thisRefContainer) {
-      thisRefContainer.addEventListener('mousemove', moveCursor);
+      thisRefContainer.addEventListener("mousemove", moveCursor);
       return () => {
-        thisRefContainer.removeEventListener('mousemove', moveCursor);
+        thisRefContainer.removeEventListener("mousemove", moveCursor);
       };
     }
   }, [cursorX, cursorY, cursorRotateZ, refContainer]);
@@ -62,11 +62,10 @@ export default function HoverGradient({ refContainer }) {
       <Gradient
         id="gradient"
         ref={ref}
-        className="hover-image"
         style={{
           translateX: cursorXSpring,
           translateY: cursorYSpring,
-          rotateZ: cursorZSpring
+          rotateZ: cursorZSpring,
         }}
       />
     </HoverWrapper>

@@ -1,23 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
 /**
  * Local Components
  */
 import Tick from "../components/tick";
-import { Caption } from "./type";
 
 /**
  * Local Styles/JS
  */
-import {
-  stringToSlug,
-  changeBodyClass,
-  scrollChangeBodyClass,
-} from "../functions/util";
+import { stringToSlug } from "../functions/util";
 import { Wrapper } from "../components/style/global-styles";
 import ScrollSection from "./scroll-section";
+import VideoCover from "./inline-video";
 
 /**
  *
@@ -29,16 +24,7 @@ import ScrollSection from "./scroll-section";
  */
 function TickerText({ item, slug, background, foreground }) {
   return (
-    <H2Center
-      className="display"
-      data-name={slug}
-      // onMouseEnter={() =>
-      //   changeBodyClass("enter", slug, foreground, background, null)
-      // }
-      // onMouseLeave={() =>
-      //   changeBodyClass("exit", slug, foreground, background, null)
-      // }
-    >
+    <H2Center className="display" data-name={slug}>
       <span className="text">{item.title}</span>
       <span className="slash">{" / "}</span>
     </H2Center>
@@ -96,31 +82,37 @@ export default function SectionHomeHero({
         </TickWrapper>
         <H2Right className="display">in Long Beach, CA.</H2Right>
       </Wrapper>
-      {/* <Attr>
-        <Caption>
-          Background created in{' '}
-          <a
-            href="https://www.figma.com/file/rY8kva5mMuZ76jr1In7a3g/?node-id=0%3A1"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Figma
-          </a>
-        </Caption>
-      </Attr> */}
+      <VideoBackground
+        className="video-bkg"
+        source={[
+          {
+            src:
+              "https://john-prismic-gatsby-starter.cdn.prismic.io/john-prismic-gatsby-starter/3d1ff6bf-b12d-4d75-87e5-675f74a0ea12_John_Headshot_Loop%281%29%282%29.mp4",
+            type: "video/mp4",
+          },
+        ]}
+        videoOptions={{
+          autoPlay: true,
+          playsInline: true,
+          preload: "auto",
+          muted: true,
+          loop: true,
+        }}
+        remeasureOnWindowResize
+      />
     </HomeSection>
   );
 }
 
-const Attr = styled.div`
+const VideoBackground = styled(VideoCover)`
+  pointer-events: none;
   position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-
-  p {
-    margin: 0;
-    opacity: 0.3;
-  }
+  top: 0;
+  left: 0;
+  width: 100vh;
+  height: 100%;
+  z-index: -1;
+  transform: scale(1.2) translateY(0%);
 `;
 
 const H2Left = styled.h2`
@@ -168,6 +160,8 @@ const HomeSection = styled(ScrollSection)`
   align-items: center;
   position: relative;
   padding-top: 4rem;
+  overflow: hidden;
+  color: white;
 
   @media ${(props) => props.theme.device.tablet} {
     min-height: calc(60rem);

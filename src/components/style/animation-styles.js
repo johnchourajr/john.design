@@ -31,7 +31,7 @@ export const AnimationStyles = createGlobalStyle`
 		}
 	}
 
-  body.theme--hover {
+  body.theme--change {
     background-color: var(--hover-background);
     color: var(--hover-foreground);
 		transition:

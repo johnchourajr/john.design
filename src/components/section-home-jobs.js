@@ -12,6 +12,7 @@ import MotionScroll from "./motion-scroll";
 import { Wrapper } from "./style/global-styles";
 import { changeBodyClass, stringToSlug } from "../functions/util";
 import ScrollSection from "./scroll-section";
+import Head from "./globals/head";
 
 /**
  * SectionJobs component
@@ -79,6 +80,66 @@ export default function SectionJobs({ jobs, background, foreground }) {
 
 const JobSection = styled(ScrollSection)`
   background-color: ${(props) => props.theme.colors.white};
+
+  --animation-duration: ${({ theme }) => theme.animation.duration[200].css};
+  --animation-timing: ${({ theme }) => theme.animation.timingFunction.css};
+
+  :global(body) {
+    body.job--hover {
+      background-color: var(--hover-background);
+      color: var(--hover-foreground);
+      transition: background-color var(--animation-duration)
+          var(--animation-timing),
+        color var(--animation-duration) var(--animation-timing);
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      a,
+      .nav > a {
+        color: var(--hover-foreground) !important;
+        text-decoration-color: var(--hover-foreground) !important;
+        transition: color var(--animation-duration) var(--animation-timing),
+          text-decoration-color var(--animation-duration)
+            var(--animation-timing);
+      }
+
+      .text-outline {
+        -webkit-text-stroke-color: var(--hover-foreground) !important;
+      }
+
+      .video-bkg {
+        opacity: 0;
+        transition: opacity var(--animation-duration) var(--animation-timing);
+      }
+
+      svg {
+        fill: var(--hover-foreground);
+        transition: fill var(--animation-duration) var(--animation-timing);
+      }
+
+      section,
+      .section {
+        background-color: transparent;
+        transition: background-color var(--animation-duration)
+          var(--animation-timing);
+      }
+
+      .hover-image {
+        background-image: var(--hover-image);
+      }
+
+      .shim {
+        background-color: var(--hover-background);
+        transition: background-color var(--animation-duration)
+          var(--animation-timing);
+      }
+    }
+  }
 `;
 
 const JobList = styled.div`

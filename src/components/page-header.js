@@ -56,7 +56,7 @@ export default function PageHeader({ title, size }) {
   );
 }
 
-const PageHeaderWrapper = styled(motion.div)`
+const PageHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   overflow: visible;
