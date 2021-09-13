@@ -161,6 +161,7 @@ const HomeSection = styled(ScrollSection)`
   position: relative;
   padding-top: 4rem;
   overflow: hidden;
+  background: black;
   color: white;
 
   @media ${(props) => props.theme.device.tablet} {

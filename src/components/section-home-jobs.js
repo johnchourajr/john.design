@@ -79,14 +79,11 @@ export default function SectionJobs({ jobs, background, foreground }) {
 }
 
 const JobSection = styled(ScrollSection)`
-  background-color: ${(props) => props.theme.colors.white};
-
   --animation-duration: ${({ theme }) => theme.animation.duration[200].css};
   --animation-timing: ${({ theme }) => theme.animation.timingFunction.css};
 
   :global(body) {
     body.job--hover {
-      background-color: var(--hover-background);
       color: var(--hover-foreground);
       transition: background-color var(--animation-duration)
           var(--animation-timing),

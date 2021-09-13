@@ -25,7 +25,7 @@ function NavLinkItem({ data }) {
       {data.map(({ node: { frontmatter } }, i) => {
         return (
           <NavLink key={i} to={frontmatter.slug} className="h5">
-            {`/${frontmatter.title}`}
+            {frontmatter.title}
           </NavLink>
         );
       })}
