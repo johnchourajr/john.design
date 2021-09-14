@@ -1,23 +1,27 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
-    title: 'John.Design',
-    description: 'The digital home of John Choura',
-    siteUrl: 'https://john.design'
+    title: "John.Design",
+    description: "The digital home of John Choura",
+    siteUrl: "https://john.design",
   },
   plugins: [
     `gatsby-remark-images`,
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: "gatsby-plugin-google-analytics",
       options: {
-        trackingId: 'UA-22938148-6'
-      }
+        trackingId: "UA-22938148-6",
+      },
     },
-    'gatsby-plugin-sharp',
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sitemap',
-    'gatsby-plugin-offline',
+    "gatsby-plugin-sharp",
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sitemap",
+    "gatsby-plugin-offline",
     {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: "gatsby-plugin-manifest",
       options: {
         name: `John Choura Design`,
         short_name: `John.Design`,
@@ -25,8 +29,8 @@ module.exports = {
         background_color: `#E0E0E0`,
         theme_color: `#EB5757`,
         display: `standalone`,
-        icon: 'src/images/icon.png'
-      }
+        icon: "src/images/icon.png",
+      },
     },
     {
       resolve: `gatsby-plugin-mdx`,
@@ -35,51 +39,51 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 1200
-            }
+              maxWidth: 1200,
+            },
           },
           {
             resolve: `gatsby-remark-highlight-code`,
             options: {
-              terminal: 'carbon',
-              theme: 'one-light'
-            }
-          }
+              terminal: "carbon",
+              theme: "one-light",
+            },
+          },
         ],
-        extensions: [`.md`, `.mdx`]
-      }
-    },
-    'gatsby-transformer-sharp',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: `${__dirname}/src/images/`
+        extensions: [`.md`, `.mdx`],
       },
-      __key: 'images'
+    },
+    "gatsby-transformer-sharp",
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "images",
+        path: `${__dirname}/src/images/`,
+      },
+      __key: "images",
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'pages',
-        path: `${__dirname}/src/mdx/`
+        name: "pages",
+        path: `${__dirname}/src/mdx/`,
       },
-      __key: 'pages'
+      __key: "pages",
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `journal-posts`,
-        path: `${__dirname}/src/mdx/journal/posts`
-      }
+        path: `${__dirname}/src/mdx/journal/posts`,
+      },
     },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
-        displayName: false
-      }
+        displayName: false,
+      },
     },
-    'gatsby-plugin-layouts',
-    `gatsby-plugin-netlify`
-  ]
+    "gatsby-plugin-layouts",
+    `gatsby-plugin-netlify`,
+  ],
 };
