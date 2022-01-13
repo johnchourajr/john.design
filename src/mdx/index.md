@@ -35,6 +35,13 @@ section_hero:
   - title: "   "
     figma_id: ""
 section_resume:
+  - role: "Senior Principal Designer"
+    title: "PayPal"
+    url: "https://paypal.com/"
+    date: "2022-Present"
+    foreground: "#111111"
+    background: "#FED04F"
+    image: "/hover-buddy/pp.png"
   - role: "Principal UX Designer"
     title: "GoDaddy"
     url: "https://godaddy.com/"
