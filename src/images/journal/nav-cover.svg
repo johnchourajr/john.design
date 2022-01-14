@@ -1,0 +1,18 @@
+<svg width="1831" height="791" viewBox="0 0 1831 791" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1831" height="791" fill="white"/>
+<rect width="1831" height="791" fill="url(#paint0_angular_1628_22506)"/>
+<foreignObject width="1831" height="791" x="0" y="0" >
+<div style="width:100%;height:100%;background:conic-gradient(from 90deg at 50.03% 100%,#ff5959 -11.81deg,#ff5959 8.13deg,rgba(252,255,119,.817708) 88.12deg,rgba(97,170,255,.721875) 155.62deg,rgba(35,128,180,.865625) 230.62deg,rgba(82,93,255,.915625) 292.5deg,#ff5959 348.19deg,#ff5959 368.13deg),#fff" xmlns="http://www.w3.org/1999/xhtml"></div>
+</foreignObject>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M203 395C203 337.01 250.01 290 308 290C365.99 290 413 337.01 413 395C413 452.99 365.99 500 308 500C250.01 500 203 452.99 203 395Z" fill="white"/>
+<foreignObject width="210" height="210" x="203" y="290" >
+<div style="border-radius:210px;width:100%;height:100%;background:conic-gradient(from 117.77deg at 0 51.19%,#ff5959 -11.81deg,#ff5959 8.13deg,rgba(252,255,119,.817708) 54.38deg,rgba(153,255,151,.625) 108.75deg,rgba(97,170,255,.721875) 151.87deg,rgba(35,128,180,.865625) 206.25deg,rgba(82,93,255,.915625) 247.5deg,#cf42ca 305.62deg,#ff5959 348.19deg,#ff5959 368.13deg),#fff" xmlns="http://www.w3.org/1999/xhtml"></div>
+</foreignObject>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M707 395C707 337.01 754.01 290 812 290H1523C1580.99 290 1628 337.01 1628 395C1628 452.99 1580.99 500 1523 500H812C754.01 500 707 452.99 707 395Z" fill="white"/>
+<foreignObject width="921" height="210" x="707" y="290" >
+<div style="border-radius:210px;width:100%;height:100%;background:conic-gradient(from 217.31deg at 100% 53.31%,#ff5959 -11.81deg,#ff5959 8.13deg,rgba(252,255,119,.817708) 54.38deg,rgba(153,255,151,.625) 108.75deg,rgba(97,170,255,.721875) 151.87deg,rgba(35,128,180,.865625) 206.25deg,rgba(82,93,255,.915625) 247.5deg,#cf42ca 305.62deg,#ff5959 348.19deg,#ff5959 368.13deg),#fff" xmlns="http://www.w3.org/1999/xhtml"></div>
+</foreignObject>
+<g style="mix-blend-mode:luminosity" opacity="0.8">
+<rect width="1831" height="791" fill="#00A3FF"/>
+</g>
+</svg>
