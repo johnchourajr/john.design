@@ -1,10 +1,10 @@
 ---
-template: 'journal-post-template'
-slug: '/journal/nav-show-hide'
-date: '2021-02-18'
+template: "journal-post-template"
+slug: "/journal/nav-show-hide"
+date: "2021-02-18"
 title: Make a Nav Show and Hide On Scroll
-cover: ../../../images/journal/nav-cover.png
-thumb: ../../../images/journal/nav-cover.png
+cover: ../../../images/journal/nav-cover.svg
+thumb: ../../../images/journal/nav-cover.svg
 ---
 
 Making a nav show and hide on scroll looks good. In the past, I've created a vanilla js version inspired by what Marius Craciunoiu wrote about in [this article](https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c) circa 2013.
@@ -31,29 +31,29 @@ Okay, now you'll create the `Nav` component, for mine I put it in the root direc
 // nav.js
 // Create this file and use the code below
 
-import React from 'react';
+import React from "react";
 
 /** this is to FPO generate 5 links for the nav **/
 const linkList = [{}, {}, {}, {}, {}];
 
 /** nav parent styles **/
 const navStyles = {
-  display: 'flex',
-  position: 'fixed',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  height: '6rem',
-  padding: '0 2rem',
-  width: 'calc(100vw - 4rem)',
-  left: '0'
+  display: "flex",
+  position: "fixed",
+  alignItems: "center",
+  justifyContent: "space-between",
+  height: "6rem",
+  padding: "0 2rem",
+  width: "calc(100vw - 4rem)",
+  left: "0",
 };
 
 /** links parent styles **/
 const navLinksWrapper = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '50%'
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "50%",
 };
 
 export default function Nav() {
@@ -75,11 +75,11 @@ Once you create that `nav.js` file, let's import it into `App.js` and include it
 ```jsx
 // App.js
 
-import Nav from './nav'; /** import Nav **/
+import Nav from "./nav"; /** import Nav **/
 
 /** add this **/
 const wrapperStyle = {
-  height: '200vh'
+  height: "200vh",
 };
 
 export default function App() {
