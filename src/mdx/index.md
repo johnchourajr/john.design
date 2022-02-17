@@ -35,8 +35,8 @@ section_hero:
   - title: "   "
     figma_id: ""
 section_resume:
-  - role: "Senior Principal Designer"
-    title: "PayPal"
+  - role: "Design Lead"
+    title: "PayPal.com"
     url: "https://paypal.com/"
     date: "2022-Present"
     foreground: "#111111"
