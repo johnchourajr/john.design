@@ -3,64 +3,26 @@ import Link from "next/link";
 import styled from "styled-components";
 import { motion, useViewportScroll } from "framer-motion";
 
-import { getAllPages, getPageBySlug } from "../../../lib/pages";
+import pageContent from "../../../_data/index.json";
+
 /**
  * Svg
  */
 import Logo from "../svg/logo";
 import { getAllPosts } from "../../../lib/posts";
 
-export async function getStaticProps({ params }) {
-  const pages = getAllPosts();
-
-  return { pages };
-}
-
-/**
- * Data hooks
- */
-// import useNavData from "../hooks/use-nav-data";
-
 /**
  * NavLinkItem component
- *
- * @param {Object} props
- * @param {Object} props.data
  */
-function NavLinkItem({ data }) {
-  return (
-    <>
-      {data.map(({ node: { frontmatter } }, i) => {
-        return (
-          <NavLink key={i} href={frontmatter.slug} className="h5">
-            <a>{frontmatter.slug === "/" ? "/" : `/${frontmatter.title}`}</a>
-          </NavLink>
-        );
-      })}
-    </>
-  );
-}
-
-/**
- * SkipWrapper component
- *
- * @param {Object} props
- */
-function SkipWrapper(props) {
-  return (
-    <>
-      <SkipToContent className="skip-to-content-link" href="#main">
-        <a>Skip to content</a>
-      </SkipToContent>
-
-      {props?.pageContext?.template === "journal-post-template" && (
-        <SkipToContent className="skip-to-content-link" href="#post">
-          <a>Skip to post</a>
-        </SkipToContent>
-      )}
-    </>
-  );
-}
+const NavLinkItem = () =>
+  pageContent.pages.map(({ title, path, top_level_nav }, i) => {
+    if (top_level_nav)
+      return (
+        <Link key={i} href={path}>
+          <NavLink className="h5">{`/${title}`}</NavLink>
+        </Link>
+      );
+  });
 
 /**
  * Nav component
@@ -71,8 +33,6 @@ export default function Nav({ pages, ...props }) {
   // const { edges } = useNavData();
   const { scrollY } = useViewportScroll();
   const [hidden, setHidden] = React.useState(false);
-
-  console.log({ pages: pages });
 
   function update() {
     if (scrollY?.current < scrollY?.prev) {
@@ -94,25 +54,27 @@ export default function Nav({ pages, ...props }) {
 
   return (
     <>
-      <SkipWrapper {...props} />
       <NavWrapper
         initial="initial"
         animate="visible"
         variants={variants}
         transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
       >
-        <NavLink href="/">
-          <a>
+        <Link href="/">
+          <NavLink>
             <Logo />
-          </a>
-        </NavLink>
+          </NavLink>
+        </Link>
         <NavLinksWrapper
           animate={hidden ? "hidden" : "visible"}
           variants={variants}
           onHoverStart={() => setHidden(false)}
           transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
         >
-          {/* <NavLinkItem data={edges} /> */}
+          <Link href="/">
+            <NavLink className="h5">{`/Home`}</NavLink>
+          </Link>
+          <NavLinkItem />
         </NavLinksWrapper>
       </NavWrapper>
     </>
@@ -156,22 +118,7 @@ const NavLinksWrapper = styled(motion.div)`
   }
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.a`
   pointer-events: visible;
-`;
-
-const SkipToContent = styled(Link)`
-  color: ${(props) => props.theme.colors.white} !important;
-  background: ${(props) => props.theme.colors.black};
-  left: 0;
-  padding: 1.5rem;
-  position: absolute;
-  transform: translateY(-100%);
-  transition: transform ${(props) => props.theme.animation.duration[200].css}
-    ${(props) => props.theme.animation.timingFunction.css};
-  z-index: 9999;
-
-  &:focus-visible {
-    transform: translateY(0%);
-  }
+  cursor: pointer;
 `;

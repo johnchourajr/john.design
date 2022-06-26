@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import Image from "next/image";
 
 /**
  * JournalHomeFeature Component
@@ -12,57 +13,34 @@ import styled from "styled-components";
  * @param {String} props.date
  * @param {String} props.timeToRead
  */
-export default function JournalHomeFeature({
-  slug,
-  cover,
-  title,
-  date,
-  timeToRead,
-}) {
-  const isChildImageSharp = cover.childImageSharp;
-  const image = isChildImageSharp
-    ? cover.childImageSharp?.fluid
-    : cover.publicURL;
-
+export default function JournalHomeFeature({ slug, cover, title, date }) {
   return (
-    <Card href={slug}>
-      <a>
+    <Link href={slug}>
+      <Card>
         {cover && (
-          <Image>
-            {isChildImageSharp ? (
-              <img
-                sizes={image.sizes}
-                srcSet={image.srcSet}
-                alt={`${title} Cover Art`}
-              />
-            ) : (
-              <img src={image} alt={`${title} Cover Art`} />
-            )}
-          </Image>
+          <ImageWrap>
+            <Image src={cover} layout="fill" alt={`${title} Cover Art`} />
+          </ImageWrap>
         )}
         <CardLower>
           <CardLowerTitle>
-            <Link href={slug}>
-              <h1>{title}</h1>
-            </Link>
+            <h1>{title}</h1>
           </CardLowerTitle>
           <CardLowerDetails>
             <h1 className="arrow">→</h1>
             <span>
               <h4>{date}</h4>
-              <h4>{timeToRead} Minute Read</h4>
             </span>
           </CardLowerDetails>
         </CardLower>
-      </a>
-    </Card>
+      </Card>
+    </Link>
   );
 }
 
-const Image = styled.div`
+const ImageWrap = styled.div`
   width: 100%;
   height: 50vw;
-  background-size: 105%;
   background-position: center center;
   border-radius: 0.1875rem;
   overflow: hidden;
@@ -71,17 +49,23 @@ const Image = styled.div`
     width: 100%;
     height: 35vw;
   }
-
+  span,
   img {
     width: 100%;
-    height: 100%;
+    height: 50vw !important;
     object-fit: cover;
     transform: scale3d(1.01, 1.01, 1.01);
     transition: transform ${(props) => props.theme.animation.duration[300].css};
+    border-radius: 0.1875rem;
+    overflow: hidden;
+
+    @media ${(props) => props.theme.device.laptop} {
+      height: 35vw !important;
+    }
   }
 `;
 
-const Card = styled(Link)`
+const Card = styled.a`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -90,6 +74,13 @@ const Card = styled(Link)`
   transition: transform ${(props) => props.theme.animation.duration[300].css};
   will-change: transform;
   cursor: pointer;
+
+  a,
+  a:hover {
+    h1 {
+      text-decoration: none !important;
+    }
+  }
 
   &:hover {
     transform: scale3d(1.01, 1.01, 1.01);
@@ -125,6 +116,7 @@ const CardLowerTitle = styled.div`
 
   a {
     display: inline-block;
+    text-decoration: none;
   }
 `;
 

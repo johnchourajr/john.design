@@ -3,46 +3,24 @@ import React from "react";
 import JournalPost from "../../components/journal-post";
 import { GoDaddyCover } from "../../components/godaddy-cover";
 
+import pageContent from "../../../_data/index.json";
+import { getAllPosts, getPostBySlug } from "../../../lib/posts";
+
 /**
  * journal-post-template Component
- *
- * @param {Object} props
- * @param {Object} props.pageContext
- * @param {Object} props.data
  */
-export default function JournalPostTemplate({ pageContext, data }) {
-  return (
-    <JournalPost
-      pageContext={pageContext}
-      data={data}
-      customCover={<GoDaddyCover />}
-    />
-  );
+export default function JournalPostTemplate(post) {
+  return <JournalPost {...post} customCover={<GoDaddyCover />} />;
 }
 
-// /**
-//  * postQuery
-//  */
-// export const postQuery = graphql`
-//   query ($id: String!) {
-//     mdx(id: { eq: $id }) {
-//       id
-//       body
-//       frontmatter {
-//         date(formatString: "MMM DD, yyyy")
-//         slug
-//         title
-//         cover {
-//           childImageSharp {
-//             fluid(maxWidth: 2500) {
-//               ...GatsbyImageSharpFluid
-//             }
-//           }
-//           publicURL
-//         }
-//       }
-//       timeToRead
-//       excerpt
-//     }
-//   }
-// `;
+export async function getStaticProps({ params }) {
+  const post = getPostBySlug("/godaddy");
+  const content = post.content;
+
+  return {
+    props: {
+      ...post,
+      content,
+    },
+  };
+}

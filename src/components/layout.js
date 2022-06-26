@@ -29,13 +29,8 @@ export default function Layout({ children }) {
   });
 
   return (
-    <>
-      <Head />
-      <PageWrapper>
-        <Nav />
-        <main id="main">{children}</main>
-      </PageWrapper>
-      <Footer />
-    </>
+    <PageWrapper>
+      <main id="main">{children}</main>
+    </PageWrapper>
   );
 }

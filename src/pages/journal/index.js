@@ -1,5 +1,4 @@
 import * as React from "react";
-// import { graphql } from "gatsby";
 
 /**
  * Local Components
@@ -9,82 +8,33 @@ import { Wrapper } from "../../components/style/global-styles";
 import JournalIndexList from "../../components/journal-index-list";
 
 /**
- *
- * @param {Object} props
- * @param {Object} props.data
- * @param {Object} props.data.allMdx
- * @param {Object} props.data.allMdx.edges
- * @param {Object} props.data.mdx
- * @param {Object} props.data.mdx.frontmatter
+ * Data
  */
-export default function Template(
-  {
-    // data: {
-    //   allMdx: { edges },
-    //   mdx: { frontmatter },
-    // },
-  }
-) {
+import { getAllPosts } from "../../../lib/posts";
+import pageContent from "../../../_data/index.json";
+
+/**
+ * Journal Template
+ */
+export default function Template({ content, posts }) {
+  // console.log(posts);
   return (
     <>
-      {/* <PageHeader title={frontmatter.title} /> */}
+      <PageHeader title={content.title} />
       <Wrapper className="pB">
-        {/* <JournalIndexList items={edges} /> */}
+        <JournalIndexList items={posts} />
       </Wrapper>
     </>
   );
 }
 
-/**
- * pageQuery
- */
-// export const pageQuery = graphql`
-//   query pageQuery($id: String!) {
-//     allMdx(
-//       filter: {
-//         frontmatter: {
-//           template: { in: ["journal-post-template", "journal-post-godaddy"] }
-//         }
-//       }
-//       sort: { fields: frontmatter___date, order: DESC }
-//     ) {
-//       edges {
-//         node {
-//           id
-//           frontmatter {
-//             title
-//             slug
-//             date(formatString: "MMM DD, yyyy")
-//             cover {
-//               childImageSharp {
-//                 fluid(maxWidth: 2500) {
-//                   ...GatsbyImageSharpFluid
-//                 }
-//               }
-//               publicURL
-//             }
-//             thumb {
-//               childImageSharp {
-//                 fluid(maxWidth: 650, toFormat: WEBP) {
-//                   ...GatsbyImageSharpFluid
-//                 }
-//               }
-//               publicURL
-//             }
-//             foreground
-//             background
-//           }
-//           timeToRead
-//           excerpt
-//         }
-//       }
-//     }
-//     mdx(id: { eq: $id }) {
-//       frontmatter {
-//         date(formatString: "MMM DD, YYYY")
-//         slug
-//         title
-//       }
-//     }
-//   }
-// `;
+export async function getStaticProps({ params }) {
+  const posts = getAllPosts();
+
+  const content = pageContent.pages.find(
+    (page) => page.path === "/journal"
+  ) || {
+    notfound: true,
+  };
+  return { props: { content, posts } };
+}

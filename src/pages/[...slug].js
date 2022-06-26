@@ -6,16 +6,35 @@ import pageContent from "../../_data/index.json";
  */
 import { Wrapper } from "../components/style/global-styles";
 import PageHeader from "../components/page-header";
+import ReactMarkdown from "react-markdown";
+import { Headline } from "../components/type";
 
 /**
  * mdx-template Component
  */
-export default function Template() {
+export default function Template({ content }) {
   return (
     <>
-      {/* <PageHeader title={frontmatter.title} size="sm" /> */}
+      {content?.title && <PageHeader title={content.title} size="sm" />}
+
       <Wrapper className="pB content-styles">
-        {/* <MDXRenderer>{body}</MDXRenderer> */}
+        {content?.subhead && (
+          <>
+            <Headline size="h3" display={true}>
+              <ReactMarkdown
+                components={{
+                  p: React.Fragment,
+                }}
+              >
+                {content.subhead}
+              </ReactMarkdown>
+            </Headline>
+            <br />
+            <Headline size="h1">—</Headline>
+            <br />
+          </>
+        )}
+        {content?.body && <ReactMarkdown>{content.body}</ReactMarkdown>}
       </Wrapper>
     </>
   );
@@ -31,25 +50,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const currentPath = `/${params.slug.join("/")}`;
-  const page = pageContent.pages.find((page) => page.path === currentPath) || {
+  const content = pageContent.pages.find(
+    (page) => page.path === currentPath
+  ) || {
     notfound: true,
   };
-  return { props: { page } };
+  return { props: { content } };
 }
-
-/**
- * mdxPageQuery
- */
-// export const mdxPageQuery = graphql`
-//   query ($id: String!) {
-//     mdx(id: { eq: $id }) {
-//       id
-//       body
-//       frontmatter {
-//         date(formatString: "MMM DD, YYYY")
-//         slug
-//         title
-//       }
-//     }
-//   }
-// `;

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 /**
  * Local Components
  */
-import MotionScroll from './motion-scroll';
+import MotionScroll from "./motion-scroll";
 
 /**
  * Local Styles/JS
  */
-import { Wrapper } from './style/global-styles';
-import { changeBodyClass, stringToSlug } from '../functions/util';
+import { Wrapper } from "./style/global-styles";
+import { changeBodyClass, stringToSlug } from "../functions/util";
 
 /**
  * SectionJobs component
@@ -27,18 +27,18 @@ export default function SectionJobs({ jobs }) {
           <br />
         </MotionScroll>
         <JobList>
-          {jobs.map((item, i) => {
+          {jobs.map((item) => {
             const slug = stringToSlug(item.title);
-            const active = !item.date.includes('Present')
+            const active = !item.date.includes("Present")
               ? `inactive`
               : `active`;
             return (
               <JobItem
-                key={i}
+                key={item.role}
                 className={`${active}`}
                 onMouseEnter={() =>
                   changeBodyClass(
-                    'enter',
+                    "enter",
                     slug,
                     item.foreground,
                     item.background,
@@ -47,7 +47,7 @@ export default function SectionJobs({ jobs }) {
                 }
                 onMouseLeave={() =>
                   changeBodyClass(
-                    'exit',
+                    "exit",
                     slug,
                     item.foreground,
                     item.background,
@@ -111,7 +111,7 @@ const JobItem = styled(MotionScroll)`
     h3,
     h4 {
       opacity: 1 !important;
-      font-feature-settings: 'ss02' on, 'ss05' on, 'salt' on, 'ss01' on !important;
+      font-feature-settings: "ss02" on, "ss05" on, "salt" on, "ss01" on !important;
     }
   }
 

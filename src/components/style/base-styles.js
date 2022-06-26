@@ -186,7 +186,7 @@ export const BaseStyles = createGlobalStyle`
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
 
     &:hover {
       text-decoration: underline;

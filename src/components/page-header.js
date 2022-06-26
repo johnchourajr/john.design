@@ -1,37 +1,33 @@
-import React from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import React from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
 
 /**
  * Local Components
  */
-import Tick from '../components/tick';
-import MotionScroll from './motion-scroll';
+import Tick from "../components/tick";
+import MotionScroll from "./motion-scroll";
 
 /**
  * Local Styles/JS
  */
-import { Wrapper } from '../components/style/global-styles';
-import { repeatTitle } from '../functions/util';
+import { Wrapper } from "../components/style/global-styles";
+import { repeatTitle } from "../functions/util";
 
 /**
  * PageHeader Component
- *
- * @param {Object} props
- * @param {String} props.title
- * @param {String} props.size
  */
 export default function PageHeader({ title, size }) {
   const variants = {
     visible: { opacity: 1 },
-    hidden: { opacity: 0 }
+    hidden: { opacity: 0 },
   };
 
   return (
     <Wrapper>
       <MotionScroll triggerPoint={0} yOffset={50}>
         <PageHeaderWrapper
-          className={size ? size : 'lg'}
+          className={size ? size : "lg"}
           initial="hidden"
           animate="visible"
           variants={variants}
@@ -42,7 +38,7 @@ export default function PageHeader({ title, size }) {
               <span>
                 <p
                   className={`${
-                    size === 'lg' ? 'h1' : size === 'sm' ? 'h2' : 'h1'
+                    size === "lg" ? "h1" : size === "sm" ? "h2" : "h1"
                   } display`}
                 >
                   {repeatTitle(`${title}`)}
