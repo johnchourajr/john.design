@@ -1,47 +1,29 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import useSiteMetadata from '../hooks/use-site-metadata';
+import React from "react";
+import Head from "next/head";
+import config from "../../config";
 
 /**
  * Head component
  *
  * @param {Object} props
  */
-function Head({ pageContext }) {
-  const { meta, og } = useSiteMetadata();
-
-  const title = `John Choura Design™ / ${
-    pageContext?.title ? pageContext?.title : 'Studio'
-  }`;
+function SEO({ description, title = "Studio" }) {
+  const siteTitle = config.title;
 
   return (
-    <Helmet
-      title={title}
-      meta={[
-        // Basics
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1, shrink-to-fit=yes'
-        },
-        { name: 'title', content: title },
-        { name: 'description', content: meta.description },
-
-        // Open Graph / Facebook
-        { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: meta.siteUrl },
-        { property: 'og:title', content: title },
-        { property: 'og:description', content: meta.description },
-        { property: 'og:image', content: `${meta.siteUrl}${og}` },
-
-        // Twitter
-        { property: 'twitter:card', content: 'summary_large_image' },
-        { property: 'twitter:url', content: meta.siteUrl },
-        { property: 'twitter:title', content: title },
-        { property: 'twitter:description', content: meta.description },
-        { property: 'twitter:image', content: `${meta.siteUrl}${og}` }
-      ]}
-    />
+    <Head>
+      <title>{`${siteTitle} / ${title}`}</title>
+      <meta name="description" content={description} />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:site_name" content={siteTitle} />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:creator" content={config.social.twitter} />
+      <meta property="twitter:title" content={title} />
+      <meta property="twitter:description" content={description} />
+    </Head>
   );
 }
 
-export default Head;
+export default SEO;

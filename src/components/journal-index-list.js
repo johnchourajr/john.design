@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Link } from 'gatsby';
-import styled from 'styled-components';
+import * as React from "react";
+import Link from "next/link";
+import styled from "styled-components";
 
 /**
  * Local Components
  */
-import MotionScroll from './motion-scroll';
-import JournalHomeFeature from './journal-home-feature';
+import MotionScroll from "./motion-scroll";
+import JournalHomeFeature from "./journal-home-feature";
 
 /**
  * JournalIndexList Component
@@ -55,30 +55,32 @@ export default function JournalIndexList({ items }) {
             return (
               <MotionScroll
                 key={i}
-                className={'post'}
+                className={"post"}
                 fadeIn={true}
                 triggerPoint={0.95}
                 yOffset={50}
               >
-                <Link to={node.frontmatter.slug}>
-                  <h1>{node.frontmatter.title} </h1>
+                <Link href={node.frontmatter.slug}>
+                  <a>
+                    <h1>{node.frontmatter.title} </h1>
 
-                  {isChildImageSharp ? (
-                    <Image
-                      style={{
-                        backgroundImage: `url(${image.src})`
-                      }}
-                    />
-                  ) : (
-                    <Image
-                      style={{
-                        backgroundImage: `url(${image})`
-                      }}
-                    />
-                  )}
-                  <aside>
-                    <h4>{node.frontmatter.date} </h4>
-                  </aside>
+                    {isChildImageSharp ? (
+                      <Image
+                        style={{
+                          backgroundImage: `url(${image.src})`,
+                        }}
+                      />
+                    ) : (
+                      <Image
+                        style={{
+                          backgroundImage: `url(${image})`,
+                        }}
+                      />
+                    )}
+                    <aside>
+                      <h4>{node.frontmatter.date} </h4>
+                    </aside>
+                  </a>
                 </Link>
               </MotionScroll>
             );
@@ -130,7 +132,7 @@ const PostList = styled.div`
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       bottom: 0;

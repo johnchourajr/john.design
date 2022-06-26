@@ -1,23 +1,23 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import GatsbyImage from 'gatsby-image';
-import styled from 'styled-components';
+import React from "react";
+import Link from "next/link";
+// import GatsbyImage from "gatsby-image";
+import styled from "styled-components";
 
 /**
  * Local Components
  */
-import HoverGradient from '../hover-gradient';
+import HoverGradient from "../hover-gradient";
 
 /**
  * Local styles
  */
-import { Wrapper } from '../style/global-styles';
+import { Wrapper } from "../style/global-styles";
 
 /**
  * Data hooks
  */
-import useNavData from '../hooks/use-nav-data';
-import { useFooterData } from '../hooks/use-footer-data';
+// import useNavData from "../hooks/use-nav-data";
+// import { useFooterData } from "../hooks/use-footer-data";
 
 /**
  * Footer component
@@ -27,26 +27,26 @@ import { useFooterData } from '../hooks/use-footer-data';
  */
 export default function Footer({ pageContext }) {
   const ref = React.useRef();
-  const { edges } = useNavData();
-  const {
-    section_fam: { about_me, photos }
-  } = useFooterData();
+  // const { edges } = useNavData();
+  // const {
+  //   section_fam: { about_me, photos },
+  // } = useFooterData();
 
   return (
     <FooterContainer id="footer" ref={ref}>
-      {pageContext?.title === 'Home' && (
+      {pageContext?.title === "Home" && (
         <FooterUpperWrapper className="pV">
           <div className="image-area">
             <Image>
-              <GatsbyImage fluid={photos[0].img.childImageSharp.fluid} />
+              {/* <GatsbyImage fluid={photos[0].img.childImageSharp.fluid} /> */}
             </Image>
           </div>
           <div className="text-area">
-            {about_me.map((item, i) => (
+            {/* {about_me.map((item, i) => (
               <h2 key={i} data-quote={item.quote}>
                 {item.text}
               </h2>
-            ))}
+            ))} */}
           </div>
         </FooterUpperWrapper>
       )}
@@ -58,18 +58,20 @@ export default function Footer({ pageContext }) {
         </FooterRow>
         <FooterRow className="links">
           <FooterLinks>
-            {edges.map(({ node: { frontmatter } }, i) => {
+            {/* {edges.map(({ node: { frontmatter } }, i) => {
               return (
-                <Link key={i} to={frontmatter.slug} className="p">
-                  {frontmatter.slug === '/' ? '/' : `/${frontmatter.title}`}
+                <Link key={i} href={frontmatter.slug} className="p">
+                  <a>
+                    {frontmatter.slug === "/" ? "/" : `/${frontmatter.title}`}
+                  </a>
                 </Link>
               );
-            })}
-            <Link key={'contact'} to={'/contact'} className="p">
-              /Contact
+            })} */}
+            <Link key={"contact"} href={"/contact"} className="p">
+              <a>/Contact</a>
             </Link>
-            <Link key={'colophon'} to={'/colophon'} className="p">
-              /Colophon
+            <Link key={"colophon"} href={"/colophon"} className="p">
+              <a>/Colophon</a>
             </Link>
           </FooterLinks>
 
@@ -116,11 +118,11 @@ const FooterUpperWrapper = styled(Wrapper)`
     h2 {
       line-height: 150%;
 
-      &[data-quote='true'] {
+      &[data-quote="true"] {
         position: relative;
 
         &:after {
-          content: '“';
+          content: "“";
           position: absolute;
           left: -0.5em;
           top: 0;

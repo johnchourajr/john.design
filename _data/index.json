@@ -1,0 +1,215 @@
+{
+  "title": "John Choura",
+  "index": {
+    "title": "Home",
+    "slug": "/",
+    "type": "topLevelPage",
+    "weight": 1,
+    "section_hero": [
+      {
+        "title": "Guy",
+        "foreground": "#FF5631",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Designer",
+        "foreground": "#2861FF",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Human",
+        "foreground": "#FF1D1D",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Developer",
+        "foreground": "#00CB39",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Artist",
+        "foreground": "#EF36FF",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Craftsman",
+        "foreground": "#42D7BC",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "INFJ",
+        "foreground": "#FF5631",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Family Man",
+        "foreground": "#2861FF",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Coffee Drinker",
+        "foreground": "#FF1D1D",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "   ",
+        "figma_id": ""
+      }
+    ],
+    "section_resume": [
+      {
+        "role": "Design Lead",
+        "title": "PayPal.com",
+        "url": "https://paypal.com/",
+        "date": "2022-Present",
+        "foreground": "#111111",
+        "background": "#FED04F",
+        "image": "/hover-buddy/pp.png"
+      },
+      {
+        "role": "Principal UX Designer",
+        "title": "GoDaddy",
+        "url": "https://godaddy.com/",
+        "date": "2020-2021",
+        "foreground": "#111111",
+        "background": "#1BDBDB",
+        "image": "/hover-buddy/gd.png"
+      },
+      {
+        "role": "Design Director",
+        "title": "Happy Money",
+        "url": "https://happymoney.com/",
+        "date": "2018-2020",
+        "foreground": "#111111",
+        "background": "#F65996",
+        "image": "/hover-buddy/hm.png"
+      },
+      {
+        "role": "Adjunct Design Prof.",
+        "title": "Biola Art Dept.",
+        "url": "https://www.biola.edu/art/",
+        "date": "2017-2018",
+        "foreground": "#111111",
+        "background": "#EA0E2E",
+        "image": "/hover-buddy/bu.png"
+      },
+      {
+        "role": "Product Design Lead",
+        "title": "Happy Money",
+        "url": "https://happymoney.com/",
+        "date": "2015-2018",
+        "foreground": "#111111",
+        "background": "#F65996",
+        "image": "/hover-buddy/hm.png"
+      },
+      {
+        "role": "Designer & Art Director",
+        "title": "Envoy",
+        "url": "https://weareenvoy.com/",
+        "date": "2014-2015",
+        "foreground": "#111111",
+        "background": "#CECECE",
+        "image": "/hover-buddy/e.png"
+      },
+      {
+        "role": "Designer",
+        "title": "Biola University Marketing",
+        "url": "https://www.biola.edu/",
+        "date": "2011-2014",
+        "foreground": "#111111",
+        "background": "#EA0E2E",
+        "image": "/hover-buddy/bu.png"
+      }
+    ],
+    "section_brands": [
+      {
+        "name": "GoDaddy",
+        "url": "https://godaddy.com/"
+      },
+      {
+        "name": "Vizio",
+        "url": "https://vizio.com/"
+      },
+      {
+        "name": "Kareo",
+        "url": "https://kareo.com/"
+      },
+      {
+        "name": "Happy Money",
+        "url": "https://happymoney.com/"
+      },
+      {
+        "name": "Coral",
+        "url": "https://getcoral.app/"
+      },
+      {
+        "name": "Amazing Grass",
+        "url": "https://amazinggrass.com/"
+      },
+      {
+        "name": "Gro (fka Blossom)",
+        "url": "https://www.mygro.com/"
+      },
+      {
+        "name": "Grand Food & Beverage",
+        "url": "https://thegrandlb.com/"
+      },
+      {
+        "name": "Arcade Coffee Roasters",
+        "url": "https://www.arcadecoffeeroasters.com/"
+      },
+      {
+        "name": "Fermensch Kombucha",
+        "url": "https://fermensch.com/"
+      },
+      {
+        "name": "Golden State Coffee Roasters",
+        "url": "https://www.goldenstate.coffee/"
+      }
+    ],
+    "section_art": {
+      "headline": "",
+      "img": ""
+    },
+    "section_fam": {
+      "about_me": [
+        {
+          "text": "John Choura is a human living in Long Beach, California with his\nwife, their daughter, and their animals.",
+          "quote": false
+        },
+        {
+          "text": "I can drink coffee all day and all night and still get a good night\nof sleep; I WFH in my studio office that I built in my backyard;\nbeen learning how to take care of my mental health lately; running\naround in the backyard with my daughter is the best; I watch\nSeinfeld like clockwork; I’m a design nerd all-around and def work\ntoo much,” said me.",
+          "quote": true
+        }
+      ],
+      "photos": [
+        {
+          "img": "../images/meta/fam-4.png"
+        }
+      ]
+    },
+    "og": "../images/meta/og.png"
+  },
+  "pages": [
+    {
+      "title": "Work",
+      "path": "/work",
+      "content": "<p>Foo content...</p><h2>Heading</h2><p>Some other content...</p>"
+    },
+    {
+      "title": "Journal",
+      "path": "/journal",
+      "content": "<p><strong>Bar</strong> content...</p>"
+    },
+    {
+      "title": "Contact",
+      "path": "/contact",
+      "content": "<p><strong>Baz</strong> content...</p>"
+    },
+    {
+      "title": "Colophon",
+      "path": "/colophon",
+      "content": "<p><strong>Baz</strong> content...</p>"
+    }
+  ]
+}

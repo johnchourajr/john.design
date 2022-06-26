@@ -1,0 +1,35 @@
+import React from "react";
+
+/**
+ * Base Layout Component
+ */
+import Layout from "../components/layout";
+
+/**
+ * Base Styles
+ */
+import "../components/style/fonts.css";
+import { ThemeProvider } from "styled-components";
+import { device, colors, animation, size, fonts } from "../data/baseTheme";
+import { BaseStyles } from "../components/style/base-styles";
+import { AnimationStyles } from "../components/style/animation-styles";
+
+export default function App({ Component, pageProps }) {
+  return (
+    <ThemeProvider
+      theme={{
+        device: device,
+        colors: colors,
+        animation: animation,
+        size: size,
+        fonts: fonts,
+      }}
+    >
+      <BaseStyles />
+      <AnimationStyles />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ThemeProvider>
+  );
+}
