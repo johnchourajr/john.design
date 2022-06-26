@@ -4,10 +4,15 @@
  * @param {Number} minFontSize
  * @param {Number} maxFontSize
  */
-export function clampBuilder(minFontSize, maxFontSize) {
+export function clampBuilder(
+  minFontSize,
+  maxFontSize,
+  minWidthSize = 375,
+  maxWidthSize = 1440
+) {
   const pixelsPerRem = 16;
-  const minWidth = 375 / pixelsPerRem;
-  const maxWidth = 1440 / pixelsPerRem;
+  const minWidth = minWidthSize / pixelsPerRem;
+  const maxWidth = maxWidthSize / pixelsPerRem;
 
   const slope = (maxFontSize - minFontSize) / (maxWidth - minWidth);
   const yAxisIntersection = -minWidth * slope + minFontSize;
@@ -29,17 +34,17 @@ export function clampBuilder(minFontSize, maxFontSize) {
  */
 export function changeBodyClass(state, slug, foreground, background, image) {
   if (typeof document !== `undefined`) {
-    if (state === 'enter') {
+    if (state === "enter") {
       document.body.classList.add(`theme--hover`);
-      document.body.setAttribute('data-hover', 'true');
+      document.body.setAttribute("data-hover", "true");
       document.body.setAttribute(
-        'style',
+        "style",
         `--hover-background: ${background}; --hover-foreground: ${foreground}; --hover-image: url('${image}') `
       );
     } else {
       document.body.classList.remove(`theme--hover`);
-      document.body.setAttribute('data-hover', 'false');
-      document.body.setAttribute('style', '');
+      document.body.setAttribute("data-hover", "false");
+      document.body.setAttribute("style", "");
     }
   }
 }
@@ -52,12 +57,12 @@ export function changeBodyClass(state, slug, foreground, background, image) {
  */
 export function changeFigmaDataState(state, figmaId) {
   if (typeof document !== `undefined`) {
-    if (state === 'enter') {
-      document.body.setAttribute('data-iframe', 'true');
-      document.body.setAttribute('data-figma-id', figmaId);
+    if (state === "enter") {
+      document.body.setAttribute("data-iframe", "true");
+      document.body.setAttribute("data-figma-id", figmaId);
     } else {
-      document.body.setAttribute('data-iframe', 'false');
-      document.body.setAttribute('data-figma-id', figmaId);
+      document.body.setAttribute("data-iframe", "false");
+      document.body.setAttribute("data-figma-id", figmaId);
     }
   }
 }
@@ -71,20 +76,20 @@ export function changeFigmaDataState(state, figmaId) {
  * @param {String} str
  */
 export function stringToSlug(str) {
-  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.replace(/^\s+|\s+$/g, ""); // trim
   str = str.toLowerCase();
 
   // remove accents, swap ñ for n, etc
-  var from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
-  var to = 'aaaaeeeeiiiioooouuuunc------';
+  var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  var to = "aaaaeeeeiiiioooouuuunc------";
   for (var i = 0, l = from.length; i < l; i++) {
-    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
   }
 
   str = str
-    .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-    .replace(/\s+/g, '-') // collapse whitespace and replace by -
-    .replace(/-+/g, '-'); // collapse dashes
+    .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+    .replace(/\s+/g, "-") // collapse whitespace and replace by -
+    .replace(/-+/g, "-"); // collapse dashes
 
   return str;
 }
@@ -106,9 +111,9 @@ export function repeatTitle(text) {
  */
 export function commaSeparate(i, total) {
   if (i === total.length) {
-    return '.';
+    return ".";
   } else {
-    return ', ';
+    return ", ";
   }
 }
 

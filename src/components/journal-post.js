@@ -41,12 +41,7 @@ function PostCover({ frontmatter, customCover }) {
  * JournalPost Component
  */
 
-export default function JournalPost({
-  content,
-  frontmatter,
-  slug,
-  customCover,
-}) {
+export default function JournalPost({ content, frontmatter, customCover }) {
   // const { meta } = useSiteMetadata();
 
   /**
@@ -88,7 +83,7 @@ export default function JournalPost({
         <Wrapper>
           <PostHeader>
             <MotionScroll triggerPoint={0} yOffset={50}>
-              <h2 className="display">{frontmatter.title}</h2>
+              <h2 className="display">{frontmatter?.title}</h2>
             </MotionScroll>
           </PostHeader>
           <PostCover frontmatter={frontmatter} customCover={customCover} />

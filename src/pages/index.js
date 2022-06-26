@@ -1,124 +1,49 @@
 import React from "react";
-import pageContent from "../../../_data/index.json";
-
-import { Wrapper } from "../../components/style/global-styles";
-import PageHeader from "../../components/page-header";
-import styled from "styled-components";
-import { Headline } from "../../components/type";
-
-const Input = styled.div`
-  position: relative;
-  width: 100%;
-  height: 6rem;
-  margin-bottom: 4vw;
-
-  input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    appearance: none;
-    border-radius: 0.5rem;
-    border: none;
-    font-family: "LabilGrotesk-Medium";
-    font-size: 2rem;
-    padding: 2rem;
-  }
-
-  label {
-    position: absolute;
-    visibility: hidden;
-    top: 1rem;
-    left: 1rem;
-    z-index: 1;
-  }
-`;
+import pageContent from "../../_data/index.json";
 
 /**
- * page-template Component
+ * Local Components
  */
-export default function Template({ content }) {
-  const [pw, setPw] = React.useState("");
-  const [show, setShow] = React.useState(false);
+import { Wrapper } from "../components/style/global-styles";
+import SectionHomeHero from "../components/section-home-hero";
+import SectionHomeJournal from "../components/section-home-journal";
+import SectionJobs from "../components/section-home-jobs";
+import SectionBrands from "../components/section-home-brands";
+import HoverBuddy from "../components/hover-buddy";
+import SEO from "../components/globals/head";
+import SectionHomeFamily from "../components/section-home-family";
+import { getAllPosts } from "../../lib/posts";
 
-  React.useEffect(() => {
-    // NOT AT ALL SECURE lol
-    // IF YOU FOUND THIS, CONGRATS
-    if (pw === "werkjc") {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
-  }, [pw]);
-
+/**
+ * index-page-template
+ *
+ * @param {Object} props
+ */
+export default function Template({ content, posts }) {
   return (
     <>
-      <PageHeader title={content.title} />
+      <SEO>
+        <title>{content.title}</title>
+      </SEO>
+      <SectionHomeHero data={content} />
+      <SectionJobs jobs={content.section_resume} />
+      <SectionBrands brands={content.section_brands} />
       <Wrapper>
-        <Input>
-          <label>Passkey </label>
-          <input
-            type="password"
-            name="pw"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-            placeholder="enter secret passkey"
-          />
-        </Input>
-
-        {show ? (
-          <Headline size="h1">
-            You're in!{" "}
-            <a
-              href="https://www.figma.com/proto/ZKCSwMaWuBlwH6AXkSb4hp/Work-by-John-Choura?page-id=1246%3A9433&node-id=1246%3A28084&viewport=296%2C48%2C0.03&scaling=contain"
-              target="_blank"
-              rel="noreferrer"
-            >
-              View Work →
-            </a>
-          </Headline>
-        ) : (
-          <Headline size="h1">
-            <a href="mailto:hi+workinquiry@john.design">
-              Email for access to work.
-            </a>
-          </Headline>
-        )}
+        <section>
+          {content.section_art.headline}
+          {content.section_art.img}
+        </section>
       </Wrapper>
+      <SectionHomeJournal posts={posts} />
+      <SectionHomeFamily family={content.section_fam} />
+      <HoverBuddy />
     </>
   );
 }
 
-export async function getStaticPaths() {
-  const paths = pageContent.pages.map((page) => {
-    const slug = page.path.split("/").slice(1);
-    return { params: { slug } };
-  });
-  return { paths, fallback: true };
-}
-
 export async function getStaticProps({ params }) {
-  const currentPath = `/${params.slug.join("/")}`;
-  const content = pageContent.pages.find(
-    (page) => page.path === currentPath
-  ) || {
-    notfound: true,
-  };
-  return { props: { content } };
-}
+  const posts = getAllPosts();
 
-// /**
-//  * pageQuery
-//  */
-// export const pageQuery = graphql`
-//   query ($id: String!) {
-//     mdx(id: { eq: $id }) {
-//       frontmatter {
-//         slug
-//         title
-//       }
-//     }
-//   }
-// `;
+  const content = pageContent.index;
+  return { props: { content, posts } };
+}

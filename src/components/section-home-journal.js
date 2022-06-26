@@ -23,10 +23,7 @@ import { repeatTitle } from "../functions/util";
 /**
  * SectionHomeJournal Component
  */
-export default function SectionHomeJournal() {
-  // const {
-  //   node: { frontmatter, timeToRead, excerpt },
-  // } = useJournalFeatureData();
+export default function SectionHomeJournal({ posts }) {
   const title = repeatTitle(`journal`);
 
   return (
@@ -46,14 +43,25 @@ export default function SectionHomeJournal() {
         <h4>Most Recent Post</h4>
       </MotionScroll>
       <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={50}>
-        {/* <JournalHomeFeature
-          slug={frontmatter.slug}
-          title={frontmatter.title}
-          date={frontmatter.date}
-          timeToRead={timeToRead}
-          excerpt={excerpt}
-          cover={frontmatter.cover}
-        /> */}
+        {posts.map(({ frontmatter: { slug, title, date, cover } }, i) => {
+          if (i === 0) {
+            return (
+              <MotionScroll
+                key={i}
+                fadeIn={true}
+                triggerPoint={0.85}
+                yOffset={50}
+              >
+                <JournalHomeFeature
+                  slug={slug}
+                  title={title}
+                  date={date}
+                  cover={cover}
+                />
+              </MotionScroll>
+            );
+          } else return null;
+        })}
       </MotionScroll>
 
       <LowerLink>

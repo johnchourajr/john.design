@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import Image from "next/image";
 
 /**
  * Local Components
@@ -20,7 +21,7 @@ export default function JournalIndexList({ items }) {
       <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={30}>
         <h4>Most Recent Post</h4>
       </MotionScroll>
-      {items.map(({ node }, i) => {
+      {items.map(({ frontmatter: { slug, title, date, cover } }, i) => {
         if (i === 0) {
           return (
             <MotionScroll
@@ -30,12 +31,10 @@ export default function JournalIndexList({ items }) {
               yOffset={50}
             >
               <JournalHomeFeature
-                slug={node.frontmatter.slug}
-                title={node.frontmatter.title}
-                date={node.frontmatter.date}
-                timeToRead={node.timeToRead}
-                excerpt={node.excerpt}
-                cover={node.frontmatter.cover}
+                slug={slug}
+                title={title}
+                date={date}
+                cover={cover}
               />
             </MotionScroll>
           );
@@ -45,12 +44,7 @@ export default function JournalIndexList({ items }) {
         <h4>All Posts</h4>
       </MotionScroll>
       <PostList>
-        {items.map(({ node }, i) => {
-          const isChildImageSharp = node?.frontmatter?.thumb?.childImageSharp;
-          const image = isChildImageSharp
-            ? node?.frontmatter?.thumb?.childImageSharp?.fluid
-            : node?.frontmatter?.thumb?.publicURL;
-
+        {items.map(({ frontmatter: { slug, title, date, thumb } }, i) => {
           if (i > 0) {
             return (
               <MotionScroll
@@ -60,25 +54,17 @@ export default function JournalIndexList({ items }) {
                 triggerPoint={0.95}
                 yOffset={50}
               >
-                <Link href={node.frontmatter.slug}>
+                <Link href={slug}>
                   <a>
-                    <h1>{node.frontmatter.title} </h1>
+                    <h1>{title} </h1>
 
-                    {isChildImageSharp ? (
-                      <Image
-                        style={{
-                          backgroundImage: `url(${image.src})`,
-                        }}
-                      />
-                    ) : (
-                      <Image
-                        style={{
-                          backgroundImage: `url(${image})`,
-                        }}
-                      />
+                    {thumb && (
+                      <ImageWrap>
+                        <Image src={thumb} layout="fill" />
+                      </ImageWrap>
                     )}
                     <aside>
-                      <h4>{node.frontmatter.date} </h4>
+                      <h4>{date} </h4>
                     </aside>
                   </a>
                 </Link>
@@ -91,7 +77,7 @@ export default function JournalIndexList({ items }) {
   );
 }
 
-const Image = styled.div`
+const ImageWrap = styled.div`
   position: absolute;
   right: 10vw;
   top: 50%;
@@ -104,6 +90,11 @@ const Image = styled.div`
   background-size: cover;
   backface-visibility: hidden;
   z-index: -5;
+
+  img,
+  image {
+    object-fit: cover;
+  }
 `;
 
 const PostList = styled.div`
@@ -150,7 +141,7 @@ const PostList = styled.div`
 
     h1,
     aside,
-    ${Image} {
+    ${ImageWrap} {
       transition: opacity ${(props) => props.theme.animation.duration[100].css},
         transform ${(props) => props.theme.animation.duration[300].css};
       will-change: opacity, transform;
@@ -165,7 +156,7 @@ const PostList = styled.div`
       opacity: 1 !important;
     }
 
-    &:hover ${Image} {
+    &:hover ${ImageWrap} {
       opacity: 1 !important;
       transform: scale3d(1, 1, 1) translateY(-50%);
     }

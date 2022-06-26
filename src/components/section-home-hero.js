@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
 
 /**
  * Local Components
  */
-import Tick from '../components/tick';
-import { Caption } from './type';
+import Tick from "../components/tick";
+import { Caption } from "./type";
 
 /**
  * Local Styles/JS
@@ -14,9 +14,10 @@ import { Caption } from './type';
 import {
   stringToSlug,
   changeBodyClass,
-  changeFigmaDataState
-} from '../functions/util';
-import { Wrapper } from '../components/style/global-styles';
+  changeFigmaDataState,
+  clampBuilder,
+} from "../functions/util";
+import { Wrapper } from "../components/style/global-styles";
 
 /**
  *
@@ -30,14 +31,14 @@ function TickerText({ item, slug }) {
       className="display"
       data-name={slug}
       onMouseEnter={() =>
-        changeBodyClass('enter', slug, item.foreground, item.background)
+        changeBodyClass("enter", slug, item.foreground, item.background)
       }
       onMouseLeave={() =>
-        changeBodyClass('exit', slug, item.foreground, item.background)
+        changeBodyClass("exit", slug, item.foreground, item.background)
       }
     >
       <span className="text">{item.title}</span>
-      <span className="slash">{' / '}</span>
+      <span className="slash">{" / "}</span>
     </H2Center>
   );
 }
@@ -49,17 +50,17 @@ function TickerText({ item, slug }) {
  */
 export default function SectionHomeHero({ data, ...rest }) {
   const [tickerSpeed, setTickerSpeed] = useState(15);
-  const figmaId = '253A9';
+  const figmaId = "253A9";
 
   const variants = {
     visible: { opacity: 1 },
-    hidden: { opacity: 0 }
+    hidden: { opacity: 0 },
   };
 
   return (
     <HomeSection
-      onMouseEnter={() => changeFigmaDataState('enter', figmaId)}
-      onMouseLeave={() => changeFigmaDataState('exit', figmaId)}
+      onMouseEnter={() => changeFigmaDataState("enter", figmaId)}
+      onMouseLeave={() => changeFigmaDataState("exit", figmaId)}
       initial="hidden"
       animate="visible"
       variants={variants}
@@ -69,7 +70,7 @@ export default function SectionHomeHero({ data, ...rest }) {
       <Wrapper>
         <H2Left className="display">
           John Choura is <span className="indefinite-article-a">a</span>
-          <span className="indefinite-article-an">an</span>{' '}
+          <span className="indefinite-article-an">an</span>{" "}
         </H2Left>
         <TickWrapper
           onMouseEnter={() => setTickerSpeed(5)}
@@ -87,7 +88,7 @@ export default function SectionHomeHero({ data, ...rest }) {
       </Wrapper>
       <Attr>
         <Caption>
-          Background created in{' '}
+          Background created in{" "}
           <a
             href="https://www.figma.com/file/rY8kva5mMuZ76jr1In7a3g/?node-id=0%3A1"
             target="_blank"
@@ -112,12 +113,16 @@ const Attr = styled.div`
   }
 `;
 
-const H2Left = styled.h2`
+const HeroHeadline = styled.h2`
+  font-size: ${clampBuilder(2.5, 12, 375, 2800)} !important;
+`;
+
+const H2Left = styled(HeroHeadline)`
   text-align: left;
   padding-top: 5vw;
 `;
 
-const H2Right = styled.h2`
+const H2Right = styled(HeroHeadline)`
   text-align: right;
 `;
 
@@ -136,14 +141,14 @@ const TickWrapper = styled(Tick)`
   }
 `;
 
-const H2Center = styled.h2`
+const H2Center = styled(HeroHeadline)`
   position: relative;
   text-align: center;
   white-space: pre;
   height: 1em;
 
   &:hover {
-    font-feature-settings: 'ss02' on, 'ss05' on, 'salt' on, 'ss01' on !important;
+    font-feature-settings: "ss02" on, "ss05" on, "salt" on, "ss01" on !important;
 
     span.text {
       opacity: 1 !important;

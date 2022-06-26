@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-// import GatsbyImage from "gatsby-image";
 import styled from "styled-components";
 
 /**
@@ -13,11 +12,7 @@ import HoverGradient from "../hover-gradient";
  */
 import { Wrapper } from "../style/global-styles";
 
-/**
- * Data hooks
- */
-// import useNavData from "../hooks/use-nav-data";
-// import { useFooterData } from "../hooks/use-footer-data";
+import pageContent from "../../../_data/index.json";
 
 /**
  * Footer component
@@ -27,30 +22,8 @@ import { Wrapper } from "../style/global-styles";
  */
 export default function Footer({ pageContext }) {
   const ref = React.useRef();
-  // const { edges } = useNavData();
-  // const {
-  //   section_fam: { about_me, photos },
-  // } = useFooterData();
-
   return (
     <FooterContainer id="footer" ref={ref}>
-      {pageContext?.title === "Home" && (
-        <FooterUpperWrapper className="pV">
-          <div className="image-area">
-            <Image>
-              {/* <GatsbyImage fluid={photos[0].img.childImageSharp.fluid} /> */}
-            </Image>
-          </div>
-          <div className="text-area">
-            {/* {about_me.map((item, i) => (
-              <h2 key={i} data-quote={item.quote}>
-                {item.text}
-              </h2>
-            ))} */}
-          </div>
-        </FooterUpperWrapper>
-      )}
-
       <FooterLowerWrapper>
         <FooterRow className="pV">
           <h2>Thx</h2>
@@ -58,20 +31,19 @@ export default function Footer({ pageContext }) {
         </FooterRow>
         <FooterRow className="links">
           <FooterLinks>
-            {/* {edges.map(({ node: { frontmatter } }, i) => {
-              return (
-                <Link key={i} href={frontmatter.slug} className="p">
-                  <a>
-                    {frontmatter.slug === "/" ? "/" : `/${frontmatter.title}`}
-                  </a>
-                </Link>
-              );
-            })} */}
-            <Link key={"contact"} href={"/contact"} className="p">
-              <a>/Contact</a>
+            {pageContent.pages.map(({ title, path, top_level_nav }, i) => {
+              if (top_level_nav)
+                return (
+                  <Link key={i} href={path}>
+                    <a className="p">{`/${title}`}</a>
+                  </Link>
+                );
+            })}
+            <Link key={"contact"} href={"/contact"}>
+              <a className="p">/Contact</a>
             </Link>
-            <Link key={"colophon"} href={"/colophon"} className="p">
-              <a>/Colophon</a>
+            <Link key={"colophon"} href={"/colophon"}>
+              <a className="p">/Colophon</a>
             </Link>
           </FooterLinks>
 
@@ -84,61 +56,6 @@ export default function Footer({ pageContext }) {
     </FooterContainer>
   );
 }
-
-const Image = styled.div`
-  border-radius: 100%;
-  height: 25vw;
-  max-height: 25rem;
-  width: 25vw;
-  max-width: 25rem;
-  overflow: hidden;
-  contain: fit-content;
-  margin-bottom: 3rem;
-
-  .gatsby-image-wrapper {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const FooterUpperWrapper = styled(Wrapper)`
-  display: flex;
-  flex-direction: column;
-
-  @media ${(props) => props.theme.device.laptop} {
-    flex-direction: row;
-  }
-
-  .text-area {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    pointer-events: none;
-
-    h2 {
-      line-height: 150%;
-
-      &[data-quote="true"] {
-        position: relative;
-
-        &:after {
-          content: "“";
-          position: absolute;
-          left: -0.5em;
-          top: 0;
-          font-size: 1em;
-        }
-      }
-    }
-  }
-
-  .text-area,
-  .image-area {
-    @media ${(props) => props.theme.device.laptop} {
-      width: 50%;
-    }
-  }
-`;
 
 const FooterLowerWrapper = styled(Wrapper)`
   display: flex;
@@ -176,7 +93,6 @@ const FooterLinks = styled.div`
 `;
 
 const FooterContainer = styled.footer`
-  /* margin-top: 7vw; */
   position: relative;
   overflow: hidden;
 `;

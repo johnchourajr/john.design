@@ -91,34 +91,9 @@ export default function Template({ content }) {
   );
 }
 
-export async function getStaticPaths() {
-  const paths = pageContent.pages.map((page) => {
-    const slug = page.path.split("/").slice(1);
-    return { params: { slug } };
-  });
-  return { paths, fallback: true };
-}
-
 export async function getStaticProps({ params }) {
-  const currentPath = `/${params.slug.join("/")}`;
-  const content = pageContent.pages.find(
-    (page) => page.path === currentPath
-  ) || {
+  const content = pageContent.pages.find((page) => page.path === "/work") || {
     notfound: true,
   };
   return { props: { content } };
 }
-
-// /**
-//  * pageQuery
-//  */
-// export const pageQuery = graphql`
-//   query ($id: String!) {
-//     mdx(id: { eq: $id }) {
-//       frontmatter {
-//         slug
-//         title
-//       }
-//     }
-//   }
-// `;
