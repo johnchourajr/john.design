@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, navigate } from 'gatsby';
-import styled from 'styled-components';
+import React from "react";
+import Link from "next/link";
+import styled from "styled-components";
 
 /**
  * JournalHomeFeature Component
@@ -17,7 +17,7 @@ export default function JournalHomeFeature({
   cover,
   title,
   date,
-  timeToRead
+  timeToRead,
 }) {
   const isChildImageSharp = cover.childImageSharp;
   const image = isChildImageSharp
@@ -25,34 +25,36 @@ export default function JournalHomeFeature({
     : cover.publicURL;
 
   return (
-    <Card onClick={() => navigate(slug)}>
-      {cover && (
-        <Image>
-          {isChildImageSharp ? (
-            <img
-              sizes={image.sizes}
-              srcSet={image.srcSet}
-              alt={`${title} Cover Art`}
-            />
-          ) : (
-            <img src={image} alt={`${title} Cover Art`} />
-          )}
-        </Image>
-      )}
-      <CardLower>
-        <CardLowerTitle>
-          <Link to={slug}>
-            <h1>{title}</h1>
-          </Link>
-        </CardLowerTitle>
-        <CardLowerDetails>
-          <h1 className="arrow">→</h1>
-          <span>
-            <h4>{date}</h4>
-            <h4>{timeToRead} Minute Read</h4>
-          </span>
-        </CardLowerDetails>
-      </CardLower>
+    <Card href={slug}>
+      <a>
+        {cover && (
+          <Image>
+            {isChildImageSharp ? (
+              <img
+                sizes={image.sizes}
+                srcSet={image.srcSet}
+                alt={`${title} Cover Art`}
+              />
+            ) : (
+              <img src={image} alt={`${title} Cover Art`} />
+            )}
+          </Image>
+        )}
+        <CardLower>
+          <CardLowerTitle>
+            <Link href={slug}>
+              <h1>{title}</h1>
+            </Link>
+          </CardLowerTitle>
+          <CardLowerDetails>
+            <h1 className="arrow">→</h1>
+            <span>
+              <h4>{date}</h4>
+              <h4>{timeToRead} Minute Read</h4>
+            </span>
+          </CardLowerDetails>
+        </CardLower>
+      </a>
     </Card>
   );
 }
@@ -79,7 +81,7 @@ const Image = styled.div`
   }
 `;
 
-const Card = styled.div`
+const Card = styled(Link)`
   width: 100%;
   display: flex;
   flex-direction: column;

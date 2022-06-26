@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Local Components
  */
-import { Wrapper } from '../components/style/global-styles';
-import PageHeader from '../components/page-header';
+import { Wrapper } from "../components/style/global-styles";
+import PageHeader from "../components/page-header";
 
 /**
  * FourOhFour Component
@@ -15,7 +15,7 @@ import PageHeader from '../components/page-header';
 export default function FourOhFour({ path }) {
   return (
     <>
-      <PageHeader title={'404'} size="lg" />
+      <PageHeader title={"404"} size="lg" />
       <Wrapper>
         <h1>Nothing found at {path}</h1>
       </Wrapper>

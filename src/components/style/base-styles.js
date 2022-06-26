@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const BaseStyles = createGlobalStyle`
     @font-face {
@@ -367,13 +367,6 @@ export const BaseStyles = createGlobalStyle`
       &:hover {
         color: ${(props) => props.theme.colors.black};
       }
-    }
-
-    code {
-      font-size: .9em;
-      background: ${(props) => props.theme.colors.gray4};
-      padding: .1rem .3rem;
-      border-radius: .25rem;
     }
   }
 

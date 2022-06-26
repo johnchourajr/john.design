@@ -1,35 +1,37 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import styled from 'styled-components';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { Helmet } from 'react-helmet';
-import { Wrapper } from './style/global-styles';
-import MotionScroll from './motion-scroll';
-import useSiteMetadata from './hooks/use-site-metadata';
+import React from "react";
+import Link from "next/link";
+import styled from "styled-components";
+import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
+import { Wrapper } from "./style/global-styles";
+import MotionScroll from "./motion-scroll";
+import dark from "../data/syntaxTheme";
+
+const CodeBlock = ({ match, children, language, ...props }) => {
+  return (
+    <SyntaxHighlighter style={dark} language={language}>
+      {children}
+    </SyntaxHighlighter>
+  );
+};
 
 function PostCover({ frontmatter, customCover }) {
   /**
    * Image Element
    */
-  const isChildImageSharp = frontmatter?.cover?.childImageSharp;
-  const imageSrc = isChildImageSharp
-    ? frontmatter?.cover?.childImageSharp?.fluid
-    : frontmatter?.cover?.publicURL;
+  const imageSrc = frontmatter.cover;
 
   if (customCover) {
     return customCover;
   } else if (frontmatter.cover) {
     return (
-      <PostImage style={{ backgroundImage: `url(${frontmatter.cover})` }}>
-        {isChildImageSharp ? (
-          <img
-            sizes={imageSrc.sizes}
-            srcSet={imageSrc.srcSet}
-            alt={`${frontmatter.title} Cover Art`}
-          />
-        ) : (
-          <img src={imageSrc} alt={`${frontmatter.title} Cover Art`} />
-        )}
+      <PostImage>
+        <Image
+          src={imageSrc}
+          alt={`${frontmatter.title} Cover Art`}
+          layout="fill"
+        />
       </PostImage>
     );
   } else return null;
@@ -37,64 +39,51 @@ function PostCover({ frontmatter, customCover }) {
 
 /**
  * JournalPost Component
- *
- * @param {Object} props
- * @param {Object} props.pageContext
- * @param {Object} props.pageContext.next
- * @param {Object} props.pageContext.previous
- * @param {Object} props.data
- * @param {Object} props.data.mdx
- * @param {Object} props.data.mdx.frontmatter
- * @param {Object} props.data.mdx.body
- * @param {Object} props.data.mdx.timeToRead
- * @param {Object} props.data.mdx.excerpt
- * @param {Object} props.customCover
  */
 
 export default function JournalPost({
-  pageContext: { next, previous },
-  data: {
-    mdx: { frontmatter, body, timeToRead, excerpt }
-  },
-  customCover
+  content,
+  frontmatter,
+  slug,
+  customCover,
 }) {
-  const { meta } = useSiteMetadata();
+  // const { meta } = useSiteMetadata();
 
   /**
    * Check if page has next or previous post
    */
-  const hasNext = next?.frontmatter.template.includes('journal');
-  const hasPrev = previous?.frontmatter.template.includes('journal');
+  // const hasNext = next?.frontmatter.template.includes("journal");
+  // const hasPrev = previous?.frontmatter.template.includes("journal");
 
   return (
     <>
-      <Helmet
+      {/* <Helmet
         meta={[
           // Open Graph / Facebook
-          { property: 'og:type', content: 'website' },
+          { property: "og:type", content: "website" },
           {
-            property: 'og:title',
-            content: `${frontmatter.title} / John Choura Design™`
+            property: "og:title",
+            content: `${frontmatter.title} / John Choura Design™`,
           },
-          { property: 'og:description', content: excerpt },
+          { property: "og:description", content: excerpt },
           {
-            property: 'og:image',
-            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`
+            property: "og:image",
+            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`,
           },
 
           // Twitter
-          { property: 'twitter:card', content: 'summary_large_image' },
+          { property: "twitter:card", content: "summary_large_image" },
           {
-            property: 'twitter:title',
-            content: `${frontmatter.title} / John Choura Design™`
+            property: "twitter:title",
+            content: `${frontmatter.title} / John Choura Design™`,
           },
-          { property: 'twitter:description', content: excerpt },
+          { property: "twitter:description", content: excerpt },
           {
-            property: 'twitter:image',
-            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`
-          }
+            property: "twitter:image",
+            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`,
+          },
         ]}
-      />
+      /> */}
       <PostWrapper className="blog-post">
         <Wrapper>
           <PostHeader>
@@ -106,23 +95,46 @@ export default function JournalPost({
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
               <h4>
-                by John Choura / {frontmatter.date} / {timeToRead} Minute Read
+                by John Choura / {frontmatter.date}
+                {/* / {timeToRead} Minute Read */}
               </h4>
             </PostCredit>
           </MotionScroll>
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={100} id="post">
-            <ContentWrapper className="content-styles">
-              <MDXRenderer>{body}</MDXRenderer>
+            <ContentWrapper className="content-styles" itemProp="articleBody">
+              <ReactMarkdown
+                children={content}
+                components={{
+                  code({ node, inline, className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || "");
+                    return !inline && match ? (
+                      <CodeBlock
+                        children={String(children).replace(/\n$/, "")}
+                        style={dark}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      />
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              />
             </ContentWrapper>
           </MotionScroll>
         </Wrapper>
       </PostWrapper>
-      <PostSegue>
+      {/* <PostSegue>
         {hasPrev ? (
           <SegueItem className="previous">
             <h6 className="no-underline">Newer Posts</h6>
-            <Link to={previous.frontmatter.slug}>
-              <h3>{previous.frontmatter.title}</h3>
+            <Link href={previous.frontmatter.slug}>
+              <a>
+                <h3>{previous.frontmatter.title}</h3>
+              </a>
             </Link>
           </SegueItem>
         ) : (
@@ -133,8 +145,10 @@ export default function JournalPost({
         {hasNext ? (
           <SegueItem className="next">
             <h6 className="no-underline">Older Posts</h6>
-            <Link to={next.frontmatter.slug}>
-              <h3>{next.frontmatter.title}</h3>
+            <Link href={next.frontmatter.slug}>
+              <a>
+                <h3>{next.frontmatter.title}</h3>
+              </a>
             </Link>
           </SegueItem>
         ) : (
@@ -142,7 +156,7 @@ export default function JournalPost({
             <h6 className="no-underline">This is the oldest post</h6>
           </SegueItem>
         )}
-      </PostSegue>
+      </PostSegue> */}
     </>
   );
 }
@@ -277,30 +291,5 @@ const ContentWrapper = styled.div`
     @media ${(props) => props.theme.device.laptop} {
       font-size: 1.25rem;
     }
-  }
-
-  .deckgo-highlight-code-carbon {
-    box-shadow: none;
-    font-size: 0.85rem;
-    line-height: 1.45;
-    font-weight: 400;
-
-    --deckgo-highlight-code-carbon-toolbar-display: none;
-    --deckgo-highlight-code-carbon-header-padding: 8px 1rem;
-    --deckgo-highlight-code-carbon-margin: 1.5rem 0;
-    --deckgo-highlight-code-carbon-border-radius: 0.55rem;
-    --deckgo-highlight-code-font-family: 'Roboto Mono', monospace;
-
-    --deckgo-highlight-code-carbon-background: #212121;
-    --deckgo-highlight-code-carbon-color: #f5815c;
-    --deckgo-highlight-code-token-atrule: #82aaff;
-    --deckgo-highlight-code-token-comment: ${(props) =>
-      props.theme.colors.gray3};
-    --deckgo-highlight-code-token-function: #f9c669;
-    --deckgo-highlight-code-token-operator: #80cceb;
-    --deckgo-highlight-code-token-property: #80cceb;
-    --deckgo-highlight-code-token-punctuation: #80cceb;
-    --deckgo-highlight-code-token-regex: #80cceb;
-    --deckgo-highlight-code-token-selector: #c691e9;
   }
 `;

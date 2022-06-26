@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
-import { Link } from 'gatsby';
-import styled from 'styled-components';
-import { motion, useViewportScroll } from 'framer-motion';
+import React, { useEffect } from "react";
+import Link from "next/link";
+import styled from "styled-components";
+import { motion, useViewportScroll } from "framer-motion";
 
+import { getAllPages, getPageBySlug } from "../../../lib/pages";
 /**
  * Svg
  */
-import Logo from '../svg/logo';
+import Logo from "../svg/logo";
+import { getAllPosts } from "../../../lib/posts";
+
+export async function getStaticProps({ params }) {
+  const pages = getAllPosts();
+
+  return { pages };
+}
 
 /**
  * Data hooks
  */
-import useNavData from '../hooks/use-nav-data';
+// import useNavData from "../hooks/use-nav-data";
 
 /**
  * NavLinkItem component
@@ -24,8 +32,8 @@ function NavLinkItem({ data }) {
     <>
       {data.map(({ node: { frontmatter } }, i) => {
         return (
-          <NavLink key={i} to={frontmatter.slug} className="h5">
-            {frontmatter.slug === '/' ? '/' : `/${frontmatter.title}`}
+          <NavLink key={i} href={frontmatter.slug} className="h5">
+            <a>{frontmatter.slug === "/" ? "/" : `/${frontmatter.title}`}</a>
           </NavLink>
         );
       })}
@@ -41,13 +49,13 @@ function NavLinkItem({ data }) {
 function SkipWrapper(props) {
   return (
     <>
-      <SkipToContent className="skip-to-content-link" to="#main">
-        Skip to content
+      <SkipToContent className="skip-to-content-link" href="#main">
+        <a>Skip to content</a>
       </SkipToContent>
 
-      {props?.pageContext?.template === 'journal-post-template' && (
-        <SkipToContent className="skip-to-content-link" to="#post">
-          Skip to post
+      {props?.pageContext?.template === "journal-post-template" && (
+        <SkipToContent className="skip-to-content-link" href="#post">
+          <a>Skip to post</a>
         </SkipToContent>
       )}
     </>
@@ -59,10 +67,12 @@ function SkipWrapper(props) {
  *
  * @param {Object} props
  */
-export default function Nav(props) {
-  const { edges } = useNavData();
+export default function Nav({ pages, ...props }) {
+  // const { edges } = useNavData();
   const { scrollY } = useViewportScroll();
   const [hidden, setHidden] = React.useState(false);
+
+  console.log({ pages: pages });
 
   function update() {
     if (scrollY?.current < scrollY?.prev) {
@@ -79,7 +89,7 @@ export default function Nav(props) {
   const variants = {
     visible: { opacity: 1, y: 0 },
     initial: { opacity: 0, y: -75 },
-    hidden: { opacity: 0, y: -25 }
+    hidden: { opacity: 0, y: -25 },
   };
 
   return (
@@ -91,16 +101,18 @@ export default function Nav(props) {
         variants={variants}
         transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
       >
-        <NavLink to="/">
-          <Logo />
+        <NavLink href="/">
+          <a>
+            <Logo />
+          </a>
         </NavLink>
         <NavLinksWrapper
-          animate={hidden ? 'hidden' : 'visible'}
+          animate={hidden ? "hidden" : "visible"}
           variants={variants}
           onHoverStart={() => setHidden(false)}
           transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
         >
-          <NavLinkItem data={edges} />
+          {/* <NavLinkItem data={edges} /> */}
         </NavLinksWrapper>
       </NavWrapper>
     </>
