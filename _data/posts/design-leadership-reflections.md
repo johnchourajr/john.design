@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/design-leadership-reflections"
 date: "2020-09-12"
 title: What I Learned From Two Years as a Design Leader

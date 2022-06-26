@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 /**
  * Local Components
  */
-import MotionScroll from './motion-scroll';
+import MotionScroll from "./motion-scroll";
 
 /**
  * Local Styles/JS
  */
-import { Wrapper } from './style/global-styles';
-import { commaSeparate } from '../functions/util';
+import { Wrapper } from "./style/global-styles";
+import { commaSeparate } from "../functions/util";
 
 /**
  *
@@ -27,6 +27,7 @@ export default function SectionJobs({ brands }) {
       <h1>
         {brands.map((item, i) => (
           <MotionScroll
+            key={i}
             fadeIn={true}
             triggerPoint={0.85}
             yOffset={150}

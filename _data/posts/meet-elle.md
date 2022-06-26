@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/meet-elle"
 date: "2018-08-17"
 title: Meet Elle

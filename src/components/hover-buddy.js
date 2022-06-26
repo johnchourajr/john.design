@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import styled from 'styled-components';
+import React, { useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import styled from "styled-components";
 
 /**
  * HoverBuddy Function
@@ -8,7 +8,7 @@ import styled from 'styled-components';
  * Takes no props
  */
 export default function HoverBuddy() {
-  const [id, setId] = React.useState('253A71');
+  const [id, setId] = React.useState("253A71");
   const [mounted, setMounted] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
   const [useIframe, setUseIframe] = React.useState(false);
@@ -33,8 +33,8 @@ export default function HoverBuddy() {
   useEffect(() => {
     if (typeof document !== `undefined` && typeof window !== `undefined`) {
       const moveCursor = (e) => {
-        setId(document.body.getAttribute('data-figma-id'));
-        setUseIframe(document.body.getAttribute('data-iframe'));
+        setId(document.body.getAttribute("data-figma-id"));
+        setUseIframe(document.body.getAttribute("data-iframe"));
 
         const windowWidth = e.view.innerWidth;
         const windowHeight = e.view.innerWidth;
@@ -52,9 +52,9 @@ export default function HoverBuddy() {
         cursorRotateX.set(mouseX * 0.01);
         cursorRotateY.set(mouseY * 0.01);
       };
-      window.addEventListener('mousemove', moveCursor);
+      window.addEventListener("mousemove", moveCursor);
       return () => {
-        window.removeEventListener('mousemove', moveCursor);
+        window.removeEventListener("mousemove", moveCursor);
       };
     }
   }, [cursorX, cursorY, cursorRotateX, cursorRotateY]);
@@ -79,8 +79,9 @@ export default function HoverBuddy() {
               translateX: cursorXSpring,
               translateY: cursorYSpring,
               rotateX: cursorRotateX,
-              rotateY: cursorRotateY
+              rotateY: cursorRotateY,
             }}
+            alt=""
           ></Image>
           {useIframe && (
             <Frame
@@ -90,7 +91,7 @@ export default function HoverBuddy() {
                 translateX: cursorXSpring,
                 translateY: cursorYSpring,
                 rotateX: cursorRotateX,
-                rotateY: cursorRotateY
+                rotateY: cursorRotateY,
               }}
               data-loaded={loaded}
               onLoad={() => handleLoading()}
@@ -120,7 +121,7 @@ const Frame = styled(motion.iframe)`
   background-size: cover;
   backface-visibility: hidden;
 
-  &[data-loaded='false'] {
+  &[data-loaded="false"] {
     visibility: hidden !important;
     opacity: 0 !important;
   }
@@ -141,7 +142,7 @@ const Image = styled(motion.div)`
   background-size: cover;
   backface-visibility: hidden;
 
-  &[data-iframe='true'] {
+  &[data-iframe="true"] {
     visibility: hidden !important;
     opacity: 0 !important;
   }

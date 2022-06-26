@@ -70,19 +70,19 @@ export default function Template({ content }) {
 
         {show ? (
           <Headline size="h1">
-            You're in!{" "}
+            {"You're in!"}{" "}
             <a
               href="https://www.figma.com/proto/ZKCSwMaWuBlwH6AXkSb4hp/Work-by-John-Choura?page-id=1246%3A9433&node-id=1246%3A28084&viewport=296%2C48%2C0.03&scaling=contain"
               target="_blank"
               rel="noreferrer"
             >
-              View Work →
+              {"View Work →"}
             </a>
           </Headline>
         ) : (
           <Headline size="h1">
             <a href="mailto:hi+workinquiry@john.design">
-              Email for access to work.
+              {"Email for access to work."}
             </a>
           </Headline>
         )}

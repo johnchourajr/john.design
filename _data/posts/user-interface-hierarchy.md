@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/user-interface-hierarchy"
 date: "2018-12-08"
 title: User Interface Hierarchy

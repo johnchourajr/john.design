@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/nav-show-hide"
 date: "2021-02-18"
 title: Make a Nav Show and Hide On Scroll

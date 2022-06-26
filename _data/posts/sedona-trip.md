@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/sedona-trip"
 date: "2016-11-25"
 title: Sedona Trip

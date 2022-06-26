@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/home-sweet"
 date: "2018-04-10"
 title: Home Sweet

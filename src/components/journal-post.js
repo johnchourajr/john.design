@@ -20,16 +20,16 @@ function PostCover({ frontmatter, customCover }) {
   /**
    * Image Element
    */
-  const imageSrc = frontmatter.cover;
+  const imageSrc = frontmatter?.cover;
 
   if (customCover) {
     return customCover;
-  } else if (frontmatter.cover) {
+  } else if (frontmatter?.cover) {
     return (
       <PostImage>
         <Image
           src={imageSrc}
-          alt={`${frontmatter.title} Cover Art`}
+          alt={`${frontmatter?.title} Cover Art`}
           layout="fill"
         />
       </PostImage>
@@ -90,7 +90,7 @@ export default function JournalPost({ content, frontmatter, customCover }) {
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
               <h4>
-                by John Choura / {frontmatter.date}
+                by John Choura / {frontmatter?.date}
                 {/* / {timeToRead} Minute Read */}
               </h4>
             </PostCredit>
@@ -98,7 +98,6 @@ export default function JournalPost({ content, frontmatter, customCover }) {
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={100} id="post">
             <ContentWrapper className="content-styles" itemProp="articleBody">
               <ReactMarkdown
-                children={content}
                 components={{
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || "");
@@ -117,7 +116,9 @@ export default function JournalPost({ content, frontmatter, customCover }) {
                     );
                   },
                 }}
-              />
+              >
+                {content}
+              </ReactMarkdown>
             </ContentWrapper>
           </MotionScroll>
         </Wrapper>
