@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/designer-meets-react-native"
 date: "2018-09-28"
 title: Designer Meets React Native

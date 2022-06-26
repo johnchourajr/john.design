@@ -41,10 +41,15 @@ export default function Template({ content }) {
 }
 
 export async function getStaticPaths() {
-  const paths = pageContent.pages.map((page) => {
-    const slug = page.path.split("/").slice(1);
-    return { params: { slug } };
+  // filter pageContent to only include pages with a key of "default"
+  const pages = pageContent.pages.filter((page) => page?.template === "default");
+
+  const paths = pages.map((page) => {
+    const path = page.path;
+    const slug = path.split("/").slice(1);
+    return { params: { slug, path } };
   });
+
   return { paths, fallback: true };
 }
 

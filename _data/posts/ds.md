@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/ds"
 date: "2019-04-01"
 title: "Designing for code and coding for design"

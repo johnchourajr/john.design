@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/sf"
 date: "2014-04-21"
 title: SF Trip

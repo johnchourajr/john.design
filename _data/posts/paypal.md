@@ -1,5 +1,5 @@
 ---
-template: "journal-post-template"
+template: "post"
 slug: "/journal/paypal"
 date: "2022-01-04"
 title: "Heyo PayPal"

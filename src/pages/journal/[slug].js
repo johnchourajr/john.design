@@ -1,16 +1,26 @@
 import React from "react";
 import { getAllPosts, getPostBySlug } from "../../../lib/posts";
 import JournalPost from "../../components/journal-post";
+import { GoDaddyCover } from "../../components/godaddy-cover";
 
 /**
  * journal-post-template Component
  */
 export default function JournalPostTemplate(post) {
-  return <JournalPost {...post} />;
+  const customCover = () => {
+    if (post.slug === "godaddy") {
+      return <GoDaddyCover />;
+    } else {
+      return null;
+    }
+  };
+
+  return <JournalPost {...post} customCover={customCover()} />;
 }
 
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(params.slug);
+
   const content = post.content;
 
   return {
