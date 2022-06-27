@@ -10,9 +10,9 @@ import ReactMarkdown from "react-markdown";
 import { Headline } from "../components/type";
 
 /**
- * mdx-template Component
+ * TemplatePage Component
  */
-export default function Template({ content }) {
+export default function TemplatePage({ content }) {
   return (
     <>
       {content?.title && <PageHeader title={content.title} size="sm" />}
@@ -40,8 +40,8 @@ export default function Template({ content }) {
   );
 }
 
-export async function getStaticPaths() {
-  // filter pageContent to only include pages with a key of "default"
+export function getStaticPaths() {
+  /* filter pageContent to only include pages with a key of "default" */
   const pages = pageContent.pages.filter(
     (page) => page?.template === "default"
   );
@@ -55,7 +55,7 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps({ params }) {
   const currentPath = `/${params.slug.join("/")}`;
   const content = pageContent.pages.find(
     (page) => page.path === currentPath
