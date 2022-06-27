@@ -13,8 +13,9 @@ import Logo from "../svg/logo";
 /**
  * NavLinkItem component
  */
-const NavLinkItem = () =>
-  pageContent.pages.map(({ title, path, top_level_nav }, i) => {
+const NavLinkItem = ({ data }) =>
+  data &&
+  data.map(({ title, path, top_level_nav }, i) => {
     if (top_level_nav)
       return (
         <Link key={i} href={path}>
@@ -28,9 +29,8 @@ const NavLinkItem = () =>
  *
  * @param {Object} props
  */
-export default function Nav({ pages, ...props }) {
-  // const { edges } = useNavData();
-  const { scrollY } = useViewportScroll();
+export default function Nav() {
+  const { scrollY } = useViewportScroll() as any;
   const [hidden, setHidden] = React.useState(false);
 
   function update() {
@@ -73,7 +73,7 @@ export default function Nav({ pages, ...props }) {
           <Link href="/">
             <NavLink className="h5">{`/Home`}</NavLink>
           </Link>
-          <NavLinkItem />
+          <NavLinkItem data={pageContent.pages} />
         </NavLinksWrapper>
       </NavWrapper>
     </>

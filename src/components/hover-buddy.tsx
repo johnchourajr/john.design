@@ -11,7 +11,7 @@ export default function HoverBuddy() {
   const [id, setId] = React.useState("253A71");
   const [mounted, setMounted] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
-  const [useIframe, setUseIframe] = React.useState(false);
+  const [useIframe, setUseIframe] = React.useState(false) as any;
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);

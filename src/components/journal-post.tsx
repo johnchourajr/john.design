@@ -7,10 +7,11 @@ import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { Wrapper } from "./style/global-styles";
 import MotionScroll from "./motion-scroll";
 import dark from "../data/syntaxTheme";
+import SEO from "@globals/seo";
 
-const CodeBlock = ({ match, children, language, ...props }) => {
+const CodeBlock = ({ children, language, ...props }) => {
   return (
-    <SyntaxHighlighter style={dark} language={language}>
+    <SyntaxHighlighter style={dark} language={language} {...props}>
       {children}
     </SyntaxHighlighter>
   );
@@ -40,45 +41,20 @@ function PostCover({ frontmatter, customCover }) {
 /**
  * JournalPost Component
  */
-
-export default function JournalPost({ content, frontmatter, customCover }) {
-  // const { meta } = useSiteMetadata();
-
-  /**
-   * Check if page has next or previous post
-   */
-  // const hasNext = next?.frontmatter.template.includes("journal");
-  // const hasPrev = previous?.frontmatter.template.includes("journal");
-
+export default function JournalPost({
+  content,
+  exerpt,
+  frontmatter,
+  customCover,
+  timeToRead,
+}) {
   return (
     <>
-      {/* <Helmet
-        meta={[
-          // Open Graph / Facebook
-          { property: "og:type", content: "website" },
-          {
-            property: "og:title",
-            content: `${frontmatter.title} / John Choura Design™`,
-          },
-          { property: "og:description", content: excerpt },
-          {
-            property: "og:image",
-            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`,
-          },
-
-          // Twitter
-          { property: "twitter:card", content: "summary_large_image" },
-          {
-            property: "twitter:title",
-            content: `${frontmatter.title} / John Choura Design™`,
-          },
-          { property: "twitter:description", content: excerpt },
-          {
-            property: "twitter:image",
-            content: `${meta.siteUrl}${frontmatter?.cover?.publicURL}`,
-          },
-        ]}
-      /> */}
+      <SEO
+        title={frontmatter?.title}
+        description={exerpt}
+        image={frontmatter?.cover}
+      />
       <PostWrapper className="blog-post">
         <Wrapper>
           <PostHeader>
@@ -90,8 +66,7 @@ export default function JournalPost({ content, frontmatter, customCover }) {
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={50}>
             <PostCredit>
               <h4>
-                by John Choura / {frontmatter?.date}
-                {/* / {timeToRead} Minute Read */}
+                by John Choura / {frontmatter?.date}/ {timeToRead} Minute Read
               </h4>
             </PostCredit>
           </MotionScroll>
@@ -123,36 +98,6 @@ export default function JournalPost({ content, frontmatter, customCover }) {
           </MotionScroll>
         </Wrapper>
       </PostWrapper>
-      {/* <PostSegue>
-        {hasPrev ? (
-          <SegueItem className="previous">
-            <h6 className="no-underline">Newer Posts</h6>
-            <Link href={previous.frontmatter.slug}>
-              <a>
-                <h3>{previous.frontmatter.title}</h3>
-              </a>
-            </Link>
-          </SegueItem>
-        ) : (
-          <SegueItem className="previous none">
-            <h6 className="no-underline">This is the newest post</h6>
-          </SegueItem>
-        )}
-        {hasNext ? (
-          <SegueItem className="next">
-            <h6 className="no-underline">Older Posts</h6>
-            <Link href={next.frontmatter.slug}>
-              <a>
-                <h3>{next.frontmatter.title}</h3>
-              </a>
-            </Link>
-          </SegueItem>
-        ) : (
-          <SegueItem className="next none">
-            <h6 className="no-underline">This is the oldest post</h6>
-          </SegueItem>
-        )}
-      </PostSegue> */}
     </>
   );
 }

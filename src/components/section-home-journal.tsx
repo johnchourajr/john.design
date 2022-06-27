@@ -30,7 +30,7 @@ export default function SectionHomeJournal({ posts }) {
     <Wrapper className="pV">
       <MotionScroll id="journal" fadeIn={true} triggerPoint={0.85} yOffset={50}>
         <PageHeaderWrapper>
-          <Tick tickerSpeed={2} offset={""}>
+          <Tick tickerSpeed={2} offset={""} direction="right">
             {() => (
               <span>
                 <h1 className="display funky">{title}</h1>
@@ -43,25 +43,32 @@ export default function SectionHomeJournal({ posts }) {
         <h4>Most Recent Post</h4>
       </MotionScroll>
       <MotionScroll fadeIn={true} triggerPoint={0.85} yOffset={50}>
-        {posts.map(({ frontmatter: { slug, title, date, cover } }, i) => {
-          if (i === 0) {
-            return (
-              <MotionScroll
-                key={i}
-                fadeIn={true}
-                triggerPoint={0.85}
-                yOffset={50}
-              >
-                <JournalHomeFeature
-                  slug={slug}
-                  title={title}
-                  date={date}
-                  cover={cover}
-                />
-              </MotionScroll>
-            );
-          } else return null;
-        })}
+        {posts.map(
+          (
+            { timeToRead, exerpt, frontmatter: { slug, title, date, cover } },
+            i
+          ) => {
+            if (i === 0) {
+              return (
+                <MotionScroll
+                  key={i}
+                  fadeIn={true}
+                  triggerPoint={0.85}
+                  yOffset={50}
+                >
+                  <JournalHomeFeature
+                    slug={slug}
+                    title={title}
+                    date={date}
+                    cover={cover}
+                    timeToRead={timeToRead}
+                    exerpt={exerpt}
+                  />
+                </MotionScroll>
+              );
+            } else return null;
+          }
+        )}
       </MotionScroll>
 
       <LowerLink>

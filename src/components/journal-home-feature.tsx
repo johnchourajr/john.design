@@ -5,15 +5,15 @@ import Image from "next/image";
 
 /**
  * JournalHomeFeature Component
- *
- * @param {Object} props
- * @param {String} props.slug
- * @param {any} props.cover
- * @param {String} props.title
- * @param {String} props.date
- * @param {String} props.timeToRead
  */
-export default function JournalHomeFeature({ slug, cover, title, date }) {
+export default function JournalHomeFeature({
+  slug,
+  cover,
+  title,
+  date,
+  exerpt,
+  timeToRead,
+}) {
   return (
     <Link href={slug}>
       <Card>
@@ -25,11 +25,13 @@ export default function JournalHomeFeature({ slug, cover, title, date }) {
         <CardLower>
           <CardLowerTitle>
             <h1>{title}</h1>
+            <h4>{exerpt}</h4>
           </CardLowerTitle>
           <CardLowerDetails>
             <h1 className="arrow">→</h1>
             <span>
               <h4>{date}</h4>
+              <h4>{timeToRead} min read</h4>
             </span>
           </CardLowerDetails>
         </CardLower>
