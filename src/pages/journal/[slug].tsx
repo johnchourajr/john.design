@@ -18,7 +18,7 @@ export default function JournalPostTemplate(post) {
   return <JournalPost {...post} customCover={customCover()} />;
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps({ params }) {
   const post = getPostBySlug(params.slug);
 
   const content = post.content;
@@ -31,7 +31,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   const posts = getAllPosts();
 
   return {

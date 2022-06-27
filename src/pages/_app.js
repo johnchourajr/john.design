@@ -16,26 +16,29 @@ import { AnimationStyles } from "../components/style/animation-styles";
 import SEO from "../components/globals/seo";
 import Nav from "../components/globals/nav";
 import Footer from "../components/globals/footer";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider
-      theme={{
-        device: device,
-        colors: colors,
-        animation: animation,
-        size: size,
-        fonts: fonts,
-      }}
-    >
-      <BaseStyles />
-      <AnimationStyles />
-      <SEO />
-      <Nav />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-      <Footer />
-    </ThemeProvider>
+    <LazyMotion features={domAnimation}>
+      <ThemeProvider
+        theme={{
+          device: device,
+          colors: colors,
+          animation: animation,
+          size: size,
+          fonts: fonts,
+        }}
+      >
+        <BaseStyles />
+        <AnimationStyles />
+        <SEO />
+        <Nav />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        <Footer />
+      </ThemeProvider>
+    </LazyMotion>
   );
 }

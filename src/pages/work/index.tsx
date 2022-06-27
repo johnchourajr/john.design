@@ -37,9 +37,9 @@ const Input = styled.div`
 `;
 
 /**
- * page-template Component
+ * WorkPage
  */
-export default function Template({ content }) {
+export default function WorkPage({ content }) {
   const [pw, setPw] = React.useState("");
   const [show, setShow] = React.useState(false);
 
@@ -91,7 +91,7 @@ export default function Template({ content }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps() {
   const content = pageContent.pages.find((page) => page.path === "/work") || {
     notfound: true,
   };

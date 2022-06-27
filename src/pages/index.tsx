@@ -15,11 +15,11 @@ import SectionHomeFamily from "../components/section-home-family";
 import { getAllPosts } from "../../lib/posts";
 
 /**
- * index-page-template
+ * Homepage Component
  *
  * @param {Object} props
  */
-export default function Template({ content, posts }) {
+export default function Homepage({ content, posts }) {
   return (
     <>
       <SEO title={content.title} description={content.description} />
@@ -39,7 +39,7 @@ export default function Template({ content, posts }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps() {
   const posts = getAllPosts();
 
   const content = pageContent.index;
