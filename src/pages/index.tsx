@@ -22,9 +22,7 @@ import { getAllPosts } from "../../lib/posts";
 export default function Template({ content, posts }) {
   return (
     <>
-      <SEO>
-        <title>{content.title}</title>
-      </SEO>
+      <SEO title={content.title} description={content.description} />
       <SectionHomeHero data={content} />
       <SectionJobs jobs={content.section_resume} />
       <SectionBrands brands={content.section_brands} />

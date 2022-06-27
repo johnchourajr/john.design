@@ -1,17 +1,21 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Headline component
- *
- * @component
- * @param {Object} props
- * @param {any} props.children react children
- * @param {Boolean} props.display
- * @param {String} props.size
- * @param {Boolean} props.funky
- *
  */
-export function Headline({ children, display, size, funky, ...rest }) {
+interface HeadlineProps {
+  size?: string;
+  display?: boolean;
+  children: React.ReactNode;
+  funky?: boolean;
+}
+export function Headline({
+  children,
+  display,
+  size,
+  funky,
+  ...rest
+}: HeadlineProps) {
   return (
     <p className={size} data-display={display} data-funky={funky} {...rest}>
       {children}
@@ -21,23 +25,21 @@ export function Headline({ children, display, size, funky, ...rest }) {
 
 /**
  * Paragraph component
- *
- * @component
- * @param {Object} props
- * @param {any} props.children react children
  */
-export function Paragraph({ children, ...rest }) {
+interface ParagraphProps {
+  children: React.ReactNode;
+}
+export function Paragraph({ children, ...rest }: ParagraphProps) {
   return <p {...rest}>{children}</p>;
 }
 
 /**
  * Caption component
- *
- * @component
- * @param {Object} props
- * @param {any} props.children react children
  */
-export function Caption({ children, ...rest }) {
+interface CaptionProps {
+  children: React.ReactNode;
+}
+export function Caption({ children, ...rest }: CaptionProps) {
   return (
     <p className="caption" {...rest}>
       {children}

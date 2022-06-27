@@ -1,15 +1,15 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import {
   motion,
   useViewportScroll,
   useTransform,
-  useSpring
-} from 'framer-motion';
+  useSpring,
+} from "framer-motion";
 
 /**
  * Local Theme
  */
-import { animation } from '../data/baseTheme';
+import { animation } from "../data/baseTheme";
 
 const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
 
@@ -19,25 +19,25 @@ export default function MotionScroll(props) {
   } else return <></>;
 }
 
+// create interface for MotionScrollInner
+interface MotionScrollInnerProps {
+  children: React.ReactNode;
+  useSpan: boolean;
+  yOffset: number;
+  easing: number[];
+  triggerPoint: number;
+  fadeOut: boolean;
+  fadeIn: boolean;
+}
 /**
  * Renders a <MotionScroll /> component
- * @component
- * @param {Object} props
- * @param {any} props.children react children
- * @param {Boolean} props.useSpan when true wraps render in span
- * @param {Number} props.yOffset any number that will be rendered as a pixel value for transforming the y axis of the element
- * @param {Object} props.easing [number, number, number, number] | "linear" | "easeIn" | "easeOut" | "easeInOut" | "circIn" | "circOut" | "circInOut" | "backIn" | "backOut" | "backInOut" | "anticipate" | EasingFunction
- * @param {Number} props.triggerPoint value between 0 and 1 (top and bottom of the window), point to start animation
- * @param {Boolean} props.fadeOut chooses whether the object fades out
- * @param {Boolean} props.fadeIn chooses whether the object fades in
- * @param {object} props.rest the rest of any props
  * @returns an element wrapped in scroll motion paramaters
  */
 function MotionScrollInner({
   children,
   useSpan = false,
   yOffset = 0.5,
-  easing = animation.timingFunction.js,
+  easing = animation.timingFunction.js as any,
   triggerPoint = 0.1,
   fadeOut = true,
   fadeIn = false,
@@ -46,7 +46,7 @@ function MotionScrollInner({
   /**
    * Element Setup
    */
-  const ref = useRef();
+  const ref = useRef() as any;
   const { scrollY } = useViewportScroll();
   const [elementTop, setElementTop] = useState(0);
   const [clientHeight, setClientHeight] = useState(0);
@@ -61,12 +61,12 @@ function MotionScrollInner({
     };
 
     setValues();
-    document.addEventListener('load', setValues);
-    window.addEventListener('resize', setValues);
+    document.addEventListener("load", setValues);
+    window.addEventListener("resize", setValues);
 
     return () => {
-      document.removeEventListener('load', setValues);
-      window.removeEventListener('resize', setValues);
+      document.removeEventListener("load", setValues);
+      window.removeEventListener("resize", setValues);
     };
   }, [ref, yOffset]);
 
@@ -100,9 +100,10 @@ function MotionScrollInner({
    * @var opacity the opacity transform function
    */
   const opacityInitialValue = fadeOut ? 0 : 1;
-  const opacityRange = useMemo(() => [opacityInitialValue, 1], [
-    opacityInitialValue
-  ]);
+  const opacityRange = useMemo(
+    () => [opacityInitialValue, 1],
+    [opacityInitialValue]
+  );
   const yOpacityRange = fadeIn
     ? [transformInitialValue, transformFinalValueInverted]
     : [transformFinalValue, transformInitialValue];
@@ -120,7 +121,7 @@ function MotionScrollInner({
     <Component
       ref={ref}
       initial={{ y: 0 }}
-      style={{ y: springY, opacity: springOpacity, position: 'relative' }}
+      style={{ y: springY, opacity: springOpacity, position: "relative" }}
       {...rest}
     >
       {children}

@@ -20,10 +20,7 @@ import {
 import { Wrapper } from "@style/global-styles";
 
 /**
- *
- * @param {Object} props
- * @param {String} props.item
- * @param {String} props.slug
+ * TickerText
  */
 function TickerText({ item, slug }) {
   return (
@@ -31,10 +28,22 @@ function TickerText({ item, slug }) {
       className="display"
       data-name={slug}
       onMouseEnter={() =>
-        changeBodyClass("enter", slug, item.foreground, item.background)
+        changeBodyClass(
+          "enter",
+          slug,
+          item.foreground,
+          item.background,
+          ""
+        ) as any
       }
       onMouseLeave={() =>
-        changeBodyClass("exit", slug, item.foreground, item.background)
+        changeBodyClass(
+          "exit",
+          slug,
+          item.foreground,
+          item.background,
+          ""
+        ) as any
       }
     >
       <span className="text">{item.title}</span>

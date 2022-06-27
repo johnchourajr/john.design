@@ -17,7 +17,7 @@ import { repeatTitle } from "../functions/util";
 /**
  * PageHeader Component
  */
-export default function PageHeader({ title, size }) {
+export default function PageHeader({ title, size = "lg" }) {
   const variants = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
@@ -27,13 +27,13 @@ export default function PageHeader({ title, size }) {
     <Wrapper>
       <MotionScroll triggerPoint={0} yOffset={50}>
         <PageHeaderWrapper
-          className={size ? size : "lg"}
+          className={size}
           initial="hidden"
           animate="visible"
           variants={variants}
           transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 1 }}
         >
-          <Tick tickerSpeed={2}>
+          <Tick tickerSpeed={2} direction="left" offset={0}>
             {() => (
               <span>
                 <p

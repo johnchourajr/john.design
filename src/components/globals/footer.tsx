@@ -16,11 +16,8 @@ import pageContent from "@data/index.json";
 
 /**
  * Footer component
- *
- * @param {Object} props
- * @param {Object} props.pageContext
  */
-export default function Footer({ pageContext }) {
+export default function Footer() {
   const ref = React.useRef();
   return (
     <FooterContainer id="footer" ref={ref}>
