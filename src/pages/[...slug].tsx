@@ -10,9 +10,9 @@ import ReactMarkdown from "react-markdown";
 import { Headline } from "../components/type";
 
 /**
- * mdx-template Component
+ * TemplatePage Component
  */
-export default function Template({ content }) {
+export default function TemplatePage({ content }) {
   return (
     <>
       {content?.title && <PageHeader title={content.title} size="sm" />}

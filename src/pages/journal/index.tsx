@@ -14,9 +14,9 @@ import { getAllPosts } from "@lib/posts";
 import pageContent from "@data/index.json";
 
 /**
- * Journal Template
+ * JournalPage Template
  */
-export default function Template({ content, posts }) {
+export default function JournalPage({ content, posts }) {
   return (
     <>
       <PageHeader title={content.title} />
@@ -27,7 +27,7 @@ export default function Template({ content, posts }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps() {
   const posts = getAllPosts();
 
   const content = pageContent.pages.find(
