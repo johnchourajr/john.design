@@ -91,7 +91,7 @@ export default function WorkPage({ content }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps() {
   const content = pageContent.pages.find((page) => page.path === "/work") || {
     notfound: true,
   };

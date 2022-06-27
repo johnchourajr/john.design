@@ -39,7 +39,7 @@ export default function Homepage({ content, posts }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export function getStaticProps() {
   const posts = getAllPosts();
 
   const content = pageContent.index;
