@@ -7,7 +7,8 @@
 
 ## 🚀 Quick start
 
-    ```shell
-    cd john.design/
-    yarn start
-    ```
+```sh
+cd john.design
+yarn
+yarn dev
+```
