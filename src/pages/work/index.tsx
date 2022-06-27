@@ -1,10 +1,10 @@
 import React from "react";
-import pageContent from "../../../_data/index.json";
+import pageContent from "@data/index.json";
 
-import { Wrapper } from "../../components/style/global-styles";
-import PageHeader from "../../components/page-header";
+import { Wrapper } from "@components/style/global-styles";
+import PageHeader from "@components/page-header";
 import styled from "styled-components";
-import { Headline } from "../../components/type";
+import { Headline } from "@components/type";
 
 const Input = styled.div`
   position: relative;

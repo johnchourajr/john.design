@@ -3,11 +3,11 @@ const withMDX = require("@next/mdx")({
 });
 
 const nextConfig = {
+  swcMinify: false,
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
   },
-  webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
 

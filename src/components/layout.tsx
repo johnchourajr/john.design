@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 /**
  * Local Components
  */
-import Head from "./globals/head";
+import Head from "./globals/seo";
 import Nav from "./globals/nav";
 import Footer from "./globals/footer";
 

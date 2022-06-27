@@ -3,15 +3,15 @@ import * as React from "react";
 /**
  * Local Components
  */
-import PageHeader from "../../components/page-header";
-import { Wrapper } from "../../components/style/global-styles";
-import JournalIndexList from "../../components/journal-index-list";
+import PageHeader from "@components/page-header";
+import { Wrapper } from "@components/style/global-styles";
+import JournalIndexList from "@components/journal-index-list";
 
 /**
  * Data
  */
-import { getAllPosts } from "../../../lib/posts";
-import pageContent from "../../../_data/index.json";
+import { getAllPosts } from "@lib/posts";
+import pageContent from "@data/index.json";
 
 /**
  * Journal Template

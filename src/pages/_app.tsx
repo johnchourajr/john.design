@@ -13,7 +13,7 @@ import { ThemeProvider } from "styled-components";
 import { device, colors, animation, size, fonts } from "../data/baseTheme";
 import { BaseStyles } from "../components/style/base-styles";
 import { AnimationStyles } from "../components/style/animation-styles";
-import Head from "../components/globals/head";
+import Head from "../components/globals/seo";
 import Nav from "../components/globals/nav";
 import Footer from "../components/globals/footer";
 

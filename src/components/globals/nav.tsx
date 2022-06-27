@@ -3,13 +3,12 @@ import Link from "next/link";
 import styled from "styled-components";
 import { motion, useViewportScroll } from "framer-motion";
 
-import pageContent from "../../../_data/index.json";
+import pageContent from "@data/index.json";
 
 /**
  * Svg
  */
 import Logo from "../svg/logo";
-import { getAllPosts } from "../../../lib/posts";
 
 /**
  * NavLinkItem component

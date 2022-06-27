@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 /**
  * Local Components
  */
-import Tick from "../components/tick";
+import Tick from "./tick";
 import MotionScroll from "./motion-scroll";
 
 /**
  * Local Styles/JS
  */
-import { Wrapper } from "../components/style/global-styles";
+import { Wrapper } from "./style/global-styles";
 import { repeatTitle } from "../functions/util";
 
 /**
