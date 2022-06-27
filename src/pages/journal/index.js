@@ -17,7 +17,6 @@ import pageContent from "../../../_data/index.json";
  * Journal Template
  */
 export default function Template({ content, posts }) {
-  // console.log(posts);
   return (
     <>
       <PageHeader title={content.title} />
