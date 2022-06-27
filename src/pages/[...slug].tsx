@@ -1,5 +1,5 @@
 import React from "react";
-import pageContent from "../../_data/index.json";
+import pageContent from "@data/index.json";
 
 /**
  * Local Components
@@ -42,7 +42,9 @@ export default function Template({ content }) {
 
 export async function getStaticPaths() {
   // filter pageContent to only include pages with a key of "default"
-  const pages = pageContent.pages.filter((page) => page?.template === "default");
+  const pages = pageContent.pages.filter(
+    (page) => page?.template === "default"
+  );
 
   const paths = pages.map((page) => {
     const path = page.path;

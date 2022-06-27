@@ -10,9 +10,9 @@ import HoverGradient from "../hover-gradient";
 /**
  * Local styles
  */
-import { Wrapper } from "../style/global-styles";
+import { Wrapper } from "@style/global-styles";
 
-import pageContent from "../../../_data/index.json";
+import pageContent from "@data/index.json";
 
 /**
  * Footer component

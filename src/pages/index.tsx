@@ -1,5 +1,5 @@
 import React from "react";
-import pageContent from "../../_data/index.json";
+import pageContent from "@data/index.json";
 
 /**
  * Local Components
@@ -10,7 +10,7 @@ import SectionHomeJournal from "../components/section-home-journal";
 import SectionJobs from "../components/section-home-jobs";
 import SectionBrands from "../components/section-home-brands";
 import HoverBuddy from "../components/hover-buddy";
-import SEO from "../components/globals/head";
+import SEO from "../components/globals/seo";
 import SectionHomeFamily from "../components/section-home-family";
 import { getAllPosts } from "../../lib/posts";
 
