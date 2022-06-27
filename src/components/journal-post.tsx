@@ -8,6 +8,7 @@ import { Wrapper } from "./style/global-styles";
 import MotionScroll from "./motion-scroll";
 import dark from "../data/syntaxTheme";
 import SEO from "@globals/seo";
+import rehypeRaw from "rehype-raw";
 
 const CodeBlock = ({ children, language, ...props }) => {
   return (
@@ -73,6 +74,7 @@ export default function JournalPost({
           <MotionScroll fadeIn triggerPoint={0.85} yOffset={100} id="post">
             <ContentWrapper className="content-styles" itemProp="articleBody">
               <ReactMarkdown
+                rehypePlugins={[rehypeRaw]}
                 components={{
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || "");
