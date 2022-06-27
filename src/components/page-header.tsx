@@ -33,7 +33,7 @@ export default function PageHeader({ title, size = "lg" }) {
           variants={variants}
           transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 1 }}
         >
-          <Tick tickerSpeed={2} direction="left" offset={0}>
+          <Tick tickerSpeed={2} direction="toLeft" offset={0}>
             {() => (
               <span>
                 <p

@@ -30,7 +30,7 @@ export default function SectionHomeJournal({ posts }) {
     <Wrapper className="pV">
       <MotionScroll id="journal" fadeIn={true} triggerPoint={0.85} yOffset={50}>
         <PageHeaderWrapper>
-          <Tick tickerSpeed={2} offset={""} direction="right">
+          <Tick tickerSpeed={2} offset={""} direction="toLeft">
             {() => (
               <span>
                 <h1 className="display funky">{title}</h1>
