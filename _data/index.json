@@ -17,13 +17,18 @@
         "background": "#F2F2F2"
       },
       {
-        "title": "Human",
+        "title": "Man",
         "foreground": "#FF1D1D",
         "background": "#F2F2F2"
       },
       {
         "title": "Developer",
         "foreground": "#00CB39",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Tinkerer",
+        "foreground": "#FF1D1D",
         "background": "#F2F2F2"
       },
       {
@@ -42,8 +47,13 @@
         "background": "#F2F2F2"
       },
       {
-        "title": "Family Man",
+        "title": "Father of Two",
         "foreground": "#2861FF",
+        "background": "#F2F2F2"
+      },
+      {
+        "title": "Husband of One",
+        "foreground": "#FF1D1D",
         "background": "#F2F2F2"
       },
       {
