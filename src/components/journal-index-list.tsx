@@ -66,13 +66,7 @@ export default function JournalIndexList({ items }) {
 
                   {thumb && (
                     <ImageWrap>
-                      <Image
-                        src={thumb}
-                        layout="fill"
-                        alt=""
-                        width={500}
-                        height={500}
-                      />
+                      <Image src={thumb} fill alt="" width={500} height={500} />
                     </ImageWrap>
                   )}
                   <aside>

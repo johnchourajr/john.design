@@ -69,7 +69,7 @@ function SectionHomeFamily({ family }) {
         <ImageWrapper>
           <Image
             src={family.img}
-            layout="fill"
+            fill
             alt="family-photo"
             width={500}
             height={500}

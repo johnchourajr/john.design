@@ -22,7 +22,7 @@ interface MotionScrollInnerProps {
   children: React.ReactNode;
   useSpan: boolean;
   yOffset: number;
-  easing: number[];
+  easing: any;
   triggerPoint: number;
   fadeOut: boolean;
   fadeIn: boolean;
@@ -35,7 +35,7 @@ function MotionScrollInner({
   children,
   useSpan = false,
   yOffset = 0.5,
-  easing = animation.timingFunction.js as any,
+  easing = animation.timingFunction.js,
   triggerPoint = 0.1,
   fadeOut = true,
   fadeIn = false,

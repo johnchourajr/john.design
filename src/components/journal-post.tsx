@@ -32,7 +32,7 @@ function PostCover({ frontmatter, customCover }) {
         <Image
           src={imageSrc}
           alt={`${frontmatter?.title} Cover Art`}
-          layout="fill"
+          fill
           width={500}
           height={500}
         />
