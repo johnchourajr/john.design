@@ -32,15 +32,15 @@ export default function Footer() {
               if (top_level_nav)
                 return (
                   <Link key={i} href={path}>
-                    <a className="p">{`/${title}`}</a>
+                    <span className="p">{`/${title}`}</span>
                   </Link>
                 );
             })}
             <Link key={"contact"} href={"/contact"}>
-              <a className="p">/Contact</a>
+              <span className="p">/Contact</span>
             </Link>
             <Link key={"colophon"} href={"/colophon"}>
-              <a className="p">/Colophon</a>
+              <span className="p">/Colophon</span>
             </Link>
           </FooterLinks>
 
