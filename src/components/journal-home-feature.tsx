@@ -21,7 +21,7 @@ export default function JournalHomeFeature({
           <ImageWrap>
             <Image
               src={cover}
-              layout="fill"
+              fill
               alt={`${title} Cover Art`}
               width={500}
               height={500}
