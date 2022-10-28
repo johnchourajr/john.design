@@ -117,7 +117,7 @@ const NavLinksWrapper = styled(motion.div)`
   }
 `;
 
-const NavLink = styled.a`
+const NavLink = styled.span`
   pointer-events: visible;
   cursor: pointer;
 `;

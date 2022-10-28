@@ -73,9 +73,7 @@ export default function SectionHomeJournal({ posts }) {
 
       <LowerLink>
         <Link href="/journal">
-          <a>
-            <h4>View All →</h4>
-          </a>
+          <h4>View All →</h4>
         </Link>
       </LowerLink>
     </Wrapper>

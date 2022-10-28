@@ -14,9 +14,7 @@ import { animation } from "../data/baseTheme";
 const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
 
 export default function MotionScroll(props) {
-  if (typeof window !== `undefined`) {
-    return <MotionScrollInner {...props} />;
-  } else return <></>;
+  return <MotionScrollInner {...props} />;
 }
 
 // create interface for MotionScrollInner
@@ -24,7 +22,7 @@ interface MotionScrollInnerProps {
   children: React.ReactNode;
   useSpan: boolean;
   yOffset: number;
-  easing: number[];
+  easing: any;
   triggerPoint: number;
   fadeOut: boolean;
   fadeIn: boolean;
@@ -37,12 +35,12 @@ function MotionScrollInner({
   children,
   useSpan = false,
   yOffset = 0.5,
-  easing = animation.timingFunction.js as any,
+  easing = animation.timingFunction.js,
   triggerPoint = 0.1,
   fadeOut = true,
   fadeIn = false,
   ...rest
-}) {
+}: MotionScrollInnerProps) {
   /**
    * Element Setup
    */

@@ -31,32 +31,32 @@ export default function HoverBuddy() {
   });
 
   useEffect(() => {
-    if (typeof document !== `undefined` && typeof window !== `undefined`) {
-      const moveCursor = (e) => {
-        setId(document.body.getAttribute("data-figma-id"));
-        setUseIframe(document.body.getAttribute("data-iframe"));
+    // if (typeof document !== `undefined` && typeof window !== `undefined`) {
+    const moveCursor = (e) => {
+      setId(document.body.getAttribute("data-figma-id"));
+      setUseIframe(document.body.getAttribute("data-iframe"));
 
-        const windowWidth = e.view.innerWidth;
-        const windowHeight = e.view.innerWidth;
-        const elWidth = windowWidth * 0.6;
-        const elHeight = windowWidth * 0.4;
+      const windowWidth = e.view.innerWidth;
+      const windowHeight = e.view.innerWidth;
+      const elWidth = windowWidth * 0.6;
+      const elHeight = windowWidth * 0.4;
 
-        cursorX.set(e.clientX - elWidth / 2);
-        cursorY.set(e.clientY - elHeight / 2);
+      cursorX.set(e.clientX - elWidth / 2);
+      cursorY.set(e.clientY - elHeight / 2);
 
-        const windowCenterX = windowWidth / 2;
-        const windowCenterY = windowHeight / 2;
-        const mouseX = e.clientX - windowCenterX;
-        const mouseY = e.clientY - windowCenterY;
+      const windowCenterX = windowWidth / 2;
+      const windowCenterY = windowHeight / 2;
+      const mouseX = e.clientX - windowCenterX;
+      const mouseY = e.clientY - windowCenterY;
 
-        cursorRotateX.set(mouseX * 0.01);
-        cursorRotateY.set(mouseY * 0.01);
-      };
-      window.addEventListener("mousemove", moveCursor);
-      return () => {
-        window.removeEventListener("mousemove", moveCursor);
-      };
-    }
+      cursorRotateX.set(mouseX * 0.01);
+      cursorRotateY.set(mouseY * 0.01);
+    };
+    window.addEventListener("mousemove", moveCursor);
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+    };
+    // }
   }, [cursorX, cursorY, cursorRotateX, cursorRotateY]);
 
   const springConfig = { damping: 20, stiffness: 100 };
@@ -64,10 +64,6 @@ export default function HoverBuddy() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   const file = `https://www.figma.com/embed?embed_host=astra&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FrY8kva5mMuZ76jr1In7a3g%2FMotion%3Fnode-id%3D1%${id}%26viewport%3D768%252C638%252C0.5647107362747192%26scaling%3Dcontain%26hotspot-hints%3D0%26hide-ui%3D1`;
-
-  if (typeof window == `undefined`) {
-    return <></>;
-  }
 
   return (
     <HoverBuddyWrapper>
