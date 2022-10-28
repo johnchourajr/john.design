@@ -57,7 +57,7 @@ export default function App({ Component, pageProps }) {
         <Footer />
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-EVP1LYXH4P"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
         />
         <Script
           id="google-analytics"
@@ -66,20 +66,10 @@ export default function App({ Component, pageProps }) {
             __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-EVP1LYXH4P');`,
+            gtag('config', ${process.env.GA_MEASUREMENT_ID});`,
           }}
         />
       </ThemeProvider>
     </LazyMotion>
   );
 }
-
-// <!-- Google tag (gtag.js) -->
-// <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVP1LYXH4P"></script>
-// <script>
-//   window.dataLayer = window.dataLayer || [];
-//   function gtag(){dataLayer.push(arguments);}
-//   gtag('js', new Date());
-
-//   gtag('config', 'G-EVP1LYXH4P');
-// </script>
