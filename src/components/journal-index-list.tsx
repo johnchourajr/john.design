@@ -62,18 +62,22 @@ export default function JournalIndexList({ items }) {
                 yOffset={50}
               >
                 <Link href={slug}>
-                  <a>
-                    <h1>{title} </h1>
+                  <h1>{title} </h1>
 
-                    {thumb && (
-                      <ImageWrap>
-                        <Image src={thumb} layout="fill" alt="" />
-                      </ImageWrap>
-                    )}
-                    <aside>
-                      <h4>{date} </h4>
-                    </aside>
-                  </a>
+                  {thumb && (
+                    <ImageWrap>
+                      <Image
+                        src={thumb}
+                        layout="fill"
+                        alt=""
+                        width={500}
+                        height={500}
+                      />
+                    </ImageWrap>
+                  )}
+                  <aside>
+                    <h4>{date} </h4>
+                  </aside>
                 </Link>
               </MotionScroll>
             );

@@ -14,9 +14,7 @@ import { animation } from "../data/baseTheme";
 const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
 
 export default function MotionScroll(props) {
-  if (typeof window !== `undefined`) {
-    return <MotionScrollInner {...props} />;
-  } else return <></>;
+  return <MotionScrollInner {...props} />;
 }
 
 // create interface for MotionScrollInner
@@ -42,7 +40,7 @@ function MotionScrollInner({
   fadeOut = true,
   fadeIn = false,
   ...rest
-}) {
+}: MotionScrollInnerProps) {
   /**
    * Element Setup
    */

@@ -19,7 +19,13 @@ export default function JournalHomeFeature({
       <Card>
         {cover && (
           <ImageWrap>
-            <Image src={cover} layout="fill" alt={`${title} Cover Art`} />
+            <Image
+              src={cover}
+              layout="fill"
+              alt={`${title} Cover Art`}
+              width={500}
+              height={500}
+            />
           </ImageWrap>
         )}
         <CardLower>
@@ -67,7 +73,7 @@ const ImageWrap = styled.div`
   }
 `;
 
-const Card = styled.a`
+const Card = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;

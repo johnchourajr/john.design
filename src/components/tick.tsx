@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Ticker from 'react-ticker';
-import styled from 'styled-components';
-import PageVisibility from 'react-page-visibility';
+import React, { useState } from "react";
+import Ticker from "./ticker";
+import styled from "styled-components";
+import PageVisibility from "react-page-visibility";
 
 /**
  *
@@ -32,7 +32,7 @@ export default function Tick({
         {pageIsVisible && (
           <Ticker
             move={true}
-            direction={direction ? direction : 'toLeft'}
+            direction={direction ? direction : "toLeft"}
             offset={offset}
             speed={speed}
           >

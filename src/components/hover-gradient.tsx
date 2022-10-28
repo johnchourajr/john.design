@@ -15,15 +15,13 @@ export default function HoverGradient({ refContainer }) {
   const cursorRotateZ = useMotionValue(0);
 
   useEffect(() => {
-    if (typeof window !== `undefined`) {
-      const elWidth = ref?.current?.offsetHeight;
-      const elHeight = ref?.current?.offsetHeight;
-      const cursorXCenter = window.innerWidth - elWidth / 2;
-      const cursorYCenter = window.innerWidth - elHeight / 2;
+    const elWidth = ref?.current?.offsetHeight;
+    const elHeight = ref?.current?.offsetHeight;
+    const cursorXCenter = window.innerWidth - elWidth / 2;
+    const cursorYCenter = window.innerWidth - elHeight / 2;
 
-      cursorX.set(cursorXCenter);
-      cursorY.set(cursorYCenter);
-    }
+    cursorX.set(cursorXCenter);
+    cursorY.set(cursorYCenter);
   }, [cursorX, cursorY, ref]);
 
   useEffect(() => {
