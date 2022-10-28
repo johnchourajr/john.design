@@ -67,7 +67,13 @@ function SectionHomeFamily({ family }) {
     <FooterUpperWrapper className="pV">
       <div className="image-area">
         <ImageWrapper>
-          <Image src={family.img} layout="fill" alt="family-photo" />
+          <Image
+            src={family.img}
+            layout="fill"
+            alt="family-photo"
+            width={500}
+            height={500}
+          />
         </ImageWrapper>
       </div>
       <div className="text-area">

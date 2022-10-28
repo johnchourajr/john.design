@@ -33,6 +33,8 @@ function PostCover({ frontmatter, customCover }) {
           src={imageSrc}
           alt={`${frontmatter?.title} Cover Art`}
           layout="fill"
+          width={500}
+          height={500}
         />
       </PostImage>
     );
