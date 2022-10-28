@@ -19,13 +19,7 @@ export default function JournalHomeFeature({
       <Card>
         {cover && (
           <ImageWrap>
-            <Image
-              src={cover}
-              fill
-              alt={`${title} Cover Art`}
-              width={500}
-              height={500}
-            />
+            <Image src={cover} fill alt={`${title} Cover Art`} />
           </ImageWrap>
         )}
         <CardLower>

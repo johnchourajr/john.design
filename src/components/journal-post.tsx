@@ -29,13 +29,7 @@ function PostCover({ frontmatter, customCover }) {
   } else if (frontmatter?.cover) {
     return (
       <PostImage>
-        <Image
-          src={imageSrc}
-          alt={`${frontmatter?.title} Cover Art`}
-          fill
-          width={500}
-          height={500}
-        />
+        <Image src={imageSrc} alt={`${frontmatter?.title} Cover Art`} fill />
       </PostImage>
     );
   } else return null;
