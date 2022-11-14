@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <div className="grid grid-cols-2 my-8 gap-8">
+      <div className="grid grid-cols-3 my-8 gap-8">
         <Link href="/exp/freehand" className="">
           <h2 className="">
             <span className="underline">Freehand</span> &rarr;
@@ -16,6 +16,13 @@ export default function Home() {
             <span className="underline">Scroll Grow</span> &rarr;
           </h2>
           <p>The ability to view content on scroll in a... unique way.</p>
+        </Link>
+        <Link href="/exp/justified-headline" className="">
+          <h2 className="">
+            <span className="underline">Justified Headline Animation</span>{" "}
+            &rarr;
+          </h2>
+          <p>The ability to have a headline do some wild transitions.</p>
         </Link>
       </div>
     </main>
