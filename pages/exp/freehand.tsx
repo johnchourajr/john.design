@@ -10,7 +10,7 @@ export default function Freehand() {
         </h2>
       </Link>
       <div className="relative flex items-center justify-start w-full h-[100vh]">
-        <p>Start drawing with your cursor ✎</p>
+        <p className="fixed bottom-2">Start drawing with your cursor ✎</p>
       </div>
       <FreehandCanvas />
     </>
