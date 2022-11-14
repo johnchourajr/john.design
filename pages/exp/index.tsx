@@ -4,7 +4,8 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <div className="grid grid-cols-3 my-8 gap-8">
+      <h3 className="my-8">Experiments</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
         <Link href="/exp/freehand" className="">
           <h2 className="">
             <span className="underline">Freehand</span> &rarr;

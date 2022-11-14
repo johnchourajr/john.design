@@ -1,11 +1,14 @@
-import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 import FreehandCanvas from "../../components/FreehandCanvas";
-import styles from "../styles/Home.module.css";
 
 export default function Freehand() {
   return (
     <>
+      <Link href="/exp/" className="relative z-50 ">
+        <h2 className="my-8">
+          &larr; <span className="underline">Back</span>
+        </h2>
+      </Link>
       <div className="relative flex items-center justify-start w-full h-[100vh]">
         <p>Start drawing with your cursor ✎</p>
       </div>
