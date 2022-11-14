@@ -8,7 +8,7 @@ function Section() {
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 50%", "end"],
+    offset: ["start end", "end"],
   });
 
   return (
@@ -59,10 +59,10 @@ function Item({ index, scrollYProgress }: any) {
     "100%",
   ]);
   const width = useTransform(scrollYProgress, keyframes, [
-    "10%",
-    "10%",
-    "24%",
-    "24%",
+    "calc(10% - 4px)",
+    "calc(10% - 4px)",
+    "calc(24% - 4px)",
+    "calc(24% - 4px)",
     "66%",
   ]);
   const bottom = useTransform(scrollYProgress, keyframes, [
@@ -90,11 +90,11 @@ function Item({ index, scrollYProgress }: any) {
 
   return (
     <motion.div
-      className="absolute w-full h-[100vh] flex justify-center items-center "
+      className="absolute w-full h-[100vh] flex justify-center items-center border-t-2 border-b-2 border-[#ff0000] "
       style={{ zIndex }}
     >
       <motion.figure
-        className="bg-red-600 absolute"
+        className="bg-[#ff0000] absolute border-shadow"
         style={{ width, height, right, bottom }}
       >
         {index}
@@ -103,8 +103,8 @@ function Item({ index, scrollYProgress }: any) {
             width="100%"
             height="100%"
             fill="transparent"
-            stroke="black"
-            strokeWidth={8}
+            // stroke="black"
+            // strokeWidth={8}
           />
         </svg>
       </motion.figure>
@@ -112,7 +112,7 @@ function Item({ index, scrollYProgress }: any) {
   );
 }
 
-export default function Home() {
+export default function ScrollGrow() {
   return (
     <div className="relative w-full">
       <Head>
