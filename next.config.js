@@ -1,12 +1,7 @@
-module.exports = {
-  swcMinify: false,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-  compiler: {
-    styledComponents: true,
-  },
-  webpack: (config) => {
-    config.resolve.fallback = { fs: false };
+  swcMinify: true,
+}
 
-    return config;
-  },
-};
+module.exports = nextConfig
