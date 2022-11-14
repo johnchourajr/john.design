@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         internet.
         <br />
         Check out an{" "}
-        <Link href="https://john.design" className="underline">
+        <Link href="https://john.design" className="underline z-50 relative">
           main version of the site
         </Link>
         . Stay safe in here.
