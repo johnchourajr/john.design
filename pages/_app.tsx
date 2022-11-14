@@ -5,7 +5,7 @@ import GlobalHead from "../components/GlobalHead";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="p-4 text-[#ff0000]">
+    <div className="p-4 text-[#ff0000] bg-black">
       <GlobalHead />
       <h1 className="z-50 relative">
         <Link href="/" className="underline">
