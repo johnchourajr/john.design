@@ -6,6 +6,14 @@ export default function Home() {
     <main>
       <h3 className="my-8">Experiments</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
+        <Link href="/exp/justified-headline" className="">
+          <h2 className="">
+            <span className="underline">Justified Headline Animation</span>{" "}
+            &rarr;
+            <span className="text-xs opacity-60"> NEW</span>
+          </h2>
+          <p>The ability to have a headline do some wild transitions.</p>
+        </Link>
         <Link href="/exp/freehand" className="">
           <h2 className="">
             <span className="underline">Freehand</span> &rarr;
@@ -17,14 +25,6 @@ export default function Home() {
             <span className="underline">Scroll Grow</span> &rarr;
           </h2>
           <p>The ability to view content on scroll in a... unique way.</p>
-        </Link>
-        <Link href="/exp/justified-headline" className="">
-          <h2 className="">
-            <span className="underline">Justified Headline Animation</span>{" "}
-            &rarr;
-            <span className="text-xs opacity-60"> Coming Soon</span>
-          </h2>
-          <p>The ability to have a headline do some wild transitions.</p>
         </Link>
       </div>
     </main>

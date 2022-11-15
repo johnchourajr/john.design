@@ -15,6 +15,7 @@ import type { AppProps } from "next/app";
  * Styles
  */
 import "../styles/globals.css";
+import { useRouter } from "next/router";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,6 +24,9 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  // get pathname from router
+  const { pathname } = useRouter();
+
   return (
     <div className="p-4 text-[#ff0000] bg-black min-h-[100vh]">
       <GlobalHead />
@@ -45,6 +49,17 @@ export default function App({ Component, pageProps }: AppProps) {
       <main className={`${inter.variable} font-sans`}>
         <Component {...pageProps} />
       </main>
+      <div className="fixed bottom-4 right-4 font-bold">
+        <Link
+          href={`https://github.com/johnchourajr/john.design/tree/new-new/pages${
+            pathname === "/" ? "/index" : pathname
+          }.tsx`}
+          target="_blank"
+          aria-label="Link to source code"
+        >
+          {"</>"}
+        </Link>
+      </div>
     </div>
   );
 }
