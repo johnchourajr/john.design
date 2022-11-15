@@ -22,6 +22,7 @@ export default function Home() {
           <h2 className="">
             <span className="underline">Justified Headline Animation</span>{" "}
             &rarr;
+            <span className="text-xs opacity-60"> Coming Soon</span>
           </h2>
           <p>The ability to have a headline do some wild transitions.</p>
         </Link>

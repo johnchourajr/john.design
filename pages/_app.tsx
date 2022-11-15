@@ -1,11 +1,30 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import Link from "next/link";
+import { Inter } from "@next/font/google";
+
+/**
+ * Components
+ */
 import GlobalHead from "../components/GlobalHead";
+
+/**
+ * Types
+ */
+import type { AppProps } from "next/app";
+
+/**
+ * Styles
+ */
+import "../styles/globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: "variable",
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="p-4 text-[#ff0000] bg-black">
+    <div className="p-4 text-[#ff0000] bg-black min-h-[100vh]">
       <GlobalHead />
       <h1 className="z-50 relative">
         <Link href="/" className="underline">
@@ -23,7 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
         </Link>
         . Stay safe in here.
       </p>
-      <Component {...pageProps} />
+      <main className={`${inter.variable} font-sans`}>
+        <Component {...pageProps} />
+      </main>
     </div>
   );
 }
