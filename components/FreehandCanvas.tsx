@@ -42,6 +42,8 @@ export default function FreehandCanvas() {
   const stroke = getStroke(points, options);
   const pathData = getSvgPathFromStroke(stroke as any);
 
+  // create new path element on each handlePointerDown
+
   return (
     <svg
       onPointerDown={handlePointerDown}
