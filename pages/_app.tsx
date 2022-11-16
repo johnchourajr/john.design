@@ -16,6 +16,7 @@ import type { AppProps } from "next/app";
  */
 import "../styles/globals.css";
 import { useRouter } from "next/router";
+import InlineLink from "../components/InlineLink";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,9 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className="p-4 text-[#ff0000] bg-black min-h-[100vh]">
       <GlobalHead />
       <h1 className="z-50 relative">
-        <Link href="/" className="underline">
-          John.Design
-        </Link>
+        <InlineLink href="/">John.Design</InlineLink>
       </h1>
 
       <p className="">
@@ -41,24 +40,25 @@ export default function App({ Component, pageProps }: AppProps) {
         internet.
         <br />
         Check out an{" "}
-        <Link href="https://john.design" className="underline z-50 relative">
+        <InlineLink href="https://john.design">
           main version of the site
-        </Link>
+        </InlineLink>
         . Stay safe in here.
       </p>
       <main className={`${inter.variable} font-sans`}>
         <Component {...pageProps} />
       </main>
       <div className="fixed bottom-4 right-4 font-bold">
-        <Link
+        <InlineLink
           href={`https://github.com/johnchourajr/john.design/tree/new-new/pages${
             pathname === "/" ? "/index" : pathname
           }.tsx`}
           target="_blank"
           aria-label="Link to source code"
+          className="no-underline"
         >
           {"</>"}
-        </Link>
+        </InlineLink>
       </div>
     </div>
   );

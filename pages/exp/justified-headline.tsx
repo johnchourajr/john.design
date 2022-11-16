@@ -6,19 +6,23 @@ import Link from "next/link";
 const TOP_LINE = [
   {
     parent: "w-full",
-    child: "w-full justify-center !text-[1vw] tracking-wider uppercase",
+    child:
+      "w-full justify-center !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
   },
   {
     parent: "w-1/2 ml-auto",
-    child: "w-full justify-between !text-[1vw] tracking-wider uppercase",
+    child:
+      "w-full justify-between !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
   },
   {
     parent: "w-1/2",
-    child: "w-full justify-start !text-[1vw] tracking-wider uppercase",
+    child:
+      "w-full justify-start !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
   },
   {
     parent: "w-1/2",
-    child: "w-full justify-between !text-[1vw] tracking-wider uppercase",
+    child:
+      "w-full justify-between !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
   },
 ];
 const LINE_ONE = [
@@ -94,10 +98,9 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
   );
 };
 
-export default function JustifiedHeadline() {
+export function JustifiedHeadlineInner() {
   const [ani, setAni] = React.useState(0);
 
-  // count from 0 to 6 every 1 second
   React.useEffect(() => {
     const interval = setInterval(() => {
       setAni((prev) => (prev + 1) % LINE_ONE.length);
@@ -106,25 +109,31 @@ export default function JustifiedHeadline() {
   }, []);
 
   return (
+    <div className="my-[10vw]">
+      <TextContainer text="John Is" motionObject={TOP_LINE} motionKey={ani} />
+      <TextContainer
+        text="Working On"
+        motionObject={LINE_ONE}
+        motionKey={ani}
+      />
+      <TextContainer
+        text="The Internet"
+        motionObject={LINE_TWO}
+        motionKey={ani}
+      />
+    </div>
+  );
+}
+
+export default function JustifiedHeadline() {
+  return (
     <>
       <Link href="/exp/" className="">
         <h2 className="my-8">
           &larr; <span className="underline">Back</span>
         </h2>
       </Link>
-      <div className="my-[10vw]">
-        <TextContainer text="John Is" motionObject={TOP_LINE} motionKey={ani} />
-        <TextContainer
-          text="Working On"
-          motionObject={LINE_ONE}
-          motionKey={ani}
-        />
-        <TextContainer
-          text="The Internet"
-          motionObject={LINE_TWO}
-          motionKey={ani}
-        />
-      </div>
+      <JustifiedHeadlineInner />
     </>
   );
 }
