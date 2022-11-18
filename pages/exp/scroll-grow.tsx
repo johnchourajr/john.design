@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
+import InlineLink from "../../components/InlineLink";
 
 const EXAMPLE_LIST = [
   { text: "moonlight" },
@@ -128,11 +128,11 @@ function Section() {
 export default function ScrollGrow() {
   return (
     <>
-      <Link href="/exp/" className="">
+      <InlineLink href="/exp/" className="no-underline">
         <h2 className="my-8">
           &larr; <span className="underline">Back</span>
         </h2>
-      </Link>
+      </InlineLink>
       <div className="relative w-full">
         <section className="relative flex items-center justify-start just min-h-[50vh] mb-4 border-b-2 border-[#ff0000] ">
           Start scrolling down ↓

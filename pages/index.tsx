@@ -8,20 +8,20 @@ const data: LinkGridItemProps[] = [
     description: "Proof of concept work in the progress of building the site.",
   },
   {
-    href: "#",
+    href: "/journal",
     title: "Journal",
     description: "Site journal content",
     status: "Coming Soon",
   },
   {
-    href: "#",
+    href: "/work",
     title: "Work",
     description: "Site work content",
     status: "Coming Soon",
   },
 ];
 
-export default function Home() {
+export default function HomePage() {
   return (
     <main>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8">
@@ -29,7 +29,6 @@ export default function Home() {
           <LinkGridItem key={i} {...item} />
         ))}
       </div>
-      <JustifiedHeadlineInner />
     </main>
   );
 }

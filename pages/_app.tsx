@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Inter } from "@next/font/google";
 
 /**
@@ -29,10 +28,12 @@ export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
 
   return (
-    <div className="p-4 text-[#ff0000] bg-black min-h-[100vh]">
+    <div className="p-4 text-[#ff0000] bg-black min-h-[100vh] font-sans">
       <GlobalHead />
-      <h1 className="z-50 relative">
-        <InlineLink href="/">John.Design</InlineLink>
+      <h1 className="z-50 relative font-bold uppercase tracking-wider">
+        <InlineLink href="/" className="no-underline">
+          John.Design
+        </InlineLink>
       </h1>
 
       <p className="">
@@ -45,7 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </InlineLink>
         . Stay safe in here.
       </p>
-      <main className={`${inter.variable} font-sans`}>
+      <main>
         <Component {...pageProps} />
       </main>
       <div className="fixed bottom-4 right-4 font-bold">
