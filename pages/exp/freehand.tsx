@@ -1,14 +1,14 @@
-import Link from "next/link";
 import FreehandCanvas from "../../components/FreehandCanvas";
+import InlineLink from "../../components/InlineLink";
 
 export default function Freehand() {
   return (
     <>
-      <Link href="/exp/" className="relative z-50 ">
+      <InlineLink href="/exp/" className="relative z-50 no-underline">
         <h2 className="my-8">
           &larr; <span className="underline">Back</span>
         </h2>
-      </Link>
+      </InlineLink>
       <div className="relative flex items-center justify-start w-full h-[100vh]">
         <p className="fixed bottom-2">Start drawing with your cursor ✎</p>
       </div>

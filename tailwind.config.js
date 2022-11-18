@@ -11,6 +11,16 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
+        bold: ["KUniforma Bold", ...fontFamily.sans],
+        black: ["KUniforma Black", ...fontFamily.sans],
+      },
+      letterSpacing: {
+        tight: "-0.05em",
+        tighter: "-.04em",
+        normal: "0",
+        wide: "0.05em",
+        wider: "0.1em",
+        widest: "0.15em",
       },
     },
   },

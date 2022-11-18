@@ -1,28 +1,29 @@
 import React from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import Link from "next/link";
+import InlineLink from "../../components/InlineLink";
+import { SettingsGroup } from "./settings";
 
 const TOP_LINE = [
   {
     parent: "w-full",
     child:
-      "w-full justify-center !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
+      "w-full justify-center !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
   },
   {
     parent: "w-1/2 ml-auto",
     child:
-      "w-full justify-between !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
+      "w-full justify-between !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
   },
   {
     parent: "w-1/2",
     child:
-      "w-full justify-start !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
+      "w-full justify-start !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
   },
   {
     parent: "w-1/2",
     child:
-      "w-full justify-between !text-[1rem] lg:!text-[1vw] tracking-wider uppercase",
+      "w-full justify-between !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
   },
 ];
 const LINE_ONE = [
@@ -45,11 +46,11 @@ const LINE_ONE = [
 ];
 const LINE_TWO = [
   {
-    parent: "w-1/2",
+    parent: "w-3/4",
     child: "w-full justify-start",
   },
   {
-    parent: "w-1/2",
+    parent: "w-3/4",
     child: "w-full justify-between",
   },
   {
@@ -57,7 +58,7 @@ const LINE_TWO = [
     child: "w-full justify-center",
   },
   {
-    parent: "w-1/2 ml-auto",
+    parent: "w-3/4 ml-auto",
     child: "w-full justify-between",
   },
 ];
@@ -85,7 +86,7 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
     >
       <motion.p
         className={clsx(
-          "inline-flex font-black whitespace-pre tracking-tight text-[8vw]",
+          "inline-flex font-black whitespace-pre tracking-normal uppercase text-[8vw]",
           motionController.child
         )}
         initial={{ fontVariationSettings: `'slnt' 10` }}
@@ -98,18 +99,22 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
   );
 };
 
-export function JustifiedHeadlineInner() {
+export function JustifiedHeadlineInner({ settings }: any) {
   const [ani, setAni] = React.useState(0);
+  const speed = settings.find((setting: any) => setting.name === "Speed");
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setAni((prev) => (prev + 1) % LINE_ONE.length);
-    }, 2000);
+    const interval = setInterval(
+      () => {
+        setAni((prev) => (prev + 1) % LINE_ONE.length);
+      },
+      speed.value ? speed.value : 1000
+    );
     return () => clearInterval(interval);
-  }, []);
+  }, [speed]);
 
   return (
-    <div className="my-[10vw]">
+    <div className="my-[10vw] min-h-[70vh]">
       <TextContainer text="John Is" motionObject={TOP_LINE} motionKey={ani} />
       <TextContainer
         text="Working On"
@@ -125,15 +130,37 @@ export function JustifiedHeadlineInner() {
   );
 }
 
+const SETTINGS = [
+  {
+    name: "Add Slant",
+    type: "Boolean",
+    value: false,
+  },
+  {
+    name: "Speed",
+    type: "Slider",
+    value: 2000,
+    min: 1000,
+    max: 3000,
+  },
+];
+
 export default function JustifiedHeadline() {
+  const [settings, setSettings] = React.useState(SETTINGS);
+
+  React.useEffect(() => {
+    console.log({ settings });
+  }, [settings]);
+
   return (
     <>
-      <Link href="/exp/" className="">
-        <h2 className="my-8">
+      <InlineLink href="/exp/" className="no-underline">
+        <h2 className="my-8 font-sans">
           &larr; <span className="underline">Back</span>
         </h2>
-      </Link>
-      <JustifiedHeadlineInner />
+      </InlineLink>
+      <JustifiedHeadlineInner settings={settings} />
+      <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
   );
 }
