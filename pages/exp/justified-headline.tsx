@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import InlineLink from "../../components/InlineLink";
 import { SettingsGroup } from "./settings";
+import { slugify } from "../../utils";
 
 const TOP_LINE = [
   {
@@ -64,13 +65,16 @@ const LINE_TWO = [
 ];
 
 const TextContainer = ({ text, motionObject, motionKey }: any) => {
+  const id = React.useMemo(() => {
+    return Math.random().toString(36).substr(2, 9);
+  }, []);
   const motionController = motionObject[motionKey];
 
   const childrenArray = text.split(" ");
   const childrenArrayWithMotion = childrenArray.map(
     (child: any, index: number) => {
       return (
-        <motion.span key={index} layout>
+        <motion.span key={index} id={`${id}-${slugify(child)}`} layout>
           {child} {index !== childrenArray.length - 1 && " "}
         </motion.span>
       );
@@ -78,30 +82,32 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
   );
 
   return (
-    <div
+    <span
+      id={id}
       className={clsx(
         "relative flex flex-col items-center justify-start w-full",
         motionController.parent
       )}
     >
-      <motion.p
+      <motion.span
         className={clsx(
-          "inline-flex font-black whitespace-pre tracking-normal uppercase text-[8vw]",
+          "inline-flex  whitespace-pre tracking-normal uppercase text-[8vw]",
           motionController.child
         )}
-        initial={{ fontVariationSettings: `'slnt' 10` }}
-        whileHover={{ fontVariationSettings: `'slnt' 10` }}
         layout
       >
         {childrenArrayWithMotion}
-      </motion.p>
-    </div>
+      </motion.span>
+    </span>
   );
 };
 
 export function JustifiedHeadlineInner({ settings }: any) {
   const [ani, setAni] = React.useState(0);
   const speed = settings.find((setting: any) => setting.name === "Speed");
+  const slant = settings.find((setting: any) => setting.name === "Add Slant");
+
+  console.log(slant.value);
 
   React.useEffect(() => {
     const interval = setInterval(
@@ -114,7 +120,13 @@ export function JustifiedHeadlineInner({ settings }: any) {
   }, [speed]);
 
   return (
-    <div className="my-[10vw] min-h-[70vh]">
+    <p
+      className={clsx(
+        "my-[10vw] min-h-[70vh] font-black",
+        slant.value && "font-black-ritalic"
+      )}
+      data-id={ani}
+    >
       <TextContainer text="John Is" motionObject={TOP_LINE} motionKey={ani} />
       <TextContainer
         text="Working On"
@@ -126,7 +138,7 @@ export function JustifiedHeadlineInner({ settings }: any) {
         motionObject={LINE_TWO}
         motionKey={ani}
       />
-    </div>
+    </p>
   );
 }
 
@@ -136,11 +148,16 @@ const SETTINGS = [
     type: "Boolean",
     value: false,
   },
+  // {
+  //   name: "Squash & Stretch",
+  //   type: "Boolean",
+  //   value: true,
+  // },
   {
     name: "Speed",
     type: "Slider",
-    value: 2000,
-    min: 1000,
+    value: 1000,
+    min: 500,
     max: 3000,
   },
 ];
@@ -148,9 +165,9 @@ const SETTINGS = [
 export default function JustifiedHeadline() {
   const [settings, setSettings] = React.useState(SETTINGS);
 
-  React.useEffect(() => {
-    console.log({ settings });
-  }, [settings]);
+  // React.useEffect(() => {
+  //   console.log({ settings });
+  // }, [settings]);
 
   return (
     <>
