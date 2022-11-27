@@ -12,7 +12,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
         bold: ["KUniforma Bold", ...fontFamily.sans],
+        "bold-ritalic": ["KUniforma Bold Ritalic", ...fontFamily.sans],
         black: ["KUniforma Black", ...fontFamily.sans],
+        "black-ritalic": ["KUniforma Black Ritalic", ...fontFamily.sans],
       },
       letterSpacing: {
         tight: "-0.05em",

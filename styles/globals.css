@@ -12,6 +12,15 @@
 }
 
 @font-face {
+  font-family: 'KUniforma Bold Ritalic';
+  font-style: italic;
+  font-weight: 850;
+  font-display: swap;
+  src: url('../fonts/KUniforma-85BoldRitalic.woff2') format('woff2'),
+    url('../fonts/KUniforma-85BoldRitalic.woff') format('woff');
+}
+
+@font-face {
   font-family: 'KUniforma Black';
   font-style: normal;
   font-weight: 900;
@@ -19,6 +28,16 @@
   src:
     url('../fonts/KUniforma-90Black.woff2') format('woff2'),
     url('../fonts/KUniforma-90Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'KUniforma Black Ritalic';
+  font-style: normal;
+  font-weight: 950;
+  font-display: swap;
+  src:
+    url('../fonts/KUniforma-95BlackRitalic.woff2') format('woff2'),
+    url('../fonts/KUniforma-95BlackRitalic.woff') format('woff');
 }
 
 @layer components {

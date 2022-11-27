@@ -16,6 +16,7 @@
     "clsx": "^1.2.1",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
+    "feed": "^4.2.2",
     "framer-motion": "^7.6.5",
     "fs": "^0.0.1-security",
     "next": "13.0.2",
