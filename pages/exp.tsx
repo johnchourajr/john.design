@@ -2,22 +2,10 @@ import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
 
 const data: LinkGridItemProps[] = [
   {
-    href: "/exp/color-wheel",
-    title: "Color Wheel",
-    description: "All of the colors of the rainbow.",
-    status: "Coming Soon",
-  },
-  {
-    href: "/exp/see-scroll",
-    title: "See Scroll",
-    description: "Some things go on and on and on and on and on.",
-    status: "Coming Soon",
-  },
-  {
     href: "/exp/john-gl",
     title: "JohnGL",
     description: "What if picture of John and webGL had a bebe.",
-    status: "Coming Soon",
+    status: "NEW",
   },
   {
     href: "/exp/justified-headline",
@@ -34,6 +22,18 @@ const data: LinkGridItemProps[] = [
     href: "/exp/scroll-grow",
     title: "Scroll Grow",
     description: "So when you scroll, it's... weird.",
+  },
+  {
+    href: "/exp/color-wheel",
+    title: "Color Wheel",
+    description: "All of the colors of the rainbow.",
+    status: "Coming Soon",
+  },
+  {
+    href: "/exp/see-scroll",
+    title: "See Scroll",
+    description: "Some things go on and on and on and on and on.",
+    status: "Coming Soon",
   },
 ];
 
