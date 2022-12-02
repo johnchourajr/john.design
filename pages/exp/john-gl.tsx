@@ -1,11 +1,5 @@
 import * as THREE from "three";
-import React, {
-  Suspense,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useLoader, useFrame, useThree } from "@react-three/fiber";
 
 import InlineLink from "../../components/InlineLink";
@@ -19,56 +13,80 @@ function Mesh({ settings }: any) {
 
   const light_1 = settings.find((setting: any) => setting.name === "Light 1");
   const light_2 = settings.find((setting: any) => setting.name === "Light 2");
+  const light_3 = settings.find((setting: any) => setting.name === "Light 3");
 
   // use mouse position to rotate the mesh
   const { mouse } = useThree();
-  // useFrame(() => {
-  //   if (ref.current) {
-  //     ref.current.rotation.x = mouse.y * 0.1;
-  //     ref.current.rotation.y = mouse.x * 0.1;
-  //   }
-  // });
 
   // use mouse position to move lights
   const [x, setX] = useState(1);
   const [y, setY] = useState(1);
+
   useFrame(() => {
-    setX(mouse.x * 21);
-    setY(mouse.y * 5);
+    setX(mouse.x);
+    setY(mouse.y);
   });
 
-  const light1 = { x: x * 0.2 - 4, y: y * 0.35 + 2, z: 5 };
-  const light2 = { x: x * 0.2 - 8, y: y * 0.35 + 2, z: 5 };
+  const light1 = {
+    x: Math.sin(-x),
+    y: Math.cos(-x + y),
+    z: 0.2,
+  };
 
-  // ease out expo cubic bezier
+  const light2 = {
+    x: Math.sin(x),
+    y: Math.cos(x + y),
+    z: 0.2,
+  };
+
+  const light3 = {
+    x: 0,
+    y: y - 2,
+    z: 1,
+  };
+
+  console.log({
+    light2Y: light2.y,
+    light2X: light2.x,
+  });
 
   return (
     <mesh ref={ref as any} scale={1}>
       {light_1.value && (
-        <motion.pointLight
+        <motion.spotLight
           animate={light1 as any}
-          intensity={1.5}
-          color={0xffffff}
+          intensity={10}
+          color={0x0000ff}
           transition={{ ease: [0.16, 1, 0.3, 1] }}
+          angle={0.5}
+          distance={100}
+          penumbra={1}
+          castShadow
         />
       )}
       {light_2.value && (
-        <motion.pointLight
+        <motion.spotLight
           animate={light2 as any}
-          intensity={1.5}
-          color={0xffffff}
+          intensity={10}
+          color={0xff0000}
           transition={{ ease: [0.16, 1, 0.3, 1] }}
+          angle={0.5}
+          distance={100}
+          penumbra={1}
+          castShadow
         />
       )}
-      <motion.pointLight
-        position={[0, 0, 5]}
-        intensity={0.25}
-        color={0xffffff}
-      />
+      {light_3.value && (
+        <motion.pointLight
+          animate={light3 as any}
+          intensity={0.8}
+          color={0xffffff}
+        />
+      )}
       <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial
-        metalness={0.4}
-        roughness={0.24}
+        metalness={0.01}
+        roughness={0}
         normalMap={memap}
         map={me}
         transparent
@@ -85,6 +103,11 @@ const SETTINGS = [
   },
   {
     name: "Light 2",
+    type: "Boolean",
+    value: true,
+  },
+  {
+    name: "Light 3",
     type: "Boolean",
     value: true,
   },
@@ -110,14 +133,14 @@ export default function JohnGL() {
         </h2>
       </InlineLink>
       <Canvas
-        className="w-[100vw] h-[100vh]"
+        className="w-[100vw] h-[100vh] static "
         style={{ width: size.width, height: size.height }}
         dpr={devicePixelRatio || 3}
         camera={{
           position: [0, 0, 2],
           fov: 25,
           aspect: width / height,
-          near: 0.1,
+          near: 0.2,
           far: 100,
         }}
       >
