@@ -134,7 +134,7 @@ const SETTINGS = [
   },
 ];
 
-function JohnGLCanvas({ settings }: any) {
+export function JohnGLCanvas({ settings }: any) {
   const { width = 0, height = 0 } = useWindowSize();
   const devicePixelRatio = useDevicePixelRatio();
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -157,9 +157,7 @@ function JohnGLCanvas({ settings }: any) {
         }}
       >
         <Suspense fallback={null}>
-          <Mesh
-          // settings={settings}
-          />
+          <Mesh settings={settings} />
         </Suspense>
       </Canvas>
     </div>
