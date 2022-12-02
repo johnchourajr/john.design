@@ -2,6 +2,11 @@ import React from "react";
 import { LayoutGroup, motion } from "framer-motion";
 import clsx from "clsx";
 
+export function getSettingValue(settings: any, name: string) {
+  if (!settings || settings === undefined) return null;
+  return settings?.find((setting: any) => setting.name === name).value;
+}
+
 // hook that can write state to an object on an array
 // https://stackoverflow.com/a/58485871/104380
 
