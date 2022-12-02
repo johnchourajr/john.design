@@ -16,7 +16,10 @@ export default function InlineLink({
   return (
     <Link
       href={href}
-      className={clsx("relative z-50 underline", className)}
+      className={clsx(
+        "relative z-50 underline pointer-events-auto cursor-pointer",
+        className
+      )}
       {...props}
     >
       {children}
