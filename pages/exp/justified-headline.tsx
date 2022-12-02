@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import InlineLink from "../../components/InlineLink";
-import { SettingsGroup } from "./settings";
+import { SettingsGroup } from "../../components/SettingsComponents";
 import { slugify } from "../../utils";
 
 const TOP_LINE = [
