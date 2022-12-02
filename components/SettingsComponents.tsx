@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { LayoutGroup, motion } from "framer-motion";
 import clsx from "clsx";
 
 // hook that can write state to an object on an array
@@ -69,43 +69,47 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
         type="range"
         min={min}
         max={max}
+        step={state.step || 1}
         value={state.value}
         onChange={update}
         className="w-32"
       />
       <span className="inline-flex flex-row whitespace-nowrap">
-        {state.value}ms
+        {state.value}
+        {state.unit}
       </span>
     </div>
   );
 }
 export function SettingsGroup({ settings, setSettings }: any) {
   return (
-    <div className="sticky bottom-4 left-4 flex gap-4 flex-col items-start justify-start w-full">
-      {settings.map(({ type, ...rest }: any, index: number) => {
-        switch (type) {
-          case "Boolean":
-            return (
-              <SettingsBoolean
-                key={index}
-                index={index}
-                {...{ settings, setSettings }}
-                {...rest}
-              />
-            );
-          case "Slider":
-            return (
-              <SettingsSlider
-                key={index}
-                index={index}
-                {...{ settings, setSettings }}
-                {...rest}
-              />
-            );
-          default:
-            return null;
-        }
-      })}
-    </div>
+    <LayoutGroup>
+      <div className="sticky bottom-4 left-4 flex gap-4 flex-col items-start justify-start w-full">
+        {settings.map(({ type, ...rest }: any, index: number) => {
+          switch (type) {
+            case "Boolean":
+              return (
+                <SettingsBoolean
+                  key={index}
+                  index={index}
+                  {...{ settings, setSettings }}
+                  {...rest}
+                />
+              );
+            case "Slider":
+              return (
+                <SettingsSlider
+                  key={index}
+                  index={index}
+                  {...{ settings, setSettings }}
+                  {...rest}
+                />
+              );
+            default:
+              return null;
+          }
+        })}
+      </div>
+    </LayoutGroup>
   );
 }

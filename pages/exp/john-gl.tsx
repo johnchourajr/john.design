@@ -14,6 +14,9 @@ function Mesh({ settings }: any) {
   const light_1 = settings.find((setting: any) => setting.name === "Light 1");
   const light_2 = settings.find((setting: any) => setting.name === "Light 2");
   const light_3 = settings.find((setting: any) => setting.name === "Light 3");
+  const metalness = settings.find(
+    (setting: any) => setting.name === "Metalness"
+  );
 
   // use mouse position to rotate the mesh
   const { mouse } = useThree();
@@ -45,14 +48,14 @@ function Mesh({ settings }: any) {
     z: 1,
   };
 
-  console.log({
-    light2Y: light2.y,
-    light2X: light2.x,
-  });
+  // console.log({
+  //   light2Y: light2.y,
+  //   light2X: light2.x,
+  // });
 
   return (
     <mesh ref={ref as any} scale={1}>
-      {light_1.value && (
+      {light_1?.value && (
         <motion.spotLight
           animate={light1 as any}
           intensity={10}
@@ -64,7 +67,7 @@ function Mesh({ settings }: any) {
           castShadow
         />
       )}
-      {light_2.value && (
+      {light_2?.value && (
         <motion.spotLight
           animate={light2 as any}
           intensity={10}
@@ -76,7 +79,7 @@ function Mesh({ settings }: any) {
           castShadow
         />
       )}
-      {light_3.value && (
+      {light_3?.value && (
         <motion.pointLight
           animate={light3 as any}
           intensity={0.8}
@@ -85,7 +88,7 @@ function Mesh({ settings }: any) {
       )}
       <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial
-        metalness={0.01}
+        metalness={metalness?.value}
         roughness={0}
         normalMap={memap}
         map={me}
@@ -111,6 +114,14 @@ const SETTINGS = [
     type: "Boolean",
     value: true,
   },
+  {
+    name: "Metalness",
+    type: "Slider",
+    value: 0.01,
+    step: 0.01,
+    min: 0,
+    max: 0.5,
+  },
 ];
 
 export default function JohnGL() {
@@ -133,7 +144,7 @@ export default function JohnGL() {
         </h2>
       </InlineLink>
       <Canvas
-        className="w-[100vw] h-[100vh] static "
+        className="w-[100vw] h-[100vh] fixed inset-0"
         style={{ width: size.width, height: size.height }}
         dpr={devicePixelRatio || 3}
         camera={{
