@@ -86,7 +86,7 @@ function Mesh({ settings }: any) {
           color={0xffffff}
         />
       )}
-      <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
+      <planeGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial
         metalness={metalness?.value}
         roughness={0}
@@ -143,22 +143,23 @@ export default function JohnGL() {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      <Canvas
-        className="w-[100vw] h-[100vh] fixed inset-0"
-        style={{ width: size.width, height: size.height }}
-        dpr={devicePixelRatio || 3}
-        camera={{
-          position: [0, 0, 2],
-          fov: 25,
-          aspect: width / height,
-          near: 0.2,
-          far: 100,
-        }}
-      >
-        <Suspense fallback={null}>
-          <Mesh settings={settings} />
-        </Suspense>
-      </Canvas>
+      <div className="w-[100vw] h-[100vh] absolute inset-0 z-[0]">
+        <Canvas
+          style={{ width: size.width, height: size.height }}
+          dpr={devicePixelRatio || 3}
+          camera={{
+            position: [0, 0, 2],
+            fov: 25,
+            aspect: width / height,
+            near: 0.2,
+            far: 100,
+          }}
+        >
+          <Suspense fallback={null}>
+            <Mesh settings={settings} />
+          </Suspense>
+        </Canvas>
+      </div>
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
   );

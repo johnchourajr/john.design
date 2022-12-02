@@ -84,7 +84,7 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
 export function SettingsGroup({ settings, setSettings }: any) {
   return (
     <LayoutGroup>
-      <div className="sticky bottom-4 left-4 flex gap-4 flex-col items-start justify-start w-full">
+      <div className="fixed bottom-4 left-4 flex gap-4 flex-col items-start justify-start w-fit">
         {settings.map(({ type, ...rest }: any, index: number) => {
           switch (type) {
             case "Boolean":
