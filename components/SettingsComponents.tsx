@@ -2,8 +2,12 @@ import React from "react";
 import { LayoutGroup, motion } from "framer-motion";
 import clsx from "clsx";
 
-export function getSettingValue(settings: any, name: string) {
-  if (!settings || settings === undefined) return null;
+export function getSettingValue(
+  settings: any,
+  name: string,
+  fallback: string | boolean | number = true
+) {
+  if (!settings || settings === undefined) return fallback;
   return settings?.find((setting: any) => setting.name === name).value;
 }
 

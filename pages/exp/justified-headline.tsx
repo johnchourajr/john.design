@@ -107,8 +107,8 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
 
 export function JustifiedHeadlineInner({ settings }: any) {
   const [ani, setAni] = React.useState(0);
-  const speed = getSettingValue(settings, "Speed") || 1000;
-  const slant = getSettingValue(settings, "Add Slant") || false;
+  const speed = getSettingValue(settings, "Speed", 1000);
+  const slant = getSettingValue(settings, "Add Slant", false);
 
   console.log(slant.value);
 
@@ -122,7 +122,7 @@ export function JustifiedHeadlineInner({ settings }: any) {
   return (
     <p
       className={clsx(
-        "my-[10vw] leading-[1] font-black pointer-events-none",
+        "my-[10vw] leading-[1] w-full font-black pointer-events-none",
         slant && "font-black-ritalic"
       )}
       data-id={ani}
