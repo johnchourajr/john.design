@@ -30,8 +30,12 @@ export default function HomePage() {
           <LinkGridItem key={i} {...item} />
         ))}
       </div>
-      <JohnGLCanvas />
-      <JustifiedHeadlineInner />
+      <div className="flex items-center justify- relative z-0 h-[100vh]">
+        <div className="flex w-[100vw] z-10 relative !pointer-events-none">
+          <JustifiedHeadlineInner />
+        </div>
+        <JohnGLCanvas />
+      </div>
     </main>
   );
 }

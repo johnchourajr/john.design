@@ -23,10 +23,10 @@ function Mesh({ settings }: any) {
   const ref = useRef<THREE.Mesh>();
   const [me, memap] = useLoader(THREE.TextureLoader, ["/me.png", "/memap.png"]);
 
-  const light_1 = getSettingValue(settings, "Light 1") || true;
-  const light_2 = getSettingValue(settings, "Light 2") || true;
-  const light_3 = getSettingValue(settings, "Light 3") || true;
-  const metalness = getSettingValue(settings, "Metalness") || 0.01;
+  const light_1 = getSettingValue(settings, "Light 1", true);
+  const light_2 = getSettingValue(settings, "Light 2", true);
+  const light_3 = getSettingValue(settings, "Light 3", true);
+  const metalness = getSettingValue(settings, "Metalness", 0.01);
 
   // use mouse position to rotate the mesh
   const { mouse } = useThree();
@@ -146,12 +146,14 @@ export function JohnGLCanvas({ settings }: any) {
   return (
     <div className="absolute inset-0 z-[0]">
       <Canvas
-        style={{
-          width: size.width,
-          height: size.width,
-          maxHeight: "100vh",
-          paddingTop: "6%",
-        }}
+        style={
+          {
+            // width: size.width,
+            // height: size.width,
+            // maxHeight: "100vh",
+            // paddingTop: "6%",
+          }
+        }
         dpr={devicePixelRatio || 3}
         camera={{
           position: [0, 0, 2],
