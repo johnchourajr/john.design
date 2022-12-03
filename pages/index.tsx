@@ -1,4 +1,5 @@
 import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
+import { JohnGLCanvas } from "./exp/john-gl";
 import { JustifiedHeadlineInner } from "./exp/justified-headline";
 
 const data: LinkGridItemProps[] = [
@@ -24,11 +25,13 @@ const data: LinkGridItemProps[] = [
 export default function HomePage() {
   return (
     <main>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8 relative z-50">
         {data.map((item, i) => (
           <LinkGridItem key={i} {...item} />
         ))}
       </div>
+      <JohnGLCanvas />
+      <JustifiedHeadlineInner />
     </main>
   );
 }

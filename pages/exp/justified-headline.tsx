@@ -2,7 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import InlineLink from "../../components/InlineLink";
-import { SettingsGroup } from "../../components/SettingsComponents";
+import {
+  getSettingValue,
+  SettingsGroup,
+} from "../../components/SettingsComponents";
 import { slugify } from "../../utils";
 
 const TOP_LINE = [
@@ -104,26 +107,23 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
 
 export function JustifiedHeadlineInner({ settings }: any) {
   const [ani, setAni] = React.useState(0);
-  const speed = settings.find((setting: any) => setting.name === "Speed");
-  const slant = settings.find((setting: any) => setting.name === "Add Slant");
+  const speed = getSettingValue(settings, "Speed") || 1000;
+  const slant = getSettingValue(settings, "Add Slant") || false;
 
   console.log(slant.value);
 
   React.useEffect(() => {
-    const interval = setInterval(
-      () => {
-        setAni((prev) => (prev + 1) % LINE_ONE.length);
-      },
-      speed.value ? speed.value : 1000
-    );
+    const interval = setInterval(() => {
+      setAni((prev) => (prev + 1) % LINE_ONE.length);
+    }, speed);
     return () => clearInterval(interval);
   }, [speed]);
 
   return (
     <p
       className={clsx(
-        "my-[10vw] min-h-[70vh] font-black",
-        slant.value && "font-black-ritalic"
+        "my-[10vw] leading-[1] font-black pointer-events-none",
+        slant && "font-black-ritalic"
       )}
       data-id={ani}
     >
@@ -148,11 +148,6 @@ const SETTINGS = [
     type: "Boolean",
     value: false,
   },
-  // {
-  //   name: "Squash & Stretch",
-  //   type: "Boolean",
-  //   value: true,
-  // },
   {
     name: "Speed",
     type: "Slider",
@@ -164,10 +159,6 @@ const SETTINGS = [
 
 export default function JustifiedHeadline() {
   const [settings, setSettings] = React.useState(SETTINGS);
-
-  // React.useEffect(() => {
-  //   console.log({ settings });
-  // }, [settings]);
 
   return (
     <>

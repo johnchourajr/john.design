@@ -144,9 +144,14 @@ export function JohnGLCanvas({ settings }: any) {
   }, [width, height]);
 
   return (
-    <div className="w-[100vw] h-[100vh] absolute inset-0 z-[0]">
+    <div className="absolute inset-0 z-[0]">
       <Canvas
-        style={{ width: size.width, height: size.height }}
+        style={{
+          width: size.width,
+          height: size.width,
+          maxHeight: "100vh",
+          paddingTop: "6%",
+        }}
         dpr={devicePixelRatio || 3}
         camera={{
           position: [0, 0, 2],
