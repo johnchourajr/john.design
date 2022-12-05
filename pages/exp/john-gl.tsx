@@ -79,6 +79,12 @@ function Mesh({ settings }: any) {
     transition: { ease: [0.16, 1, 0.3, 1] },
   };
 
+  // get color from html data attribute 'data-color'
+  const color = document.documentElement.getAttribute("data-color");
+
+  // convert hex to webgl color
+  const colorHex = new THREE.Color(color || "#ff0000");
+
   return (
     <mesh ref={ref as any} scale={1}>
       <Light
@@ -91,7 +97,7 @@ function Mesh({ settings }: any) {
       <Light
         type={"spotLight"}
         light={light2 as any}
-        color={0xff0000}
+        color={colorHex}
         hide={!light_2}
         {...sharedProps}
       />

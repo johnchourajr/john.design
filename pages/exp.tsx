@@ -2,6 +2,12 @@ import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
 
 const data: LinkGridItemProps[] = [
   {
+    href: "/exp/color-wheel",
+    title: "Color Wheel",
+    description: "All of the colors of the rainbow.",
+    status: "NEW",
+  },
+  {
     href: "/exp/john-gl",
     title: "JohnGL",
     description: "What if picture of John and webGL had a bebe.",
@@ -23,12 +29,7 @@ const data: LinkGridItemProps[] = [
     title: "Scroll Grow",
     description: "So when you scroll, it's... weird.",
   },
-  {
-    href: "/exp/color-wheel",
-    title: "Color Wheel",
-    description: "All of the colors of the rainbow.",
-    status: "Coming Soon",
-  },
+
   {
     href: "/exp/see-scroll",
     title: "See Scroll",

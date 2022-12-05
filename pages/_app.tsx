@@ -16,6 +16,8 @@ import type { AppProps } from "next/app";
 import "../styles/globals.css";
 import { useRouter } from "next/router";
 import InlineLink from "../components/InlineLink";
+import { useEffect } from "react";
+import { setRootColor } from "../utils";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,8 +29,12 @@ export default function App({ Component, pageProps }: AppProps) {
   // get pathname from router
   const { pathname } = useRouter();
 
+  useEffect(() => {
+    setRootColor("#ff0000");
+  }, []);
+
   return (
-    <div className="p-4 text-[#ff0000] bg-black min-h-[100vh] font-sans">
+    <div className="p-4 text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans">
       <GlobalHead />
       <h1 className="z-50 relative font-bold uppercase tracking-wider pointer-events-none">
         <InlineLink href="/" className="no-underline">

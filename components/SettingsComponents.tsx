@@ -44,7 +44,7 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
       <button
         onClick={toggle}
         className={clsx(
-          " flex p-1 rounded-full bg-[rgba(255,0,0,.50)] w-12",
+          " flex p-1 rounded-full bg-[rgba(255,255,255,.2)] w-12",
           state.value ? " justify-end" : " justify-start"
         )}
       >
@@ -53,7 +53,7 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
           layout
           className={clsx(
             "w-5 h-5 rounded-full ",
-            state.value ? "bg-[#ff0000]" : "bg-[#000000]"
+            state.value ? "bg-[var(--root-color)]" : "bg-[#000000]"
           )}
         />
       </button>

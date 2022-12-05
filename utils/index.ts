@@ -29,3 +29,10 @@ export function slugify(text: string) {
     .replace(/^-+/, "") // Trim - from start of text
     .replace(/-+$/, ""); // Trim - from end of text
 }
+
+// function to set color on root based on selected color
+export const setRootColor = (color: string) => {
+  document.documentElement.style.setProperty("--root-color", color);
+  // also set data attribute on root
+  document.documentElement.setAttribute("data-color", color);
+};
