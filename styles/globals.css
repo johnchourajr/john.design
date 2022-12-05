@@ -40,6 +40,16 @@
     url('../fonts/KUniforma-95BlackRitalic.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'PPMondwest';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src:
+    url('../fonts/PPMondwest-Regular.woff2') format('woff2'),
+    url('../fonts/PPMondwest-Regular.woff') format('woff');
+}
+
 @layer components {
   body {
     -webkit-font-smoothing: antialiased;
