@@ -15,6 +15,7 @@ module.exports = {
         "bold-ritalic": ["KUniforma Bold Ritalic", ...fontFamily.sans],
         black: ["KUniforma Black", ...fontFamily.sans],
         "black-ritalic": ["KUniforma Black Ritalic", ...fontFamily.sans],
+        pixel: ["PPMondwest", ...fontFamily.sans],
       },
       letterSpacing: {
         tight: "-0.05em",
@@ -23,6 +24,12 @@ module.exports = {
         wide: "0.05em",
         wider: "0.1em",
         widest: "0.15em",
+      },
+      colors: {
+        root: "#ff0000",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },
