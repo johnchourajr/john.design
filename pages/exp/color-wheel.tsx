@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { SVGProps } from "react";
 import InlineLink from "../../components/InlineLink";
 import { setRootColor } from "../../utils";
@@ -71,6 +72,16 @@ const CollorWheelSVG = (props: SVGProps<SVGSVGElement>) => {
   );
 };
 
+const RenderColorWheel = ({ className, handleColorChange }: any) => (
+  <span
+    role={"button"}
+    onMouseUp={(e) => handleColorChange(e)}
+    className={clsx("h-[1em] translate-y-[-0em] inline-block", className)}
+  >
+    <CollorWheelSVG />
+  </span>
+);
+
 export default function ColorWheel() {
   const [color, setColor] = React.useState("#ff0000");
 
@@ -93,22 +104,17 @@ export default function ColorWheel() {
         </h2>
       </InlineLink>
       <div className="flex h-[80vh] flex-col items-start justify-center">
-        <h1 className="inline-flex max-w-[100vw] align-baseline flex-wrap font-pixel text-[12vw] leading-[1.1] whitespace-nowrap">
+        <RenderColorWheel
+          handleColorChange={handleColorChange}
+          className="lg:hidden visible lg:invisible inline-flex text-[40vw] mb-10"
+        />
+        <h1 className="inline-flex w-full align-baseline flex-wrap font-pixel text-[12vw] leading-[1.1]  whitespace-normal">
           Click The &nbsp;
-          <span
-            role={"button"}
-            // onClick={(e) => handleColorChange(e)}
-            onMouseUp={(e) => handleColorChange(e)}
-            className=" h-[1em] translate-y-[-0em] inline-block"
-          >
-            <CollorWheelSVG />
-            &nbsp;
-          </span>
-          Color Wheel
-          <br />
-        </h1>
-        <h1 className="inline-flex max-w-[100vw] align-baseline flex-wrap font-pixel text-[12vw] leading-tight whitespace-nowrap">
-          <span>{color}</span>
+          <RenderColorWheel
+            handleColorChange={handleColorChange}
+            className="hidden lg:visible invisible lg:inline-flex"
+          />
+          Color Wheel {color}
         </h1>
       </div>
     </>
