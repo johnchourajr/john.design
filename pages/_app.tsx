@@ -1,4 +1,4 @@
-import { Inter } from "@next/font/google";
+import { Inter, Gilda_Display } from "@next/font/google";
 
 /**
  * Components
@@ -18,11 +18,18 @@ import { useRouter } from "next/router";
 import InlineLink from "../components/InlineLink";
 import { useEffect } from "react";
 import { setRootColor } from "../utils";
+import clsx from "clsx";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  weight: "variable",
+  weight: "400",
+});
+
+const gilda = Gilda_Display({
+  subsets: ["latin"],
+  variable: "--font-gilda",
+  weight: "400",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -34,7 +41,13 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <div className="p-4 text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans">
+    <div
+      className={clsx(
+        gilda.variable,
+        inter.variable,
+        "p-4 text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans"
+      )}
+    >
       <GlobalHead />
       <h1 className="z-50 relative font-bold uppercase tracking-wider pointer-events-none">
         <InlineLink href="/" className="no-underline">
