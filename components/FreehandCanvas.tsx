@@ -48,7 +48,7 @@ export default function FreehandCanvas() {
     <svg
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      style={{ touchAction: "none", cursor: "url('/cursor.svg') 2 26, auto" }}
+      style={{ touchAction: "none", cursor: "url('/pencil.svg') 4 28, auto" }}
       className="absolute inset-0 w-full h-full z-0"
     >
       {points && <path d={pathData} fill="red" />}

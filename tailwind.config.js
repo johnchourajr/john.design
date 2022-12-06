@@ -16,6 +16,7 @@ module.exports = {
         black: ["KUniforma Black", ...fontFamily.sans],
         "black-ritalic": ["KUniforma Black Ritalic", ...fontFamily.sans],
         pixel: ["PPMondwest", ...fontFamily.sans],
+        serif: ["var(--font-gilda)", ...fontFamily.serif],
       },
       letterSpacing: {
         tight: "-0.05em",
