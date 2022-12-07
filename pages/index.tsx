@@ -31,7 +31,7 @@ export default function HomePage() {
         ))}
       </div>
       <div className="flex items-center justify- relative z-0 h-[100vh]">
-        <div className="flex w-[100vw] z-10 relative !pointer-events-none">
+        <div className="flex self-start w-[100vw] !pointer-events-none">
           <JustifiedHeadlineInner />
         </div>
         <JohnGLCanvas />

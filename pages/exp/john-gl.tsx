@@ -28,11 +28,23 @@ export const Effect: FC = () => {
   );
 };
 
+// interpolate an array of inputs into an array of outputs
+function transform(value: number, input: number[], output: number[]) {
+  if (value <= input[0]) return output[0];
+  if (value >= input[input.length - 1]) return output[output.length - 1];
+  for (let i = 0; i < input.length - 1; i++) {
+    if (value >= input[i] && value <= input[i + 1]) {
+      const slope = (output[i + 1] - output[i]) / (input[i + 1] - input[i]);
+      return output[i] + slope * (value - input[i]);
+    }
+  }
+}
+
 function Mesh({ settings }: any) {
   const ref = useRef<THREE.Mesh>();
   const [me, memap] = useLoader(THREE.TextureLoader, [
-    "/me-alpha.png",
-    "/me-map.png",
+    "/me-ai.png",
+    "/me-ai-normal.png",
   ]);
 
   const light_1 = getSettingValue(settings, "Light 1", true);
@@ -53,25 +65,25 @@ function Mesh({ settings }: any) {
   });
 
   const light1 = {
-    x: Math.sin(-x),
-    y: Math.cos(-x + y) - 0.3,
+    x: transform(x, [-1, 1], [0.75, 0.25]),
+    y: transform(y, [-1, 1], [-0.66, -0.4]),
     z: 0,
   };
 
   const light2 = {
-    x: Math.sin(x),
-    y: Math.cos(x + y) - 0.3,
+    x: transform(x, [-1, 1], [0.5, 1]),
+    y: transform(y, [-1, 1], [-0.2, -0.44]),
     z: 0,
   };
 
   const light3 = {
-    x: 1,
-    y: Math.sin(x + y) - 2,
-    z: 1,
+    x: -4,
+    y: -4,
+    z: 5,
   };
 
   const sharedProps = {
-    intensity: 10,
+    intensity: 20,
     distance: 100,
     penumbra: 1,
     angle: 1,
@@ -104,7 +116,7 @@ function Mesh({ settings }: any) {
       <Light
         type={"pointLight"}
         light={light3 as any}
-        intensity={2.2}
+        intensity={3}
         color={0xffffff}
         hide={!light_3}
       />
@@ -114,6 +126,7 @@ function Mesh({ settings }: any) {
         roughness={0}
         normalMap={memap}
         map={me}
+        transparent
       />
     </mesh>
   );
@@ -138,7 +151,7 @@ const SETTINGS = [
   {
     name: "Noise",
     type: "Boolean",
-    value: true,
+    value: false,
   },
   {
     name: "Metalness",
@@ -156,11 +169,12 @@ export function JohnGLCanvas({ settings }: any) {
   const noise = getSettingValue(settings, "Noise", false);
 
   return (
-    <div className="absolute inset-0 z-[0]">
+    <div className="absolute inset-0 z-[22]">
       <Canvas
         style={{
           width: "100vw",
           height: "100vw",
+          background: "transparent",
         }}
         dpr={devicePixelRatio || 3}
         camera={{
