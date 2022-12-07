@@ -67,7 +67,7 @@ const LINE_TWO = [
   },
 ];
 
-const TextContainer = ({ text, motionObject, motionKey }: any) => {
+const TextContainer = ({ text, motionObject, motionKey, className }: any) => {
   const id = React.useMemo(() => {
     return Math.random().toString(36).substr(2, 9);
   }, []);
@@ -77,7 +77,12 @@ const TextContainer = ({ text, motionObject, motionKey }: any) => {
   const childrenArrayWithMotion = childrenArray.map(
     (child: any, index: number) => {
       return (
-        <motion.span key={index} id={`${id}-${slugify(child)}`} layout>
+        <motion.span
+          key={index}
+          id={`${id}-${slugify(child)}`}
+          className={className}
+          layout
+        >
           {child} {index !== childrenArray.length - 1 && " "}
         </motion.span>
       );
@@ -127,7 +132,12 @@ export function JustifiedHeadlineInner({ settings }: any) {
       )}
       data-id={ani}
     >
-      <TextContainer text="John Is" motionObject={TOP_LINE} motionKey={ani} />
+      <TextContainer
+        text="John Is"
+        motionObject={TOP_LINE}
+        motionKey={ani}
+        className="z-[100] relative"
+      />
       <TextContainer
         text="Working On"
         motionObject={LINE_ONE}
