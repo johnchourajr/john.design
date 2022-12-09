@@ -60,8 +60,8 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  html {
-    --darken-root-color: rgba(, .5);
+  html[data-dim="true"] .dim-shim {
+    @apply bg-black bg-opacity-90
   }
 }
 
