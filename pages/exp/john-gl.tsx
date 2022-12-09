@@ -173,7 +173,7 @@ export function JohnGLCanvas({ settings }: any) {
     <div className="absolute inset-0 z-[1]">
       <Canvas
         style={{
-          width: "100vw",
+          width: "100%",
           height: "100vw",
           background: "transparent",
         }}
