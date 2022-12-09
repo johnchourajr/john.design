@@ -19,6 +19,8 @@ import InlineLink from "../components/InlineLink";
 import { useEffect } from "react";
 import { setRootColor } from "../utils";
 import clsx from "clsx";
+import Header from "../components/globals/header";
+import Footer from "../components/globals/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,9 +35,6 @@ const gilda = Gilda_Display({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  // get pathname from router
-  const { pathname } = useRouter();
-
   useEffect(() => {
     setRootColor("#ff0000");
   }, []);
@@ -49,37 +48,11 @@ export default function App({ Component, pageProps }: AppProps) {
       )}
     >
       <GlobalHead />
-      <h1 className="z-50 relative font-bold uppercase tracking-wider pointer-events-none">
-        <InlineLink href="/" className="no-underline">
-          John.Design
-        </InlineLink>
-      </h1>
-
-      <p className="z-50 relative pointer-events-none">
-        John Choura is working on the inernet to rebuild his home on the ...
-        internet.
-        <br />
-        Check out an{" "}
-        <InlineLink href="https://john.design">
-          main version of the site
-        </InlineLink>
-        . Stay safe in here.
-      </p>
+      <Header />
       <main className="z-0 min-h-[100vh]">
         <Component {...pageProps} />
       </main>
-      <div className="z-50 fixed bottom-4 right-4 font-bold pointer-events-none">
-        <InlineLink
-          href={`https://github.com/johnchourajr/john.design/tree/new-new/pages${
-            pathname === "/" ? "/index" : pathname
-          }.tsx`}
-          target="_blank"
-          aria-label="Link to source code"
-          className="no-underline"
-        >
-          {"</>"}
-        </InlineLink>
-      </div>
+      <Footer />
     </div>
   );
 }

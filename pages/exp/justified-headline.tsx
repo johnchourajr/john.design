@@ -67,23 +67,38 @@ const LINE_TWO = [
   },
 ];
 
+// add <strong> tag to words wrapped in asterisks
+const addStrongTags = (text: string) => {
+  const words = text.split(" ");
+  const wordsWithStrong = words.map((word, key) => {
+    if (word.startsWith("*") && word.endsWith("*")) {
+      return (
+        <strong key={key} className="font-black-ritalic">
+          {word.slice(1, -1)}
+        </strong>
+      );
+    }
+    return word;
+  });
+  return wordsWithStrong;
+};
+
 const TextContainer = ({ text, motionObject, motionKey, className }: any) => {
-  const id = React.useMemo(() => {
-    return Math.random().toString(36).substr(2, 9);
-  }, []);
+  if (!text) return null;
+
   const motionController = motionObject[motionKey];
 
-  const childrenArray = text.split(" ");
+  const childrenArray = typeof text === "string" ? text.split(" ") : [];
   const childrenArrayWithMotion = childrenArray.map(
     (child: any, index: number) => {
       return (
         <motion.span
           key={index}
-          id={`${id}-${slugify(child)}`}
+          id={`${slugify(child)}`}
           className={className}
           layout
         >
-          {child} {index !== childrenArray.length - 1 && " "}
+          {addStrongTags(child)} {index !== childrenArray.length - 1 && " "}
         </motion.span>
       );
     }
@@ -91,7 +106,6 @@ const TextContainer = ({ text, motionObject, motionKey, className }: any) => {
 
   return (
     <span
-      id={id}
       className={clsx(
         "relative flex flex-col items-center justify-start w-full",
         motionController.parent
@@ -110,12 +124,10 @@ const TextContainer = ({ text, motionObject, motionKey, className }: any) => {
   );
 };
 
-export function JustifiedHeadlineInner({ settings }: any) {
+export function JustifiedHeadlineInner({ headline, settings }: any) {
   const [ani, setAni] = React.useState(0);
   const speed = getSettingValue(settings, "Speed", 1000);
   const slant = getSettingValue(settings, "Add Slant", false);
-
-  console.log(slant.value);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -132,22 +144,34 @@ export function JustifiedHeadlineInner({ settings }: any) {
       )}
       data-id={ani}
     >
-      <TextContainer
-        text="John Is"
-        motionObject={TOP_LINE}
-        motionKey={ani}
-        className="z-[100] relative"
-      />
-      <TextContainer
-        text="Working On"
-        motionObject={LINE_ONE}
-        motionKey={ani}
-      />
-      <TextContainer
-        text="The Internet"
-        motionObject={LINE_TWO}
-        motionKey={ani}
-      />
+      {/* map first index only */}
+      {headline.map(({ text }: any, index: number) => {
+        if (index === 0) {
+          return (
+            <span key={index} className="z-[100] relative">
+              <TextContainer
+                text={text}
+                motionObject={TOP_LINE}
+                motionKey={ani}
+              />
+            </span>
+          );
+        } else return null;
+      })}
+      {/* map for after first index */}
+      {headline.map(({ text }: any, index: number) => {
+        const even = index % 2;
+        if (index !== 0) {
+          return (
+            <TextContainer
+              key={index}
+              text={text}
+              motionObject={even ? LINE_TWO : LINE_ONE}
+              motionKey={ani}
+            />
+          );
+        } else return null;
+      })}
     </p>
   );
 }
@@ -177,7 +201,14 @@ export default function JustifiedHeadline() {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      <JustifiedHeadlineInner settings={settings} />
+      <JustifiedHeadlineInner
+        settings={settings}
+        headline={[
+          { text: "John Is" },
+          { text: "Working On" },
+          { text: "The Internet" },
+        ]}
+      />
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
   );
