@@ -10,6 +10,7 @@ import {
   getSettingValue,
   SettingsGroup,
 } from "../../components/SettingsComponents";
+import { AnimatePresence } from "framer-motion";
 
 function Light({ type, light, hide, ...rest }: any) {
   if (hide) return null;
@@ -47,9 +48,9 @@ function Mesh({ settings }: any) {
     "/me-ai-normal.png",
   ]);
 
-  const light_1 = getSettingValue(settings, "Light 1", true);
-  const light_2 = getSettingValue(settings, "Light 2", true);
-  const light_3 = getSettingValue(settings, "Light 3", true);
+  const light_1 = getSettingValue(settings, "Blue Light", true);
+  const light_2 = getSettingValue(settings, "Red Light", true);
+  const light_3 = getSettingValue(settings, "White Light", true);
   const metalness = getSettingValue(settings, "Metalness", 0.5);
 
   // use mouse position to rotate the mesh
@@ -65,13 +66,13 @@ function Mesh({ settings }: any) {
   });
 
   const light1 = {
-    x: transform(x, [-1, 1], [0.75, 0.25]),
+    x: transform(x, [-1, 1], [1, 0.5]),
     y: transform(y, [-1, 1], [-0.66, -0.4]),
     z: 0,
   };
 
   const light2 = {
-    x: transform(x, [-1, 1], [0.5, 1]),
+    x: transform(x, [-1, 1], [0, 1]),
     y: transform(y, [-1, 1], [-0.2, -0.44]),
     z: 0,
   };
@@ -98,25 +99,25 @@ function Mesh({ settings }: any) {
   const colorHex = new THREE.Color(color || "#ff0000");
 
   return (
-    <mesh ref={ref as any} scale={1}>
+    <motion.mesh ref={ref as any} scale={1}>
       <Light
         type={"spotLight"}
-        light={light1 as any}
+        light={light2 as any}
         color={0x0000ff}
-        hide={!light_1}
+        hide={!light_2}
         {...sharedProps}
       />
       <Light
         type={"spotLight"}
-        light={light2 as any}
+        light={light1 as any}
         color={colorHex}
-        hide={!light_2}
+        hide={!light_1}
         {...sharedProps}
       />
       <Light
         type={"pointLight"}
         light={light3 as any}
-        intensity={3}
+        intensity={2}
         color={0xffffff}
         hide={!light_3}
       />
@@ -128,23 +129,23 @@ function Mesh({ settings }: any) {
         map={me}
         transparent
       />
-    </mesh>
+    </motion.mesh>
   );
 }
 
 const SETTINGS = [
   {
-    name: "Light 1",
+    name: "Blue Light",
     type: "Boolean",
     value: true,
   },
   {
-    name: "Light 2",
+    name: "Red Light",
     type: "Boolean",
     value: true,
   },
   {
-    name: "Light 3",
+    name: "White Light",
     type: "Boolean",
     value: true,
   },
@@ -169,7 +170,7 @@ export function JohnGLCanvas({ settings }: any) {
   const noise = getSettingValue(settings, "Noise", false);
 
   return (
-    <div className="absolute inset-0 z-[22]">
+    <div className="absolute inset-0 z-[1]">
       <Canvas
         style={{
           width: "100vw",
@@ -186,7 +187,9 @@ export function JohnGLCanvas({ settings }: any) {
         }}
       >
         <Suspense fallback={null}>
-          <Mesh settings={settings} />
+          <AnimatePresence>
+            <Mesh settings={settings} />
+          </AnimatePresence>
         </Suspense>
         {noise && <Effect />}
       </Canvas>
