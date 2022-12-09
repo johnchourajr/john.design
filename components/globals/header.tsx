@@ -13,7 +13,7 @@ function Slash() {
     <p
       className={clsx(
         "z-50 text-xs relative font-bold uppercase tracking-wider opacity-50",
-        "md:visible invisible"
+        "md:visible hidden"
       )}
     >
       /
@@ -56,7 +56,7 @@ export default function Header() {
             href="/"
             className={clsx(
               "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
-              "md:visible invisible",
+              "md:visible hidden",
               "no-underline"
             )}
           >
@@ -69,7 +69,7 @@ export default function Header() {
               href={href}
               className={clsx(
                 "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
-                "md:visible invisible",
+                "md:visible hidden",
                 "no-underline"
               )}
             >
@@ -87,7 +87,7 @@ export default function Header() {
           <p
             className={clsx(
               "inline-flex row gap-4 z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
-              "md:visible invisible"
+              "md:visible hidden"
             )}
           >
             <span>{dateStr}</span>
