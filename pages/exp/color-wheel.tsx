@@ -1,11 +1,13 @@
 import clsx from "clsx";
 import React, { SVGProps } from "react";
 import InlineLink from "../../components/InlineLink";
+import { motion } from "framer-motion";
+
 import { setRootColor } from "../../utils";
 
-const CollorWheelSVG = (props: SVGProps<SVGSVGElement>) => {
+const CollorWheelSVG = ({ active, ...rest }: any) => {
   const sharedClasses =
-    "group-hover:opacity-25 hover:!opacity-100 transition-all ease-out-expo duration-300";
+    "group-hover:opacity-70 hover:!opacity-100 transition-all ease-out-expo duration-300";
 
   const sharedInlineStyles = {
     touchAction: "none",
@@ -13,8 +15,8 @@ const CollorWheelSVG = (props: SVGProps<SVGSVGElement>) => {
   };
 
   const sharedStyles = {
-    style: sharedInlineStyles,
-    className: sharedClasses,
+    style: active ? sharedInlineStyles : {},
+    className: active ? sharedClasses : "",
   };
 
   return (
@@ -26,7 +28,7 @@ const CollorWheelSVG = (props: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       className="group"
       shapeRendering="geometricPrecision"
-      {...props}
+      {...rest}
     >
       <path
         d="M8 8V7h6v2h-1v2h-2v-1h-1V9H9V8H8Z"
@@ -72,15 +74,24 @@ const CollorWheelSVG = (props: SVGProps<SVGSVGElement>) => {
   );
 };
 
-const RenderColorWheel = ({ className, handleColorChange }: any) => (
-  <span
-    role={"button"}
-    onMouseUp={(e) => handleColorChange(e)}
-    className={clsx("h-[1em] translate-y-[-0em] inline-block", className)}
-  >
-    <CollorWheelSVG />
-  </span>
-);
+export const RenderColorWheel = ({
+  className,
+  handleColorChange,
+  handleClick,
+}: any) => {
+  const active = typeof handleColorChange === "function" ? true : false;
+  return (
+    <motion.span
+      role={"button"}
+      layoutId="color-wheel"
+      onClick={handleClick}
+      onMouseUp={handleColorChange}
+      className={clsx("h-[1em] translate-y-[-0em] inline-block", className)}
+    >
+      <CollorWheelSVG active={active} />
+    </motion.span>
+  );
+};
 
 export default function ColorWheel() {
   const [color, setColor] = React.useState("#ff0000");

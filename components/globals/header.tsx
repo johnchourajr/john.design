@@ -5,12 +5,15 @@ import InlineLink from "../InlineLink";
 import { LinkGridItemProps } from "../LinkGridItem";
 import Logo from "../svg/logo";
 import { useTime } from "../../utils/hooks";
+import { RenderColorWheel } from "../../pages/exp/color-wheel";
+import { setRootColor } from "../../utils";
 
 function Slash() {
   return (
     <p
       className={clsx(
-        "z-50 text-xs relative font-bold uppercase tracking-wider opacity-50"
+        "z-50 text-xs relative font-bold uppercase tracking-wider opacity-50",
+        "md:visible invisible"
       )}
     >
       /
@@ -18,49 +21,93 @@ function Slash() {
   );
 }
 
+const handleColorChange = (e: any) => {
+  const colorFromSVG = e.target.getAttribute("fill");
+  if (colorFromSVG === null || colorFromSVG === "none") {
+    setRootColor("#ff0000");
+  } else {
+    setRootColor(colorFromSVG);
+  }
+};
+
 export default function Header() {
+  const [colorActive, setColorActive] = React.useState(false);
   const { time, dateStr } = useTime();
 
-  return (
-    <nav className="w-full inline-flex row justify-between items-center">
-      <div className="inline-flex row gap-6 items-center">
-        <InlineLink href="/" className={clsx("z-50 relative")}>
-          <Logo />
-        </InlineLink>
+  const handleActive = (state: boolean) => {
+    if (state) {
+      document.documentElement.setAttribute("data-dim", "true");
+    } else {
+      document.documentElement.setAttribute("data-dim", "false");
+    }
 
-        <InlineLink
-          href="/"
-          className={clsx(
-            "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
-            "no-underline"
-          )}
-        >
-          John.Design
-        </InlineLink>
-        <Slash />
-        {navData.map(({ href, title }: any, i: number) => (
+    setColorActive(state);
+  };
+
+  return (
+    <>
+      <nav className="w-full inline-flex row justify-between items-center">
+        <div className="inline-flex row gap-6 items-center">
+          <InlineLink href="/" className={clsx("z-50 relative")}>
+            <Logo />
+          </InlineLink>
+
           <InlineLink
-            key={i}
-            href={href}
+            href="/"
             className={clsx(
               "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+              "md:visible invisible",
               "no-underline"
             )}
           >
-            {title}
+            John.Design
           </InlineLink>
-        ))}
-      </div>
-      <div className="inline-flex row gap-6 items-center">
-        <p
-          className={clsx(
-            "inline-flex row gap-4 z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none"
+          <Slash />
+          {navData.map(({ href, title }: any, i: number) => (
+            <InlineLink
+              key={i}
+              href={href}
+              className={clsx(
+                "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+                "md:visible invisible",
+                "no-underline"
+              )}
+            >
+              {title}
+            </InlineLink>
+          ))}
+        </div>
+        <div className="inline-flex row gap-6 items-center">
+          {!colorActive && (
+            <RenderColorWheel
+              handleClick={() => handleActive(true)}
+              className="z-[9999]"
+            />
           )}
-        >
-          <span>{dateStr}</span>
-          <span>{time}</span>
-        </p>
-      </div>
-    </nav>
+          <p
+            className={clsx(
+              "inline-flex row gap-4 z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+              "md:visible invisible"
+            )}
+          >
+            <span>{dateStr}</span>
+            <span>{time}</span>
+          </p>
+        </div>
+      </nav>
+      {colorActive && (
+        <>
+          <RenderColorWheel
+            handleClick={() => handleActive(false)}
+            handleColorChange={handleColorChange}
+            className="w-[20vw] h-[20vw] fixed top-[20vw] left-[40vw] z-[9999]"
+          />
+          <button
+            className="dim-shim fixed inset-0 z-[9000] transition-all ease-out-expo"
+            onClick={() => handleActive(false)}
+          />
+        </>
+      )}
+    </>
   );
 }
