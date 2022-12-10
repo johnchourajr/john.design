@@ -1,0 +1,900 @@
+import * as React from "react";
+import { SVGProps } from "react";
+import { motion } from "framer-motion";
+
+const Rect = ({ active, ...props }: any) => {
+  const sharedClasses =
+    "relative scale-1 group-hover:opacity-100 hover:!opacity-70 transition-all ease-out-expo duration-300";
+
+  const sharedInlineStyles = {
+    touchAction: "none",
+    cursor: "url('/eyedrop.svg') 4 28, auto",
+  };
+
+  const sharedStyles = {
+    style: active ? sharedInlineStyles : {},
+    className: active ? sharedClasses : "",
+  };
+
+  return <motion.rect {...sharedStyles} {...props} />;
+};
+
+const ColorWheelSvg = ({ active, ...rest }: any) => {
+  return (
+    <svg
+      width={"100%"}
+      height={"100%"}
+      viewBox="0 0 648 648"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="group"
+      shapeRendering="geometricPrecision"
+      {...rest}
+    >
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 144 180)"
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={72.0029}
+        y={252}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={72.0029}
+        y={360.001}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={215.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={180}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={215.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={252}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={287.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={324}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={360.001}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={396}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={144}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={180}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={215.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={252}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={287.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={324}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={72.0029}
+        y={287.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={72.0029}
+        y={324}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={360.001}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={396}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={107.997}
+        y={432.001}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={432.001}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={396}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={360.001}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={324}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={287.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={252}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={215.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 432.001)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 468)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 432.001)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 468)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 504)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 432.001)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 468)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 504)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 432.001)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 468)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 468)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 504)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 504)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 504)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 539.999)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 539.999)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={432.001}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={468}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={396}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={432.001}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={468}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={432.001}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={504}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={144}
+        y={468}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={468}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={504}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={504}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={288}
+        y={539.999}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={539.999}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 396)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 432.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 396)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 360.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 252)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 215.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 180)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 215.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 252)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 360.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 396)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 215.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 252)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 575.997 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 575.997 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 575.997 360.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 575.997 252)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 360.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 396)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 432.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 468)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 432.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 540.003 180)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 108.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 144)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 180)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 180)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 72)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396 72)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396 108.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396 144)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396 180)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 108.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 144)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 180)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 108.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 144)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 215.999)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 180)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 144)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 504 144)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 468 108.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 216.003 108.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={288}
+        y={72}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={72}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={108.001}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={144}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={180}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={108.001}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={144}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={216.003}
+        y={180}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={180}
+        y={144}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+    </svg>
+  );
+};
+
+export default ColorWheelSvg;

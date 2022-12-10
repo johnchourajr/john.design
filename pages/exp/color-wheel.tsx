@@ -4,75 +4,7 @@ import InlineLink from "../../components/InlineLink";
 import { motion } from "framer-motion";
 
 import { setRootColor } from "../../utils";
-
-const CollorWheelSVG = ({ active, ...rest }: any) => {
-  const sharedClasses =
-    "group-hover:opacity-70 hover:!opacity-100 transition-all ease-out-expo duration-300";
-
-  const sharedInlineStyles = {
-    touchAction: "none",
-    cursor: "url('/eyedrop.svg') 4 28, auto",
-  };
-
-  const sharedStyles = {
-    style: active ? sharedInlineStyles : {},
-    className: active ? sharedClasses : "",
-  };
-
-  return (
-    <svg
-      width={"100%"}
-      height={"100%"}
-      fill="none"
-      viewBox="0 0 14 14"
-      xmlns="http://www.w3.org/2000/svg"
-      className="group"
-      shapeRendering="geometricPrecision"
-      {...rest}
-    >
-      <path
-        d="M8 8V7h6v2h-1v2h-2v-1h-1V9H9V8H8Z"
-        fill="#2054F5"
-        {...sharedStyles}
-      />
-      <path
-        d="M6 8h1v6H5v-1H3v-2h1v-1h1V9h1V8Z"
-        fill="#EA33A2"
-        {...sharedStyles}
-      />
-      <path
-        d="M8 7H7v7h2v-1h2v-1h1v-1h-1v-1h-1V9H9V8H8V7Z"
-        fill="#7918F5"
-        {...sharedStyles}
-      />
-      <path
-        d="M7 8V7H0v2h1v2h1v1h1v-1h1v-1h1V9h1V8h1Z"
-        fill="#ff0000"
-        {...sharedStyles}
-      />
-      <path
-        d="M6 6v1H0V5h1V3h2v1h1v1h1v1h1Z"
-        fill="#EC642B"
-        {...sharedStyles}
-      />
-      <path
-        d="M8 6H7V0h2v1h2v2h-1v1H9v1H8v1Z"
-        fill="#14FF00"
-        {...sharedStyles}
-      />
-      <path
-        d="M6 7h1V0H5v1H3v1H2v1h1v1h1v1h1v1h1v1Z"
-        fill="#D8FE51"
-        {...sharedStyles}
-      />
-      <path
-        d="M7 6v1h7V5h-1V3h-1V2h-1v1h-1v1H9v1H8v1H7Z"
-        fill="#75FBD9"
-        {...sharedStyles}
-      />
-    </svg>
-  );
-};
+import ColorWheelSvg from "../../components/color-wheel/ColorWheelSvg";
 
 export const RenderColorWheel = ({
   className,
@@ -88,7 +20,7 @@ export const RenderColorWheel = ({
       onMouseUp={handleColorChange}
       className={clsx("h-[1em] translate-y-[-0em] inline-block", className)}
     >
-      <CollorWheelSVG active={active} />
+      <ColorWheelSvg active={active} />
     </motion.span>
   );
 };

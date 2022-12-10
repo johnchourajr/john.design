@@ -1,3 +1,6 @@
+import clsx from "clsx";
+import { LINE_ONE, LINE_TWO } from "../components/justified-headline/data";
+import { JustifiedHeadlineInner } from "../components/justified-headline/JustifiedHeadlineInner";
 import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
 
 const data: LinkGridItemProps[] = [
@@ -46,7 +49,11 @@ const data: LinkGridItemProps[] = [
 export default function ExpPage() {
   return (
     <main>
-      <h3 className="my-8">Experiments</h3>
+      <JustifiedHeadlineInner
+        className={clsx("leading-[1] w-full font-black pointer-events-none")}
+        headline={[{ text: "Experiments", motionObject: LINE_ONE }]}
+        letters={true}
+      />
       <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
         {data.map((item, i) => (
           <LinkGridItem key={i} {...item} />

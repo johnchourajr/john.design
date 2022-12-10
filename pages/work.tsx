@@ -1,10 +1,20 @@
+import clsx from "clsx";
 import InlineLink from "../components/InlineLink";
+import { LINE_ONE, TOP_LINE } from "../components/justified-headline/data";
+import { JustifiedHeadlineInner } from "../components/justified-headline/JustifiedHeadlineInner";
 
 export default function WorkPage() {
   return (
     <>
-      <h3 className="my-8">Work</h3>
-      <p>Nothing to see here yet.</p>
+      <JustifiedHeadlineInner
+        className={clsx("leading-[1] w-full font-black pointer-events-none")}
+        headline={[{ text: "Work", motionObject: LINE_ONE }]}
+        letters={true}
+      />
+      <JustifiedHeadlineInner
+        className={clsx("leading-[1] w-full font-black pointer-events-none")}
+        headline={[{ text: "Coming Soon", motionObject: TOP_LINE }]}
+      />
     </>
   );
 }

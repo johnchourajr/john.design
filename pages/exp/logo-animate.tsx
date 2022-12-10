@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InlineLink from "../../components/InlineLink";
+import Logo from "../../components/svg/logo";
 
 export default function SeeScroll() {
   return (
@@ -9,7 +10,9 @@ export default function SeeScroll() {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      Nothing to see here yet.
+      <div className="w-full h-[80vh] flex items-center justify-center">
+        <Logo className="w-1/2 h-1/2" />
+      </div>
     </>
   );
 }
