@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import InlineLink from "../../components/InlineLink";
+import clsx from "clsx";
 
 const EXAMPLE_LIST = [
   { text: "moonlight" },
@@ -90,7 +91,10 @@ function Item({ index, scrollYProgress, text }: any) {
       style={{ zIndex }}
     >
       <motion.figure
-        className="bg-[#260000] absolute border-shadow"
+        className={clsx(
+          "bg-black absolute border-shadow overflow-hidden",
+          "after:content-[''] after:absolute after:inset-0 after:bg-[var(--root-color)] after:opacity-20 "
+        )}
         style={{ width, height, right, bottom }}
       >
         <motion.h3
@@ -134,7 +138,7 @@ export default function ScrollGrow() {
         </h2>
       </InlineLink>
       <div className="relative w-full">
-        <section className="relative flex items-center justify-start just min-h-[50vh] mb-4 border-b-2 border-[#ff0000] ">
+        <section className="relative flex items-center justify-start just min-h-[50vh] mb-4 border-b-2 border-[var(--root-color)] ">
           Start scrolling down ↓
         </section>
         <Section />
