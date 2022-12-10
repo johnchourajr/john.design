@@ -61,7 +61,7 @@
   }
 
   html[data-dim="true"] .dim-shim {
-    @apply bg-black bg-opacity-90
+    @apply bg-black bg-opacity-80
   }
 }
 

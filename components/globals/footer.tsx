@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useRouter } from "next/router";
 import navData from "../../data/nav";
 import InlineLink from "../InlineLink";
@@ -8,7 +9,13 @@ export default function Footer() {
 
   return (
     <footer className="w-full relative p-4">
-      <p className="z-50 relative font-bold uppercase tracking-wider pointer-events-none">
+      <p
+        className={clsx(
+          "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+          "md:inline-flex hidden",
+          "no-underline"
+        )}
+      >
         <InlineLink href="/" className="no-underline">
           John.Design
         </InlineLink>
@@ -24,12 +31,6 @@ export default function Footer() {
         </InlineLink>
         . Stay safe in here.
       </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8 relative z-50">
-        {navData.map((item, i) => (
-          <LinkGridItem key={i} {...item} />
-        ))}
-      </div>
 
       <div className="z-50 fixed bottom-4 right-4 font-bold pointer-events-none">
         <InlineLink

@@ -1,12 +1,14 @@
 import React from "react";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+
 import navData from "../../data/nav";
 import InlineLink from "../InlineLink";
-import { LinkGridItemProps } from "../LinkGridItem";
 import Logo from "../svg/logo";
 import { useTime } from "../../utils/hooks";
 import { RenderColorWheel } from "../../pages/exp/color-wheel";
 import { setRootColor } from "../../utils";
+import { Typography } from "../Typography";
 
 function Slash() {
   return (
@@ -103,19 +105,32 @@ export default function Header() {
           </p>
         </div>
       </nav>
-      {colorActive && (
-        <>
-          <RenderColorWheel
-            handleClick={() => handleActive(false)}
-            handleColorChange={handleColorChange}
-            className="w-[20vw] h-[20vw] fixed top-[20vw] left-[40vw] z-[9999]"
-          />
-          <button
-            className="dim-shim fixed inset-0 z-[9000] transition-all ease-out-expo"
-            onClick={() => handleActive(false)}
-          />
-        </>
-      )}
+      <AnimatePresence>
+        {colorActive && (
+          <div className="fixed flex flex-col items-center justify-center inset-0 z-[9000]">
+            <motion.div
+              className="z-[9999]"
+              initial={{ opacity: 0, y: "-10vw" }}
+              animate={{ opacity: 1, y: "0", transition: { delay: 0.2 } }}
+              exit={{ opacity: 0, y: "-10vw" }}
+            >
+              <Typography>Get Picky</Typography>
+            </motion.div>
+            <RenderColorWheel
+              handleClick={() => handleActive(false)}
+              handleColorChange={handleColorChange}
+              className="w-[20.25rem] h-[20.25rem] z-[9999]"
+            />
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="dim-shim absolute inset-0 z-[9000] transition-all ease-out-expo"
+              onClick={() => handleActive(false)}
+            />
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
