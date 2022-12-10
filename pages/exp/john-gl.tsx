@@ -121,7 +121,12 @@ function Mesh({ settings }: any) {
         color={0xffffff}
         hide={!light_3}
       />
-      <motion.planeGeometry attach="geometry" args={[1, 1]} />
+      <motion.planeGeometry
+        attach="geometry"
+        args={[1, 1]}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      />
       <meshStandardMaterial
         metalness={metalness}
         roughness={0}
@@ -186,11 +191,11 @@ export function JohnGLCanvas({ settings }: any) {
           far: 100,
         }}
       >
-        <Suspense fallback={null}>
-          <AnimatePresence>
+        <AnimatePresence>
+          <Suspense fallback={null}>
             <Mesh settings={settings} />
-          </AnimatePresence>
-        </Suspense>
+          </Suspense>
+        </AnimatePresence>
         {noise && <Effect />}
       </Canvas>
     </div>

@@ -46,7 +46,7 @@ export default function HomePage() {
                 className: "z-[100] relative",
               },
               { text: "Working On", motionObject: LINE_ONE },
-              { text: "The Internet", motionObject: LINE_TWO },
+              { text: "The *Internet*", motionObject: LINE_TWO },
             ]}
           />
         </div>
