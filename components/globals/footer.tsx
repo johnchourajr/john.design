@@ -7,7 +7,7 @@ export default function Footer() {
   const { pathname } = useRouter();
 
   return (
-    <footer className="w-full relative">
+    <footer className="w-full relative p-4">
       <p className="z-50 relative font-bold uppercase tracking-wider pointer-events-none">
         <InlineLink href="/" className="no-underline">
           John.Design

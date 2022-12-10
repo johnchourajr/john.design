@@ -44,12 +44,12 @@ export default function App({ Component, pageProps }: AppProps) {
       className={clsx(
         gilda.variable,
         inter.variable,
-        "p-4 text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans"
+        "text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans"
       )}
     >
       <GlobalHead />
       <Header />
-      <main className="z-0 min-h-[100vh]">
+      <main className="z-0 p-4 min-h-[100vh]">
         <Component {...pageProps} />
       </main>
       <Footer />

@@ -29,7 +29,12 @@ const data: LinkGridItemProps[] = [
     title: "Scroll Grow",
     description: "So when you scroll, it's... weird.",
   },
-
+  {
+    href: "/exp/logo-animate",
+    title: "Logo Animate",
+    description: "Animating the logo because why the hell not.",
+    status: "Coming Soon",
+  },
   {
     href: "/exp/see-scroll",
     title: "See Scroll",
