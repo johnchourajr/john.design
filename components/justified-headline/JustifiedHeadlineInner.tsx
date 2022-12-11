@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { getSettingValue } from "../SettingsComponents";
 import { TextContainer } from "./TextContainer";
+import { useReducedMotion } from "framer-motion";
 
 export function JustifiedHeadlineInner({
   headline,
@@ -14,13 +15,17 @@ export function JustifiedHeadlineInner({
   const speed = getSettingValue(settings, "Speed", 1000);
   const slant = getSettingValue(settings, "Add Slant", false);
   const animateLetters = getSettingValue(settings, "Letters", letters);
+  const reducedMotion = useReducedMotion();
 
   React.useEffect(() => {
+    if (reducedMotion) {
+      return;
+    }
     const interval = setInterval(() => {
       setAni((prev) => (prev + 1) % iterations);
     }, speed);
     return () => clearInterval(interval);
-  }, [speed, iterations]);
+  }, [speed, iterations, reducedMotion]);
 
   return (
     <p

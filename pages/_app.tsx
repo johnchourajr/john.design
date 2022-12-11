@@ -35,10 +35,6 @@ const gilda = Gilda_Display({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    setRootColor("#ff0000");
-  }, []);
-
   return (
     <div
       className={clsx(
