@@ -2,11 +2,7 @@ import React from "react";
 import InlineLink from "../../components/InlineLink";
 import { SettingsGroup } from "../../components/SettingsComponents";
 import { JustifiedHeadlineInner } from "../../components/justified-headline/JustifiedHeadlineInner";
-import {
-  TOP_LINE,
-  LINE_ONE,
-  LINE_TWO,
-} from "../../components/justified-headline/data";
+import { getRandomParentAndChildClassesArray } from "../../components/justified-headline/data";
 
 const SETTINGS = [
   {
@@ -31,6 +27,25 @@ const SETTINGS = [
 export default function JustifiedHeadline() {
   const [settings, setSettings] = React.useState(SETTINGS);
 
+  const headlineData = React.useMemo(() => {
+    return [
+      {
+        text: "John Is",
+        motionObject: getRandomParentAndChildClassesArray(8),
+        className:
+          "z-[100] relative !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
+      },
+      {
+        text: "Working On",
+        motionObject: getRandomParentAndChildClassesArray(8),
+      },
+      {
+        text: "The *Internet*",
+        motionObject: getRandomParentAndChildClassesArray(8),
+      },
+    ];
+  }, []);
+
   return (
     <>
       <InlineLink href="/exp/" className="no-underline">
@@ -40,15 +55,8 @@ export default function JustifiedHeadline() {
       </InlineLink>
       <JustifiedHeadlineInner
         settings={settings}
-        headline={[
-          {
-            text: "John Is",
-            motionObject: TOP_LINE,
-            className: "z-[100] relative",
-          },
-          { text: "Working On", motionObject: LINE_ONE },
-          { text: "The Internet", motionObject: LINE_TWO },
-        ]}
+        headline={headlineData}
+        iterations={8}
       />
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
