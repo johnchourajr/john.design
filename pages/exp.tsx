@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { LINE_ONE, LINE_TWO } from "../components/justified-headline/data";
+import { getRandomParentAndChildClassesArray } from "../components/justified-headline/data";
 import { JustifiedHeadlineInner } from "../components/justified-headline/JustifiedHeadlineInner";
 import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
 
@@ -51,8 +51,14 @@ export default function ExpPage() {
     <main>
       <JustifiedHeadlineInner
         className={clsx("leading-[1] w-full font-black pointer-events-none")}
-        headline={[{ text: "Experiments", motionObject: LINE_ONE }]}
+        headline={[
+          {
+            text: "Experiments",
+            motionObject: getRandomParentAndChildClassesArray(8),
+          },
+        ]}
         letters={true}
+        iterations={8}
       />
       <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
         {data.map((item, i) => (

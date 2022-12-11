@@ -1,58 +1,60 @@
-export const TOP_LINE = [
-  {
-    parent: "w-full",
-    child:
-      "w-full justify-center !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
-  },
-  {
-    parent: "w-1/2 ml-auto",
-    child:
-      "w-full justify-between !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
-  },
-  {
-    parent: "w-1/2",
-    child:
-      "w-full justify-start !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
-  },
-  {
-    parent: "w-1/2",
-    child:
-      "w-full justify-between !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
-  },
+const PARENT_CLASSES = [
+  "w-3/4",
+  "w-3/4",
+  "w-3/4",
+  "w-3/4",
+  "w-full",
+  "w-full",
+  "w-full",
+  "w-full",
+  "w-full",
+  "w-full",
+  "w-full",
+  "w-full",
+  "w-3/4 ml-auto",
+  "w-3/4 ml-auto",
+  "w-3/4 ml-auto",
+  "w-3/4 ml-auto",
+  "w-fit mr-auto",
+  "w-fit mr-auto",
+  "w-fit mr-auto",
+  "w-fit mr-auto",
 ];
-export const LINE_ONE = [
-  {
-    parent: "w-full",
-    child: "w-full justify-between",
-  },
-  {
-    parent: "w-fit ml-auto",
-    child: "w-full justify-between",
-  },
-  {
-    parent: "w-full",
-    child: "w-full justify-between",
-  },
-  {
-    parent: "w-fit mr-auto",
-    child: "w-full justify-between",
-  },
+const CHILD_CLASSES = [
+  "w-full justify-center",
+  "w-full justify-center",
+  "w-full justify-end",
+  "w-full justify-end",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-between",
+  "w-full justify-start",
+  "w-full justify-start",
 ];
-export const LINE_TWO = [
-  {
-    parent: "w-3/4",
-    child: "w-full justify-start",
-  },
-  {
-    parent: "w-3/4",
-    child: "w-full justify-between",
-  },
-  {
-    parent: "w-full",
-    child: "w-full justify-center",
-  },
-  {
-    parent: "w-3/4 ml-auto",
-    child: "w-full justify-between",
-  },
-];
+
+// randomize the generation of an parent and child classes
+// for the justified headline
+export function getRandomParentAndChildClasses() {
+  const parent = Math.floor(Math.random() * PARENT_CLASSES.length);
+  const child = Math.floor(Math.random() * CHILD_CLASSES.length);
+
+  // prevent the same
+
+  return {
+    parent: PARENT_CLASSES[parent],
+    child: CHILD_CLASSES[child],
+  };
+}
+// create an of getRandomeParentAndChildClasses, choose the length of array
+export function getRandomParentAndChildClassesArray(length: number = 4) {
+  const arr = [];
+  for (let i = 0; i < length; i++) {
+    arr.push(getRandomParentAndChildClasses());
+  }
+  return arr;
+}

@@ -55,10 +55,7 @@ export const TextContainer = ({
       )}
     >
       <motion.span
-        className={clsx(
-          "inline-flex whitespace-pre tracking-normal uppercase text-[8vw]",
-          motionController.child
-        )}
+        className={clsx("inline-flex whitespace-pre", motionController.child)}
         layout
       >
         {renderText()}

@@ -1,13 +1,10 @@
 import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
 import { JohnGLCanvas } from "./exp/john-gl";
 import { JustifiedHeadlineInner } from "../components/justified-headline/JustifiedHeadlineInner";
-import {
-  LINE_ONE,
-  LINE_TWO,
-  TOP_LINE,
-} from "../components/justified-headline/data";
+import { getRandomParentAndChildClassesArray } from "../components/justified-headline/data";
 import clsx from "clsx";
 import { Typography } from "../components/Typography";
+import { useMemo } from "react";
 
 function ParentheticalChunk({ text }: any) {
   return (
@@ -28,6 +25,31 @@ function ParentheticalChunk({ text }: any) {
 }
 
 export default function HomePage() {
+  const headlineData = useMemo(() => {
+    return [
+      {
+        text: "John Is",
+        motionObject: getRandomParentAndChildClassesArray(8),
+        className:
+          "z-[100] relative !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
+      },
+      {
+        text: "Working On",
+        motionObject: getRandomParentAndChildClassesArray(8),
+      },
+      {
+        text: "The *Internet*",
+        motionObject: getRandomParentAndChildClassesArray(8),
+      },
+    ];
+  }, []);
+
+  console.log({
+    0: headlineData[0].motionObject,
+    1: headlineData[1].motionObject,
+    2: headlineData[2].motionObject,
+  });
+
   return (
     <>
       <section
@@ -39,15 +61,8 @@ export default function HomePage() {
             className={clsx(
               "my-[16vw] leading-[1] w-full font-black pointer-events-none"
             )}
-            headline={[
-              {
-                text: "John Is",
-                motionObject: TOP_LINE,
-                className: "z-[100] relative",
-              },
-              { text: "Working On", motionObject: LINE_ONE },
-              { text: "The *Internet*", motionObject: LINE_TWO },
-            ]}
+            iterations={8}
+            headline={headlineData}
           />
         </div>
         <div className="flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]">

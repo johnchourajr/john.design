@@ -2,11 +2,11 @@ import React from "react";
 import clsx from "clsx";
 import { getSettingValue } from "../SettingsComponents";
 import { TextContainer } from "./TextContainer";
-import { LINE_ONE } from "./data";
 
 export function JustifiedHeadlineInner({
   headline,
   letters = false,
+  iterations = 4,
   settings,
   ...rest
 }: any) {
@@ -17,10 +17,10 @@ export function JustifiedHeadlineInner({
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setAni((prev) => (prev + 1) % LINE_ONE.length);
+      setAni((prev) => (prev + 1) % iterations);
     }, speed);
     return () => clearInterval(interval);
-  }, [speed]);
+  }, [speed, iterations]);
 
   return (
     <p
@@ -33,7 +33,10 @@ export function JustifiedHeadlineInner({
     >
       {headline.map(({ text, motionObject, className }: any, index: number) => {
         return (
-          <span key={index} className={className}>
+          <span
+            key={index}
+            className={clsx("tracking-normal uppercase text-[8vw]", className)}
+          >
             <TextContainer
               key={index}
               text={text}
