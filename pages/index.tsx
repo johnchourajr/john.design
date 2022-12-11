@@ -71,7 +71,7 @@ export default function HomePage() {
         <div className="inline-flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]">
           <Typography
             size="xl"
-            className="!font-pixel font-normal text-center items-center leading-tight"
+            className="!font-pixel !font-normal text-center items-center leading-tight"
           >
             Art Director{" "}
             <ParentheticalChunk text="Balancing execution across visual identity, motion, photo/video, and more into singular brand experiences" />
