@@ -50,11 +50,10 @@
     url('../fonts/PPMondwest-Regular.woff') format('woff');
 }
 
-@layer components {
-  html, body {
-    @apply text-root
-  }
 
+
+
+@layer base {
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -62,6 +61,11 @@
 
   html[data-dim="true"] .dim-shim {
     @apply bg-black bg-opacity-80
+  }
+
+  /* selection background on all elements */
+  body {
+    @apply selection:bg-root selection:text-black;
   }
 }
 

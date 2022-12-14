@@ -27,7 +27,7 @@ module.exports = {
         widest: "0.15em",
       },
       colors: {
-        root: "#ff0000",
+        root: "var(--root-color)",
       },
       transitionTimingFunction: {
         "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",

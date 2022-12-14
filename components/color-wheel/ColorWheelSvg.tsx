@@ -8,7 +8,7 @@ const Rect = ({ active, ...props }: any) => {
 
   const sharedInlineStyles = {
     touchAction: "none",
-    cursor: "url('/eyedrop.svg') 4 28, auto",
+    cursor: "url('/eyedrop.svg') 6 15, auto",
   };
 
   const sharedStyles = {

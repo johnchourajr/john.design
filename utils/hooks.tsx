@@ -70,10 +70,12 @@ function getTime() {
   const hours12 = hours % 12 || 12;
   // get minutes
   const minutes = date.getMinutes();
+  // format minutes to always have 2 digits
+  const minutesStr = minutes < 10 ? `0${minutes}` : minutes;
   // pm or am
   const ampm = hours >= 12 ? "pm" : "am";
   // format time XX:XX am/pm
-  const time = `${hours12}:${minutes} ${ampm}`;
+  const time = `${hours12}:${minutesStr} ${ampm}`;
 
   // get day of week, month, and date
   const day = date.getDay();

@@ -2,6 +2,7 @@ import * as React from "react";
 import { getStroke } from "perfect-freehand";
 import { getSvgPathFromStroke } from "../utils";
 import { faceDrawing } from "../data/sample/face-drawing";
+import clsx from "clsx";
 
 const options = {
   size: 3,
@@ -21,7 +22,7 @@ const options = {
   },
 };
 
-export default function FreehandCanvas() {
+export default function FreehandCanvas({ className }: { className?: string }) {
   const [points, setPoints] = React.useState<any[]>(faceDrawing);
 
   function handlePointerDown(e: any) {
@@ -48,8 +49,8 @@ export default function FreehandCanvas() {
     <svg
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      style={{ touchAction: "none", cursor: "url('/pencil.svg') 4 28, auto" }}
-      className="absolute inset-0 w-full h-full z-0"
+      style={{ touchAction: "none", cursor: "url('/pencil.svg') 6 18, auto" }}
+      className={clsx("absolute inset-0 w-full h-full z-0", className)}
     >
       {points && <path d={pathData} fill="red" />}
     </svg>
