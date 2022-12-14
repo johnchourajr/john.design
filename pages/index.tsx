@@ -5,24 +5,9 @@ import { getRandomParentAndChildClassesArray } from "../components/justified-hea
 import clsx from "clsx";
 import { Typography } from "../components/Typography";
 import { useMemo } from "react";
-
-function ParentheticalChunk({ text }: any) {
-  return (
-    <span className=" whitespace-nowrap">
-      ({" "}
-      <span className="inline-flex items-center justify-center h-0 translate-y-[-0.45em] max-w-[16vw]">
-        <Typography
-          tag="span"
-          size="sm"
-          className="inline-flex text-center whitespace-pre-wrap"
-        >
-          {text}
-        </Typography>
-      </span>{" "}
-      )
-    </span>
-  );
-}
+import { InformationalChunk } from "../components/chunks/InformationalChunk";
+import { ParentheticalChunk } from "../components/chunks/ParentheticalChunk";
+import FreehandCanvas from "../components/FreehandCanvas";
 
 export default function HomePage() {
   const headlineData = useMemo(() => {
@@ -44,12 +29,6 @@ export default function HomePage() {
     ];
   }, []);
 
-  console.log({
-    0: headlineData[0].motionObject,
-    1: headlineData[1].motionObject,
-    2: headlineData[2].motionObject,
-  });
-
   return (
     <>
       <section
@@ -65,22 +44,27 @@ export default function HomePage() {
             headline={headlineData}
           />
         </div>
-        <div className="flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]">
+        <div className="flex items-start flex-col gap-6 justify-center relative z-[100] mb-[8vw]">
           <Typography>This is John Choura</Typography>
           <Typography size="sm">What’s in a name?</Typography>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="max-w-[25vw]">
-              <Typography size="sm" className="text-center">
-                JOHN, (/dʒɒn/; JON) the given name from the hebrew “Yochanan”
-                and the anglo “Johanan”, meaning “Yahweh has been gracious”
-              </Typography>
-            </div>
-            <div className="max-w-[25vw]">
-              <Typography size="sm" className="text-center">
-                Choura, (/K-0rr-Uh/; cora) the last name of Czechoslovakian
-                origin, meaning unknown.
-              </Typography>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+            <InformationalChunk
+              text={[
+                "JOHN, ",
+                "*(/dʒɒn/; JON)* ",
+                "the given name from the hebrew “Yochanan” and the anglo “Johanan”, meaning ",
+                "*“Yahweh has been gracious.”*",
+              ]}
+            />
+            <InformationalChunk
+              text={[
+                "Choura, ",
+                "*(/K-0rr-Uh/; cora)* ",
+                "the last name of Czechoslovakian origin, ",
+                "*meaning unknown*",
+                ".",
+              ]}
+            />
           </div>
         </div>
         <div className="inline-flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]">
@@ -98,6 +82,7 @@ export default function HomePage() {
         </div>
         <JohnGLCanvas />
       </section>
+      <FreehandCanvas />
     </>
   );
 }

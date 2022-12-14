@@ -52,7 +52,7 @@ export default function Header() {
         className={clsx(
           "w-full inline-flex row justify-between items-center sticky top-0 p-4",
           // add black to transparent gradient to an after element with tailwind syntax
-          "after:content after:absolute after:inset-0 after:z-0 after:h-[15rem] after:pointer-events-none",
+          "after:content after:absolute after:inset-0 after:z-0 after:h-[10vw] after:pointer-events-none",
           "after:bg-gradient-to-b after:from-black after:via-transparent after:to-transparent",
           "z-50"
         )}

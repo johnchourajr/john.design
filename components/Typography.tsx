@@ -18,6 +18,8 @@ export function Typography({
         return "!text-[1rem] lg:!text-[1vw] tracking-wider uppercase";
       case "sm":
         return "!text-[0.625rem] lg:!text-[0.625vw] tracking-widest uppercase";
+      case "xs":
+        return "!text-[0.5rem] lg:!text-[0.5vw] tracking-widest uppercase";
       default:
         return "!text-[1rem] lg:!text-[1vw] tracking-wider uppercase";
     }

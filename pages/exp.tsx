@@ -5,6 +5,12 @@ import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
 
 const data: LinkGridItemProps[] = [
   {
+    href: "/exp/rss-substack",
+    title: "RSS Substack",
+    description: "Get substack content.",
+    status: "NEW",
+  },
+  {
     href: "/exp/color-wheel",
     title: "Color Wheel",
     description: "All of the colors of the rainbow.",
@@ -33,13 +39,13 @@ const data: LinkGridItemProps[] = [
     description: "So when you scroll, it's... weird.",
   },
   {
-    href: "/exp/logo-animate",
+    // href: "/exp/logo-animate",
     title: "Logo Animate",
     description: "Animating the logo because why the hell not.",
     status: "Coming Soon",
   },
   {
-    href: "/exp/see-scroll",
+    // href: "/exp/see-scroll",
     title: "See Scroll",
     description: "Some things go on and on and on and on and on.",
     status: "Coming Soon",
@@ -48,23 +54,26 @@ const data: LinkGridItemProps[] = [
 
 export default function ExpPage() {
   return (
-    <main>
-      <JustifiedHeadlineInner
-        className={clsx("leading-[1] w-full font-black pointer-events-none")}
-        headline={[
-          {
-            text: "Experiments",
-            motionObject: getRandomParentAndChildClassesArray(8),
-          },
-        ]}
-        letters={true}
-        iterations={8}
-      />
-      <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
+    <>
+      <section className="my-[4vw]">
+        <JustifiedHeadlineInner
+          className={clsx("leading-[1] w-full font-black pointer-events-none")}
+          headline={[
+            {
+              text: "Experiments",
+              motionObject: getRandomParentAndChildClassesArray(8),
+            },
+          ]}
+          letters={true}
+          iterations={8}
+        />
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-8 my-[10vw]">
         {data.map((item, i) => (
           <LinkGridItem key={i} {...item} />
         ))}
-      </div>
-    </main>
+      </section>
+    </>
   );
 }
