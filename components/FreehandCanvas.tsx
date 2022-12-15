@@ -1,8 +1,8 @@
 import * as React from "react";
 import { getStroke } from "perfect-freehand";
 import { getSvgPathFromStroke } from "../utils";
-import { faceDrawing } from "../data/sample/face-drawing";
 import clsx from "clsx";
+import { usePageHeight } from "../utils/hooks";
 
 const options = {
   size: 3,
@@ -23,36 +23,48 @@ const options = {
 };
 
 export default function FreehandCanvas({ className }: { className?: string }) {
-  const [points, setPoints] = React.useState<any[]>(faceDrawing);
+  const [storedPoints, setStoredPoints] = React.useState<any[]>([]);
+  const [points, setPoints] = React.useState<any[]>([]);
+  const pageHeight = usePageHeight() as any;
 
   function handlePointerDown(e: any) {
     e.target.setPointerCapture(e.pointerId);
     setPoints([[e.pageX, e.pageY, e.pressure]]);
   }
 
-  function handlePointerMove(e: any) {
+  const handlePointerMove = React.useCallback((e: any) => {
     if (e.buttons !== 1) return;
-    setPoints([...points, [e.pageX, e.pageY, e.pressure]]);
+    setPoints((current) => [...current, [e.pageX, e.pageY, e.pressure]]);
+  }, []);
 
-    // console.log(points);
+  const handlePointerUp = React.useCallback(
+    (e: any) => {
+      e.target.releasePointerCapture(e.pointerId);
+      setPoints([]);
+      setStoredPoints((current) => [...current, ...points]);
+    },
+    [points]
+  );
 
-    // log points to json
-    console.log(JSON.stringify(points));
-  }
-
-  const stroke = getStroke(points, options);
+  const stroke = getStroke([...storedPoints, ...points], options);
   const pathData = getSvgPathFromStroke(stroke as any);
-
-  // create new path element on each handlePointerDown
 
   return (
     <svg
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      style={{ touchAction: "none", cursor: "url('/pencil.svg') 6 18, auto" }}
-      className={clsx("absolute inset-0 w-full h-full z-0", className)}
+      onPointerUp={handlePointerUp}
+      style={{
+        touchAction: "none",
+        cursor: "url('/pencil.svg') 6 18, auto",
+        height: pageHeight.height,
+      }}
+      className={clsx(
+        "absolute pointer-events-none inset-0 w-full h-full z-0",
+        className
+      )}
     >
-      {points && <path d={pathData} fill="red" />}
+      {points && <path d={pathData} fill="var(--root-color)" />}
     </svg>
   );
 }

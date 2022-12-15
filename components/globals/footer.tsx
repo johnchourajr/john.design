@@ -58,14 +58,14 @@ export default function Footer() {
         </InlineLink>
       </div>
 
-      <div className="z-50 fixed bottom-4 right-4 font-bold pointer-events-none">
+      <div className="z-50 flex flex-row fixed bottom-4 right-4 font-bold pointer-events-none">
         <InlineLink
           href={`https://github.com/johnchourajr/john.design/tree/new-new/pages${
             pathname === "/" ? "/index" : pathname
           }.tsx`}
           target="_blank"
           aria-label="Link to source code"
-          className="no-underline"
+          className={clsx("z-50 relative pointer-events-none", "no-underline")}
         >
           {"</>"}
         </InlineLink>

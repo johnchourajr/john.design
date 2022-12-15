@@ -1,9 +1,13 @@
+import React from "react";
 import { Inter, Gilda_Display } from "@next/font/google";
+import clsx from "clsx";
 
 /**
  * Components
  */
 import GlobalHead from "../components/GlobalHead";
+import Header from "../components/globals/header";
+import Footer from "../components/globals/footer";
 
 /**
  * Types
@@ -14,13 +18,6 @@ import type { AppProps } from "next/app";
  * Styles
  */
 import "../styles/globals.css";
-import { useRouter } from "next/router";
-import InlineLink from "../components/InlineLink";
-import { useEffect } from "react";
-import { setRootColor } from "../utils";
-import clsx from "clsx";
-import Header from "../components/globals/header";
-import Footer from "../components/globals/footer";
 
 const inter = Inter({
   subsets: ["latin"],

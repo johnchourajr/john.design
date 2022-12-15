@@ -11,6 +11,7 @@ import {
   SettingsGroup,
 } from "../../components/SettingsComponents";
 import { AnimatePresence } from "framer-motion";
+import clsx from "clsx";
 
 function Light({ type, light, hide, ...rest }: any) {
   if (hide) return null;
@@ -169,17 +170,17 @@ const SETTINGS = [
   },
 ];
 
-export function JohnGLCanvas({ settings }: any) {
+export function JohnGLCanvas({ settings, className }: any) {
   const devicePixelRatio = useDevicePixelRatio();
 
   const noise = getSettingValue(settings, "Noise", false);
 
   return (
-    <div className="absolute inset-0 z-[1]">
+    <div className={clsx("absolute inset-0 z-[1]", className)}>
       <Canvas
         style={{
           width: "100%",
-          height: "100vw",
+          height: "100%",
           background: "transparent",
         }}
         dpr={devicePixelRatio || 3}
