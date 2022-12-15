@@ -35,7 +35,7 @@ export default function HomePage() {
         id="hero"
         className="flex flex-col items-center justify- relative z-0 min-h-[100vh]"
       >
-        <div className="flex self-start w-full !pointer-events-none">
+        <div className="flex self-start w-full !pointer-events-none py-[20vw] md:py-0">
           <JustifiedHeadlineInner
             className={clsx(
               "my-[16vw] leading-[1] w-full font-black pointer-events-none"
@@ -80,9 +80,9 @@ export default function HomePage() {
             <ParentheticalChunk text="The ability to use code as a tool to create interactive and engaging production-ready interfaces " />
           </Typography>
         </div>
-        <JohnGLCanvas />
+        <JohnGLCanvas className="h-[150vw] md:h-[100vw]" />
       </section>
-      <FreehandCanvas />
+      {/* <FreehandCanvas /> */}
     </>
   );
 }
