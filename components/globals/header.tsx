@@ -70,7 +70,7 @@ export default function Header() {
               "no-underline"
             )}
           >
-            John.Design
+            John.Design™
           </InlineLink>
           <Slash />
           {navData.map(({ href, title }: any, i: number) => (

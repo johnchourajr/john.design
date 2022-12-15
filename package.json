@@ -25,6 +25,7 @@
     "framer-motion": "^7.6.5",
     "framer-motion-3d": "^7.6.15",
     "fs": "^0.0.1-security",
+    "html-react-parser": "^3.0.4",
     "next": "13.0.2",
     "perfect-freehand": "^1.2.0",
     "postprocessing": "^6.29.1",
