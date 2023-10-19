@@ -68,10 +68,19 @@
     ],
     "section_resume": [
       {
+        "role": "Interaction Designer",
+        "title": "PayPal.com",
+        "url": "https://retool.com/",
+        "date": "2023-Present",
+        "foreground": "#111111",
+        "background": "#D153DB",
+        "image": "/hover-buddy/retool.png"
+      },
+      {
         "role": "Design Lead",
         "title": "PayPal.com",
         "url": "https://paypal.com/",
-        "date": "2022-Present",
+        "date": "2022-2023",
         "foreground": "#111111",
         "background": "#FED04F",
         "image": "/hover-buddy/pp.png"
