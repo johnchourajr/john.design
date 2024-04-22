@@ -1,6 +1,6 @@
 // Turn the points returned from perfect-freehand into SVG path data.
 
-type Point = [number, number];
+type Point = number[];
 
 export function getSvgPathFromStroke(stroke: Point[]): string {
   if (!stroke.length) return "";
