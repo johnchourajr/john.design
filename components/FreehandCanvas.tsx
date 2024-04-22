@@ -2,7 +2,13 @@ import * as React from "react";
 import { getStroke } from "perfect-freehand";
 import { getSvgPathFromStroke } from "../utils";
 import clsx from "clsx";
-import { usePageHeight } from "../utils/hooks";
+import { useDrawing } from "../context/DrawingContext";
+
+type Point = {
+  x: number;
+  y: number;
+  pressure: number;
+};
 
 const options = {
   size: 3,
@@ -23,48 +29,47 @@ const options = {
 };
 
 export default function FreehandCanvas({ className }: { className?: string }) {
-  const [storedPoints, setStoredPoints] = React.useState<any[]>([]);
-  const [points, setPoints] = React.useState<any[]>([]);
-  const pageHeight = usePageHeight() as any;
+  const { points, storedPoints, isDrawing } = useDrawing();
 
-  function handlePointerDown(e: any) {
-    e.target.setPointerCapture(e.pointerId);
-    setPoints([[e.pageX, e.pageY, e.pressure]]);
-  }
+  const getStoredPaths = () => {
+    return storedPoints.map((pathPoints) => {
+      const stroke = getStroke(
+        pathPoints.map((p) => [p.x, p.y, p.pressure]),
+        options
+      );
+      return getSvgPathFromStroke(stroke);
+    });
+  };
 
-  const handlePointerMove = React.useCallback((e: any) => {
-    if (e.buttons !== 1) return;
-    setPoints((current) => [...current, [e.pageX, e.pageY, e.pressure]]);
-  }, []);
+  // Function to get the SVG path for the current drawing path
+  const getCurrentPath = () => {
+    const stroke = getStroke(
+      points.map((p) => [p.x, p.y, p.pressure]),
+      options
+    );
+    return getSvgPathFromStroke(stroke);
+  };
 
-  const handlePointerUp = React.useCallback(
-    (e: any) => {
-      e.target.releasePointerCapture(e.pointerId);
-      setPoints([]);
-      setStoredPoints((current) => [...current, ...points]);
-    },
-    [points]
-  );
-
-  const stroke = getStroke([...storedPoints, ...points], options);
-  const pathData = getSvgPathFromStroke(stroke as any);
+  React.useEffect(() => {
+    console.log({ isDrawing });
+  }, [isDrawing]);
 
   return (
     <svg
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      style={{
-        touchAction: "none",
-        cursor: "url('/pencil.svg') 6 18, auto",
-        height: pageHeight.height,
-      }}
       className={clsx(
-        "absolute pointer-events-none inset-0 w-full h-full z-0",
+        "absolute inset-0 w-full h-full z-0",
+        isDrawing ? "drawing" : "", // Apply 'drawing' class only while drawing
         className
       )}
     >
-      {points && <path d={pathData} fill="var(--root-color)" />}
+      {getStoredPaths().map((path, index) => (
+        <path key={index} d={path} fill="red" stroke="red" strokeWidth="2" />
+      ))}
+
+      {/* Render the current drawing path */}
+      {points.length > 0 && (
+        <path d={getCurrentPath()} fill="red" stroke="red" strokeWidth="2" />
+      )}
     </svg>
   );
 }

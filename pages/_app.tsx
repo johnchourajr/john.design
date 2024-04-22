@@ -18,6 +18,7 @@ import type { AppProps } from "next/app";
  * Styles
  */
 import "../styles/globals.css";
+import { DrawingProvider } from "../context/DrawingContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,14 +38,16 @@ export default function App({ Component, pageProps }: AppProps) {
       className={clsx(
         gilda.variable,
         inter.variable,
-        "text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans"
+        "text-[color:var(--root-color)] bg-black min-h-[100vh] font-sans relative"
       )}
     >
       <GlobalHead />
       <Header />
-      <main className="z-0 p-4 min-h-[100vh]">
-        <Component {...pageProps} />
-      </main>
+      <DrawingProvider>
+        <main className="z-0 p-4 min-h-[100vh]">
+          <Component {...pageProps} />
+        </main>
+      </DrawingProvider>
       <Footer />
     </div>
   );

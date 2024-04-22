@@ -45,8 +45,8 @@ function transform(value: number, input: number[], output: number[]) {
 function Mesh({ settings }: any) {
   const ref = useRef<THREE.Mesh>();
   const [me, memap] = useLoader(THREE.TextureLoader, [
-    "/me-ai.png",
-    "/me-ai-normal.png",
+    "/me-alpha.png",
+    "/me-map.png",
   ]);
 
   const light_1 = getSettingValue(settings, "Blue Light", true);
