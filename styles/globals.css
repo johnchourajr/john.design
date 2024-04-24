@@ -1,57 +1,8 @@
+@import "fonts.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: 'KUniforma Bold';
-  font-style: normal;
-  font-weight: 800 ;
-  font-display: swap;
-  src: url('../fonts/KUniforma-80Bold.woff2') format('woff2'),
-       url('../fonts/KUniforma-80Bold.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'KUniforma Bold Ritalic';
-  font-style: italic;
-  font-weight: 850;
-  font-display: swap;
-  src: url('../fonts/KUniforma-85BoldRitalic.woff2') format('woff2'),
-    url('../fonts/KUniforma-85BoldRitalic.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'KUniforma Black';
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src:
-    url('../fonts/KUniforma-90Black.woff2') format('woff2'),
-    url('../fonts/KUniforma-90Black.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'KUniforma Black Ritalic';
-  font-style: normal;
-  font-weight: 950;
-  font-display: swap;
-  src:
-    url('../fonts/KUniforma-95BlackRitalic.woff2') format('woff2'),
-    url('../fonts/KUniforma-95BlackRitalic.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'PPMondwest';
-  font-style: normal;
-  font-weight: normal;
-  font-display: swap;
-  src:
-    url('../fonts/PPMondwest-Regular.woff2') format('woff2'),
-    url('../fonts/PPMondwest-Regular.woff') format('woff');
-}
-
-
-
 
 @layer base {
   body {
@@ -60,7 +11,7 @@
   }
 
   html[data-dim="true"] .dim-shim {
-    @apply bg-black bg-opacity-80
+    @apply bg-black bg-opacity-80;
   }
 
   /* selection background on all elements */
@@ -69,24 +20,29 @@
   }
 }
 
+@layer utilities {
+  .clip {
+    clip-path: inset(0);
+  }
+}
+
 @layer components {
-  input[type=range] {
+  input[type="range"] {
     appearance: none;
     margin: 10px 0;
     width: 100%;
 
     --thumb: var(--root-color);
-    --track: rgba(255, 255, 255, .1);
-    --drop-shadow: 0px 0px 0px #000000,
-      0px 0px 0px #000000;
+    --track: rgba(255, 255, 255, 0.1);
+    --drop-shadow: 0px 0px 0px #000000, 0px 0px 0px #000000;
     --border: 0px solid transparent;
   }
 
-  input[type=range]:focus {
+  input[type="range"]:focus {
     outline: none;
   }
 
-  input[type=range]::-webkit-slider-runnable-track {
+  input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -96,7 +52,7 @@
     border: var(--border);
   }
 
-  input[type=range]::-moz-range-track {
+  input[type="range"]::-moz-range-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -107,7 +63,7 @@
     border: var(--border);
   }
 
-  input[type=range]::-webkit-slider-thumb {
+  input[type="range"]::-webkit-slider-thumb {
     box-shadow: var(--drop-shadow);
     border: var(--border);
     height: 20px;
@@ -119,11 +75,11 @@
     margin-top: -8px;
   }
 
-  input[type=range]:focus::-webkit-slider-runnable-track {
+  input[type="range"]:focus::-webkit-slider-runnable-track {
     background: var(--track);
   }
 
-  input[type=range]::-moz-range-thumb {
+  input[type="range"]::-moz-range-thumb {
     box-shadow: var(--drop-shadow);
     border: var(--border);
     height: 20px;
@@ -162,6 +118,6 @@ a {
   }
 }
 
-.border-shadow{
-  box-shadow: 0 0 0 2px rgba(0,0,0,1), 0 2px 2px 0 rgba(0,0,0,1);
+.border-shadow {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 1), 0 2px 2px 0 rgba(0, 0, 0, 1);
 }

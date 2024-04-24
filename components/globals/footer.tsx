@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import navData from "../../data/nav";
+import navData from "../../data/navData";
 import InlineLink from "../InlineLink";
 import LinkGridItem, { LinkGridItemProps } from "../LinkGridItem";
 import Logo from "../svg/logo";
@@ -18,7 +18,7 @@ export default function Footer() {
     >
       <Typography
         size="sm"
-        className="text-left indent-[6em] group max-w-[50em] cursor-help z-50 relative pointer-events-none"
+        className="text-body text-left indent-[6em] group max-w-[50em] cursor-help z-50 relative pointer-events-none"
       >
         John Choura is working on the inernet to rebuild his home on the ...
         internet. In other words, this site is being built in the open. Follow
@@ -26,7 +26,7 @@ export default function Footer() {
       </Typography>
       <Typography
         size="sm"
-        className="text-left group max-w-[50em] cursor-help z-50 relative pointer-events-none"
+        className="text-body text-left group max-w-[50em] cursor-help z-50 relative pointer-events-none"
       >
         Check out a{" "}
         <InlineLink href="https://john.design">
@@ -36,7 +36,7 @@ export default function Footer() {
 
       <Typography
         size="sm"
-        className="text-left group max-w-[50em] cursor-help z-50 relative pointer-events-none"
+        className="text-body text-left group max-w-[50em] cursor-help z-50 relative pointer-events-none"
       >
         Stay safe in here.
       </Typography>
@@ -49,12 +49,12 @@ export default function Footer() {
         <InlineLink
           href="/"
           className={clsx(
-            "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+            "z-50 headline-display-xs relative font-bold uppercase tracking-wider pointer-events-none",
             "md:inline-flex hidden",
             "no-underline"
           )}
         >
-          John.Design
+          John.Design™
         </InlineLink>
       </div>
 
@@ -65,7 +65,10 @@ export default function Footer() {
           }.tsx`}
           target="_blank"
           aria-label="Link to source code"
-          className={clsx("z-50 relative pointer-events-none", "no-underline")}
+          className={clsx(
+            "text-title z-50 relative pointer-events-none",
+            "no-underline"
+          )}
         >
           {"</>"}
         </InlineLink>

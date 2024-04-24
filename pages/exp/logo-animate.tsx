@@ -1,6 +1,6 @@
 import Link from "next/link";
-import InlineLink from "../../components/InlineLink";
-import Logo from "../../components/svg/logo";
+import InlineLink from "@/components/InlineLink";
+import Logo from "@/components/svg/logo";
 
 export default function SeeScroll() {
   return (

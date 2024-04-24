@@ -3,10 +3,7 @@ import { Typography } from "../Typography";
 
 export function InformationalChunk({ text }: any) {
   return (
-    <Typography
-      size="sm"
-      className="text-left indent-[6em] group max-w-[30em] cursor-help "
-    >
+    <p className="text-left text-body indent-[3em] group max-w-[30em] cursor-help">
       {text.map((t: string, i: number) => {
         const highlight = t.includes("*");
         if (highlight) {
@@ -24,6 +21,6 @@ export function InformationalChunk({ text }: any) {
           </span>
         );
       })}
-    </Typography>
+    </p>
   );
 }

@@ -2,19 +2,21 @@ import React from "react";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 
-import navData from "../../data/nav";
-import InlineLink from "../InlineLink";
-import Logo from "../svg/logo";
-import { useTime } from "../../utils/hooks";
-import { RenderColorWheel } from "../../pages/exp/color-wheel";
-import { setRootColor } from "../../utils";
-import { Typography } from "../Typography";
+import navData from "@/data/navData";
+import InlineLink from "@/components/InlineLink";
+import Logo from "@/components/svg/logo";
+import { useTime } from "@/hooks/useTime";
+import { RenderColorWheel } from "@/pages/exp/color-wheel";
+import { setRootColor } from "@/utils/slugify";
+import { Typography } from "@/components/Typography";
+import { useDrawing } from "@/context/DrawingContext";
 
 function Slash() {
   return (
     <p
       className={clsx(
-        "z-50 text-xs relative font-bold uppercase tracking-wider opacity-50",
+        "text-string relative",
+        "z-50 opacity-50",
         "md:inline-flex hidden"
       )}
     >
@@ -33,6 +35,8 @@ const handleColorChange = (e: any) => {
 };
 
 export default function Header() {
+  const { clearStoredPoints } = useDrawing();
+
   const [colorActive, setColorActive] = React.useState(false);
   const { time, dateStr } = useTime();
 
@@ -65,7 +69,8 @@ export default function Header() {
           <InlineLink
             href="/"
             className={clsx(
-              "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+              "text-string relative",
+              "z-50 pointer-events-none",
               "md:inline-flex hidden",
               "no-underline"
             )}
@@ -78,7 +83,8 @@ export default function Header() {
               key={i}
               href={href}
               className={clsx(
-                "z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+                "text-string relative",
+                "z-50  pointer-events-none",
                 "md:inline-flex hidden",
                 "no-underline"
               )}
@@ -88,6 +94,12 @@ export default function Header() {
           ))}
         </div>
         <div className="inline-flex row gap-6 items-center">
+          <button
+            onClick={clearStoredPoints}
+            className={clsx("text-string relative", "z-50 ")}
+          >
+            clear
+          </button>
           {!colorActive && (
             <RenderColorWheel
               handleClick={() => handleActive(true)}
@@ -96,7 +108,8 @@ export default function Header() {
           )}
           <p
             className={clsx(
-              "inline-flex row gap-4 z-50 text-xs relative font-bold uppercase tracking-wider pointer-events-none",
+              "text-string relative",
+              "inline-flex row gap-4 z-50 relative pointer-events-none",
               "md:inline-flex hidden"
             )}
           >
@@ -114,7 +127,7 @@ export default function Header() {
               animate={{ opacity: 1, y: "0", transition: { delay: 0.2 } }}
               exit={{ opacity: 0, y: "-10vw" }}
             >
-              <Typography>Get Picky</Typography>
+              <p className="headline-display-xs">Get Picky</p>
             </motion.div>
             <RenderColorWheel
               handleClick={() => handleActive(false)}

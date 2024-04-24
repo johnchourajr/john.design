@@ -11,22 +11,27 @@ export function Typography({
   const getSize = () => {
     switch (size) {
       case "xl":
-        return "!text-[3rem] lg:!text-[6vw]";
+        return "headline-display-lg";
       case "lg":
-        return "!text-[1.5rem] lg:!text-[2vw]";
+        return "headline-display-md";
       case "md":
-        return "!text-[1rem] lg:!text-[1vw] tracking-wider uppercase";
+        return clsx(
+          "!text-[1.5rem] lg:!text-[1.25rem] tracking-wider uppercase"
+        );
       case "sm":
-        return "!text-[0.625rem] lg:!text-[0.625vw] tracking-widest uppercase";
+        return "!text-[0.8rem] lg:!text-[0.8rem] tracking-widest uppercase";
       case "xs":
-        return "!text-[0.5rem] lg:!text-[0.5vw] tracking-widest uppercase";
+        return "!text-[0.65rem] lg:!text-[0.65rem] tracking-widest uppercase";
       default:
-        return "!text-[1rem] lg:!text-[1vw] tracking-wider uppercase";
+        return "!text-[1.5rem] lg:!text-[1.25rem] tracking-wider uppercase";
     }
   };
 
   return (
-    <Tag className={clsx("font-bold", getSize(), className)} {...rest}>
+    <Tag
+      className={clsx("font-sans tracking-widest", getSize(), className)}
+      {...rest}
+    >
       {children}
     </Tag>
   );

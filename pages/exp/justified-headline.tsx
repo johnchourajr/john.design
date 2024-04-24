@@ -1,8 +1,8 @@
 import React from "react";
-import InlineLink from "../../components/InlineLink";
-import { SettingsGroup } from "../../components/SettingsComponents";
-import { JustifiedHeadlineInner } from "../../components/justified-headline/JustifiedHeadlineInner";
-import { getRandomParentAndChildClassesArray } from "../../components/justified-headline/data";
+import InlineLink from "@/components/InlineLink";
+import { SettingsGroup } from "@/components/SettingsComponents";
+import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
+import { getRandomParentAndChildClassesArray } from "@/components/justified-headline/data";
 
 const SETTINGS = [
   {

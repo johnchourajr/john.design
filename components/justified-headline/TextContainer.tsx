@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { slugify } from "../../utils";
+import { slugify } from "@/utils/slugify";
 import { addStrongTags } from "./utils";
 
 export const TextContainer = ({

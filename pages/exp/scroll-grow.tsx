@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import InlineLink from "../../components/InlineLink";
+import InlineLink from "@/components/InlineLink";
 import clsx from "clsx";
 
 const EXAMPLE_LIST = [

@@ -30,7 +30,7 @@ export function JustifiedHeadlineInner({
   return (
     <p
       className={clsx(
-        "my-[10vw] leading-[1] w-full font-black pointer-events-none",
+        "my-[10vw] w-full font-black pointer-events-none",
         slant && "!font-black-ritalic"
       )}
       data-id={ani}
@@ -40,7 +40,7 @@ export function JustifiedHeadlineInner({
         return (
           <span
             key={index}
-            className={clsx("tracking-normal uppercase text-[8vw]", className)}
+            className={clsx("uppercase headline-display-xl", className)}
           >
             <TextContainer
               key={index}
