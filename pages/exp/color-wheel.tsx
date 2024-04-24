@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import React, { SVGProps } from "react";
-import InlineLink from "../../components/InlineLink";
+import InlineLink from "@/components/InlineLink";
 import { motion } from "framer-motion";
 
-import { setRootColor } from "../../utils";
-import ColorWheelSvg from "../../components/color-wheel/ColorWheelSvg";
+import { setRootColor } from "lib/utils/slugify";
+import ColorWheelSvg from "@/components/color-wheel/ColorWheelSvg";
 
 export const RenderColorWheel = ({
   className,

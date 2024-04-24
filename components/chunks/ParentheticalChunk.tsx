@@ -1,17 +1,18 @@
-import { Typography } from "../Typography";
+import clsx from "clsx";
 
 export function ParentheticalChunk({ text }: any) {
   return (
-    <span className=" whitespace-nowrap">
+    <span className="whitespace-nowrap ">
       ({" "}
-      <span className="inline-flex items-center justify-start h-0 translate-y-[-0.45em]">
-        <Typography
-          tag="span"
-          size="sm"
-          className="inline-flex text-left whitespace-pre-wrap max-w-[30em] indent-[6em]"
+      <span className="inline-flex h-fit items-center justify-center -translate-y-[100%]">
+        <span
+          className={clsx(
+            "text-body",
+            "inline-flex text-center whitespace-pre-wrap max-w-[25em]"
+          )}
         >
           {text}
-        </Typography>
+        </span>
       </span>{" "}
       )
     </span>

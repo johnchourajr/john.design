@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { getRandomParentAndChildClassesArray } from "../components/justified-headline/data";
-import { JustifiedHeadlineInner } from "../components/justified-headline/JustifiedHeadlineInner";
-import LinkGridItem, { LinkGridItemProps } from "../components/LinkGridItem";
+import { getRandomParentAndChildClassesArray } from "@/components/justified-headline/data";
+import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
+import LinkGridItem, { LinkGridItemProps } from "@/components/LinkGridItem";
 
 const data: LinkGridItemProps[] = [
   {

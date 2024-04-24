@@ -1,4 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const typePlugin = require("./lib/plugins/type-plugin");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -6,17 +6,20 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
+    "./lib/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    fontSize: {},
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", ...fontFamily.sans],
-        bold: ["KUniforma Bold", ...fontFamily.sans],
-        "bold-ritalic": ["KUniforma Bold Ritalic", ...fontFamily.sans],
-        black: ["KUniforma Black", ...fontFamily.sans],
-        "black-ritalic": ["KUniforma Black Ritalic", ...fontFamily.sans],
-        pixel: ["PPMondwest", ...fontFamily.sans],
-        serif: ["var(--font-gilda)", ...fontFamily.serif],
+        sans: ["Montreal"],
+        "sans-italic": ["MontrealItalic"],
+        bold: ["KUniforma Bold"],
+        "bold-ritalic": ["KUniforma Bold Ritalic"],
+        black: ["KUniforma Black"],
+        "black-ritalic": ["KUniforma Black Ritalic"],
+        pixel: ["PPMondwest"],
+        serif: ["BigCaslon"],
       },
       letterSpacing: {
         tight: "-0.05em",
@@ -26,6 +29,9 @@ module.exports = {
         wider: "0.1em",
         widest: "0.15em",
       },
+      borderWidth: {
+        1: "1px",
+      },
       colors: {
         root: "var(--root-color)",
       },
@@ -34,5 +40,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  variants: {
+    extend: {},
+  },
+  plugins: [typePlugin],
 };

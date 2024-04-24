@@ -1,4 +1,4 @@
-import { LinkGridItemProps } from "../components/LinkGridItem";
+import { LinkGridItemProps } from "@/components/LinkGridItem";
 
 const navData: LinkGridItemProps[] = [
   {

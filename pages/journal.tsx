@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import { getRandomParentAndChildClassesArray } from "../components/justified-headline/data";
-import { JustifiedHeadlineInner } from "../components/justified-headline/JustifiedHeadlineInner";
+import { getRandomParentAndChildClassesArray } from "@/components/justified-headline/data";
+import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
 
 export default function JournalPage() {
   return (

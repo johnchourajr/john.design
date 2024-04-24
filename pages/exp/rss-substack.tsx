@@ -1,9 +1,9 @@
 import Link from "next/link";
-import InlineLink from "../../components/InlineLink";
+import InlineLink from "@/components/InlineLink";
 import { getFeed } from "../../lib/rss";
 import { format } from "date-fns";
 import parse from "html-react-parser";
-import { Typography } from "../../components/Typography";
+import { Typography } from "@/components/Typography";
 
 const RSSFeedStyle = () => (
   <style global jsx>{`

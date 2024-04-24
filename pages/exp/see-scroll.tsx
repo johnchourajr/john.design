@@ -1,5 +1,5 @@
 import Link from "next/link";
-import InlineLink from "../../components/InlineLink";
+import InlineLink from "@/components/InlineLink";
 
 export default function SeeScroll() {
   return (

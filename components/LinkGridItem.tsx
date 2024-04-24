@@ -1,14 +1,9 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { Typography } from "./Typography";
+import { PageItem } from "../types/content-types";
 
-export interface LinkGridItemProps {
-  href?: string;
-  className?: string;
-  title: string;
-  description: string;
-  status?: "NEW" | "Coming Soon";
-}
+export type LinkGridItemProps = PageItem;
 
 export default function LinkGridItem({
   href,
