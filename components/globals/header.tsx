@@ -1,23 +1,22 @@
-import React from "react";
-import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
 
-import navData from "@/data/navData";
-import InlineLink from "@/components/InlineLink";
-import Logo from "@/components/svg/logo";
-import { useTime } from "@/hooks/useTime";
-import { RenderColorWheel } from "@/pages/exp/color-wheel";
-import { setRootColor } from "@/utils/slugify";
-import { Typography } from "@/components/Typography";
-import { useDrawing } from "@/context/DrawingContext";
+import InlineLink from '@/components/InlineLink';
+import Logo from '@/components/svg/logo';
+import { useDrawing } from '@/context/DrawingContext';
+import navData from '@/data/navData';
+import { useTime } from '@/hooks/useTime';
+import { RenderColorWheel } from '@/pages/exp/color-wheel';
+import { setRootColor } from '@/utils/slugify';
 
 function Slash() {
   return (
     <p
       className={clsx(
-        "text-string relative",
-        "z-50 opacity-50",
-        "md:inline-flex hidden"
+        'text-string relative',
+        'z-50 opacity-50',
+        'md:inline-flex hidden',
       )}
     >
       /
@@ -26,25 +25,25 @@ function Slash() {
 }
 
 const handleColorChange = (e: any) => {
-  const colorFromSVG = e.target.getAttribute("fill");
-  if (colorFromSVG === null || colorFromSVG === "none") {
-    setRootColor("#ff0000");
+  const colorFromSVG = e.target.getAttribute('fill');
+  if (colorFromSVG === null || colorFromSVG === 'none') {
+    setRootColor('#ff0000');
   } else {
     setRootColor(colorFromSVG);
   }
 };
 
 export default function Header() {
-  const { clearStoredPoints } = useDrawing();
+  const { undo, clearStoredPoints } = useDrawing();
 
   const [colorActive, setColorActive] = React.useState(false);
   const { time, dateStr } = useTime();
 
   const handleActive = (state: boolean) => {
     if (state) {
-      document.documentElement.setAttribute("data-dim", "true");
+      document.documentElement.setAttribute('data-dim', 'true');
     } else {
-      document.documentElement.setAttribute("data-dim", "false");
+      document.documentElement.setAttribute('data-dim', 'false');
     }
 
     setColorActive(state);
@@ -54,25 +53,25 @@ export default function Header() {
     <>
       <nav
         className={clsx(
-          "w-full inline-flex row justify-between items-center sticky top-0 p-4",
+          'w-full inline-flex row justify-between items-center sticky top-0 p-4',
           // add black to transparent gradient to an after element with tailwind syntax
-          "after:content after:absolute after:inset-0 after:z-0 after:h-[10vw] after:pointer-events-none",
-          "after:bg-gradient-to-b after:from-black after:via-transparent after:to-transparent",
-          "z-50"
+          'after:content after:absolute after:inset-0 after:z-0 after:h-[10vw] after:pointer-events-none',
+          'after:bg-gradient-to-b after:from-black after:via-transparent after:to-transparent',
+          'z-50',
         )}
       >
         <div className="inline-flex row gap-6 items-center">
-          <InlineLink href="/" className={clsx("z-50 relative")}>
+          <InlineLink href="/" className={clsx('z-50 relative')}>
             <Logo />
           </InlineLink>
 
           <InlineLink
             href="/"
             className={clsx(
-              "text-string relative",
-              "z-50 pointer-events-none",
-              "md:inline-flex hidden",
-              "no-underline"
+              'text-string relative',
+              'z-50 pointer-events-none',
+              'md:inline-flex hidden',
+              'no-underline',
             )}
           >
             John.Design™
@@ -83,10 +82,10 @@ export default function Header() {
               key={i}
               href={href}
               className={clsx(
-                "text-string relative",
-                "z-50  pointer-events-none",
-                "md:inline-flex hidden",
-                "no-underline"
+                'text-string relative',
+                'z-50  pointer-events-none',
+                'md:inline-flex hidden',
+                'no-underline',
               )}
             >
               {title}
@@ -95,8 +94,14 @@ export default function Header() {
         </div>
         <div className="inline-flex row gap-6 items-center">
           <button
+            onClick={undo}
+            className={clsx('text-string relative', 'z-50 ')}
+          >
+            undo
+          </button>
+          <button
             onClick={clearStoredPoints}
-            className={clsx("text-string relative", "z-50 ")}
+            className={clsx('text-string relative', 'z-50 ')}
           >
             clear
           </button>
@@ -108,9 +113,9 @@ export default function Header() {
           )}
           <p
             className={clsx(
-              "text-string relative",
-              "inline-flex row gap-4 z-50 relative pointer-events-none",
-              "md:inline-flex hidden"
+              'text-string relative',
+              'inline-flex row gap-4 z-50 relative pointer-events-none',
+              'md:inline-flex hidden',
             )}
           >
             <span>{dateStr}</span>
@@ -123,9 +128,9 @@ export default function Header() {
           <div className="fixed flex flex-col items-center justify-center inset-0 z-[9000]">
             <motion.div
               className="z-[9999]"
-              initial={{ opacity: 0, y: "-10vw" }}
-              animate={{ opacity: 1, y: "0", transition: { delay: 0.2 } }}
-              exit={{ opacity: 0, y: "-10vw" }}
+              initial={{ opacity: 0, y: '-10vw' }}
+              animate={{ opacity: 1, y: '0', transition: { delay: 0.2 } }}
+              exit={{ opacity: 0, y: '-10vw' }}
             >
               <p className="headline-display-xs">Get Picky</p>
             </motion.div>
