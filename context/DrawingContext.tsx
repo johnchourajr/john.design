@@ -20,7 +20,7 @@ type DrawingContextType = {
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
 };
 
-const MAX_STORED_POINTS = 10; // You can adjust this value as needed
+const MAX_STORED_POINTS = 20; // You can adjust this value as needed
 
 const DrawingContext = createContext<DrawingContextType | undefined>(undefined);
 
@@ -31,10 +31,6 @@ export const useDrawing = () => {
   }
   return context;
 };
-
-// What to prevent:
-// M 358.4117585678119 29.745272682188137 Q 358.4117585678119 29.745272682188137 358.408223033906 29.74880821609407 358.4046875 29.75234375 358.40115196609406 29.755879283905934 358.39761643218816 29.759414817811866 358.4046875 29.75234375 Z
-// M 370.7476960678119 26.288241432188137 Q 370.7476960678119 26.288241432188137 370.744160533906 26.29177696609407 370.740625 26.2953125 370.73708946609406 26.298848033905934 370.73355393218816 26.302383567811866 370.740625 26.2953125 Z
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
   const { pathname } = useRouter();
