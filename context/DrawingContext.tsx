@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import FreehandCanvas from "@/components/FreehandCanvas";
-import { useRouter } from "next/router";
+import FreehandCanvas from '@/components/FreehandCanvas';
+import { useRouter } from 'next/router';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Point = [number, number, number];
 type StoredPoint = Point[];
@@ -27,10 +27,14 @@ const DrawingContext = createContext<DrawingContextType | undefined>(undefined);
 export const useDrawing = () => {
   const context = useContext(DrawingContext);
   if (!context) {
-    throw new Error("useDrawing must be used within a DrawingProvider");
+    throw new Error('useDrawing must be used within a DrawingProvider');
   }
   return context;
 };
+
+// What to prevent:
+// M 358.4117585678119 29.745272682188137 Q 358.4117585678119 29.745272682188137 358.408223033906 29.74880821609407 358.4046875 29.75234375 358.40115196609406 29.755879283905934 358.39761643218816 29.759414817811866 358.4046875 29.75234375 Z
+// M 370.7476960678119 26.288241432188137 Q 370.7476960678119 26.288241432188137 370.744160533906 26.29177696609407 370.740625 26.2953125 370.73708946609406 26.298848033905934 370.73355393218816 26.302383567811866 370.740625 26.2953125 Z
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
   const { pathname } = useRouter();
@@ -42,7 +46,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   });
 
   // Check if running on client-side
-  const isClient = typeof window !== "undefined";
+  const isClient = typeof window !== 'undefined';
 
   // Function to serialize and store points
   const serializePoints = (points: StoredPointObj): string =>
@@ -51,30 +55,46 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   const clearStoredPoints = () => {
     const newPathPoints = { ...storedPoints, [pathname]: [] };
     if (isClient) {
-      localStorage.setItem("storedPoints", serializePoints(newPathPoints));
+      localStorage.setItem('storedPoints', serializePoints(newPathPoints));
     }
     setStoredPoints(newPathPoints);
   };
 
   const storeCurrentDrawing = () => {
-    if (points.length > 0) {
-      const newStoredPoints = {
-        ...storedPoints,
-        [pathname]: [...(storedPoints[pathname] || []), points].slice(
-          -MAX_STORED_POINTS
-        ),
-      };
-      if (isClient) {
-        localStorage.setItem("storedPoints", serializePoints(newStoredPoints));
+    // Minimum number of points or minimum distance needed to store the drawing
+    const MIN_POINTS_COUNT = 5; // Change this value based on your needs
+    const MIN_DISTANCE = 10; // Minimum distance in pixels between start and end point
+
+    if (points.length > MIN_POINTS_COUNT) {
+      const startPoint = points[0];
+      const endPoint = points[points.length - 1];
+      const distance = Math.sqrt(
+        Math.pow(endPoint[0] - startPoint[0], 2) +
+          Math.pow(endPoint[1] - startPoint[1], 2),
+      );
+
+      if (distance > MIN_DISTANCE) {
+        const newStoredPoints = {
+          ...storedPoints,
+          [pathname]: [...(storedPoints[pathname] || []), points].slice(
+            -MAX_STORED_POINTS,
+          ),
+        };
+        if (isClient) {
+          localStorage.setItem(
+            'storedPoints',
+            serializePoints(newStoredPoints),
+          );
+        }
+        setStoredPoints(newStoredPoints);
       }
-      setStoredPoints(newStoredPoints);
     }
   };
 
   useEffect(() => {
     if (isClient) {
-      const savedPoints = localStorage.getItem("storedPoints");
-      console.log("Loaded from localStorage:", savedPoints);
+      const savedPoints = localStorage.getItem('storedPoints');
+      // console.log("Loaded from localStorage:", savedPoints);
       if (savedPoints) {
         const allPoints = JSON.parse(savedPoints);
         setStoredPoints(allPoints); // Load all points, not just for the current path.
@@ -96,14 +116,14 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       storeCurrentDrawing();
     };
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("pointermove", handlePointerMove);
-    document.addEventListener("pointerup", handlePointerUp);
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerup', handlePointerUp);
 
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("pointermove", handlePointerMove);
-      document.removeEventListener("pointerup", handlePointerUp);
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerup', handlePointerUp);
     };
   }, [points, pathname]); // Removed storedPoints from dependencies
 
@@ -118,10 +138,10 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, [isClient]);
 

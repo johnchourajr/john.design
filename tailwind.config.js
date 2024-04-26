@@ -11,6 +11,12 @@ module.exports = {
   theme: {
     fontSize: {},
     extend: {
+      textColors: {
+        selection: "var(--root-color)",
+      },
+      backgroundColor: {
+        selection: "#000000da",
+      },
       fontFamily: {
         sans: ["Montreal"],
         "sans-italic": ["MontrealItalic"],
