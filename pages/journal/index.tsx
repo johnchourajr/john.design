@@ -1,8 +1,11 @@
 import clsx from "clsx";
 import { getRandomParentAndChildClassesArray } from "@/components/justified-headline/data";
 import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
+import { getAllPosts } from "@/lib/pages/posts";
 
-export default function JournalPage() {
+export default function JournalPage({ posts }) {
+  console.log("JournalPage", posts);
+
   return (
     <>
       <section className="my-[4vw]">
@@ -31,4 +34,10 @@ export default function JournalPage() {
       </section>
     </>
   );
+}
+
+export function getStaticProps() {
+  const posts = getAllPosts();
+
+  return { props: { posts } };
 }

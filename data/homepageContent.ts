@@ -19,9 +19,9 @@ export type HomePageData = {
   resumeSection: {
     resumeList: {
       title: string;
-      logo: string;
       role: string;
       company: string;
+      showLogo: boolean;
       url: string;
     }[];
   } & SectionStructure;
@@ -110,44 +110,44 @@ export const homepageContent: HomePageData = {
   resumeSection: {
     resumeList: [
       {
-        title: "Currently",
-        logo: "https://via.placeholder.com/100",
-        role: "Designer",
+        title: "Currently [2023—]",
+        role: "Interactive Designer",
+        showLogo: true,
         company: "Retool",
         url: "https://retool.com",
       },
       {
-        title: "Previously",
-        logo: "https://via.placeholder.com/100",
+        title: "Previously [2022—2023]",
         role: "Design Lead",
+        showLogo: true,
         company: "PayPal",
         url: "https://paypal.com",
       },
       {
-        title: "Formerly",
-        logo: "https://via.placeholder.com/100",
-        role: "Pricipal Designer",
+        title: "Formerly [2020—2022]",
+        role: "Principal Designer",
+        showLogo: true,
         company: "GoDaddy",
         url: "https://godaddy.com",
       },
       {
-        title: "Before That",
-        logo: "https://via.placeholder.com/100",
+        title: "Before That [2015—2020]",
         role: "Design Director",
+        showLogo: true,
         company: "Happy Money",
         url: "https://happymoney.com",
       },
       {
-        title: "And Before That",
-        logo: "https://via.placeholder.com/100",
+        title: "And Before That [2014—2015]",
         role: "Art Director",
+        showLogo: false,
         company: "Envoy",
         url: "https://weareenvoy.com",
       },
       {
-        title: "In the beginning",
-        logo: "https://via.placeholder.com/100",
+        title: "In the beginning [2012—2014]",
         role: "Designer",
+        showLogo: false,
         company: "Biola University",
         url: "https://biola.edu",
       },

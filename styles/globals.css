@@ -1,4 +1,6 @@
 @import "fonts.css";
+@import "kerning.css";
+@import url("https://use.typekit.net/wqj3mof.css");
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +8,7 @@
 
 @layer base {
   body {
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -23,6 +26,22 @@
 @layer utilities {
   .clip {
     clip-path: inset(0);
+  }
+
+  .clip-x {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .clip-y {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .clip-xy {
+    clip-path: inset(100% 0 0 100%);
+  }
+
+  .whitespace-pre-wrap-children span {
+    @apply whitespace-pre-wrap;
   }
 }
 
@@ -120,4 +139,9 @@ a {
 
 .border-shadow {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 1), 0 2px 2px 0 rgba(0, 0, 0, 1);
+}
+
+::selection {
+  background: #ffffff20 !important;
+  color: var(--root-color) !important;
 }

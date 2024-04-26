@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import { slugify } from "@/utils/slugify";
-import { addStrongTags } from "./utils";
+import clsx from 'clsx';
+
+import { slugify } from '@/utils/slugify';
+import { motion } from 'framer-motion';
+import { addStrongTags } from './utils';
 
 export const TextContainer = ({
   text,
@@ -17,12 +18,13 @@ export const TextContainer = ({
   const renderText = () => {
     if (letters) {
       // split each letter in text into its own span
-      const lettersArray = text.split("");
+      const lettersArray = text.split('');
       return lettersArray.map((letter: any, index: number) => {
         return (
           <motion.span
             key={index}
-            id={`${slugify(letter)}-${index}`}
+            id={slugify(`${letter} ${index}`)}
+            data-word={slugify(`${letter} ${index}`)}
             className={className}
             layout
           >
@@ -31,16 +33,17 @@ export const TextContainer = ({
         );
       });
     } else {
-      const childrenArray = typeof text === "string" ? text.split(" ") : [];
+      const childrenArray = typeof text === 'string' ? text.split(' ') : [];
       return childrenArray.map((child: any, index: number) => {
         return (
           <motion.span
             key={index}
-            id={`${slugify(child)}-${index}`}
+            id={slugify(`${child} ${index}`)}
+            data-word={slugify(`${child} ${index}`)}
             className={className}
             layout
           >
-            {addStrongTags(child)} {index !== childrenArray.length - 1 && " "}
+            {addStrongTags(child)} {index !== childrenArray.length - 1 && ' '}
           </motion.span>
         );
       });
@@ -50,12 +53,12 @@ export const TextContainer = ({
   return (
     <span
       className={clsx(
-        "relative flex flex-col items-center justify-start w-full",
-        motionController.parent
+        'relative flex flex-col items-center justify-start w-full',
+        motionController.parent,
       )}
     >
       <motion.span
-        className={clsx("inline-flex whitespace-pre", motionController.child)}
+        className={clsx('inline-flex whitespace-pre', motionController.child)}
         layout
       >
         {renderText()}

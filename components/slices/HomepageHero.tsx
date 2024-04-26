@@ -1,13 +1,44 @@
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
 import clsx from "clsx";
 
-import { JohnGLCanvas } from "@/components/experimental/JohnGL";
-import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
-import { InformationalChunk } from "@/components/chunks/InformationalChunk";
-import { ParentheticalChunk } from "@/components/chunks/ParentheticalChunk";
+const JohnGLCanvas = dynamic(
+  () =>
+    import("@/components/experimental/JohnGL").then(
+      (module) => module.JohnGLCanvas
+    ),
+  { ssr: false }
+);
+
+const JustifiedHeadlineInner = dynamic(
+  () =>
+    import("@/components/justified-headline/JustifiedHeadlineInner").then(
+      (module) => module.JustifiedHeadlineInner
+    ),
+  { ssr: false }
+);
+const InformationalChunk = dynamic(
+  () =>
+    import("@/components/chunks/InformationalChunk").then(
+      (module) => module.InformationalChunk
+    ),
+  { ssr: false }
+);
+
+const ParentheticalChunk = dynamic(
+  () =>
+    import("@/components/chunks/ParentheticalChunk").then(
+      (module) => module.ParentheticalChunk
+    ),
+  { ssr: false }
+);
 
 import type { HomePageData } from "@/data/homepageContent";
 import type { SectionStructure } from "@/types/content-types";
+import {
+  wrapLettersInSpansWithWordsInSpans,
+  wrapWordsInSpans,
+} from "@/lib/utils/wrapInSpans";
 export type HomepageHeroProps = {
   heroSection: HomePageData["heroSection"];
   rolesSection: SectionStructure;
@@ -57,7 +88,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             {rolesSection?.text &&
               rolesSection.text.map((item, index) =>
                 typeof item === "string" ? (
-                  item
+                  wrapLettersInSpansWithWordsInSpans({ text: item })
                 ) : (
                   <ParentheticalChunk key={index} text={item.text} />
                 )

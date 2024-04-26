@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { getStroke } from "perfect-freehand";
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import { getSvgPathFromStroke } from "@/utils/getSvgPathFromStroke";
-import { useDrawing } from "@/context/DrawingContext";
+import { useDrawing } from '@/context/DrawingContext';
+import { getSvgPathFromStroke } from '@/utils/getSvgPathFromStroke';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import { getStroke } from 'perfect-freehand';
 
 const options = {
   size: 3,
@@ -39,16 +38,12 @@ export default function FreehandCanvas({ className }: { className?: string }) {
     return getSvgPathFromStroke(stroke);
   };
 
-  useEffect(() => {
-    console.log("FreehandCanvas updated - Stored Points:", storedPoints);
-  }, [storedPoints]);
-
   return (
     <svg
       className={clsx(
-        "absolute inset-0 w-full h-full z-50",
-        "pointer-events-none",
-        className
+        'absolute inset-0 w-full h-full z-50',
+        'pointer-events-none',
+        className,
       )}
       style={{
         height: `${docSize.height}px`,
@@ -84,7 +79,6 @@ export default function FreehandCanvas({ className }: { className?: string }) {
           d={getCurrentPath()}
           fill="var(--root-color)"
           stroke="var(--root-color)"
-          // strokeWidth="1.25"
           strokeWidth={strokeWidth}
           initial={{
             pathLength: 0,

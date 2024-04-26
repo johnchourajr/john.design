@@ -1,7 +1,7 @@
-import { homepageContent } from "@/data/homepageContent";
-import { ResumeSection } from "@/components/slices/ResumeSection";
-import { PillBlockList } from "@/components/slices/PillBlockList";
-import { HomepageHero } from "@/components/slices/HomepageHero";
+import { HomepageHero } from '@/components/slices/HomepageHero';
+import { PillBlockList } from '@/components/slices/PillBlockList';
+import { ResumeSection } from '@/components/slices/ResumeSection';
+import { homepageContent } from '@/data/homepageContent';
 
 export default function HomePage() {
   const { heroSection, rolesSection, personalSection, resumeSection } =
@@ -10,8 +10,8 @@ export default function HomePage() {
   return (
     <>
       <HomepageHero heroSection={heroSection} rolesSection={rolesSection} />
-      <PillBlockList list={personalSection.list} />
-      <ResumeSection resumeList={resumeSection.resumeList} />
+      <PillBlockList {...personalSection} />
+      <ResumeSection {...resumeSection} />
     </>
   );
 }
