@@ -1,9 +1,9 @@
-import clsx from "clsx";
-import { getRandomParentAndChildClassesArray } from "@/components/justified-headline/data";
-import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
-import LinkGridItem from "@/components/LinkGridItem";
-import { Typography } from "@/components/Typography";
-import { workContent } from "../data/workContent";
+import LinkGridItem from '@/components/LinkGridItem';
+import { Typography } from '@/components/Typography';
+import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
+import clsx from 'clsx';
+import { workContent } from '../data/workContent';
 
 export default function WorkPage() {
   const { daylightData, moonlightData } = workContent;
@@ -12,10 +12,10 @@ export default function WorkPage() {
     <>
       <section className="my-[4vw]">
         <JustifiedHeadlineInner
-          className={clsx("leading-[1] w-full font-black pointer-events-none")}
+          className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
             {
-              text: "Work",
+              text: 'Work',
               motionObject: getRandomParentAndChildClassesArray(8),
             },
           ]}
@@ -23,18 +23,18 @@ export default function WorkPage() {
           letters={true}
         />
         <JustifiedHeadlineInner
-          className={clsx("leading-[1] w-full font-black pointer-events-none")}
+          className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
             {
-              text: "Coming Soon",
+              text: 'Coming Soon',
               motionObject: getRandomParentAndChildClassesArray(8),
               className:
-                "!text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
+                '!text-[1rem] lg:!text-[1vw] !tracking-wider uppercase',
             },
           ]}
         />
       </section>
-      <section className="my-[10vw]">
+      <section className="my-[10vw] px-4">
         <Typography size="sm">Daylight Work</Typography>
         <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
           {daylightData.list.map((item, i) => (
@@ -42,7 +42,7 @@ export default function WorkPage() {
           ))}
         </div>
       </section>
-      <section className="my-[10vw]">
+      <section className="my-[10vw] px-4">
         <Typography size="sm">Moonlight Work</Typography>
         <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
           {moonlightData.list.map((item, i) => (

@@ -16,6 +16,7 @@ type DrawingContextType = {
   setStoredPoints: SetStoredPoints;
   storeCurrentDrawing: () => void;
   clearStoredPoints: () => void;
+  undo: () => void;
   docSize: DocSizeType;
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
 };
@@ -34,6 +35,7 @@ export const useDrawing = () => {
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
   const { pathname } = useRouter();
+  const [history, setHistory] = useState<string[]>([]);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
   const [docSize, setDocSize] = useState<DocSizeType>({
@@ -86,6 +88,37 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       }
     }
   };
+
+  const undo = () => {
+    setStoredPoints((currentStoredPoints) => {
+      const currentPathPoints = currentStoredPoints[pathname];
+      if (currentPathPoints && currentPathPoints.length > 1) {
+        const lastPoints = currentPathPoints[currentPathPoints.length - 2];
+        const newPointsForPath = currentPathPoints.slice(0, -1);
+        setPoints(lastPoints);
+        return {
+          ...currentStoredPoints,
+          [pathname]: newPointsForPath,
+        };
+      }
+      return currentStoredPoints;
+    });
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
+        event.preventDefault();
+        undo();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [undo]);
 
   useEffect(() => {
     if (isClient) {
@@ -150,6 +183,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
         setStoredPoints,
         storeCurrentDrawing,
         clearStoredPoints,
+        undo,
         docSize,
         setDocSize,
       }}
