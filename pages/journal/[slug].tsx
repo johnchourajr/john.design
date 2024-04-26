@@ -1,7 +1,6 @@
-import React from "react";
-import { getAllPosts, getPostBySlug } from "@/lib/pages/posts";
+import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
 
-const PostPage = ({ post }) => {
+const PostPage = ({ post }: any) => {
   if (!post) return <p>Loading...</p>;
 
   return (
@@ -21,7 +20,7 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: any) {
   const post = getPostBySlug(params.slug);
   return { props: { post } };
 }
