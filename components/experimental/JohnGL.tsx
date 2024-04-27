@@ -1,17 +1,17 @@
-import * as THREE from "three";
-import React, { FC, useRef, useState } from "react";
-import { Canvas, useLoader, useFrame, useThree } from "@react-three/fiber";
-import { EffectComposer, Noise } from "@react-three/postprocessing";
-import { useDevicePixelRatio } from "@/hooks/useDevicePixelRatio";
-import { motion } from "framer-motion-3d";
-import { getSettingValue } from "@/components/SettingsComponents";
-import clsx from "clsx";
+import { getSettingValue } from '@/components/SettingsComponents';
+import { useDevicePixelRatio } from '@/hooks/useDevicePixelRatio';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
+import { EffectComposer, Noise } from '@react-three/postprocessing';
+import clsx from 'clsx';
+import { motion } from 'framer-motion-3d';
+import { FC, useRef, useState } from 'react';
+import * as THREE from 'three';
 
 function Light({ type, light, hide, ...rest }: any) {
   if (hide) return null;
-  if (type === "spotLight") {
+  if (type === 'spotLight') {
     return <motion.spotLight animate={light as any} {...rest} />;
-  } else if (type === "pointLight") {
+  } else if (type === 'pointLight') {
     return <motion.pointLight animate={light as any} {...rest} />;
   } else return null;
 }
@@ -37,14 +37,14 @@ function transform(value: number, input: number[], output: number[]) {
 function Mesh({ settings }: any) {
   const ref = useRef<THREE.Mesh>();
   const [me, memap] = useLoader(THREE.TextureLoader, [
-    "/me-alpha.png",
-    "/me-map.png",
+    '/me-alpha.png',
+    '/me-map.png',
   ]);
 
-  const light_1 = getSettingValue(settings, "Blue Light", true);
-  const light_2 = getSettingValue(settings, "Red Light", true);
-  const light_3 = getSettingValue(settings, "White Light", true);
-  const metalness = getSettingValue(settings, "Metalness", 0.5);
+  const light_1 = getSettingValue(settings, 'Blue Light', true);
+  const light_2 = getSettingValue(settings, 'Red Light', true);
+  const light_3 = getSettingValue(settings, 'White Light', true);
+  const metalness = getSettingValue(settings, 'Metalness', 0.5);
 
   // use mouse position to rotate the mesh
   const { mouse } = useThree();
@@ -79,7 +79,7 @@ function Mesh({ settings }: any) {
   };
 
   const sharedProps = {
-    intensity: 20,
+    intensity: 10,
     distance: 100,
     penumbra: 1,
     angle: 1,
@@ -88,10 +88,10 @@ function Mesh({ settings }: any) {
   };
 
   // get color from html data attribute 'data-color'
-  const color = document.documentElement.getAttribute("data-color");
+  const color = document.documentElement.getAttribute('data-color');
 
   // convert hex to webgl color
-  const colorHex = new THREE.Color(color || "#ff0000");
+  const colorHex = new THREE.Color(color || '#ff0000');
 
   return (
     <motion.mesh ref={ref as any} scale={1}>
@@ -103,14 +103,14 @@ function Mesh({ settings }: any) {
               {...sharedProps}
             /> */}
       <Light
-        type={"spotLight"}
+        type={'spotLight'}
         light={light1 as any}
         color={colorHex}
         hide={!light_1}
         {...sharedProps}
       />
       <Light
-        type={"pointLight"}
+        type={'pointLight'}
         light={light3 as any}
         intensity={2}
         color={16777215}
@@ -134,28 +134,28 @@ function Mesh({ settings }: any) {
 }
 export const SETTINGS = [
   {
-    name: "Blue Light",
-    type: "Boolean",
+    name: 'Blue Light',
+    type: 'Boolean',
     value: true,
   },
   {
-    name: "Red Light",
-    type: "Boolean",
+    name: 'Red Light',
+    type: 'Boolean',
     value: true,
   },
   {
-    name: "White Light",
-    type: "Boolean",
+    name: 'White Light',
+    type: 'Boolean',
     value: true,
   },
   {
-    name: "Noise",
-    type: "Boolean",
+    name: 'Noise',
+    type: 'Boolean',
     value: false,
   },
   {
-    name: "Metalness",
-    type: "Slider",
+    name: 'Metalness',
+    type: 'Slider',
     value: 0.5,
     step: 0.01,
     min: 0,
@@ -166,15 +166,15 @@ export const SETTINGS = [
 export function JohnGLCanvas({ settings, className }: any) {
   const devicePixelRatio = useDevicePixelRatio();
 
-  const noise = getSettingValue(settings, "Noise", false);
+  const noise = getSettingValue(settings, 'Noise', false);
 
   return (
-    <div className={clsx("absolute inset-0 z-[1]", className)}>
+    <div className={clsx('absolute inset-0 z-[1]', className)}>
       <Canvas
         style={{
-          width: "100%",
-          height: "100%",
-          background: "transparent",
+          width: '100%',
+          height: '100%',
+          background: 'transparent',
         }}
         dpr={devicePixelRatio || 3}
         camera={{

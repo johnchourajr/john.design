@@ -1,7 +1,11 @@
-import { motion } from "framer-motion";
+import {
+  Transition,
+  motion,
+  type VariantLabels,
+  type Variants,
+} from 'framer-motion';
 
-import { slugify } from "./slugify";
-import { addStrongTags } from "@/components/justified-headline/utils";
+import { slugify } from './slugify';
 
 type SpanProps = {
   text: string;
@@ -9,17 +13,28 @@ type SpanProps = {
   layout?: boolean;
 };
 
+type SpanPropsWithVariants = SpanProps & {
+  letterClassName?: string;
+  wordInitial?: VariantLabels;
+  wordWhileHover?: VariantLabels;
+  letterInitial?: VariantLabels;
+  letterWhileHover?: VariantLabels;
+  wordVariants?: Variants;
+  letterVariants?: Variants;
+  letterTransition?: Transition;
+};
+
 export function wrapWordsInSpans({ text, className, layout }: SpanProps) {
   return (
     text &&
-    text.split(" ").map((word, index) => (
+    text.split(' ').map((word, index) => (
       <motion.span
         key={index}
         data-word={slugify(`${word} ${index}`)}
         className={className}
         layout={layout}
       >
-        {word}{" "}
+        {word}{' '}
       </motion.span>
     ))
   );
@@ -32,7 +47,7 @@ export function WrapWords(props: SpanProps) {
 export function wrapLettersInSpans({ text, className, layout }: SpanProps) {
   return (
     text &&
-    text.split("").map((letter, index) => (
+    text.split('').map((letter, index) => (
       <motion.span
         key={index}
         data-letter={slugify(`${letter} ${index}`)}
@@ -52,32 +67,51 @@ export function WrapLetter(props: SpanProps) {
 export function wrapLettersInSpansWithWordsInSpans({
   text,
   className,
+  letterClassName,
   layout,
-}: SpanProps) {
+  wordInitial,
+  wordWhileHover,
+  wordVariants,
+  letterInitial,
+  letterWhileHover,
+  letterVariants,
+  letterTransition,
+}: SpanPropsWithVariants) {
   return (
     text &&
-    text.split(" ").map((word, wi) => (
+    text.split(' ').map((word, wi) => (
       <motion.span
         key={wi}
         data-word={slugify(word)}
         className={className}
+        initial={wordInitial}
+        whileHover={wordWhileHover}
+        variants={wordVariants}
         layout={layout}
       >
         {word &&
-          word.split("").map((letter, li) => (
+          word.split('').map((letter, li) => (
             <motion.span
               key={li}
               data-letter={slugify(`${word} ${letter} ${li}`)}
+              className={letterClassName}
+              initial={letterInitial}
+              whileHover={letterWhileHover}
               layout={layout}
             >
-              {letter}
+              <motion.span
+                variants={letterVariants}
+                transition={letterTransition}
+              >
+                {letter}
+              </motion.span>
             </motion.span>
-          ))}{" "}
+          ))}{' '}
       </motion.span>
     ))
   );
 }
 
-export function WrapLetterWords(props: SpanProps) {
+export function WrapLetterWords(props: SpanPropsWithVariants) {
   return <>{wrapLettersInSpansWithWordsInSpans(props)}</>;
 }
