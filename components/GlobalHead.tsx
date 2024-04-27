@@ -1,5 +1,5 @@
-import Head from "next/head";
-import Favicon from "./Favicon";
+import Head from 'next/head';
+import Favicon from './Favicon';
 
 // create intefaace for GlobalHead
 interface GlobalHeadProps {
@@ -9,8 +9,8 @@ interface GlobalHeadProps {
 }
 
 export default function GlobalHead({
-  title = "John.Design",
-  description = "John is working on the internet",
+  title = 'John.Design',
+  description = 'John is working on the internet',
   children,
 }: GlobalHeadProps) {
   return (
@@ -20,7 +20,6 @@ export default function GlobalHead({
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <Favicon />
       {children}
-      <link rel="stylesheet" href="https://use.typekit.net/wqj3mof.css" />
     </Head>
   );
 }

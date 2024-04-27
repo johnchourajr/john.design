@@ -1,6 +1,7 @@
 import clsx from 'clsx';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 const JohnGLCanvas = dynamic(
   () =>
@@ -28,14 +29,98 @@ const ParentheticalChunk = dynamic(
   { ssr: false },
 );
 
-import type { HomePageData } from '@/data/homepageContent';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
-import type { SectionStructure } from '@/types/content-types';
 import { JustifiedHeadlineInner } from '../justified-headline/JustifiedHeadlineInner';
+
+import type { HomePageData } from '@/data/homepageContent';
+import type { SectionStructure } from '@/types/content-types';
 export type HomepageHeroProps = {
   heroSection: HomePageData['heroSection'];
   rolesSection: SectionStructure;
 };
+
+const randomBetween = (min: number, max: number) =>
+  Math.random() * (max - min) + min;
+
+const makeRandom = () => randomBetween(-15, 15);
+const makeRandomRotate = () => randomBetween(-50, 50);
+const makeRandomScale = () => randomBetween(0.7, 1.1);
+
+function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 100%', 'end 95%'],
+  });
+
+  return (
+    <div
+      className={clsx(
+        'inline-flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]',
+        'relative z-10',
+        'select-none',
+      )}
+    >
+      <p
+        ref={ref}
+        className="headline-display-xl !normal-case !font-pixel !font-normal text-center items-center leading-tight"
+      >
+        {rolesSection?.text &&
+          rolesSection.text.map((item, index) => {
+            const list = rolesSection?.text || [];
+            const calc = -index / list.length - 0.1;
+            const opacity = useTransform(scrollYProgress, [0, 1], [calc, 1]);
+
+            const letterVariants = {
+              initial: {
+                y: 0,
+                x: 0,
+                rotate: 0,
+                scale: 1,
+              },
+              hover: {
+                y: makeRandom(),
+                x: makeRandom(),
+                rotate: makeRandomRotate(),
+                scale: makeRandomScale(),
+              },
+            };
+
+            return typeof item === 'string' ? (
+              <motion.span
+                style={{
+                  opacity,
+                }}
+                className=""
+              >
+                {wrapLettersInSpansWithWordsInSpans({
+                  text: item,
+                  layout: false,
+                  className: 'mx-[0.1em] inline-block',
+                  letterClassName: 'inline-flex',
+                  letterInitial: 'initial',
+                  letterWhileHover: 'hover',
+                  letterVariants,
+                  letterTransition: {
+                    duration: 0.05,
+                    ease: 'easeOut',
+                  },
+                })}
+              </motion.span>
+            ) : (
+              <motion.span
+                style={{
+                  opacity,
+                }}
+              >
+                <ParentheticalChunk key={index} text={item.text} />
+              </motion.span>
+            );
+          })}
+      </p>
+    </div>
+  );
+}
 
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
@@ -70,24 +155,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             ))}
           </div>
         </div>
-        <div
-          className={clsx(
-            'inline-flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]',
-            'relative z-10',
-            'select-none',
-          )}
-        >
-          <p className="headline-display-xl !normal-case !font-pixel !font-normal text-center items-center leading-tight">
-            {rolesSection?.text &&
-              rolesSection.text.map((item, index) =>
-                typeof item === 'string' ? (
-                  wrapLettersInSpansWithWordsInSpans({ text: item })
-                ) : (
-                  <ParentheticalChunk key={index} text={item.text} />
-                ),
-              )}
-          </p>
-        </div>
+        <RolesSection rolesSection={rolesSection} />
         <JohnGLCanvas className="h-[150vw] md:h-[100vw]" />
       </section>
     </>

@@ -22,8 +22,8 @@
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "feed": "^4.2.2",
-    "framer-motion": "^7.6.5",
-    "framer-motion-3d": "^7.6.15",
+    "framer-motion": "^11.1.7",
+    "framer-motion-3d": "^11.1.7",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "html-react-parser": "^3.0.4",
@@ -36,7 +36,8 @@
     "react-dom": "18.2.0",
     "rss-parser": "^3.12.0",
     "three": "^0.146.0",
-    "typescript": "4.8.4"
+    "typescript": "4.8.4",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

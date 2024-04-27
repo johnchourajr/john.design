@@ -10,6 +10,8 @@ type SetStoredPoints = React.Dispatch<React.SetStateAction<StoredPointObj>>;
 type DocSizeType = { width: number; height: number };
 
 type DrawingContextType = {
+  enableDrawing: boolean;
+  setEnableDrawing: React.Dispatch<React.SetStateAction<boolean>>;
   points: Point[]; // Array of Points
   storedPoints: StoredPoint[]; // Array of arrays of Points
   setPoints: SetPoint;
@@ -21,7 +23,7 @@ type DrawingContextType = {
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
 };
 
-const MAX_STORED_POINTS = 20; // You can adjust this value as needed
+const MAX_STORED_POINTS = 30; // You can adjust this value as needed
 
 const DrawingContext = createContext<DrawingContextType | undefined>(undefined);
 
@@ -35,7 +37,7 @@ export const useDrawing = () => {
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
   const { pathname } = useRouter();
-  const [history, setHistory] = useState<string[]>([]);
+  const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
   const [docSize, setDocSize] = useState<DocSizeType>({
@@ -132,6 +134,8 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   }, [isClient, pathname]); // Added router.pathname to dependencies
 
   useEffect(() => {
+    if (!enableDrawing) return;
+
     const handlePointerDown = (e: PointerEvent) => {
       setPoints([[e.pageX, e.pageY, e.pressure]]);
     };
@@ -154,7 +158,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [points, pathname]); // Removed storedPoints from dependencies
+  }, [points, pathname, enableDrawing]); // Removed storedPoints from dependencies
 
   useEffect(() => {
     const handleResize = () => {
@@ -177,6 +181,8 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   return (
     <DrawingContext.Provider
       value={{
+        enableDrawing,
+        setEnableDrawing,
         points,
         storedPoints: storedPoints[pathname] || [],
         setPoints,
