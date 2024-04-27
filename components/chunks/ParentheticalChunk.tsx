@@ -23,7 +23,7 @@ export function ParentheticalChunk({ text }: any) {
       whileHover={'hover'}
     >
       <motion.span variants={blinkVariants}>( </motion.span>
-      <span className="inline-flex h-fit items-center justify-center -translate-y-[100%]">
+      <span className="inline-flex h-fit items-center justify-center -translate-y-[50%] lg:-translate-y-[100%]">
         <span
           className={clsx(
             'text-body',
