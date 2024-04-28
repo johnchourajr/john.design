@@ -3,8 +3,8 @@ template: "post"
 slug: "/journal/design-leadership-reflections"
 date: "2020-09-12"
 title: What I Learned From Two Years as a Design Leader
-cover: /images/journal/design-leadership-cover.jpg
-thumb: /images/journal/design-leadership-cover.jpg
+cover: /journal/images/design-leadership-cover.jpg
+thumb: /journal/images/design-leadership-cover.jpg
 foreground: "#E0E0E0"
 background: "#111111"
 Tags:
@@ -90,4 +90,4 @@ I'm so insanely indebted to everyone who helped make my experience as a leader a
 
 –JC
 
-![lg](/images/journal/design-leadership-cover.jpg)
+![lg](/journal/images/design-leadership-cover.jpg)

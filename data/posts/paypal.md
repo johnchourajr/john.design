@@ -3,8 +3,8 @@ template: "post"
 slug: "/journal/paypal"
 date: "2022-01-04"
 title: "Heyo PayPal"
-cover: /images/journal/pp-cover.svg
-thumb: /images/journal/pp-cover.svg
+cover: /journal/images/pp-cover.svg
+thumb: /journal/images/pp-cover.svg
 Tags:
   - design
   - life

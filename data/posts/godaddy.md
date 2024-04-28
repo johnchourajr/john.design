@@ -3,8 +3,8 @@ template: "journal-post-godaddy"
 slug: "/journal/godaddy"
 date: "2020-09-01"
 title: "Hello GoDaddy"
-cover: /images/journal/godaddy_meta_cover.gif
-thumb: /images/journal/godaddy_meta_cover.gif
+cover: /journal/images/godaddy_meta_cover.gif
+thumb: /journal/images/godaddy_meta_cover.gif
 background: "#E5E7E7"
 Tags:
   - design
