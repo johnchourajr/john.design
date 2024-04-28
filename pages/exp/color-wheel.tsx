@@ -1,22 +1,10 @@
 import InlineLink from '@/components/InlineLink';
-import React from 'react';
 
 import { RenderColorWheel } from '@/components/experimental/ColorWheel';
-import { setRootColor } from 'lib/utils/slugify';
+import { useAppContext } from '@/context/AppProvider';
 
 export default function ColorWheel() {
-  const [color, setColor] = React.useState('#ff0000');
-
-  const handleColorChange = (e: any) => {
-    const colorFromSVG = e.target.getAttribute('fill');
-    if (colorFromSVG === null || colorFromSVG === 'none') {
-      setRootColor('#ff0000');
-      setColor('#ff0000');
-    } else {
-      setRootColor(colorFromSVG);
-      setColor(colorFromSVG);
-    }
-  };
+  const { rootColor, handleColorChange } = useAppContext();
 
   return (
     <>
@@ -36,7 +24,7 @@ export default function ColorWheel() {
             handleColorChange={handleColorChange}
             className="hidden lg:visible invisible lg:inline-flex"
           />
-          Color Wheel {color}
+          Color Wheel {rootColor}
         </h1>
       </div>
     </>
