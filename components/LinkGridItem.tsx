@@ -27,11 +27,11 @@ export default function LinkGridItem({
       <p
         className={clsx(
           'headline-display-xs underline-offset-2 decoration-1',
-          'text-left group max-w-[50em] cursor-help z-50 relative pointer-events-none',
+          'text-left group max-w-[35em] cursor-help z-50 relative pointer-events-none',
           statusClasses,
         )}
       >
-        <span className="underline">{title}</span> {href && `→`}
+        <span className="underline line-clamp-1">{title}</span> {href && `→`}
       </p>
       <p className={clsx('text-sm mt-1', statusClasses)}>{description}</p>
     </Tag>

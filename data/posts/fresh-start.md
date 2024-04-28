@@ -3,8 +3,8 @@ template: "post"
 slug: "/journal/fresh-start"
 date: "2014-01-24"
 title: Object Matter
-cover: /images/journal/01-objsbj-poster.jpg
-thumb: /images/journal/01-objsbj-poster.jpg
+cover: /journal/images/01-objsbj-poster.jpg
+thumb: /journal/images/01-objsbj-poster.jpg
 refer: |-
   1 [Trent Walton](http://trentwalton.com), [Jessica Hische](http://jessicahische.is), [Noah Stokes](http://esbueno.noahstokes.com), [Jonnie Hallman](http://destroytoday.com), [Skylar Challand](https://twitter.com/sskylar), and [Oak](http://oak.is).
 
@@ -32,4 +32,4 @@ This is all to say, that I want to step fully into my vocation. In the coming ye
 
 > "I want to make beautiful things, even if nobody cares." **— Saul Bass**
 
-![sm](/images/journal/01-objsbj.jpg)
+![sm](/journal/images/01-objsbj.jpg)

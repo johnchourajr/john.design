@@ -18,7 +18,7 @@ export function NavRight() {
       {!toggleColorActive && (
         <RenderColorWheel
           handleClick={() => setToggleColorActive(true)}
-          className="z-[9999] h-7 w-7 p-1"
+          className="z-[9999] h-8 w-8 p-2"
         />
       )}
       <p

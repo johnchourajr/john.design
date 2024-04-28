@@ -3,8 +3,8 @@ template: "post"
 slug: "/journal/nav-show-hide"
 date: "2021-02-18"
 title: Make a Nav Show and Hide On Scroll
-cover: /images/journal/nav-cover.svg
-thumb: /images/journal/nav-cover.svg
+cover: /journal/images/nav-cover.svg
+thumb: /journal/images/nav-cover.svg
 ---
 
 Making a nav show and hide on scroll looks good. In the past, I've created a vanilla js version inspired by what Marius Craciunoiu wrote about in [this article](https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c) circa 2013.

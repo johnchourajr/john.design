@@ -3,8 +3,8 @@ template: "post"
 slug: "/journal/back-to-school"
 date: "2017-01-23"
 title: Back to School
-cover: /images/journal/to-teach-3.gif
-thumb: /images/journal/to-teach-3.gif
+cover: /journal/images/to-teach-3.gif
+thumb: /journal/images/to-teach-3.gif
 Tags:
   - Life
 ---
@@ -19,6 +19,6 @@ I'll be instructing one night class, to start off, so as to not interfere with m
 
 One last thought! This all wouldn't have happened if not for the mentorship and guidance of Daniel Chang, the head of the design program at Biola. He's entrusted me to take over his classes while he's out on sabbatical, I promise to do my best.
 
-![xs](/journal-gif/to-teach-3.gif)
+![xs](/journal/gif/to-teach-3.gif)
 
 ###### Credit: Adam Sandler's _Billy Madison_ for the "Back to School" gif.
