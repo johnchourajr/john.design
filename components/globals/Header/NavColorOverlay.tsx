@@ -1,5 +1,5 @@
+import { RenderColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
-import { RenderColorWheel } from '@/pages/exp/RenderColorWheel';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export type NavColorOverlayProps = {};
