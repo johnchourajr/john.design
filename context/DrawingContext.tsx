@@ -94,14 +94,41 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   const undo = () => {
     setStoredPoints((currentStoredPoints) => {
       const currentPathPoints = currentStoredPoints[pathname];
-      if (currentPathPoints && currentPathPoints.length > 1) {
-        const lastPoints = currentPathPoints[currentPathPoints.length - 2];
+      if (currentPathPoints && currentPathPoints.length > 0) {
+        const lastPoints =
+          currentPathPoints.length > 1
+            ? currentPathPoints[currentPathPoints.length - 2]
+            : [];
         const newPointsForPath = currentPathPoints.slice(0, -1);
         setPoints(lastPoints);
-        return {
+
+        const updatedStoredPoints = {
           ...currentStoredPoints,
           [pathname]: newPointsForPath,
         };
+
+        if (isClient) {
+          localStorage.setItem(
+            'storedPoints',
+            serializePoints(updatedStoredPoints),
+          );
+        }
+
+        return updatedStoredPoints;
+      } else {
+        // Optionally clear points if no more stored points are available
+        setPoints([]);
+        if (isClient) {
+          const updatedStoredPoints = {
+            ...currentStoredPoints,
+            [pathname]: [],
+          };
+          localStorage.setItem(
+            'storedPoints',
+            serializePoints(updatedStoredPoints),
+          );
+          return updatedStoredPoints;
+        }
       }
       return currentStoredPoints;
     });
