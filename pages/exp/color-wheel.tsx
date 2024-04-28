@@ -1,38 +1,17 @@
-import clsx from "clsx";
-import React, { SVGProps } from "react";
-import InlineLink from "@/components/InlineLink";
-import { motion } from "framer-motion";
+import InlineLink from '@/components/InlineLink';
+import React from 'react';
 
-import { setRootColor } from "lib/utils/slugify";
-import ColorWheelSvg from "@/components/color-wheel/ColorWheelSvg";
-
-export const RenderColorWheel = ({
-  className,
-  handleColorChange,
-  handleClick,
-}: any) => {
-  const active = typeof handleColorChange === "function" ? true : false;
-  return (
-    <motion.span
-      role={"button"}
-      layoutId="color-wheel"
-      onClick={handleClick}
-      onMouseUp={handleColorChange}
-      className={clsx("h-[1em] translate-y-[-0em] inline-block", className)}
-    >
-      <ColorWheelSvg active={active} />
-    </motion.span>
-  );
-};
+import { RenderColorWheel } from '@/components/experimental/ColorWheel';
+import { setRootColor } from 'lib/utils/slugify';
 
 export default function ColorWheel() {
-  const [color, setColor] = React.useState("#ff0000");
+  const [color, setColor] = React.useState('#ff0000');
 
   const handleColorChange = (e: any) => {
-    const colorFromSVG = e.target.getAttribute("fill");
-    if (colorFromSVG === null || colorFromSVG === "none") {
-      setRootColor("#ff0000");
-      setColor("#ff0000");
+    const colorFromSVG = e.target.getAttribute('fill');
+    if (colorFromSVG === null || colorFromSVG === 'none') {
+      setRootColor('#ff0000');
+      setColor('#ff0000');
     } else {
       setRootColor(colorFromSVG);
       setColor(colorFromSVG);

@@ -42,9 +42,7 @@ export type HomepageHeroProps = {
 const randomBetween = (min: number, max: number) =>
   Math.random() * (max - min) + min;
 
-const makeRandom = () => randomBetween(-15, 15);
-const makeRandomRotate = () => randomBetween(-50, 50);
-const makeRandomScale = () => randomBetween(0.7, 1.1);
+const makeRandomRotate = () => randomBetween(-60, 60);
 
 function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
   const ref = useRef(null);
@@ -73,16 +71,10 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
 
             const letterVariants = {
               initial: {
-                y: 0,
-                x: 0,
                 rotate: 0,
-                scale: 1,
               },
               hover: {
-                y: makeRandom(),
-                x: makeRandom(),
                 rotate: makeRandomRotate(),
-                scale: makeRandomScale(),
               },
             };
 
@@ -91,7 +83,6 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
                 style={{
                   opacity,
                 }}
-                className=""
               >
                 {wrapLettersInSpansWithWordsInSpans({
                   text: item,
