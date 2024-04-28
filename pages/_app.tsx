@@ -5,7 +5,7 @@ import clsx from 'clsx';
  */
 import GlobalHead from '@/components/GlobalHead';
 import Footer from '@/components/globals/footer';
-import Header from '@/components/globals/header';
+import Header from '@/components/globals/Header';
 
 /**
  * Types

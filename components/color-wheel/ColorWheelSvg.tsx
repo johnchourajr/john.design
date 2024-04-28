@@ -1,19 +1,17 @@
-import * as React from "react";
-import { SVGProps } from "react";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const Rect = ({ active, ...props }: any) => {
   const sharedClasses =
-    "relative scale-1 group-hover:opacity-100 hover:!opacity-70 transition-all ease-out-expo duration-300";
+    'relative scale-1 group-hover:opacity-100 hover:!opacity-70 transition-all ease-out-expo duration-300';
 
   const sharedInlineStyles = {
-    touchAction: "none",
+    touchAction: 'none',
     cursor: "url('/eyedrop.svg') 6 15, auto",
   };
 
   const sharedStyles = {
     style: active ? sharedInlineStyles : {},
-    className: active ? sharedClasses : "",
+    className: active ? sharedClasses : '',
   };
 
   return <motion.rect {...sharedStyles} {...props} />;
@@ -22,8 +20,8 @@ const Rect = ({ active, ...props }: any) => {
 const ColorWheelSvg = ({ active, ...rest }: any) => {
   return (
     <svg
-      width={"100%"}
-      height={"100%"}
+      width={'100%'}
+      height={'100%'}
       viewBox="0 0 648 648"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +47,14 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       <Rect
         active={active}
         x={72.0029}
+        y={215.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={72.0029}
         y={360.001}
         width={36}
         height={36}
@@ -56,7 +62,15 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       />
       <Rect
         active={active}
-        x={216.003}
+        x={72.0029}
+        y={396.003}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={216.004}
         y={215.999}
         width={36}
         height={36}
@@ -88,6 +102,22 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       />
       <Rect
         active={active}
+        x={216.004}
+        y={252}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={252.004}
+        y={252}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
         x={180}
         y={287.999}
         width={36}
@@ -96,8 +126,56 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       />
       <Rect
         active={active}
-        x={180}
+        x={216.004}
+        y={287.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={252.004}
+        y={287.999}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={288.006}
+        y={288.003}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={252.004}
+        y={324.003}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={180.001}
         y={324}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={215.998}
+        y={324}
+        width={36}
+        height={36}
+        fill="#CCFF00"
+      />
+      <Rect
+        active={active}
+        x={215.997}
+        y={359.999}
         width={36}
         height={36}
         fill="#CCFF00"
@@ -287,6 +365,20 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         width={36}
         height={36}
+        transform="matrix(-1 0 0 1 360 396.003)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 395.997 396.003)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
         transform="matrix(-1 0 0 1 360 468)"
         fill="#FF00E5"
       />
@@ -302,6 +394,34 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         width={36}
         height={36}
         transform="matrix(-1 0 0 1 324 432.001)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 396.001)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324 360.003)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324.006 323.999)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 360.003)"
         fill="#FF00E5"
       />
       <Rect
@@ -376,8 +496,31 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       />
       <Rect
         active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 432.003 539.999)"
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
         x={251.997}
         y={432.001}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={396.001}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={360.003}
         width={36}
         height={36}
         fill="#FF00E5"
@@ -480,6 +623,21 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       />
       <Rect
         active={active}
+        x={216.004}
+        y={539.999}
+        width={36}
+        height={36}
+        fill="#FF00E5"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 396)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
         width={36}
         height={36}
         transform="matrix(-1 0 0 1 431.997 396)"
@@ -510,6 +668,20 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         width={36}
         height={36}
+        transform="matrix(-1 0 0 1 432.003 360.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 360.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
         transform="matrix(-1 0 0 1 468 324)"
         fill="#FF0000"
       />
@@ -517,7 +689,49 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         width={36}
         height={36}
+        transform="matrix(-1 0 0 1 432.003 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360.006 324)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
         transform="matrix(-1 0 0 1 468 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 432.003 287.999)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 431.997 251.999)"
         fill="#FF0000"
       />
       <Rect
@@ -629,6 +843,13 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         width={36}
         height={36}
+        transform="matrix(-1 0 0 1 575.997 216.001)"
+        fill="#FF0000"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
         transform="matrix(-1 0 0 1 540.003 324)"
         fill="#FF0000"
       />
@@ -706,6 +927,13 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         width={36}
         height={36}
+        transform="matrix(-1 0 0 1 324 216.001)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
         transform="matrix(-1 0 0 1 431.997 180)"
         fill="#14FF00"
       />
@@ -721,6 +949,13 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         width={36}
         height={36}
         transform="matrix(-1 0 0 1 396 72)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 432.003 72)"
         fill="#14FF00"
       />
       <Rect
@@ -790,6 +1025,48 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         width={36}
         height={36}
+        transform="matrix(-1 0 0 1 396.003 215.999)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 396.003 251.999)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360.003 216)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 251.999)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 360 287.999)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
+        transform="matrix(-1 0 0 1 324.003 251.999)"
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        width={36}
+        height={36}
         transform="matrix(-1 0 0 1 468 180)"
         fill="#14FF00"
       />
@@ -839,6 +1116,14 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
       />
       <Rect
         active={active}
+        x={215.997}
+        y={72}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
         x={251.997}
         y={108.001}
         width={36}
@@ -857,6 +1142,14 @@ const ColorWheelSvg = ({ active, ...rest }: any) => {
         active={active}
         x={251.997}
         y={180}
+        width={36}
+        height={36}
+        fill="#14FF00"
+      />
+      <Rect
+        active={active}
+        x={251.997}
+        y={215.999}
         width={36}
         height={36}
         fill="#14FF00"

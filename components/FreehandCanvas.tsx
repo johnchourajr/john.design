@@ -24,7 +24,7 @@ const options = {
 
 export default function FreehandCanvas({ className }: { className?: string }) {
   const { points, storedPoints, docSize } = useDrawing();
-  const strokeWidth = Math.max(1, docSize.width / 1000); // Adjust base value and scaling factor as needed
+  const strokeWidth = Math.max(1, docSize.width / 6000); // Adjust base value and scaling factor as needed
 
   const getStoredPaths = () => {
     return storedPoints.map((pathPoints) => {
@@ -46,6 +46,7 @@ export default function FreehandCanvas({ className }: { className?: string }) {
         className,
       )}
       style={{
+        width: `6000px`,
         height: `${docSize.height}px`,
       }}
       viewBox={`0 0 ${docSize.width} ${docSize.height}`}
@@ -57,7 +58,6 @@ export default function FreehandCanvas({ className }: { className?: string }) {
           d={path}
           fill="var(--root-color)"
           stroke="var(--root-color)"
-          // strokeWidth="1.25"
           strokeWidth={strokeWidth}
           initial={{
             pathLength: 0,
