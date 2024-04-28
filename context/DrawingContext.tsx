@@ -23,7 +23,7 @@ type DrawingContextType = {
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
 };
 
-const MAX_STORED_POINTS = 30; // You can adjust this value as needed
+const MAX_STORED_POINTS = 60; // You can adjust this value as needed
 
 const DrawingContext = createContext<DrawingContextType | undefined>(undefined);
 
