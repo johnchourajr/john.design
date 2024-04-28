@@ -91,6 +91,23 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateStoredPoints = (
+    newPoints: StoredPoint[],
+    currentStoredPoints: StoredPointObj,
+  ) => {
+    const updatedStoredPoints = {
+      ...currentStoredPoints,
+      [pathname]: newPoints,
+    };
+    if (isClient) {
+      localStorage.setItem(
+        'storedPoints',
+        serializePoints(updatedStoredPoints),
+      );
+    }
+    return updatedStoredPoints;
+  };
+
   const undo = () => {
     setStoredPoints((currentStoredPoints) => {
       const currentPathPoints = currentStoredPoints[pathname];
@@ -102,35 +119,11 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
         const newPointsForPath = currentPathPoints.slice(0, -1);
         setPoints(lastPoints);
 
-        const updatedStoredPoints = {
-          ...currentStoredPoints,
-          [pathname]: newPointsForPath,
-        };
-
-        if (isClient) {
-          localStorage.setItem(
-            'storedPoints',
-            serializePoints(updatedStoredPoints),
-          );
-        }
-
-        return updatedStoredPoints;
+        return updateStoredPoints(newPointsForPath, currentStoredPoints);
       } else {
-        // Optionally clear points if no more stored points are available
         setPoints([]);
-        if (isClient) {
-          const updatedStoredPoints = {
-            ...currentStoredPoints,
-            [pathname]: [],
-          };
-          localStorage.setItem(
-            'storedPoints',
-            serializePoints(updatedStoredPoints),
-          );
-          return updatedStoredPoints;
-        }
+        return updateStoredPoints([], currentStoredPoints);
       }
-      return currentStoredPoints;
     });
   };
 
