@@ -1,6 +1,6 @@
+import { RenderColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
 import { useTime } from '@/hooks/useTime';
-import { RenderColorWheel } from '@/pages/exp/RenderColorWheel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { NavDrawingControls } from './NavDrawingControls';
