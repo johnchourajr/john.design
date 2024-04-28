@@ -1,8 +1,9 @@
 import { NavColorOverlay } from '@/components/globals/Header/NavColorOverlay';
-import { setRootColor } from '@/lib/utils/slugify';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type AppContextType = {
+  rootColor: string;
+  setRootColor: (value: string) => void;
   toggleColorActive: boolean;
   setToggleColorActive: (value: boolean) => void;
   handleActive: (state: boolean) => void;
@@ -21,6 +22,7 @@ export const useAppContext = () => {
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [toggleColorActive, setToggleColorActive] = useState(false);
+  const [rootColor, setRootColor] = useState('#ff0000');
 
   const handleColorChange = (e: any) => {
     const colorFromSVG = e.target.getAttribute('fill');
@@ -35,9 +37,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setToggleColorActive(state);
   };
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--root-color', rootColor);
+    document.documentElement.setAttribute('data-color', rootColor);
+  }, [rootColor]);
+
   return (
     <AppContext.Provider
       value={{
+        rootColor,
+        setRootColor,
         toggleColorActive,
         setToggleColorActive,
         handleActive,
