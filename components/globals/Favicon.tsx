@@ -1,4 +1,3 @@
-// /compoponents/Favicon.tsx
 const Favicon = (): JSX.Element => {
   return (
     <>
@@ -23,12 +22,12 @@ const Favicon = (): JSX.Element => {
       <link
         rel="mask-icon"
         href="/favicon/safari-pinned-tab.svg"
-        color="#8e00fd"
+        color="#fd0000"
       />
       <meta name="apple-mobile-web-app-title" content="Snippit" />
       <meta name="application-name" content="<APP NAME>" />
       <meta name="msapplication-TileColor" content="#000000" />
-      <meta name="theme-color" content="#8e00fd" />
+      <meta name="theme-color" content="#fd0000" />
     </>
   );
 };
