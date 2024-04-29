@@ -1,0 +1,47 @@
+/**
+ * For personal titles
+ */
+[data-letter="father-f-0"] {
+  margin-right: -0.08em;
+}
+[data-letter="father-a-1"] {
+  margin-right: -0.15em;
+}
+
+/**
+ * Kerning for brand names
+ */
+[data-letter="retool-t-2"] {
+  margin-right: -0.06em;
+}
+[data-letter="retool-o-3"] {
+  margin-right: -0.06em;
+}
+[data-letter="paypal-a-1"] {
+  margin-right: -0.14em;
+}
+[data-letter="godaddy-d-5"] {
+  margin-right: -0.08em;
+}
+[data-letter="godaddy-d-2"] {
+  margin-right: -0.08em;
+}
+[data-letter="happy-p-3"] {
+  margin-right: -0.08em;
+}
+[data-letter="money-e-3"] {
+  margin-right: -0.08em;
+}
+[data-letter="envoy-v-2"] {
+  margin-right: -0.1em;
+}
+[data-letter="envoy-o-3"] {
+  margin-right: -0.1em;
+}
+[data-letter="university-v-3"] {
+  margin-left: -0.08em;
+  margin-right: -0.08em;
+}
+[data-letter="university-t-8"] {
+  margin-right: -0.1em;
+}
