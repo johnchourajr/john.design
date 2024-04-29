@@ -1,6 +1,6 @@
-@import "fonts.css";
-@import "kerning.css";
-@import url("https://use.typekit.net/wqj3mof.css");
+@import 'fonts.css';
+@import 'kerning.css';
+@import url('https://use.typekit.net/wqj3mof.css');
 
 @tailwind base;
 @tailwind components;
@@ -13,13 +13,17 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  html[data-dim="true"] .dim-shim {
+  html[data-dim='true'] .dim-shim {
     @apply bg-black bg-opacity-80;
   }
 
   /* selection background on all elements */
   body {
     @apply selection:bg-root selection:text-black;
+  }
+
+  .drawing-cursor {
+    cursor: url('/pencil.svg') 6 18, auto;
   }
 }
 
@@ -46,7 +50,7 @@
 }
 
 @layer components {
-  input[type="range"] {
+  input[type='range'] {
     appearance: none;
     margin: 10px 0;
     width: 100%;
@@ -57,11 +61,11 @@
     --border: 0px solid transparent;
   }
 
-  input[type="range"]:focus {
+  input[type='range']:focus {
     outline: none;
   }
 
-  input[type="range"]::-webkit-slider-runnable-track {
+  input[type='range']::-webkit-slider-runnable-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -71,7 +75,7 @@
     border: var(--border);
   }
 
-  input[type="range"]::-moz-range-track {
+  input[type='range']::-moz-range-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -82,7 +86,7 @@
     border: var(--border);
   }
 
-  input[type="range"]::-webkit-slider-thumb {
+  input[type='range']::-webkit-slider-thumb {
     box-shadow: var(--drop-shadow);
     border: var(--border);
     height: 20px;
@@ -94,11 +98,11 @@
     margin-top: -8px;
   }
 
-  input[type="range"]:focus::-webkit-slider-runnable-track {
+  input[type='range']:focus::-webkit-slider-runnable-track {
     background: var(--track);
   }
 
-  input[type="range"]::-moz-range-thumb {
+  input[type='range']::-moz-range-thumb {
     box-shadow: var(--drop-shadow);
     border: var(--border);
     height: 20px;

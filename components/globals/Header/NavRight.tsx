@@ -25,7 +25,7 @@ export function NavRight() {
         className={clsx(
           'text-string relative',
           'inline-flex row gap-4 z-50 relative pointer-events-none',
-          'md:inline-flex hidden',
+          'lg:inline-flex hidden',
         )}
       >
         <span>{dateStr}</span>
