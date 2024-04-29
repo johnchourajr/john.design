@@ -7,7 +7,7 @@ cover: /journal/images/design-leadership-cover.jpg
 thumb: /journal/images/design-leadership-cover.jpg
 foreground: "#E0E0E0"
 background: "#111111"
-Tags:
+tags:
   - design leadership
   - life
 ---

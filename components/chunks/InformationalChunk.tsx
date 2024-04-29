@@ -10,7 +10,7 @@ export function InformationalChunk({ text }: any) {
         }
         return (
           <span
-            key={i}
+            key={t}
             className={clsx(
               highlight ? 'group-hover:opacity-100' : 'group-hover:opacity-50',
               'ease-out-expo transition-opacity duration-300 ',

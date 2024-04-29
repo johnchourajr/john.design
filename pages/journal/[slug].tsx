@@ -1,12 +1,43 @@
+import InlineLink from '@/components/InlineLink';
+import { PostBody } from '@/components/journal/PostBody';
 import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
+import clsx from 'clsx';
 
-const PostPage = ({ post }: any) => {
-  if (!post) return <p>Loading...</p>;
+const PostPage = ({
+  post: {
+    htmlContent,
+    frontmatter: { title, date, ...frontmatter },
+    ...post
+  },
+}: any) => {
+  console.log({
+    title,
+    date,
+    frontmatter,
+    post,
+  });
 
   return (
-    <article>
-      <h1>{post.frontmatter.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
+    <article className="p-4">
+      <InlineLink href="/journal" className="no-underline">
+        <p className="my-4">
+          &larr; <span>Back</span>
+        </p>
+      </InlineLink>
+      <h1
+        className={clsx(
+          'headline-display-xl !normal-case !font-pixel !font-normal text-pretty',
+        )}
+      >
+        {title}
+      </h1>
+      <div className="w-full my-6">
+        <img
+          src={frontmatter.cover}
+          className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+        />
+      </div>
+      <PostBody html={htmlContent} />
     </article>
   );
 };

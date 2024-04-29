@@ -6,7 +6,7 @@ title: The Engineer and the Artist
 cover: /journal/images/05-GP-poster.jpg
 thumb: /journal/images/05-GP-poster.jpg
 refer: 1 [Rockwell International](http://en.wikipedia.org/wiki/Rockwell_International)
-Tags:
+tags:
   - Life
   - Family
 ---
@@ -23,7 +23,7 @@ His line work was shaky, not _just_ because of his age, but it was his style. He
 
 Back then, my drawing trouble area with drawing people was always the human mouth. I mean it's essentially just two tube-like things stacked, right? Nope! This lesson always stuck with me, he told me, "Look at the light ... the upper lip is always shadowed, and the lower lip is always lighter." His lesson to me wasn't to teach me to draw shapes, he was teaching me to draw the shadows responding to the light. No more would I draw the mouth as two side-ways banana-like shapes, with a bunch of little chunky teeth. It's the light that shapes everything, and drawing is a matter of seeing the light and the space around it. I didn't know it then, but he was teaching light logic to a 6-year-old. I love that.
 
-![xsm](/journal/images/apollo-img.png)
+![xs](/journal/images/apollo-img.png)
 
 I can point back to these moments as a child and fully recognize them as my point of origin as a designer and an artist. These lessons laid a foundation for who I am.
 

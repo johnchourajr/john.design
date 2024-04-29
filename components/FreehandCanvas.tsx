@@ -54,7 +54,7 @@ export default function FreehandCanvas({ className }: { className?: string }) {
     >
       {getStoredPaths().map((path, index) => (
         <motion.path
-          key={index}
+          key={`path-${index}`}
           d={path}
           fill="var(--root-color)"
           stroke="var(--root-color)"

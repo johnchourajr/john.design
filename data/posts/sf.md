@@ -21,7 +21,7 @@ refer: |-
   6 [Tartine Bakery](http://www.tartinebakery.com/)
 
   7 [Four Barrel Coffee](http://fourbarrelcoffee.com/)
-Tags:
+tags:
   - Life
   - Travel
 ---

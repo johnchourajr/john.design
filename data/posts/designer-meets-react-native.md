@@ -5,7 +5,7 @@ date: "2018-09-28"
 title: Designer Meets React Native
 cover: /journal/images/01-joy-rn.jpg
 thumb: /journal/images/01-joy-rn.jpg
-Tags:
+tags:
   - work
 ---
 

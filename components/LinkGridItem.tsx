@@ -23,15 +23,19 @@ export default function LinkGridItem({
   );
   return (
     <Tag href={href} className={clsx('group', className)}>
-      <p className="opacity-60 text-caption"> {status}</p>
+      <p className="opacity-60 text-caption"> {status}</p>
       <p
         className={clsx(
-          'headline-display-xs underline-offset-2 decoration-1',
-          'text-left group max-w-[35em] cursor-help z-50 relative pointer-events-none',
+          'group flex gap-1',
+          'headline-display-xs',
+          'text-left group max-w-[30em] cursor-help z-50 relative pointer-events-none',
           statusClasses,
         )}
       >
-        <span className="underline line-clamp-1">{title}</span> {href && `→`}
+        <span className="no-underline group-hover:underline line-clamp-1">
+          {title}
+        </span>{' '}
+        {href && `→`}
       </p>
       <p className={clsx('text-sm mt-1', statusClasses)}>{description}</p>
     </Tag>

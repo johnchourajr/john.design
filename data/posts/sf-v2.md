@@ -5,7 +5,7 @@ date: "2016-05-06"
 title: SF Trip v2
 cover: /journal/images/20160506-sf-11.jpg
 thumb: /journal/images/20160506-sf-11.jpg
-Tags:
+tags:
   - Life
   - Travel
 ---

@@ -5,7 +5,7 @@ date: "2018-12-08"
 title: User Interface Hierarchy
 cover: /journal/images/hierarchy-1.png
 thumb: /journal/images/hierarchy-1.png
-Tags:
+tags:
   - work
 ---
 

@@ -5,7 +5,7 @@ date: "2017-01-23"
 title: Back to School
 cover: /journal/images/to-teach-3.gif
 thumb: /journal/images/to-teach-3.gif
-Tags:
+tags:
   - Life
 ---
 

@@ -3,9 +3,9 @@ template: "post"
 slug: "/journal/paypal"
 date: "2022-01-04"
 title: "Heyo PayPal"
-cover: /journal/images/pp-cover.svg
-thumb: /journal/images/pp-cover.svg
-Tags:
+cover: "/journal/images/pp-cover.svg"
+thumb: "/journal/images/pp-cover.svg"
+tags:
   - design
   - life
 ---

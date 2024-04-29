@@ -1,8 +1,8 @@
-import React from "react";
-import clsx from "clsx";
-import { getSettingValue } from "../SettingsComponents";
-import { TextContainer } from "./TextContainer";
-import { useReducedMotion } from "framer-motion";
+import clsx from 'clsx';
+import { useReducedMotion } from 'framer-motion';
+import React from 'react';
+import { getSettingValue } from '../SettingsComponents';
+import { TextContainer } from './TextContainer';
 
 export function JustifiedHeadlineInner({
   headline,
@@ -12,9 +12,9 @@ export function JustifiedHeadlineInner({
   ...rest
 }: any) {
   const [ani, setAni] = React.useState(0);
-  const speed = getSettingValue(settings, "Speed", 1000);
-  const slant = getSettingValue(settings, "Add Slant", false);
-  const animateLetters = getSettingValue(settings, "Letters", letters);
+  const speed = getSettingValue(settings, 'Speed', 1000);
+  const slant = getSettingValue(settings, 'Add Slant', false);
+  const animateLetters = getSettingValue(settings, 'Letters', letters);
   const reducedMotion = useReducedMotion();
 
   React.useEffect(() => {
@@ -30,8 +30,8 @@ export function JustifiedHeadlineInner({
   return (
     <p
       className={clsx(
-        "my-[10vw] w-full font-black pointer-events-none",
-        slant && "!font-black-ritalic"
+        'my-[10vw] w-full font-black pointer-events-none',
+        slant && '!font-black-ritalic',
       )}
       data-id={ani}
       {...rest}
@@ -39,11 +39,11 @@ export function JustifiedHeadlineInner({
       {headline.map(({ text, motionObject, className }: any, index: number) => {
         return (
           <span
-            key={index}
-            className={clsx("uppercase headline-display-xl", className)}
+            key={text}
+            className={clsx('uppercase headline-display-xl', className)}
           >
             <TextContainer
-              key={index}
+              key={text}
               text={text}
               motionObject={motionObject}
               motionKey={ani}

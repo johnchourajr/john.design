@@ -6,7 +6,7 @@ title: "Hello GoDaddy"
 cover: /journal/images/godaddy_meta_cover.gif
 thumb: /journal/images/godaddy_meta_cover.gif
 background: "#E5E7E7"
-Tags:
+tags:
   - design
   - life
 ---

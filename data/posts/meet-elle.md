@@ -5,7 +5,7 @@ date: "2018-08-17"
 title: Meet Elle
 cover: /journal/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
 thumb: /journal/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
-Tags:
+tags:
   - life
   - personal
   - baby
