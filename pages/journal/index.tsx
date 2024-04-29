@@ -1,4 +1,4 @@
-import LinkGridItem from '@/components/LinkGridItem';
+import LinkGridItem from '@/components/fragments/LinkGridItem';
 import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { getAllPosts } from '@/lib/pages/posts';

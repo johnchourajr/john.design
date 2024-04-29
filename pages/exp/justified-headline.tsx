@@ -1,23 +1,23 @@
-import React from "react";
-import InlineLink from "@/components/InlineLink";
-import { SettingsGroup } from "@/components/SettingsComponents";
-import { JustifiedHeadlineInner } from "@/components/justified-headline/JustifiedHeadlineInner";
-import { getRandomParentAndChildClassesArray } from "@/components/justified-headline/data";
+import { SettingsGroup } from '@/components/experimental/SettingsComponents';
+import InlineLink from '@/components/fragments/InlineLink';
+import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
+import React from 'react';
 
 const SETTINGS = [
   {
-    name: "Add Slant",
-    type: "Boolean",
+    name: 'Add Slant',
+    type: 'Boolean',
     value: false,
   },
   {
-    name: "Letters",
-    type: "Boolean",
+    name: 'Letters',
+    type: 'Boolean',
     value: false,
   },
   {
-    name: "Speed",
-    type: "Slider",
+    name: 'Speed',
+    type: 'Slider',
     value: 1000,
     min: 500,
     max: 3000,
@@ -30,17 +30,17 @@ export default function JustifiedHeadline() {
   const headlineData = React.useMemo(() => {
     return [
       {
-        text: "John Is",
+        text: 'John Is',
         motionObject: getRandomParentAndChildClassesArray(8),
         className:
-          "z-[100] relative !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase",
+          'z-[100] relative !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase',
       },
       {
-        text: "Working On",
+        text: 'Working On',
         motionObject: getRandomParentAndChildClassesArray(8),
       },
       {
-        text: "The *Internet*",
+        text: 'The *Internet*',
         motionObject: getRandomParentAndChildClassesArray(8),
       },
     ];

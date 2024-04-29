@@ -1,14 +1,14 @@
-import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import InlineLink from "@/components/InlineLink";
-import clsx from "clsx";
+import InlineLink from '@/components/fragments/InlineLink';
+import clsx from 'clsx';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
 
 const EXAMPLE_LIST = [
-  { text: "moonlight" },
-  { text: "bargain" },
-  { text: "looney" },
-  { text: "problem" },
-  { text: "zombies" },
+  { text: 'moonlight' },
+  { text: 'bargain' },
+  { text: 'looney' },
+  { text: 'problem' },
+  { text: 'zombies' },
 ];
 
 function Item({ index, scrollYProgress, text }: any) {
@@ -41,32 +41,32 @@ function Item({ index, scrollYProgress, text }: any) {
   ];
 
   const height = useTransform(scrollYProgress, keyframes, [
-    "15%",
-    "15%",
-    "40%",
-    "40%",
-    "100%",
+    '15%',
+    '15%',
+    '40%',
+    '40%',
+    '100%',
   ]);
   const width = useTransform(scrollYProgress, keyframes, [
-    "calc(10% - 4px)",
-    "calc(10% - 4px)",
-    "calc(24% - 4px)",
-    "calc(24% - 4px)",
-    "66%",
+    'calc(10% - 4px)',
+    'calc(10% - 4px)',
+    'calc(24% - 4px)',
+    'calc(24% - 4px)',
+    '66%',
   ]);
   const bottom = useTransform(scrollYProgress, keyframes, [
-    "40%",
-    "40%",
-    "0%",
-    "0%",
-    "0%",
+    '40%',
+    '40%',
+    '0%',
+    '0%',
+    '0%',
   ]);
   const right = useTransform(scrollYProgress, keyframes, [
-    "0%",
-    "0%",
-    "10%",
-    "10%",
-    "34%",
+    '0%',
+    '0%',
+    '10%',
+    '10%',
+    '34%',
   ]);
 
   const zIndex = useTransform(scrollYProgress, keyframes, [
@@ -78,11 +78,11 @@ function Item({ index, scrollYProgress, text }: any) {
   ]);
 
   const fontSize = useTransform(scrollYProgress, keyframes, [
-    "1rem",
-    "1rem",
-    "6rem",
-    "6rem",
-    "10rem",
+    '1rem',
+    '1rem',
+    '6rem',
+    '6rem',
+    '10rem',
   ]);
 
   return (
@@ -92,8 +92,8 @@ function Item({ index, scrollYProgress, text }: any) {
     >
       <motion.figure
         className={clsx(
-          "bg-black absolute border-shadow overflow-hidden",
-          "after:content-[''] after:absolute after:inset-0 after:bg-[var(--root-color)] after:opacity-20 "
+          'bg-black absolute border-shadow overflow-hidden',
+          "after:content-[''] after:absolute after:inset-0 after:bg-[var(--root-color)] after:opacity-20 ",
         )}
         style={{ width, height, right, bottom }}
       >
@@ -115,7 +115,7 @@ function Section() {
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end"],
+    offset: ['start end', 'end'],
   });
 
   return (

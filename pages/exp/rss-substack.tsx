@@ -1,9 +1,7 @@
-import Link from "next/link";
-import InlineLink from "@/components/InlineLink";
-import { getFeed } from "../../lib/rss";
-import { format } from "date-fns";
-import parse from "html-react-parser";
-import { Typography } from "@/components/Typography";
+import InlineLink from '@/components/fragments/InlineLink';
+import { format } from 'date-fns';
+import parse from 'html-react-parser';
+import { getFeed } from '../../lib/rss';
 
 const RSSFeedStyle = () => (
   <style global jsx>{`
@@ -31,13 +29,11 @@ export default function RSSFeed({ feed, items }: any) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Typography size="lg">{item.title}</Typography>
+            <p>{item.title}</p>
           </a>
-          <Typography className="my-8">
-            {format(new Date(item.pubDate), "PP")}
-          </Typography>
+          <p className="my-8">{format(new Date(item.pubDate), 'PP')}</p>
           <div className="my-8 max-w-[500px]">
-            {parse(item["content:encoded"])}
+            {parse(item['content:encoded'])}
           </div>
         </div>
       ))}
@@ -47,7 +43,7 @@ export default function RSSFeed({ feed, items }: any) {
 }
 
 export async function getStaticProps({}) {
-  const feed = "https://johnchoura.substack.com/feed";
+  const feed = 'https://johnchoura.substack.com/feed';
   const detailedFeed = await getFeed(feed);
 
   return {

@@ -1,4 +1,4 @@
-import InlineLink from '@/components/InlineLink';
+import InlineLink from '@/components/fragments/InlineLink';
 
 import { RenderColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';

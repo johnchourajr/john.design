@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import InlineLink from '@/components/InlineLink';
+import InlineLink from '@/components/fragments/InlineLink';
 import Logo from '@/components/svg/logo';
 import navData from '@/data/navData';
 import { NavSlash } from './NavSlash';

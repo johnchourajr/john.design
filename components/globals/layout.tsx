@@ -1,6 +1,6 @@
 import { useDrawing } from '@/context/DrawingContext';
 import clsx from 'clsx';
-import GlobalHead from '../GlobalHead';
+import GlobalHead from './GlobalHead';
 import Header from './Header';
 import Footer from './footer';
 

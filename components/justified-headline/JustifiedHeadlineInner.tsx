@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useReducedMotion } from 'framer-motion';
 import React from 'react';
-import { getSettingValue } from '../SettingsComponents';
+import { getSettingValue } from '../experimental/SettingsComponents';
 import { TextContainer } from './TextContainer';
 
 export function JustifiedHeadlineInner({

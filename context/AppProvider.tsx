@@ -15,7 +15,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error('useDrawing must be used within a DrawingProvider');
+    throw new Error('useDrawing must be used within a AppProvider');
   }
   return context;
 };
