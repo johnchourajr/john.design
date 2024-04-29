@@ -12,8 +12,8 @@ type DocSizeType = { width: number; height: number };
 type DrawingContextType = {
   enableDrawing: boolean;
   setEnableDrawing: React.Dispatch<React.SetStateAction<boolean>>;
-  points: Point[]; // Array of Points
-  storedPoints: StoredPoint[]; // Array of arrays of Points
+  points: Point[];
+  storedPoints: StoredPoint[];
   setPoints: SetPoint;
   setStoredPoints: SetStoredPoints;
   storeCurrentDrawing: () => void;
@@ -23,7 +23,9 @@ type DrawingContextType = {
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
 };
 
-const MAX_STORED_POINTS = 60; // You can adjust this value as needed
+const MAX_STORED_POINTS = 60;
+const MIN_POINTS_COUNT = 5;
+const MIN_DISTANCE = 10;
 
 const DrawingContext = createContext<DrawingContextType | undefined>(undefined);
 
@@ -45,10 +47,8 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
     height: 100,
   });
 
-  // Check if running on client-side
   const isClient = typeof window !== 'undefined';
 
-  // Function to serialize and store points
   const serializePoints = (points: StoredPointObj): string =>
     JSON.stringify(points);
 
@@ -61,10 +61,6 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   };
 
   const storeCurrentDrawing = () => {
-    // Minimum number of points or minimum distance needed to store the drawing
-    const MIN_POINTS_COUNT = 5; // Change this value based on your needs
-    const MIN_DISTANCE = 10; // Minimum distance in pixels between start and end point
-
     if (points.length > MIN_POINTS_COUNT) {
       const startPoint = points[0];
       const endPoint = points[points.length - 1];
@@ -145,13 +141,12 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isClient) {
       const savedPoints = localStorage.getItem('storedPoints');
-      // console.log("Loaded from localStorage:", savedPoints);
       if (savedPoints) {
         const allPoints = JSON.parse(savedPoints);
-        setStoredPoints(allPoints); // Load all points, not just for the current path.
+        setStoredPoints(allPoints);
       }
     }
-  }, [isClient, pathname]); // Added router.pathname to dependencies
+  }, [isClient, pathname]);
 
   useEffect(() => {
     if (!enableDrawing) return;
@@ -178,7 +173,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [points, pathname, enableDrawing]); // Removed storedPoints from dependencies
+  }, [points, pathname, enableDrawing]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -187,7 +182,6 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
         const height = document.documentElement.scrollHeight;
 
         setDocSize({ width, height });
-        console.log('Doc size:', width, height);
       }
     };
 
