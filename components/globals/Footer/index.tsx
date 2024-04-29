@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import InlineLink from '../fragments/InlineLink';
-import Logo from '../svg/logo';
+import InlineLink from '../../fragments/InlineLink';
+import Logo from '../../svg/logo';
 
 export default function Footer() {
   const { pathname } = useRouter();
