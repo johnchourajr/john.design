@@ -1,13 +1,16 @@
-import LinkGridItem from '@/components/LinkGridItem';
-import { Typography } from '@/components/Typography';
+import LinkGridItem from '@/components/fragments/LinkGridItem';
 import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import clsx from 'clsx';
 import { workContent } from '../data/workContent';
 
-export default function WorkPage() {
-  const { daylightData, moonlightData } = workContent;
-
+export default function WorkPage({
+  daylightData,
+  moonlightData,
+}: {
+  daylightData: typeof workContent.daylightData;
+  moonlightData: typeof workContent.moonlightData;
+}) {
   return (
     <>
       <section className="my-[4vw]">
@@ -35,7 +38,7 @@ export default function WorkPage() {
         />
       </section>
       <section className="my-[10vw] px-4">
-        <Typography size="sm">Daylight Work</Typography>
+        <p className="headline-display-xs">Daylight Work</p>
         <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
           {daylightData.list.map((item, i) => (
             <LinkGridItem key={i} {...item} />
@@ -43,7 +46,7 @@ export default function WorkPage() {
         </div>
       </section>
       <section className="my-[10vw] px-4">
-        <Typography size="sm">Moonlight Work</Typography>
+        <p className="headline-display-xs">Moonlight Work</p>
         <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
           {moonlightData.list.map((item, i) => (
             <LinkGridItem key={i} {...item} />
@@ -52,4 +55,10 @@ export default function WorkPage() {
       </section>
     </>
   );
+}
+
+export function getStaticProps() {
+  const data = workContent;
+
+  return { props: { ...data } };
 }

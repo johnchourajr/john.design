@@ -1,4 +1,4 @@
-import InlineLink from '@/components/InlineLink';
+import InlineLink from '@/components/fragments/InlineLink';
 import { PostBody } from '@/components/journal/PostBody';
 import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
 import clsx from 'clsx';

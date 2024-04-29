@@ -1,5 +1,5 @@
-import FreehandCanvas from "@/components/FreehandCanvas";
-import InlineLink from "@/components/InlineLink";
+import FreehandCanvas from '@/components/experimental/FreehandCanvas';
+import InlineLink from '@/components/fragments/InlineLink';
 
 export default function Freehand() {
   return (

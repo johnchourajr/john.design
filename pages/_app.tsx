@@ -9,16 +9,19 @@ import type { AppProps } from 'next/app';
 import { GlobalLayout } from '@/components/globals/layout';
 import { AppProvider } from '@/context/AppProvider';
 import { DrawingProvider } from '@/context/DrawingContext';
+import { GtagProvider } from '@/context/GtagProvider';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AppProvider>
-      <DrawingProvider>
-        <GlobalLayout>
-          <Component {...pageProps} />
-        </GlobalLayout>
-      </DrawingProvider>
-    </AppProvider>
+    <GtagProvider>
+      <AppProvider>
+        <DrawingProvider>
+          <GlobalLayout>
+            <Component {...pageProps} />
+          </GlobalLayout>
+        </DrawingProvider>
+      </AppProvider>
+    </GtagProvider>
   );
 }

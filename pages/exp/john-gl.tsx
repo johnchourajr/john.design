@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
+import React from 'react';
 
-import InlineLink from "@/components/InlineLink";
-import { SettingsGroup } from "@/components/SettingsComponents";
-import { SETTINGS, JohnGLCanvas } from "@/components/experimental/JohnGL";
+import { JohnGLCanvas, SETTINGS } from '@/components/experimental/JohnGL';
+import { SettingsGroup } from '@/components/experimental/SettingsComponents';
+import InlineLink from '@/components/fragments/InlineLink';
 
 export default function JohnGL() {
   const [settings, setSettings] = React.useState(SETTINGS);

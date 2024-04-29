@@ -15,7 +15,7 @@ const JohnGLCanvas = dynamic(
 
 const InformationalChunk = dynamic(
   () =>
-    import('@/components/chunks/InformationalChunk').then(
+    import('@/components/fragments/InformationalChunk').then(
       (module) => module.InformationalChunk,
     ),
   { ssr: false },
@@ -23,7 +23,7 @@ const InformationalChunk = dynamic(
 
 const ParentheticalChunk = dynamic(
   () =>
-    import('@/components/chunks/ParentheticalChunk').then(
+    import('@/components/fragments/ParentheticalChunk').then(
       (module) => module.ParentheticalChunk,
     ),
   { ssr: false },

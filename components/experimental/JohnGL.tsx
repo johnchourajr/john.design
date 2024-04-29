@@ -1,4 +1,4 @@
-import { getSettingValue } from '@/components/SettingsComponents';
+import { getSettingValue } from '@/components/experimental/SettingsComponents';
 import { useDevicePixelRatio } from '@/hooks/useDevicePixelRatio';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { EffectComposer, Noise } from '@react-three/postprocessing';

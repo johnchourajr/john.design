@@ -1,4 +1,4 @@
-import FreehandCanvas from '@/components/FreehandCanvas';
+import FreehandCanvas from '@/components/experimental/FreehandCanvas';
 import { useRouter } from 'next/router';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 

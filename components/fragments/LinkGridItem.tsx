@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import { PageItem } from '../types/content-types';
+import { PageItem } from '../../types/content-types';
 
 export type LinkGridItemProps = PageItem;
 
