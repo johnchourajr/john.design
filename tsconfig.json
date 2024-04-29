@@ -1,49 +1,44 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@data/*": [
-        "_data/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@globals/*": [
-        "src/components/globals/*"
-      ],
-      "@style/*": [
-        "src/components/style/*"
-      ]
+      "@/components/*": ["./components/*"],
+      "@/context/*": ["./context/*"],
+      "@/data/*": ["./data/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/utils/*": ["./lib/utils/*"],
+      "@/hooks/*": ["./lib/hooks/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/types/*": ["./types/*"],
     },
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext", "es2022",],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "incremental": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "resolveJsonModule": true,
+    "module": "ESNext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "incremental": true
+
   },
   "include": [
     "next-env.d.ts",
+    "global.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/index.jsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.js",
+    "tailwind.config.js",
+    "lib/plugins/type-plugin.js",
+    "lib/config/type-config-js.js",
+    "lib/**/*.{d.ts,ts,tsx,js}",
+    "lib/**/*{.d.ts,.ts,.tsx,.js}",
+],
+  "exclude": ["node_modules"]
 }
