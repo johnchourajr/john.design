@@ -183,18 +183,21 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const handleResize = () => {
       if (isClient) {
-        const width = document.documentElement.scrollWidth;
+        const width = document.documentElement.clientWidth;
         const height = document.documentElement.scrollHeight;
 
         setDocSize({ width, height });
+        console.log('Doc size:', width, height);
       }
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scrollend', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
     };
   }, [isClient]);
 

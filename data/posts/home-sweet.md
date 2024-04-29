@@ -5,7 +5,7 @@ date: "2018-04-10"
 title: Home Sweet
 cover: /journal/images/home-yard-sq.jpg
 thumb: /journal/images/home-yard-sq.jpg
-Tags:
+tags:
   - Life
   - Home
 ---
@@ -32,8 +32,8 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 
 After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, we worked hard to make our dream home a reality.
 
-![twoup](/journal/gif/home-timelapse.gif)
-![twoup](/journal/gif/home-timelapse-02.gif)
+![xs](/journal/gif/home-timelapse.gif)
+![aside](/journal/gif/home-timelapse-02.gif)
 
 # 😍
 
@@ -47,8 +47,8 @@ After 4 months of working with a contractor, plumbers, builders, electricians, e
 ![lg](/journal/images/home-deck.jpg)
 ![lg](/journal/images/home-firepit.jpg)
 
-![twoup](/journal/images/home-kitty.jpg)
-![twoup](/journal/images/home-puppy.jpg)
+![xs](/journal/images/home-kitty.jpg)
+![aside](/journal/images/home-puppy.jpg)
 
 ![sm](/journal/images/home-chairs.jpg)
 

@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           <GlobalHead />
           <Header />
-          <main className="relative z-10 min-h-[100vh]">
+          <main className="relative z-10 min-h-[100vh] pt-14">
             <Component {...pageProps} />
           </main>
           <Footer />

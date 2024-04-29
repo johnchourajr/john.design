@@ -9,7 +9,7 @@ refer: |-
   1 [Trent Walton](http://trentwalton.com), [Jessica Hische](http://jessicahische.is), [Noah Stokes](http://esbueno.noahstokes.com), [Jonnie Hallman](http://destroytoday.com), [Skylar Challand](https://twitter.com/sskylar), and [Oak](http://oak.is).
 
   2 [Siteleaf](http://siteleaf.com) is the Content Management System I built this site with.
-Tags:
+tags:
   - Life
   - Work
 ---

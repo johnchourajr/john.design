@@ -16,18 +16,34 @@ export function getPostBySlug(slug: PostSlug): PostData {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
-  const { title = 'Default Title', date = new Date().toISOString() } = data;
+  const {
+    title = 'Default Title',
+    date = new Date().toISOString(),
+    template = 'default',
+    cover = null,
+    thumb = null,
+    refer = null,
+    tags = [],
+  } = data;
 
-  const htmlContent = marked(content) as string;
+  const htmlContent = marked(content, { breaks: true }) as string;
   const wordCount = content.split(/\s+/).length;
   const timeToRead = Math.ceil(wordCount / 200);
 
   return {
     slug: realSlug,
-    frontmatter: { title, date: new Date(date).toISOString() },
+    frontmatter: {
+      title,
+      date: new Date(date).toISOString(),
+      template,
+      cover,
+      thumb,
+      refer,
+      tags,
+    },
     wordCount,
     timeToRead,
-    content: htmlContent,
+    htmlContent,
   };
 }
 

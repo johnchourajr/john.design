@@ -5,7 +5,7 @@ date: "2016-11-25"
 title: Sedona Trip
 cover: /journal/images/Sedona-New-sm-1.jpg
 thumb: /journal/images/Sedona-New-sm-1.jpg
-Tags:
+tags:
   - Life
   - Photos
 ---

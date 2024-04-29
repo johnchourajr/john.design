@@ -12,7 +12,7 @@ export function NavLeft() {
         href="/"
         className={clsx('z-50 relative')}
         title="Home link"
-        ariaLabel="Home link"
+        aria-label="Home link"
       >
         <Logo />
       </InlineLink>
@@ -31,7 +31,7 @@ export function NavLeft() {
       <NavSlash />
       {navData.map(({ href, title }: any, i: number) => (
         <InlineLink
-          key={i}
+          key={title}
           href={href}
           className={clsx(
             'text-string relative',

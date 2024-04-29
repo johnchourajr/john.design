@@ -6,7 +6,7 @@ type InlineLinkProps = {
   children: React.ReactNode;
   target?: '_blank' | '_self' | '_parent' | '_top';
   title?: string;
-  ariaLabel?: string;
+  'aria-label'?: string;
 } & LinkProps;
 
 export default function InlineLink({

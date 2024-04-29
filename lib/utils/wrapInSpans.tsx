@@ -81,7 +81,7 @@ export function wrapLettersInSpansWithWordsInSpans({
     text &&
     text.split(' ').map((word, wi) => (
       <motion.span
-        key={wi}
+        key={slugify(word)}
         data-word={slugify(word)}
         className={className}
         initial={wordInitial}
@@ -92,7 +92,7 @@ export function wrapLettersInSpansWithWordsInSpans({
         {word &&
           word.split('').map((letter, li) => (
             <motion.span
-              key={li}
+              key={slugify(`${word} ${letter} ${li}`)}
               data-letter={slugify(`${word} ${letter} ${li}`)}
               className={letterClassName}
               initial={letterInitial}
