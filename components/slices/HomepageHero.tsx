@@ -32,6 +32,7 @@ const ParentheticalChunk = dynamic(
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { JustifiedHeadlineInner } from '../justified-headline/JustifiedHeadlineInner';
 
+import { useDrawing } from '@/context/DrawingContext';
 import type { HomePageData } from '@/data/homepageContent';
 import type { SectionStructure } from '@/types/content-types';
 export type HomepageHeroProps = {
@@ -46,6 +47,7 @@ const makeRandomRotate = () => randomBetween(-60, 60);
 
 function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
   const ref = useRef(null);
+  const { enableDrawing } = useDrawing();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start 100%', 'end 95%'],
@@ -56,7 +58,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
       className={clsx(
         'inline-flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]',
         'relative z-10',
-        'select-none',
+        enableDrawing && 'select-none',
       )}
     >
       <p
@@ -114,6 +116,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
 }
 
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
+  const { enableDrawing } = useDrawing();
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
 
   return (
@@ -124,7 +127,10 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       >
         <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw]">
           <JustifiedHeadlineInner
-            className={clsx('my-[16vw] w-full font-black select-none')}
+            className={clsx(
+              'my-[16vw] w-full font-black',
+              enableDrawing && 'select-none',
+            )}
             iterations={8}
             headline={headlineData}
           />
@@ -132,7 +138,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
         <div
           className={clsx(
             'flex items-start flex-col gap-6 justify-center relative z-[100] mb-[8vw]',
-            'select-none',
+            enableDrawing && 'select-none',
           )}
         >
           {heroSection.typographies.map(({ text, size }, index) => (
