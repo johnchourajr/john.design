@@ -7,7 +7,7 @@ cover: /journal/images/nav-cover.svg
 thumb: /journal/images/nav-cover.svg
 ---
 
-> Note: This is an update to a previous article written in 2021, but with newer additions and updates to framer-motion (at the point of v11.0.14), it was worth revisiting and improving. Enjoy.
+> Note: This is an update to an article written in 2021. This new update is written in `TypeScript` and on the latest version of `framer-motion` (v11.0.14). Enjoy.
 >
 
 A straightforward and well-built show/hide on scroll feature can significantly enhance the user experience on a website. This feature can serve two primary functions: 1) It can reduce distractions, allowing content to take center stage while keeping navigation within easy reach, and 2) It can enable a change in the scale of the nav header, which can start large and minimize upon scrolling. These two techniques can also be combined.
