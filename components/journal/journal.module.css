@@ -6,7 +6,7 @@
 .postBody h1,
 .postBody h2,
 .postBody h3 {
-  @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 pr-4 text-paragraph mb-4 text-pretty;
+  @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 pr-4 text-paragraph mb-4 self-end text-pretty;
 }
 
 .postBody h1,
