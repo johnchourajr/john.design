@@ -7,62 +7,47 @@ cover: /journal/images/nav-cover.svg
 thumb: /journal/images/nav-cover.svg
 ---
 
-Making a nav show and hide on scroll looks good. In the past, I've created a vanilla js version inspired by what Marius Craciunoiu wrote about in [this article](https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c) circa 2013.
+> Note: This is an update to a previous article written in 2021, but with newer additions and updates to framer-motion (at the point of v11.0.14), it was worth revisiting and improving. Enjoy.
+>
 
-I always loved this method, as it did what I needed it to do for many-a site, but javascript has changed a lot since 2013. With advancements within React with hooks, plus with new libraries like Framer Motion. So I found myself building the very site you're reading this on, which is a Reacjt JS Gatsby site, and wanted to find a more modern method to create this effect, which led me to a solution which I share here.
+A straightforward and well-built show/hide on scroll feature can significantly enhance the user experience on a website. This feature can serve two primary functions: 1) It can reduce distractions, allowing content to take center stage while keeping navigation within easy reach, and 2) It can enable a change in the scale of the nav header, which can start large and minimize upon scrolling. These two techniques can also be combined.
+
+This show/hide or minimize/maximize effect is something I've enjoyed incorporating into websites for years. It dates back to 2015 when I created a vanilla JavaScript version, inspired by Marius Craciunoiu's [article](https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c) from 2013.
+
+In this article, I'll outline how to implement this interactive pattern in a React app using modern React and Framer Motion techniques. If you're unfamiliar with Framer Motion, it's a powerful tool developed by the creators of Framer. It facilitates performant hardware-accelerated runtime animation for JavaScript applications. (add more about Framer Motion)
 
 ## Getting started
 
-You'll get started with your basic app shell, if you already have a react project you'll have to adapt this to your project structure. Or if you want to follow along you can use this [create-react-app starter](https://codesandbox.io/s/x335plk7xo) on CodeSandbox.
+Start with your basic app shell. If you have an existing react project, adapt this to your project structure. If you're following along, use this [react typescript starter](https://codesandbox.io/p/sandbox/scroll-nav-show-hide-typescript-mqjj7k) on CodeSandbox.
 
-First, you'll start in your root app layout, that will look something like this.
+Begin in your root app layout, which might look something like this.
 
-```jsx
-// App.js
+```tsx
+// App.tsx
+import "./styles.css";
 
 export default function App() {
   return <div className="App"></div>;
 }
+
 ```
 
-Okay, now you'll create the `Nav` component, for mine I put it in the root directory and called the file `nav.js`. In this `Nav` component I'm setting up a few simple things: 1) the base structure of nav, with a logo on the left and nav links on the right, 2) some base styles for the nav so it doesn't look terrible, and 3) I'm setting up a small array with `linkList` to `.map()` over in order to generate some faux nav links in a clean way.
+Next, you'll create the `Nav` component. I placed mine in the `src` directory and named the file `Nav.tsx`. In this `Nav` component, I'm establishing a few basic elements: 1) the fundamental structure of the navigation bar, with a logo on the left and navigation links on the right, 2) some basic styles for the navigation bar to ensure it's visually appealing, and 3) a small array called `linkList` that I'm using with `.map()` to generate some placeholder navigation links efficiently.
 
-```jsx
-// nav.js
+```tsx
+// Nav.tsx
 // Create this file and use the code below
 
-import React from "react";
-
 /** this is to FPO generate 5 links for the nav **/
-const linkList = [{}, {}, {}, {}, {}];
+const linkList: string[] = ["", "", "", "", ""];
 
-/** nav parent styles **/
-const navStyles = {
-  display: "flex",
-  position: "fixed",
-  alignItems: "center",
-  justifyContent: "space-between",
-  height: "6rem",
-  padding: "0 2rem",
-  width: "calc(100vw - 4rem)",
-  left: "0",
-};
-
-/** links parent styles **/
-const navLinksWrapper = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "50%",
-};
-
-export default function Nav() {
+export function Nav() {
   return (
-    <nav style={navStyles}>
-      <span>Logo</span>
-      <div style={navLinksWrapper}>
+    <nav className="navStyles">
+      <p>Logo</p>
+      <div className="navLinksWrapper">
         {linkList.map((item, i) => (
-          <span key={i}>Link</span>
+          <a key={i} href="#">Link</a>
         ))}
       </div>
     </nav>
@@ -70,150 +55,222 @@ export default function Nav() {
 }
 ```
 
-Once you create that `nav.js` file, let's import it into `App.js` and include it as a child of your main `div` wrapper. I've also added styles to give the page some height.
+And add this to the existing `styles.css` file
+
+```css
+/* styles.css */
+/* Add styles below .App */
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  height: 200vh;
+}
+
+.navStyles {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  height: 6rem;
+  padding: 0 2rem;
+  width: calc(100vw - 4rem);
+  left: 0;
+}
+
+.navLinksWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+}
+```
+
+After creating the `Nav.tsx` file, import it into `App.js` and include it as a child of the main `div` wrapper. Additionally, add styles to provide some height to the page.
 
 ```jsx
-// App.js
-
-import Nav from "./nav"; /** import Nav **/
-
-/** add this **/
-const wrapperStyle = {
-  height: "200vh",
-};
+// App.tsx
+import { Nav } from "./Nav";
+import "./styles.css";
 
 export default function App() {
   return (
-    <div className="App" style={wrapperStyle} /** include styles here **/>
-      /** inlcude nav component **/
+    <div className="App">
       <Nav />
     </div>
   );
 }
 ```
 
-What you should have at this point is a basic page with a fixed nav and and a scrollable body. Super basic stuff.
+At this point, you should have a basic page with a fixed navigation bar and a scrollable body. It's very straightforward.
 
 ## Now the fun part
 
-Let's add Framer Motion as a dependency. To do this run `npm install framer-motion` in your terminal at the root of your project directory. Once that's good to go, you'll import it into your `nav.js` file. It's also important to prefix your `<nav>` with `motion`, this will make your element motion component.
+First, add Framer Motion as a dependency. You can do this by running `npm install framer-motion` in your terminal. Make sure to run this command at the root of your project directory. After the installation, add `import { motion } from "framer-motion"` it into your `Nav.tsx` file. Remember to prefix your `<nav>` with `motion`, changing it to `<motion.nav>`. This will convert your element into a motion component.
 
 ```jsx
-// nav.js
-import React from 'react';
-/** import framer-motion **/
-import { motion, useViewportScroll } from "framer-motion";
+// Nav.tsx
 
-...
+/** Import framer-motion **/
+import { motion } from "framer-motion";
 
-export default function Nav() {
+/** ... **/
+
+export function Nav() {
   return (
-    <motion.nav /** add 'motion.' prefix to 'nav' **/ ... >
-      ...
+    <motion.nav /** Add 'motion.' prefix to 'nav' ... **/  >
+      /** ... **/
     </motion.nav>
   );
 }
 ```
 
-Now we're going to use the `useViewportScroll` hook from framer-motion to get the scroll y-axis value. We'll also be using the react `useEffect` hook to fire an `onChange` callback for the `scrollY` value updating.
+Now, we'll add the `useScroll` hook. This listens to the page's scroll and returns the absolute scroll position as a motion value with the `scrollY` constant. After that, we'll introduce the `useMotionValueEvent` hook. This lets you pass the `scrollY` motion value during the `“change”` event into the React lifecycle. For now we’ll just log it to the console, to demonstrate what’s happening here. Check out the console to see those events firing.
 
 ```jsx
-// nav.js
-...
+// Nav.tsx
+/** Add useMotionValueEvent and useScroll to the import **/
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+
+/** ... **/
 
 export default function Nav() {
-  /** add this bit **/
-  const { scrollY } = useViewportScroll();
+  /** Add this section **/
+  const { scrollY } = useScroll();
 
-  /** add this useEffect hook to return events everytime the scrollY changes **/
-  React.useEffect(() => {
-    return scrollY.onChange(() => console.log(scrollY));
+  /** Use the useMotionValueEvent hook to listen to "change" events **/
+  useMotionValueEvent(scrollY, "change", (latest: number) => {
+    console.log({ latest });
   });
 
   return (
-    <motion.nav ... >
-      ...
+    <motion.nav /** ... **/ >
+      /** ... **/
     </motion.nav>
   );
 }
 ```
 
-If this is working well, you should see this in your log:
+With the hooks functioning properly, we can use them to trigger some state changes.
 
-```shell
-MotionValue {timeDelta: 0, lastUpdated: 0, updateSubscribers: Object, renderSubscribers: Object, canTrackVelocity: true ...}
-```
-
-With the hooks working well we can make them trigger some state changes.
-
-```jsx
-// nav.js
-...
+```tsx
+// Nav.tsx
+/** ... **/
 
 export default function Nav() {
 
-  ...
+  /** ... **/
 
-  /** add useState hook to manage state **/
-  const [hidden, setHidden] = React.useState(false);
+  // Use useState hook to manage state
+  const [hidden, setHidden] = useState(false);
+  const [prev, setPrev] = useState(0);
 
-  /** this onUpdate function will be called in the `scrollY.onChange` callback **/
-  function update() {
-    if (scrollY?.current < scrollY?.prev) {
+  // This onUpdate function is called in the `scrollY.onChange` callback
+  function update(latest: number, prev: number): void {
+    if (latest < prev) {
       setHidden(false);
       console.log("visible");
-    } else if (scrollY?.current > 100 && scrollY?.current > scrollY?.prev) {
+    } else if (latest > 100 && latest > prev) {
       setHidden(true);
       console.log("hidden");
     }
   }
 
-  /** update the onChange callback to call for `update()` **/
-  React.useEffect(() => {
-    return scrollY.onChange(() => update());
+  // Add `update()` function and `setPrevScroll` state handler
+  useMotionValueEvent(scrollY, "change", (latest: number) => {
+    update(latest, prevScroll);
+    setPrevScroll(latest);
   });
 
   return (
-    <motion.nav ... >
-      ...
+    <motion.nav /** ... **/ >
+      /** ... **/
     </motion.nav>
   );
 }
 ```
 
-If you look in your console, you should see "visible" and "hidden" events firing everytime you scroll up and down.
+If you examine your console, you'll notice "visible" and "hidden" events triggering each time you scroll up and down.
 
 ### Hooking it all up
 
-Now we're going to interpret the `hidden` state boolean into animated states using a framer-motion method called `variants`. All we need to do here is set keys for each state (in this case, "visible" and "hidden") with their own style object. Once you plug in this code you should be excited to see this working!
+Now we're going to use a framer-motion method called `variants` to convert the `hidden` state boolean into animated states. We just need to assign keys for each state (in this case, "visible" and "hidden") along with their respective style object. Once you implement this code, you should be thrilled to see it in action!
 
 ```jsx
-// nav.js
-...
+// Nav.tsx
+/** ... **/
+
+/** Define variants for the parent container styles **/
+const parentVariants = {
+  /** Define the "visible" state and its styles **/
+  visible: { opacity: 1, y: 0 },
+  /** Define the "hidden" state and its styles **/
+  hidden: { opacity: 0, y: "-4rem" },
+};
 
 export default function Nav() {
 
-  ... // removing for brevity
-
-  /** add this const **/
-  const variants = {
-    /** this is the "visible" key and it's respective style object **/
-    visible: { opacity: 1, y: 0 },
-    /** this is the "hidden" key and it's respective style object **/
-    hidden: { opacity: 0, y: -25 }
-  };
+  /** ... omitted for brevity **/
 
   return (
     <motion.nav
-      /** the variants object needs to be passed into the motion component **/
-      variants={variants}
-      /** it's right here that we match our boolean state with these variant keys **/
+	    className="navStyles"
+      /** Pass the variants object into the motion component **/
+      variants={parentVariants}
+      /** Match boolean state with these variant keys **/
       animate={hidden ? "hidden" : "visible"}
-      /** I'm also going to add a custom easing curve and duration for the animation **/
-      transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
-      ...
+      /** Add a custom easing curve and duration for the animation **/
+      transition={{
+        ease: [0.1, 0.25, 0.3, 1],
+        duration: 0.6,
+        staggerChildren: 0.05,
+      }}
     >
-      ...
+      /** ... **/
+    </motion.nav>
+  );
+}
+```
+
+As a final step, we'll add some flair to the link elements. Framer motion has a great feature that allows the `animate` state to propagate down to child motion elements without an explicit `animate` prop. We can accomplish this by setting variants and transition settings on the `motion.a` element.
+
+```jsx
+// Nav.tsx
+/** ... **/
+
+const parentVariants = {
+  /** ... **/
+};
+
+/** Variants for the child container styles **/
+const childVariants = {
+  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: "-2rem" },
+};
+
+export default function Nav() {
+
+  /** ... omitted for brevity **/
+
+  return (
+    <motion.nav
+	    /** ... **/
+    >
+	    /** ... **/
+
+      {linkList.map((item, i) => (
+        <motion.a  /** Changed to motion.a **/
+          key={i}
+          variants={childVariants} /** Added variants **/
+          transition={{
+            ease: [0.1, 0.25, 0.3, 1],
+            duration: 0.4,
+          }} /** Set up transition configuration **/
+        >
+          Link
+        </motion.a>
+      ))}
+	    /** ... **/
     </motion.nav>
   );
 }
@@ -221,13 +278,13 @@ export default function Nav() {
 
 ### Here is the preview
 
-And that's all folks. The result can be previewed below, or you can checkout the full example on [CodeSandbox](https://codesandbox.io/s/framer-motion-nav-show-hide-article-version-omnnd?file=/src/nav.js).
+That's all, folks. You can preview the result below or explore the full example on [CodeSandbox](https://codesandbox.io/p/sandbox/ancient-dust-5j7gc9?file=%2Fsrc%2FApp.tsx%3A11%2C1).
 
-What we've made here is a super simple modern javascript method for showing and hiding nav elements based on scroll. You can even get more creative with the animation method by adding more properties to the variants object.
+We've created a straightforward, React and TypeScript method to show and hide navigation elements based on scrolling. You can enhance the animation by adding more properties to the variants object.
 
-<iframe src="https://codesandbox.io/embed/framer-motion-nav-show-hide-article-version-omnnd?autoresize=1&fontsize=12&module=%2Fsrc%2Fnav.js&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="Framer Motion Nav Show Hide (Article Version)"
+<iframe src="https://codesandbox.io/embed/5j7gc9?view=preview&module=%2Fsrc%2FApp.tsx"
+     style="width:100%; height: 800px; border-radius: 4px; overflow:hidden;"
+     title="Framer Motion Nav Show Hide (2024 Updated Version)"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
