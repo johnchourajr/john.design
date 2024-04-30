@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-
-// hook to get page height
+import { useEffect, useState } from 'react';
 
 export function usePageHeight() {
-  const isClient = typeof window === "object";
+  const isClient = typeof window === 'object';
 
   function getSize() {
     return {
@@ -18,9 +16,9 @@ export function usePageHeight() {
       setPageHeight(getSize());
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return pageHeight;
 }

@@ -2,24 +2,18 @@ import InlineLink from '@/components/fragments/InlineLink';
 import { PostBody } from '@/components/journal/PostBody';
 import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
 import { formatDate } from '@/lib/utils/formatDate';
+import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
 import Image from 'next/image';
 
 const PostPage = ({
   post: {
-    htmlContent,
     markdown,
     frontmatter: { title, date, ...frontmatter },
-    ...post
   },
-}: any) => {
-  // console.log({
-  //   title,
-  //   date,
-  //   frontmatter,
-  //   post,
-  // });
-
+}: {
+  post: PostData;
+}) => {
   return (
     <article className="p-4">
       <InlineLink href="/journal" className="no-underline">

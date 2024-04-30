@@ -38,7 +38,7 @@ export const useDrawing = () => {
 };
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
-  const { pathname } = useRouter();
+  const { pathname, events } = useRouter();
   const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -178,8 +178,8 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const handleResize = () => {
       if (isClient) {
-        const width = document.documentElement.clientWidth;
-        const height = document.documentElement.scrollHeight;
+        const width = window.innerWidth;
+        const height = document.body.scrollHeight;
 
         setDocSize({ width, height });
       }
@@ -187,11 +187,11 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('scrollend', handleResize);
+    events.on('routeChangeComplete', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleResize);
+      events.off('routeChangeComplete', handleResize);
     };
   }, [isClient]);
 

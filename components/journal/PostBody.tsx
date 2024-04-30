@@ -39,6 +39,7 @@ const components: Partial<Components> = {
       <Image
         src={src || ''}
         alt={alt || ''}
+        sizes="(max-width: 640px) 100vw, 640px"
         className={styles.postImage}
         width={1200}
         height={1200}
