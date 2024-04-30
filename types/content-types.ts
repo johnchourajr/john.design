@@ -38,7 +38,7 @@ export type PostData = {
   frontmatter: PostFrontMatter;
   wordCount: number;
   timeToRead: number;
-  htmlContent: string;
+  markdown: string;
 };
 
 export type PostSlug = string;

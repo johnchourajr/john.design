@@ -2,17 +2,9 @@ import LinkGridItem from '@/components/fragments/LinkGridItem';
 import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { getAllPosts } from '@/lib/pages/posts';
+import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
-
-//format date to mm dd yyyy
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
 
 type JournalPageProps = {
   posts: PostData[];

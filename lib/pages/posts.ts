@@ -1,7 +1,6 @@
 import { PostData, PostSlug } from '@/types/content-types';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { marked } from 'marked';
 import { join } from 'path';
 
 const postsDirectory = join(process.cwd(), 'data', 'posts');
@@ -14,7 +13,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
   const realSlug = slug.replace(/\.md$/, '');
   const fullPath = join(postsDirectory, `${realSlug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
+  const { data, content: markdown } = matter(fileContents);
 
   const {
     title = 'Default Title',
@@ -26,8 +25,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
     tags = [],
   } = data;
 
-  const htmlContent = marked(content, { breaks: true }) as string;
-  const wordCount = content.split(/\s+/).length;
+  const wordCount = markdown.split(/\s+/).length;
   const timeToRead = Math.ceil(wordCount / 200);
 
   return {
@@ -43,7 +41,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
     },
     wordCount,
     timeToRead,
-    htmlContent,
+    markdown,
   };
 }
 

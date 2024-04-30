@@ -12,7 +12,7 @@ const RSSFeedStyle = () => (
 );
 
 export default function RSSFeed({ feed, items }: any) {
-  console.log(items);
+  // console.log(items);
 
   return (
     <>

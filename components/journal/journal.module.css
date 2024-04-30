@@ -12,11 +12,15 @@
 .postBody h1,
 .postBody h2,
 .postBody h3 {
-  @apply headline-display-xs !leading-6;
+  @apply headline-display-xs !leading-6 max-w-[35em];
 }
 
 .postBody p {
   @apply text-paragraph mb-4 max-w-[28em] !leading-8;
+}
+
+.postBody p a {
+  @apply underline underline-offset-2 decoration-1;
 }
 
 .postBody p code {
@@ -28,7 +32,7 @@
 }
 
 .postBody pre {
-  @apply col-start-1 col-span-full md:col-span-2 overflow-scroll font-mono text-[.85rem] rounded mb-4 border-root border-[0.5px] mt-2 p-10;
+  @apply col-start-1 col-span-full md:col-span-2 overflow-scroll font-mono text-[.85rem] rounded mb-4 border-root border-[0.5px] h-fit mt-2;
 }
 
 .postBody pre {
@@ -43,38 +47,46 @@
   @apply col-start-1 col-span-full md:col-span-2 pl-3 border-l-[.5px] border-l-root;
 }
 
-.postBody img {
+.postBody .postImage {
   @apply overflow-hidden rounded border-[0.5px] border-[#ffffff30];
 }
 
-.postBody img,
 .postBody iframe {
-  @apply col-start-1 col-span-full mb-4 w-fit max-w-full select-none;
+  @apply col-start-1 col-span-full md:col-span-2 mb-4 max-w-full select-none !border-root !border-[0.5px];
 }
 
-.postBody img[alt='aside'] {
-  @apply col-span-2 col-start-auto;
-}
-
-.postBody img[alt='sm'],
-.postBody img[alt='md'],
-.postBody img[alt='lg'] {
-  @apply my-10;
-}
-
-.postBody img[alt='xs'] {
-  @apply col-start-1 col-span-2;
-}
-
-.postBody img[alt='xs'] {
+.postBody iframe {
   max-width: calc(100% - 1rem);
 }
 
-.postBody img[alt='sm'] {
+.postImage {
+  @apply col-start-1 col-span-full mb-4 max-w-full select-none;
+}
+
+.postImage[alt='aside'] {
+  @apply col-span-2 col-start-auto;
+}
+
+.postImage[alt='sm'],
+.postImage[alt='md'],
+.postImage[alt='lg'] {
+  @apply my-10;
+}
+
+.postImage[alt='xs'] {
+  @apply col-start-1 col-span-2;
+}
+
+.postImage[alt='xs'],
+.postImage[alt='aside'] {
+  max-width: calc(100% - 1rem);
+}
+
+.postImage[alt='sm'] {
   @apply col-start-1 col-span-3;
 }
 
-.postBody img[alt='md'],
-.postBody img[alt='lg'] {
+.postImage[alt='md'],
+.postImage[alt='lg'] {
   @apply col-start-1 col-span-4;
 }
