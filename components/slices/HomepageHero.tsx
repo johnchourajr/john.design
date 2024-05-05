@@ -56,7 +56,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
   return (
     <div
       className={clsx(
-        'inline-flex items-center flex-col gap-6 justify-center w-full relative z-[100] mb-[8vw]',
+        'inline-flex items-center flex-col p-4 gap-6 justify-center w-full relative z-[100] mb-[8vw]',
         'relative z-10',
         enableDrawing && 'select-none',
       )}
@@ -123,7 +123,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     <>
       <section
         id="hero"
-        className="relative flex flex-col items-center z-10 min-h-[100vh]"
+        className="relative flex flex-col items-center z-10 min-h-[100vh] overflow-hidden"
       >
         <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw]">
           <JustifiedHeadlineInner
@@ -137,7 +137,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
         </div>
         <div
           className={clsx(
-            'flex items-start flex-col gap-6 justify-center relative z-[100] mb-[8vw]',
+            'flex items-start flex-col gap-6 p-4 justify-center relative z-[100] mb-[8vw]',
             enableDrawing && 'select-none',
           )}
         >
