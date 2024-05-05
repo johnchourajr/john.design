@@ -36,7 +36,7 @@ export function NavLeft() {
           className={clsx(
             'text-string relative',
             'z-50 pointer-events-none',
-            'md:inline-flex hidden',
+            'inline-flex ',
             'no-underline',
           )}
         >

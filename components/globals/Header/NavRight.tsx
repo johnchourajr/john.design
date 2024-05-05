@@ -13,7 +13,7 @@ export function NavRight() {
   const timeRest = time.split(':')[1];
 
   return (
-    <div className="inline-flex row gap-6 items-center h-5">
+    <div className="hidden lg:inline-flex row gap-6 items-center h-5">
       <NavDrawingControls />
       {!toggleColorActive && (
         <RenderColorWheel
