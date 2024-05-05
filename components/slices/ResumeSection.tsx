@@ -115,7 +115,7 @@ function ResumeItem({ item, index }: any) {
 export function ResumeSection({ title, resumeList }: ResumeSectionProps) {
   return (
     <>
-      <section className="my-[6vw] px-6 grid auto-rows-fr items-start">
+      <section className="my-[6vw] px-6 grid auto-rows-fr items-start overflow-x-hidden">
         {title && <h2>{title}</h2>}
         {resumeList.map((item, index) => {
           return <ResumeItem key={index} item={item} index={index} />;

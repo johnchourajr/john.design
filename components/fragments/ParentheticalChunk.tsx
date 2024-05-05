@@ -27,7 +27,7 @@ export function ParentheticalChunk({ text }: any) {
         <span
           className={clsx(
             'text-body',
-            'inline-flex text-center whitespace-pre-wrap max-w-[25em]',
+            'inline-flex text-center whitespace-pre-wrap max-w-[20em] md:max-w-[25em]',
           )}
         >
           {text}

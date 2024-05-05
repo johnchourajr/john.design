@@ -41,7 +41,7 @@ export default function FreehandCanvas({ className }: { className?: string }) {
   return (
     <svg
       className={clsx(
-        'absolute inset-0 w-full h-full z-50',
+        'absolute inset-0 w-full h-full z-50 max-w-[100vw] ',
         'pointer-events-none',
         className,
       )}
