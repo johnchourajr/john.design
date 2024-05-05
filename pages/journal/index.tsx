@@ -13,7 +13,7 @@ type JournalPageProps = {
 export default function JournalPage({ posts }: JournalPageProps) {
   return (
     <>
-      <section className="my-[4vw]">
+      <section className="my-[4vw] max-w-[100vw] overflow-hidden">
         <JustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[

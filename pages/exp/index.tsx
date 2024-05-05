@@ -7,7 +7,7 @@ import clsx from 'clsx';
 export default function ExpPage({ data }: { data: typeof expData }) {
   return (
     <>
-      <section className="my-[4vw]">
+      <section className="my-[4vw] max-w-[100vw] overflow-hidden">
         <JustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
