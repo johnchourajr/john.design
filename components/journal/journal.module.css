@@ -6,7 +6,7 @@
 .postBody h1,
 .postBody h2,
 .postBody h3 {
-  @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 pr-4 text-paragraph mb-4 self-end text-pretty;
+  @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 md:pr-4 text-paragraph mb-4 self-end text-pretty;
 }
 
 .postBody h1,
@@ -35,8 +35,10 @@
   @apply col-start-1 col-span-full md:col-span-2 overflow-scroll font-mono text-[.85rem] rounded mb-4 border-root border-[0.5px] h-fit mt-2;
 }
 
-.postBody pre {
-  max-width: calc(100% - 1rem);
+@media (min-width: 768px) {
+  .postBody pre {
+    max-width: calc(100% - 1rem);
+  }
 }
 
 .postBody hr {
@@ -55,8 +57,10 @@
   @apply col-start-1 col-span-full md:col-span-2 mb-4 max-w-full select-none !border-root !border-[0.5px];
 }
 
-.postBody iframe {
-  max-width: calc(100% - 1rem);
+@media (min-width: 768px) {
+  .postBody iframe {
+    max-width: calc(100% - 1rem);
+  }
 }
 
 .postImage {
@@ -77,9 +81,11 @@
   @apply col-start-1 col-span-2;
 }
 
-.postImage[alt='xs'],
-.postImage[alt='aside'] {
-  max-width: calc(100% - 1rem);
+@media (min-width: 768px) {
+  .postImage[alt='xs'],
+  .postImage[alt='aside'] {
+    max-width: calc(100% - 1rem);
+  }
 }
 
 .postImage[alt='sm'] {
