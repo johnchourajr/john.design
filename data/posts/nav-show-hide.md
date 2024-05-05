@@ -1,7 +1,7 @@
 ---
 template: "post"
 slug: "/journal/nav-show-hide"
-date: "2021-02-18"
+date: "2024-5-1"
 title: Make a Nav Show and Hide On Scroll
 cover: /journal/images/nav-cover.svg
 thumb: /journal/images/nav-cover.svg

@@ -35,7 +35,7 @@ const PostPage = ({
             alt=""
             width={1200}
             height={600}
-            className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+            className="w-full  overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
           />
         </div>
       )}
