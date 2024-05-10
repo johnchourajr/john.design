@@ -14,7 +14,7 @@ export default function Footer() {
       )}
     >
       <p className="text-body text-left indent-[6em] group max-w-[50em] cursor-help z-50 relative pointer-events-none">
-        John Choura is working on the inernet to rebuild his home on the ...
+        John Choura is working on the internet to rebuild his home on the ...
         internet. In other words, this site is being built in the open. Follow
         along by subscribing.
       </p>
