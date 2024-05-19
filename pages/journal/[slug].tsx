@@ -9,7 +9,7 @@ import Image from 'next/image';
 const PostPage = ({
   post: {
     markdown,
-    frontmatter: { title, date, ...frontmatter },
+    frontmatter: { title, date, author, cover, videoCover },
   },
 }: {
   post: PostData;
@@ -28,20 +28,35 @@ const PostPage = ({
       >
         {title}
       </h1>
-      {frontmatter.cover && (
+      {videoCover ? (
         <div className="w-full my-6">
-          <Image
-            src={frontmatter.cover}
-            alt=""
-            width={1200}
-            height={600}
-            className="w-full  overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+          <video
+            src={videoCover}
+            controls={false}
+            muted={true}
+            autoPlay={true}
+            playsInline={true}
+            loop={true}
+            className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
           />
         </div>
+      ) : (
+        (cover && (
+          <div className="w-full my-6">
+            <Image
+              src={cover}
+              alt=""
+              width={1200}
+              height={600}
+              className="w-full  overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+            />
+          </div>
+        )) ||
+        null
       )}
       <div className="mb-10">
         <p className="text-pretty text-body">
-          Published {formatDate(date)} by {frontmatter.author || 'John Choura'}
+          Published {formatDate(date)} by {author || 'John Choura'}
         </p>
       </div>
       <PostBody markdown={markdown} />
