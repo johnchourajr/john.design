@@ -41,7 +41,7 @@ export default function Footer() {
 
       <div className="z-50 flex flex-row fixed bottom-4 right-4 font-bold pointer-events-none">
         <InlineLink
-          href={`https://github.com/johnchourajr/john.design/tree/new-new/pages${
+          href={`https://github.com/johnchourajr/john.design/tree/main/pages${
             pathname === '/' ? '/index' : pathname
           }.tsx`}
           target="_blank"
