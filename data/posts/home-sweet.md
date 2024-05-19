@@ -7,7 +7,6 @@ cover: /journal/images/home-yard-sq.jpg
 thumb: /journal/images/home-yard-sq.jpg
 tags:
   - Life
-  - Home
 ---
 
 # Last year my wife Alex and I did some work to our house. I love it some much that I just want to brag about it. 😀

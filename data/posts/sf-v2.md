@@ -7,7 +7,7 @@ cover: /journal/images/20160506-sf-11.jpg
 thumb: /journal/images/20160506-sf-11.jpg
 tags:
   - Life
-  - Travel
+  - Photography
 ---
 
 ## Once again, my wife and I took ourselves on a little trip to San Francisco for our anniversary in April. The last time we went to SF was two years ago for our two-year anniversary.

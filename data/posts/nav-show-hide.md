@@ -6,6 +6,8 @@ title: Make a Nav Show and Hide On Scroll
 cover: /journal/images/nav-cover.svg
 videoCover: /journal/video/nav-cover.mp4
 thumb: /journal/images/nav-cover.svg
+tags:
+  - Dev
 ---
 
 > Note: This is an update to an article written in 2021. This new update is written in `TypeScript` and on the latest version of `framer-motion` (v11.0.14). Enjoy.

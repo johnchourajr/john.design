@@ -6,9 +6,7 @@ title: Meet Elle
 cover: /journal/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
 thumb: /journal/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
 tags:
-  - life
-  - personal
-  - baby
+  - Life
 ---
 
 Just a little itty-itty announcement, my wife Alex and I have started on the most amazing project of our lives by welcoming our little daughter Elle (pronounced "L") Joy Choura into the world.

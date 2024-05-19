@@ -11,7 +11,7 @@ refer: |-
   2 [Siteleaf](http://siteleaf.com) is the Content Management System I built this site with.
 tags:
   - Life
-  - Work
+  - Design
 ---
 
 Let's take time to make some introductions.

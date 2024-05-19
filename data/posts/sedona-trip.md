@@ -7,7 +7,7 @@ cover: /journal/images/Sedona-New-sm-1.jpg
 thumb: /journal/images/Sedona-New-sm-1.jpg
 tags:
   - Life
-  - Photos
+  - Photography
 ---
 
 ## My wife and I took a little vacation to Sedona, AZ, and here are some of our favorite photos from the trip. Enjoy.

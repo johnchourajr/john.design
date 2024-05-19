@@ -6,6 +6,9 @@ title: Staying in Motion
 cover: /journal/images/06-new-poster-1.jpg
 thumb: /journal/images/06-new-poster-1.jpg
 refer: Illustration by John Choura Jr.
+tags:
+  - Design
+  - Musings
 ---
 
 Around this time of year, I take the time to examine myself. Look in the mirror and ask the hard questions. I originally did this for the first time just over a year ago, and the exercise led me to the position I am in now.
