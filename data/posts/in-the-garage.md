@@ -6,8 +6,8 @@ title: In The Garage
 cover: /journal/images/inthegarage-2.gif
 thumb: /journal/images/inthegarage-2.gif
 tags:
-  - art
-  - life
+  - Art
+  - Life
 ---
 
 ## Let's get real.

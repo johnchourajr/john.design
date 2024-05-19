@@ -1,19 +1,24 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { PageItem } from '../../types/content-types';
+import { TagsList } from './TagsList';
 
-export type JournalGridItemProps = PageItem;
+export type JournalGridItemProps = {
+  tags?: string[];
+} & PageItem;
 
 export default function JournalGridItem({
   href,
   className,
   title,
   description,
+  tags,
 }: JournalGridItemProps) {
-  const Tag = href ? Link : ('div' as any);
-
   return (
-    <Link href={href || ''} className={clsx('group col-span-2', className)}>
+    <Link
+      href={href || ''}
+      className={clsx('group col-span-2 mb-10', className)}
+    >
       <p
         className={clsx(
           'group flex gap-1',
@@ -25,7 +30,8 @@ export default function JournalGridItem({
           {title}
         </span>{' '}
       </p>
-      <p className={clsx('headline-display-xs mt-3')}>{description}</p>
+      <p className={clsx('headline-display-xs mt-3 mb-4')}>{description}</p>
+      {tags && <TagsList tags={tags} size="md" />}
     </Link>
   );
 }

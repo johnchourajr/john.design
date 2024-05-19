@@ -8,8 +8,7 @@ thumb: /journal/images/design-leadership-cover.jpg
 foreground: "#E0E0E0"
 background: "#111111"
 tags:
-  - design leadership
-  - life
+  - Career
 ---
 
 ## As my time was ending at Happy Money, where I spent the last five years of my career, I began reflecting on the lessons I learned as a first time design leader.

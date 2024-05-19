@@ -6,7 +6,7 @@ title: User Interface Hierarchy
 cover: /journal/images/hierarchy-1.png
 thumb: /journal/images/hierarchy-1.png
 tags:
-  - work
+  - Design
 ---
 
 ### How ordering information hierarchy can make or break an interface experience

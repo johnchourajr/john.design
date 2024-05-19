@@ -23,7 +23,7 @@ refer: |-
   7 [Four Barrel Coffee](http://fourbarrelcoffee.com/)
 tags:
   - Life
-  - Travel
+  - Photography
 ---
 
 My wife and I, on a whim, decided to celebrate our 2nd year of marriage in San Francisco, CA. Our plan was to fly in, walk the city, eat some food, see some sights, and drink a lot of delicious coffee (the coffee part was my personal plan). So I decided to write this, to detail a few of the highlights, and recommend our favorite moments from our time in the city. It's a short story of love, adventure and very-very sore feet.

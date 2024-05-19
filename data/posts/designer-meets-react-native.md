@@ -6,7 +6,7 @@ title: Designer Meets React Native
 cover: /journal/images/01-joy-rn.jpg
 thumb: /journal/images/01-joy-rn.jpg
 tags:
-  - work
+  - Dev
 ---
 
 ### 4 Lessons Learned Building Joy with React Native
