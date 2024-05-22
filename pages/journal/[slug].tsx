@@ -4,6 +4,7 @@ import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
+import Image from 'next/image';
 
 const PostPage = ({
   post: {
@@ -44,7 +45,7 @@ const PostPage = ({
       ) : (
         (cover && (
           <div className="w-full my-6">
-            <img
+            <Image
               src={cover}
               alt=""
               width={1200}
