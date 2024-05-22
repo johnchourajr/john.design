@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^13.0.3",
     "@react-three/drei": "^9.46.1",
     "@react-three/fiber": "^8.9.1",
     "@react-three/postprocessing": "^2.7.0",
@@ -23,12 +22,12 @@
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "feed": "^4.2.2",
-    "framer-motion": "^11.1.7",
-    "framer-motion-3d": "^11.1.7",
+    "framer-motion": "^11.2.5",
+    "framer-motion-3d": "^11.2.5",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "html-react-parser": "^3.0.4",
-    "next": "13.0.2",
+    "next": "^14.2.3",
     "perfect-freehand": "^1.2.0",
     "postprocessing": "^6.29.1",
     "r3f-perf": "^6.6.0",
