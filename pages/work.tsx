@@ -1,5 +1,5 @@
 import LinkGridItem from '@/components/fragments/LinkGridItem';
-import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import clsx from 'clsx';
 import { workContent } from '../data/workContent';
@@ -14,7 +14,7 @@ export default function WorkPage({
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <JustifiedHeadlineInner
+        <DynamicJustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
             {
@@ -25,7 +25,7 @@ export default function WorkPage({
           iterations={8}
           letters={true}
         />
-        <JustifiedHeadlineInner
+        <DynamicJustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
             {

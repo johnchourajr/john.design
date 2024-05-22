@@ -1,6 +1,6 @@
 import JournalArchiveGridItem from '@/components/fragments/JournalArchiveGridItem';
 import JournalGridItem from '@/components/fragments/JournalGridItem';
-import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { getAllPosts } from '@/lib/pages/posts';
 import { formatDate } from '@/lib/utils/formatDate';
@@ -22,7 +22,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <JustifiedHeadlineInner
+        <DynamicJustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
             {

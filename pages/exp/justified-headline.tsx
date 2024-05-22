@@ -1,6 +1,6 @@
 import { SettingsGroup } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
-import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import React from 'react';
 
@@ -53,7 +53,7 @@ export default function JustifiedHeadline() {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      <JustifiedHeadlineInner
+      <DynamicJustifiedHeadlineInner
         settings={settings}
         headline={headlineData}
         iterations={8}

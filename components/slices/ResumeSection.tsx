@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 
 import { SvgGoDaddy } from '@/components/svg/SvgGoDaddy';
 import { SvgHappyMoney } from '@/components/svg/SvgHappyMoney';
@@ -8,6 +8,7 @@ import { SvgRetool } from '@/components/svg/SvgRetool';
 import { HomePageData } from '@/data/homepageContent';
 import { WrapLetterWords, WrapWords } from '@/lib/utils/wrapInSpans';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type SVGProps } from 'react';
 export type ResumeSectionProps = HomePageData['resumeSection'];
@@ -57,10 +58,6 @@ function ResumeItem({ item, index }: any) {
     const randomIndex = Math.floor(Math.random() * positions.length);
     return positions[randomIndex];
   };
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    console.log(latest);
-  });
 
   return (
     <motion.div
@@ -112,13 +109,17 @@ function ResumeItem({ item, index }: any) {
   );
 }
 
+const DynamicResumeItem = dynamic(() => Promise.resolve(ResumeItem), {
+  ssr: false,
+});
+
 export function ResumeSection({ title, resumeList }: ResumeSectionProps) {
   return (
     <>
       <section className="my-[6vw] px-6 grid auto-rows-fr items-start overflow-x-hidden">
         {title && <h2>{title}</h2>}
         {resumeList.map((item, index) => {
-          return <ResumeItem key={index} item={item} index={index} />;
+          return <DynamicResumeItem key={index} item={item} index={index} />;
         })}
       </section>
     </>
