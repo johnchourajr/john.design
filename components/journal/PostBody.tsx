@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import Image from 'next/image';
 import { Children, ReactElement, isValidElement } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -36,7 +35,7 @@ const components: Partial<Components> = {
   },
   img({ src, alt }) {
     return (
-      <Image
+      <img
         src={src || ''}
         alt={alt || ''}
         sizes="(max-width: 640px) 100vw, 640px"

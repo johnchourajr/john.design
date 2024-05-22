@@ -4,7 +4,6 @@ import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
-import Image from 'next/image';
 
 const PostPage = ({
   post: {
@@ -14,6 +13,8 @@ const PostPage = ({
 }: {
   post: PostData;
 }) => {
+  console.log(cover);
+
   return (
     <article className="p-4">
       <InlineLink href="/journal" className="no-underline">
@@ -43,12 +44,12 @@ const PostPage = ({
       ) : (
         (cover && (
           <div className="w-full my-6">
-            <Image
+            <img
               src={cover}
               alt=""
               width={1200}
               height={600}
-              className="w-full  overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+              className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
             />
           </div>
         )) ||
