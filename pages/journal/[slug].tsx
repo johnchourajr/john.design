@@ -50,6 +50,7 @@ const PostPage = ({
               alt=""
               width={1200}
               height={600}
+              sizes="(max-width: 640px) 100vw, 640px"
               className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
             />
           </div>
