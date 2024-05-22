@@ -1,10 +1,10 @@
 ---
 template: "post"
-slug: "/journal/staying-in-motion"
+slug: "/journal-images/staying-in-motion"
 date: "2015-06-02"
 title: Staying in Motion
-cover: /journal/images/06-new-poster-1.jpg
-thumb: /journal/images/06-new-poster-1.jpg
+cover: /journal-images/images/06-new-poster-1.jpg
+thumb: /journal-images/images/06-new-poster-1.jpg
 refer: Illustration by John Choura Jr.
 tags:
   - Design
@@ -23,4 +23,4 @@ I've noticed that there is an unsettling feeling within a designer, with regard 
 
 Everything we create starts with a thought in our mind. Designing is our conduit for making those thoughts a reality. I, as well as many other designers I know, understand that the only way we can express ourselves is to create and create well. Sometimes we make things and put it out in the world, but deep down we know that it's not exactly the image we had in our minds. So we press on, eager to create better what we see behind our eyes.
 
-![lg](/journal/images/06-new-poster-art-01.jpg)
+![lg](/journal-images/images/06-new-poster-art-01.jpg)

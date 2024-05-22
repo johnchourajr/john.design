@@ -1,10 +1,10 @@
 ---
 template: "post"
-slug: "/journal/designer-meets-react-native"
+slug: "/journal-images/designer-meets-react-native"
 date: "2018-09-28"
 title: Designer Meets React Native
-cover: /journal/images/01-joy-rn.jpg
-thumb: /journal/images/01-joy-rn.jpg
+cover: /journal-images/images/01-joy-rn.jpg
+thumb: /journal-images/images/01-joy-rn.jpg
 tags:
   - Dev
 ---
@@ -17,11 +17,11 @@ It’s been a year since our mobile app Joy was publicly launched, and it has me
 
 This comes as no surprise to those familiar with React and React Native (and really, the web for the past few years), but as designers are increasingly fixated with building better and more efficient design systems, componentized code just makes everything amazing. I believe what designers are aiming for when making design systems in static form, is fully actualized and realized with componentized code.
 
-![sm](/journal/images/01-joy-rn-2.jpg)
+![sm](/journal-images/images/01-joy-rn-2.jpg)
 
 Extensible to no-end, thinking in components is a productive mindset for a product designer. Take, for example, a simple button. A button isn’t so simple, because in any app, a button changes based on context with what’s happening on that particular screen, so instead of building 14 buttons, we build 1 component with a whole bunch of options (as “props”).
 
-![xs](/journal/images/01-joy-rn-3.jpg)
+![xs](/journal-images/images/01-joy-rn-3.jpg)
 
 When adding and removing props, which function as a basic true/false statements, there are styles within the component that are selected/unselected. Choosing an option like isInverse will invert the colors on the button, or isDisabled will dim the button and disable it’s onPress function.
 
@@ -35,7 +35,7 @@ Before React Native, my work was web development exclusive, so I understood mark
 
 Without getting to explain-y and probably getting some of the technical parts wrong; simply put, CSS-in-JS is what it exactly sounds like. The React Native team and community translated almost all of the CSS properties (font-size, transform, z-index, position, flex-grow, etc.) into JavaScript (fontSize, transform, zIndex, position, flexGrow, etc.). The largest difference being that the property names conform to camel case, and the syntax structure conforms to JSON. If you’re curious at the details of what they did watch this video, it’s a great explainer.
 
-![xs](/journal/images/01-joy-rn-4.jpg)
+![xs](/journal-images/images/01-joy-rn-4.jpg)
 
 You get to leverage the full power of Flexbox for all layout purposes, which I wasn’t super good at going into the project, but now I’m well versed.
 
@@ -49,13 +49,13 @@ This one is less React Native specific, but it’s a lesson I learned none-the-l
 
 When building for Joy, I would often be designing and writing product requirements in tandem. Often those requirements involved some data structuring decisions. For example, if I was working on an array of transactions, I don’t want to hard-code those individual transactions. Additionally, I also have to define the data structure for how transactions would return. So I rolled up my sleeves and just wrote the data structure myself.
 
-![lg](/journal/images/01-joy-rn-5.jpg)
+![lg](/journal-images/images/01-joy-rn-5.jpg)
 
 I looped through that array of transaction objects in my JSX code, and voila! it rendered as my array.
 
 The basics (engineers skip this part) are that there are objects and arrays. Objects are wrapped in curly brackets{} and arrays are wrapped in square brackets [].
 
-![xs](/journal/gif/01-joy-rn-6.jpg)
+![xs](/journal-images/gif/01-joy-rn-6.jpg)
 
 It’s important for designers to start thinking this way, because it can bridge the gap between designers and engineers when there is sample data to talk through. Knowing the difference between strings, bools, and functions respective to a JSON table is also important. Read up designers.
 
@@ -67,7 +67,7 @@ So, admittedly if it were not for Jason, his Egghead tutorials, his website, the
 
 Here are a few things I built using React Native’s Animated libraries.
 
-![lg](/journal/gif/01-joy-rn.gif)
+![lg](/journal-images/gif/01-joy-rn.gif)
 
 ## Wrapping it up
 

@@ -1,10 +1,10 @@
 ---
 template: "journal-post-godaddy"
-slug: "/journal/godaddy"
+slug: "/journal-images/godaddy"
 date: "2020-09-01"
 title: "Hello GoDaddy"
-cover: /journal/images/godaddy_meta_cover.gif
-thumb: /journal/images/godaddy_meta_cover.gif
+cover: /journal-images/images/godaddy_meta_cover.gif
+thumb: /journal-images/images/godaddy_meta_cover.gif
 background: "#E5E7E7"
 tags:
   - design

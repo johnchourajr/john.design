@@ -1,6 +1,6 @@
 ---
 template: 'journal-post-template'
-slug: '/journal/joining-payoff'
+slug: '/journal-images/joining-payoff'
 date: '2015-08-05'
 title: Joining Payoff
 thumbImage: '/' # @todo: thumbnail

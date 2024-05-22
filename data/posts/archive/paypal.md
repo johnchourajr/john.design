@@ -1,10 +1,10 @@
 ---
 template: "post"
-slug: "/journal/paypal"
+slug: "/journal-images/paypal"
 date: "2022-01-04"
 title: "Heyo PayPal"
-cover: "/journal/images/pp-cover.svg"
-thumb: "/journal/images/pp-cover.svg"
+cover: "/journal-images/images/pp-cover.svg"
+thumb: "/journal-images/images/pp-cover.svg"
 tags:
   - design
   - life

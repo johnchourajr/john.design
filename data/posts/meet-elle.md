@@ -1,10 +1,10 @@
 ---
 template: "post"
-slug: "/journal/meet-elle"
+slug: "/journal-images/meet-elle"
 date: "2018-08-17"
 title: Meet Elle
-cover: /journal/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
-thumb: /journal/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
+cover: /journal-images/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
+thumb: /journal-images/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg
 tags:
   - Life
 ---
@@ -15,4 +15,4 @@ She was born on August 1st, 2018 and she's an amazing little chunk of cuteness. 
 
 Fun nerdy Dad fact, her name is a palindrome, and so is her birthday (Elle and 8.1.18). 🤓
 
-![sm](/journal/gif/97a80930-f631-485f-828f-5b48f20d7150-animation.gif)
+![sm](/journal-images/gif/97a80930-f631-485f-828f-5b48f20d7150-animation.gif)
