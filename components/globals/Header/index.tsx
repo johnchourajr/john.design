@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
-import { NavLeft } from './NavLeft';
-import { NavRight } from './NavRight';
+import { DynamicNavLeft } from './NavLeft';
+import { DynamicNavRight } from './NavRight';
 
 export default function Header() {
   return (
@@ -14,8 +14,8 @@ export default function Header() {
           'z-50',
         )}
       >
-        <NavLeft />
-        <NavRight />
+        <DynamicNavLeft />
+        <DynamicNavRight />
       </nav>
     </>
   );
