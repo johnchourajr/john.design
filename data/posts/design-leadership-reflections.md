@@ -1,10 +1,10 @@
 ---
 template: "post"
-slug: "/journal/design-leadership-reflections"
+slug: "/journal-images/design-leadership-reflections"
 date: "2020-09-12"
 title: What I Learned From Two Years as a Design Leader
-cover: /journal/images/design-leadership-cover.jpg
-thumb: /journal/images/design-leadership-cover.jpg
+cover: /journal-images/images/design-leadership-cover.jpg
+thumb: /journal-images/images/design-leadership-cover.jpg
 foreground: "#E0E0E0"
 background: "#111111"
 tags:
@@ -89,4 +89,4 @@ I'm so insanely indebted to everyone who helped make my experience as a leader a
 
 –JC
 
-![lg](/journal/images/design-leadership-cover.jpg)
+![lg](/journal-images/images/design-leadership-cover.jpg)

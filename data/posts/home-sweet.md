@@ -1,10 +1,10 @@
 ---
 template: "post"
-slug: "/journal/home-sweet"
+slug: "/journal-images/home-sweet"
 date: "2018-04-10"
 title: Home Sweet
-cover: /journal/images/home-yard-sq.jpg
-thumb: /journal/images/home-yard-sq.jpg
+cover: /journal-images/images/home-yard-sq.jpg
+thumb: /journal-images/images/home-yard-sq.jpg
 tags:
   - Life
 ---
@@ -17,13 +17,13 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 
 ### We Started From This
 
-![lg](/journal/images/home-before.jpg)
+![lg](/journal-images/images/home-before.jpg)
 
 # 💻
 
 ### Rendered Some Plans with SketchUps
 
-![lg](/journal/gif/home-vid.gif)
+![lg](/journal-images/gif/home-vid.gif)
 
 # 💪
 
@@ -31,25 +31,25 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 
 After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, we worked hard to make our dream home a reality.
 
-![xs](/journal/gif/home-timelapse.gif)
-![aside](/journal/gif/home-timelapse-02.gif)
+![xs](/journal-images/gif/home-timelapse.gif)
+![aside](/journal-images/gif/home-timelapse-02.gif)
 
 # 😍
 
 ### And Ended With This
 
-![lg](/journal/images/home-yard-sq.jpg)
+![lg](/journal-images/images/home-yard-sq.jpg)
 
 200 addition square feet to the house by adding on a bathroom to the master bedroom. Our outdoor living space is equipped with an outdoor fire pit, built-in bbq countertop with mini fridge, and an above ground jacuzzi. To create our newly hardscaped space we poured 2 truck loads of new concrete, laid down new sod grass, and did custom landscaping with new display rocks and succulent plants.
 
-![sm](/journal/images/home-full.jpg)
-![lg](/journal/images/home-deck.jpg)
-![lg](/journal/images/home-firepit.jpg)
+![sm](/journal-images/images/home-full.jpg)
+![lg](/journal-images/images/home-deck.jpg)
+![lg](/journal-images/images/home-firepit.jpg)
 
-![xs](/journal/images/home-kitty.jpg)
-![aside](/journal/images/home-puppy.jpg)
+![xs](/journal-images/images/home-kitty.jpg)
+![aside](/journal-images/images/home-puppy.jpg)
 
-![sm](/journal/images/home-chairs.jpg)
+![sm](/journal-images/images/home-chairs.jpg)
 
 Doing work on our home was one of the most fun challenges that we've experienced as home owners. The process is stressful and exciting, coordinating and project managing contract workers. In the end it all pays off, and we get to enjoy the fruit of our labors.
 
