@@ -1,5 +1,5 @@
 import LinkGridItem from '@/components/fragments/LinkGridItem';
-import { JustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { expData } from '@/data/expContent';
 import clsx from 'clsx';
@@ -8,7 +8,7 @@ export default function ExpPage({ data }: { data: typeof expData }) {
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <JustifiedHeadlineInner
+        <DynamicJustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
             {

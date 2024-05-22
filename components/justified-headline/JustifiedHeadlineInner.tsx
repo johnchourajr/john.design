@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useReducedMotion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { getSettingValue } from '../experimental/SettingsComponents';
 import { TextContainer } from './TextContainer';
@@ -55,3 +56,10 @@ export function JustifiedHeadlineInner({
     </p>
   );
 }
+
+export const DynamicJustifiedHeadlineInner = dynamic(
+  () => Promise.resolve(JustifiedHeadlineInner),
+  {
+    ssr: false,
+  },
+);

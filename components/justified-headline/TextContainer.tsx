@@ -2,6 +2,7 @@ import clsx from 'clsx';
 
 import { slugify } from '@/utils/slugify';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { addStrongTags } from './utils';
 
 export const TextContainer = ({
@@ -66,3 +67,10 @@ export const TextContainer = ({
     </span>
   );
 };
+
+export const DynamicTextContainer = dynamic(
+  () => Promise.resolve(TextContainer),
+  {
+    ssr: false,
+  },
+);

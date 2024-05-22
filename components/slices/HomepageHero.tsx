@@ -30,7 +30,7 @@ const ParentheticalChunk = dynamic(
 );
 
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
-import { JustifiedHeadlineInner } from '../justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '../justified-headline/JustifiedHeadlineInner';
 
 import { useDrawing } from '@/context/DrawingContext';
 import type { HomePageData } from '@/data/homepageContent';
@@ -82,6 +82,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
 
             return typeof item === 'string' ? (
               <motion.span
+                key={index}
                 style={{
                   opacity,
                 }}
@@ -102,6 +103,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
               </motion.span>
             ) : (
               <motion.span
+                key={index}
                 style={{
                   opacity,
                 }}
@@ -126,7 +128,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
         className="relative flex flex-col items-center z-10 min-h-[100vh] overflow-hidden"
       >
         <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw]">
-          <JustifiedHeadlineInner
+          <DynamicJustifiedHeadlineInner
             className={clsx(
               'my-[16vw] w-full font-black',
               enableDrawing && 'select-none',
