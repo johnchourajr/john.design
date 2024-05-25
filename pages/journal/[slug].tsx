@@ -14,8 +14,6 @@ const PostPage = ({
 }: {
   post: PostData;
 }) => {
-  console.log(cover);
-
   return (
     <article className="p-4">
       <InlineLink href="/journal" className="no-underline">
