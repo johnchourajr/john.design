@@ -12,7 +12,7 @@
 .postBody h1,
 .postBody h2,
 .postBody h3 {
-  @apply headline-display-xs !leading-6 max-w-[35em];
+  @apply headline-display-xs !leading-6 max-w-[35em] mt-4;
 }
 
 .postBody p {
@@ -32,7 +32,7 @@
 }
 
 .postBody pre {
-  @apply col-start-1 col-span-full md:col-span-2 overflow-scroll font-mono text-[.85rem] rounded mb-4 border-root border-[0.5px] h-fit mt-2;
+  @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 overflow-scroll font-mono text-[.85rem] rounded mb-4 border-root border-[0.5px] h-fit mt-2;
 }
 
 @media (min-width: 768px) {
@@ -78,7 +78,7 @@
 }
 
 .postImage[alt='xs'] {
-  @apply col-start-1 col-span-2;
+  @apply col-start-1 col-span-2 md:col-start-3;
 }
 
 @media (min-width: 768px) {
