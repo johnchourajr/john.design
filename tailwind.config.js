@@ -1,4 +1,11 @@
-const typePlugin = require('./lib/plugins/type-plugin');
+// const typePlugin = require('./lib/plugins/type-plugin');
+const { buenTypeTailwind } = require('@buen/type');
+const { headline, text } = require('./lib/config/type-config-js');
+
+const customDefinitions = {
+  customHeadlines: headline,
+  customTexts: text,
+};
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -50,5 +57,9 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [typePlugin],
+  plugins: [
+    function ({ addUtilities }) {
+      buenTypeTailwind({ addUtilities }, customDefinitions);
+    },
+  ],
 };
