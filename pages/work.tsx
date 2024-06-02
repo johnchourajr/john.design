@@ -38,17 +38,17 @@ export default function WorkPage({
         />
       </section>
       <section className="my-[10vw] px-4">
-        <p className="headline-display-xs">Daylight Work</p>
+        <p className="headline-display-xs">Moonlight Work</p>
         <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
-          {daylightData.list.map((item, i) => (
+          {moonlightData.list.map((item, i) => (
             <LinkGridItem key={i} {...item} />
           ))}
         </div>
       </section>
       <section className="my-[10vw] px-4">
-        <p className="headline-display-xs">Moonlight Work</p>
+        <p className="headline-display-xs">Daylight Work</p>
         <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
-          {moonlightData.list.map((item, i) => (
+          {daylightData.list.map((item, i) => (
             <LinkGridItem key={i} {...item} />
           ))}
         </div>
