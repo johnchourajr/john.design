@@ -6,6 +6,7 @@ import { getAllPosts } from '@/lib/pages/posts';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 type JournalPageProps = {
   posts: PostData[];
@@ -21,7 +22,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
 
   return (
     <>
-      <section className="my-[4vw] max-w-[100vw] overflow-hidden">
+      <motion.section className="my-[4vw] max-w-[100vw] overflow-hidden" layout>
         <DynamicJustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
@@ -33,7 +34,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
           iterations={8}
           letters={true}
         />
-      </section>
+      </motion.section>
 
       <section className="grid grid-cols-1 md:grid-cols-4 gap-8 my-[10vw] px-4">
         <h2 className="text-string col-span-full">The latest</h2>

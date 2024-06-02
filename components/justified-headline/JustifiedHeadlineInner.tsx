@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { getSettingValue } from '../experimental/SettingsComponents';
@@ -29,7 +29,7 @@ export function JustifiedHeadlineInner({
   }, [speed, iterations, reducedMotion]);
 
   return (
-    <p
+    <motion.p
       className={clsx(
         'my-[10vw] w-full font-black pointer-events-none',
         slant && '!font-black-ritalic',
@@ -53,7 +53,7 @@ export function JustifiedHeadlineInner({
           </span>
         );
       })}
-    </p>
+    </motion.p>
   );
 }
 
@@ -61,5 +61,6 @@ export const DynamicJustifiedHeadlineInner = dynamic(
   () => Promise.resolve(JustifiedHeadlineInner),
   {
     ssr: false,
+    loading: () => <div className="h-svh w-svw" />,
   },
 );
