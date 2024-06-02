@@ -1,5 +1,9 @@
 import clsx from 'clsx';
 
+import {
+  basicAnimateParentVariants,
+  basicAnimateVariants,
+} from '@/lib/config/motion-config';
 import { slugify } from '@/utils/slugify';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -16,6 +20,11 @@ export const TextContainer = ({
 
   const motionController = motionObject[motionKey];
 
+  const motionProps = {
+    variants: basicAnimateVariants,
+    layout: true,
+  };
+
   const renderText = () => {
     if (letters) {
       // split each letter in text into its own span
@@ -27,7 +36,7 @@ export const TextContainer = ({
             id={slugify(`${letter} ${index}`)}
             data-word={slugify(`${letter} ${index}`)}
             className={className}
-            layout
+            {...motionProps}
           >
             {addStrongTags(letter)}
           </motion.span>
@@ -42,7 +51,7 @@ export const TextContainer = ({
             id={slugify(`${child} ${index}`)}
             data-word={slugify(`${child} ${index}`)}
             className={className}
-            layout
+            {...motionProps}
           >
             {addStrongTags(child)} {index !== childrenArray.length - 1 && ' '}
           </motion.span>
@@ -60,6 +69,12 @@ export const TextContainer = ({
     >
       <motion.span
         className={clsx('inline-flex whitespace-pre', motionController.child)}
+        variants={basicAnimateParentVariants({
+          staggerChildren: 0.1,
+          delayChildren: 0.3,
+        })}
+        initial="initial"
+        animate="animate"
         layout
       >
         {renderText()}

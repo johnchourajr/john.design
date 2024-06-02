@@ -22,6 +22,7 @@ export type PageItem = {
   title: string;
   description?: string;
   href?: string;
+  externalHref?: string;
   slug?: string;
   className?: string;
   status?: 'NEW' | 'Coming Soon';
