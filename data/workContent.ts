@@ -75,14 +75,14 @@ const moonlightData: PageItem[] = [
     slug: 'buen-type',
     title: 'type.muybuen.dev',
     description: '2024',
-    tags: ['Dev', 'Creator'],
+    tags: ['Dev', 'Open Source'],
     externalHref: 'https://type.muybuen.dev/',
   },
   {
     slug: 'buen-coffee',
     title: 'muybuen.coffee',
     description: '2024',
-    tags: ['Design', 'Dev', 'Creator'],
+    tags: ['Design', 'Dev'],
     externalHref: 'https://muybuen.coffee/',
   },
   {
@@ -138,7 +138,7 @@ const moonlightData: PageItem[] = [
     slug: 'fermensch',
     title: 'Fermensch Kombucha',
     description: '2018',
-    tags: ['Brand Design', 'Client Work'],
+    tags: ['Brand Design'],
     status: 'Coming Soon',
   },
   {
