@@ -6,12 +6,14 @@ export type LinkGridItemProps = PageItem;
 
 export default function LinkGridItem({
   href,
+  externalHref,
   className,
   title,
   description,
   status,
 }: LinkGridItemProps) {
-  const Tag = href ? Link : ('div' as any);
+  const isLink = href || externalHref;
+  const Tag = isLink ? Link : ('div' as any);
 
   const statusClasses = clsx(
     status === 'Coming Soon' &&
@@ -21,8 +23,28 @@ export default function LinkGridItem({
     status === 'Coming Soon' &&
       'group-focus-visible:!bg-root group-focus-visible:opacity-100',
   );
+
+  const itemProps = () => {
+    if (href) {
+      return {
+        href: href || '',
+      };
+    } else if (externalHref) {
+      return {
+        href: externalHref || '',
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      };
+    } else {
+      return {};
+    }
+  };
+
   return (
-    <Tag href={href} className={clsx('group', className)}>
+    <Tag
+      {...itemProps()}
+      className={clsx('group', externalHref && 'cursor-ne-resize', className)}
+    >
       <p className="opacity-60 text-caption"> {status}</p>
       <p
         className={clsx(

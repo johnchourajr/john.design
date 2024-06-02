@@ -34,6 +34,7 @@ import { DynamicJustifiedHeadlineInner } from '../justified-headline/JustifiedHe
 
 import { useDrawing } from '@/context/DrawingContext';
 import type { HomePageData } from '@/data/homepageContent';
+import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import type { SectionStructure } from '@/types/content-types';
 export type HomepageHeroProps = {
   heroSection: HomePageData['heroSection'];
@@ -137,11 +138,16 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             headline={headlineData}
           />
         </div>
-        <div
+        <motion.div
           className={clsx(
             'flex items-start flex-col gap-6 p-4 justify-center relative z-[100] mb-[8vw]',
             enableDrawing && 'select-none',
           )}
+          variants={basicAnimateDelayVariants({
+            delay: 0.5,
+          })}
+          initial="initial"
+          animate="animate"
         >
           {heroSection.typographies.map(({ text, size }, index) => (
             <p key={index} className={size}>
@@ -153,7 +159,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
               <InformationalChunk key={index} text={chunk.text} />
             ))}
           </div>
-        </div>
+        </motion.div>
         <RolesSection rolesSection={rolesSection} />
         <JohnGLCanvas className="h-[150vw] md:h-[100vw]" />
       </section>
@@ -165,5 +171,6 @@ export const DynamicHomepageHero = dynamic(
   () => Promise.resolve(HomepageHero),
   {
     ssr: false,
+    loading: () => <div className="h-svh w-svw" />,
   },
 );

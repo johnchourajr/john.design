@@ -7,6 +7,10 @@ const customDefinitions = {
   customTexts: text,
 };
 
+function typePlugin({ addUtilities }) {
+  buenTypeTailwind({ addUtilities }, customDefinitions);
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -57,9 +61,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [
-    function ({ addUtilities }) {
-      buenTypeTailwind({ addUtilities }, customDefinitions);
-    },
-  ],
+  plugins: [typePlugin],
 };
