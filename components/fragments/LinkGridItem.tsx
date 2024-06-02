@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { PageItem } from '../../types/content-types';
+import { TagsList } from './TagsList';
 
 export type LinkGridItemProps = PageItem;
 
@@ -10,6 +11,7 @@ export default function LinkGridItem({
   className,
   title,
   description,
+  tags,
   status,
 }: LinkGridItemProps) {
   const isLink = href || externalHref;
@@ -59,6 +61,11 @@ export default function LinkGridItem({
         </span>{' '}
         {href && `→`}
       </p>
+      {tags && (
+        <div className="mt-2">
+          <TagsList tags={tags} />
+        </div>
+      )}
       <p className={clsx('text-sm mt-1', statusClasses)}>{description}</p>
     </Tag>
   );
