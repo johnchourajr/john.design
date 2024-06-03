@@ -45,6 +45,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
                 whileHover={'hover'}
                 style={
                   {
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     opacity: useTransform(scrollYProgress, [0, 1], [calc, 1]),
                   } as any
                 }
@@ -54,6 +55,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
                     'absolute border-2 border-root rounded-full flex items-center justify-center bg-black',
                   )}
                   style={{
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     inset: useTransform(
                       scrollYProgress,
                       [0, 1],

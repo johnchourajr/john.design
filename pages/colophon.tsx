@@ -32,14 +32,14 @@ export default function WorkPage({
       <section className="grid grid-cols-1 px-4 md:grid-cols-3 font-mono">
         {summary && (
           <div className="my-[4vw]">
-            <h2 className="mb-6">// summary</h2>
+            <h2 className="mb-6">{'//'} summary</h2>
             <p className="w-[80%] max-w-[24em]">{summary}</p>
           </div>
         )}
         {dependencies && (
           <div>
             <div className="mt-[4vw] ">
-              <h2 className="mb-6">// package.json</h2>
+              <h2 className="mb-6">{'//'} package.json</h2>
               <h3>dependencies: {'{'}</h3>
               <ul className="flex flex-col pl-4 whitespace-pre overflow-scroll">
                 {Object.keys(dependencies).map((item, i) => (
@@ -71,7 +71,9 @@ export default function WorkPage({
         )}
         {fontsCss && (
           <div className="my-[4vw] font-mono">
-            <h2>/* fonts.css */</h2>
+            <h2>
+              {'/*'} fonts.css {'*/'}
+            </h2>
             <pre className="overflow-scroll">{fontsCss}</pre>
           </div>
         )}

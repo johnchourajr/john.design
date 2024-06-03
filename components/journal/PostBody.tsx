@@ -52,6 +52,7 @@ const components: Partial<Components> = {
     return match ? (
       <SyntaxHighlighter
         PreTag="div"
+        // eslint-disable-next-line react/no-children-prop
         children={String(children).replace(/\n$/, '')}
         language={match[1]}
         style={codestyle}

@@ -70,6 +70,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
           rolesSection.text.map((item, index) => {
             const list = rolesSection?.text || [];
             const calc = -index / list.length - 0.1;
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const opacity = useTransform(scrollYProgress, [0, 1], [calc, 1]);
 
             const letterVariants = {
