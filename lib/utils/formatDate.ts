@@ -5,3 +5,9 @@ export function formatDate(date: string) {
     day: 'numeric',
   });
 }
+
+export function formatDateYear(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+  });
+}

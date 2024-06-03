@@ -27,6 +27,7 @@ export type PageItem = {
   slug?: string;
   className?: string;
   status?: 'NEW' | 'Coming Soon';
+  date?: string;
 };
 
 export type PostFrontMatter = {
