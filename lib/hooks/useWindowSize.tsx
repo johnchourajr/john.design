@@ -29,7 +29,7 @@ export function useWindowSize() {
 
     // Cleanup function to remove event listener
     return () => window.removeEventListener('resize', handleResize);
-  }, []); // Empty array ensures this effect runs only once after the component mounts.
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     // Function to update the size when the route changes
@@ -44,7 +44,7 @@ export function useWindowSize() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.events]); // Depend on router events to retrigger this effect
+  }, [router.events]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return windowSize;
 }

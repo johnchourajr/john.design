@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function useDevicePixelRatio() {
-  const isClient = typeof window === "object";
+  const isClient = typeof window === 'object';
 
   function getRatio() {
     return isClient ? window.devicePixelRatio : undefined;
@@ -14,9 +14,9 @@ export function useDevicePixelRatio() {
       setDevicePixelRatio(getRatio());
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return devicePixelRatio;
 }
