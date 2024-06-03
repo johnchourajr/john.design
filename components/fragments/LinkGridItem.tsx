@@ -1,3 +1,4 @@
+import { formatDateYear } from '@/lib/utils/formatDate';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { PageItem } from '../../types/content-types';
@@ -11,6 +12,7 @@ export default function LinkGridItem({
   className,
   title,
   description,
+  date,
   tags,
   status,
 }: LinkGridItemProps) {
@@ -62,11 +64,18 @@ export default function LinkGridItem({
         {href && `→`}
       </p>
       {tags && (
-        <div className="mt-2">
+        <div className={clsx('mt-2', statusClasses)}>
           <TagsList tags={tags} />
         </div>
       )}
-      <p className={clsx('text-sm mt-1', statusClasses)}>{description}</p>
+      {description && (
+        <p className={clsx('text-sm mt-1', statusClasses)}>{description}</p>
+      )}
+      {date && (
+        <p className={clsx('text-sm mt-1', statusClasses)}>
+          {formatDateYear(date)}
+        </p>
+      )}
     </Tag>
   );
 }

@@ -37,6 +37,22 @@ export default function Footer() {
         >
           John.Design™
         </InlineLink>
+
+        <InlineLink href="/contact">Contact</InlineLink>
+        <InlineLink href="/colophon">Colophon</InlineLink>
+
+        <InlineLink href="https://v4.john.design/?ref=v5" target="_blank">
+          v4
+        </InlineLink>
+        <p>
+          <s>v3</s>
+        </p>
+        <InlineLink href="http://v2.objectsubject.com/?ref=v5" target="_blank">
+          v2
+        </InlineLink>
+        <InlineLink href="http://v1.objectsubject.com/?ref=v5" target="_blank">
+          v1
+        </InlineLink>
       </div>
 
       <div className="z-50 flex flex-row fixed bottom-4 right-4 font-bold pointer-events-none">
