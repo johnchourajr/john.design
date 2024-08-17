@@ -2,18 +2,41 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/components/*": ["./components/*"],
-      "@/context/*": ["./context/*"],
-      "@/data/*": ["./data/*"],
-      "@/lib/*": ["./lib/*"],
-      "@/utils/*": ["./lib/utils/*"],
-      "@/hooks/*": ["./lib/hooks/*"],
-      "@/pages/*": ["./pages/*"],
-      "@/styles/*": ["./styles/*"],
-      "@/types/*": ["./types/*"],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/context/*": [
+        "./context/*"
+      ],
+      "@/data/*": [
+        "./data/*"
+      ],
+      "@/lib/*": [
+        "./lib/*"
+      ],
+      "@/utils/*": [
+        "./lib/utils/*"
+      ],
+      "@/hooks/*": [
+        "./lib/hooks/*"
+      ],
+      "@/pages/*": [
+        ".pages/*"
+      ],
+      "@/styles/*": [
+        "./styles/*"
+      ],
+      "@/types/*": [
+        "./types/*"
+      ]
     },
     "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext", "es2022",],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "es2022"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -25,8 +48,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
-
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
@@ -39,6 +66,9 @@
     "lib/config/type-config-js.js",
     "lib/**/*.{d.ts,ts,tsx,js}",
     "lib/**/*{.d.ts,.ts,.tsx,.js}",
-],
-  "exclude": ["node_modules"]
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

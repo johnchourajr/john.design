@@ -1,7 +1,9 @@
-import { useRouter } from 'next/router';
-import React, { createContext, useContext, useEffect } from 'react';
+'use client';
+
 import * as gtag from '@/lib/core/gtag';
+import { usePathname, useRouter } from 'next/navigation';
 import Script from 'next/script';
+import React, { createContext, useContext, useEffect } from 'react';
 
 type GtagContextType = {};
 
@@ -17,18 +19,22 @@ export function useGtagContext() {
 
 export function GtagProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       gtag.pageview(url);
     };
 
-    router.events.on('routeChangeComplete', handleRouteChange);
+    handleRouteChange(pathname);
+    // router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      handleRouteChange(pathname);
+
+      // router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.events]);
+  }, [pathname]);
 
   return (
     <GtagContext.Provider value={{}}>
