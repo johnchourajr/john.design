@@ -1,33 +1,10 @@
 import clsx from 'clsx';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import { useMemo, useRef } from 'react';
 
-const JohnGLCanvas = dynamic(
-  () =>
-    import('@/components/experimental/JohnGL').then(
-      (module) => module.JohnGLCanvas,
-    ),
-  {
-    ssr: false,
-  },
-);
-
-const InformationalChunk = dynamic(
-  () =>
-    import('@/components/fragments/InformationalChunk').then(
-      (module) => module.InformationalChunk,
-    ),
-  { ssr: false },
-);
-
-const ParentheticalChunk = dynamic(
-  () =>
-    import('@/components/fragments/ParentheticalChunk').then(
-      (module) => module.ParentheticalChunk,
-    ),
-  { ssr: false },
-);
+import { JohnGLCanvas } from '@/components/experimental/JohnGL';
+import { InformationalChunk } from '@/components/fragments/InformationalChunk';
+import { ParentheticalChunk } from '@/components/fragments/ParentheticalChunk';
 
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { DynamicJustifiedHeadlineInner } from '../justified-headline/JustifiedHeadlineInner';
