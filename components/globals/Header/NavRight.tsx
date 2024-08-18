@@ -1,9 +1,10 @@
+'use client';
+
 import { RenderColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
 import { useTime } from '@/hooks/useTime';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import { NavDrawingControls } from './NavDrawingControls';
 
 export function NavRight() {
@@ -51,7 +52,3 @@ export function NavRight() {
     </div>
   );
 }
-
-export const DynamicNavRight = dynamic(() => Promise.resolve(NavRight), {
-  ssr: false,
-});

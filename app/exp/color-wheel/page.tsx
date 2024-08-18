@@ -1,3 +1,5 @@
+'use client';
+
 import InlineLink from '@/components/fragments/InlineLink';
 
 import { RenderColorWheel } from '@/components/experimental/ColorWheel';

@@ -1,8 +1,10 @@
+'use client';
+
 import LinkGridItem from '@/components/fragments/LinkGridItem';
 import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
+import { workContent } from '@/data/workContent';
 import clsx from 'clsx';
-import { workContent } from '../data/workContent';
 
 export default function WorkPage({
   daylightData,
@@ -55,10 +57,4 @@ export default function WorkPage({
       </section>
     </>
   );
-}
-
-export function getStaticProps() {
-  const data = workContent;
-
-  return { props: { ...data } };
 }

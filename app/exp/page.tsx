@@ -1,10 +1,14 @@
+'use client';
+
 import LinkGridItem from '@/components/fragments/LinkGridItem';
 import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { expData } from '@/data/expContent';
 import clsx from 'clsx';
 
-export default function ExpPage({ data }: { data: typeof expData }) {
+export default function ExpPage() {
+  const data = expData;
+
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
@@ -28,10 +32,4 @@ export default function ExpPage({ data }: { data: typeof expData }) {
       </section>
     </>
   );
-}
-
-export function getStaticProps() {
-  const data = expData;
-
-  return { props: { data } };
 }

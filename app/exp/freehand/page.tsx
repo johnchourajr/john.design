@@ -1,3 +1,5 @@
+'use client';
+
 import FreehandCanvas from '@/components/experimental/FreehandCanvas';
 import InlineLink from '@/components/fragments/InlineLink';
 

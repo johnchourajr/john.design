@@ -1,7 +1,8 @@
+'use client';
+
 import InlineLink from '@/components/fragments/InlineLink';
 import { format } from 'date-fns';
 import parse from 'html-react-parser';
-import { getFeed } from '../../lib/rss';
 
 const RSSFeedStyle = () => (
   <style global jsx>{`
@@ -11,9 +12,7 @@ const RSSFeedStyle = () => (
   `}</style>
 );
 
-export default function RSSFeed({ feed, items }: any) {
-  // console.log(items);
-
+export default function RSSFeed({ feed }: any) {
   return (
     <>
       <InlineLink href="/exp/" className="no-underline">
@@ -21,7 +20,7 @@ export default function RSSFeed({ feed, items }: any) {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      {items.map((item: any) => (
+      {feed.map((item: any) => (
         <div key={item.link}>
           <a
             className="my-8"
@@ -40,17 +39,4 @@ export default function RSSFeed({ feed, items }: any) {
       <RSSFeedStyle />
     </>
   );
-}
-
-export async function getStaticProps({}) {
-  const feed = 'https://johnchoura.substack.com/feed';
-  const detailedFeed = await getFeed(feed);
-
-  return {
-    props: {
-      feed,
-      items: detailedFeed.items,
-    },
-    revalidate: 1,
-  };
 }
