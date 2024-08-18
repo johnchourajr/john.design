@@ -16,7 +16,7 @@ module.exports = {
   content: [
     './context/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,jsx,ts,tsx}',
+    './app-pages/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
     './lib/**/*.{js,jsx,ts,tsx}',
   ],
