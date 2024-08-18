@@ -1,3 +1,5 @@
+'use client';
+
 import { slugify } from '@/lib/utils/slugify';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
