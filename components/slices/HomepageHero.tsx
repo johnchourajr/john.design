@@ -168,10 +168,4 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   );
 }
 
-export const DynamicHomepageHero = dynamic(
-  () => Promise.resolve(HomepageHero),
-  {
-    ssr: false,
-    loading: () => <div className="h-svh w-svw" />,
-  },
-);
+export const DynamicHomepageHero = HomepageHero;
