@@ -1,8 +1,9 @@
+'use client';
+
 import JournalArchiveGridItem from '@/components/fragments/JournalArchiveGridItem';
 import JournalGridItem from '@/components/fragments/JournalGridItem';
 import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-import { getAllPosts } from '@/lib/pages/posts';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
@@ -75,10 +76,4 @@ export default function JournalPage({ posts }: JournalPageProps) {
       </section>
     </>
   );
-}
-
-export function getStaticProps() {
-  const posts = getAllPosts();
-
-  return { props: { posts } };
 }

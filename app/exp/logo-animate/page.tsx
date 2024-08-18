@@ -1,3 +1,5 @@
+'use client';
+
 import InlineLink from '@/components/fragments/InlineLink';
 import Logo from '@/components/svg/logo';
 

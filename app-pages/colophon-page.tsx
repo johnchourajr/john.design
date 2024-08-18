@@ -1,9 +1,11 @@
+'use client';
+
 import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { colophonData } from '@/data/colophonContent';
 import clsx from 'clsx';
 
-export default function WorkPage({
+export default function ColophonPage({
   title,
   description,
   summary,
@@ -80,12 +82,4 @@ export default function WorkPage({
       </section>
     </>
   );
-}
-
-export function getStaticProps() {
-  return {
-    props: {
-      ...colophonData,
-    },
-  };
 }

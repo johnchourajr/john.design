@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import InlineLink from '@/components/fragments/InlineLink';
 import Logo from '@/components/svg/logo';
 import navData from '@/data/navData';
-import dynamic from 'next/dynamic';
 import { NavSlash } from './NavSlash';
 
 export function NavLeft() {
@@ -47,7 +46,3 @@ export function NavLeft() {
     </div>
   );
 }
-
-export const DynamicNavLeft = dynamic(() => Promise.resolve(NavLeft), {
-  ssr: false,
-});

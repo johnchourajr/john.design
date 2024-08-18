@@ -10,7 +10,6 @@ export const RenderColorWheel = ({
   const active = typeof handleColorChange === 'function' ? true : false;
   return (
     <motion.button
-      layoutId="color-wheel"
       aria-label="Change color"
       title="Change color"
       onClick={handleClick}
