@@ -1,10 +1,12 @@
+'use client';
+
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import InlineLink from '../../fragments/InlineLink';
 import Logo from '../../svg/logo';
 
 export default function Footer() {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   return (
     <footer

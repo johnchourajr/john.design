@@ -1,5 +1,7 @@
+'use client';
+
 import FreehandCanvas from '@/components/experimental/FreehandCanvas';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Point = [number, number, number];
@@ -38,7 +40,8 @@ export const useDrawing = () => {
 };
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
-  const { pathname, events } = useRouter();
+  // const { events } = useRouter();
+  const pathname = usePathname();
   const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -187,13 +190,11 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    events.on('routeChangeComplete', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      events.off('routeChangeComplete', handleResize);
     };
-  }, [isClient]);
+  }, [isClient, pathname]);
 
   return (
     <DrawingContext.Provider

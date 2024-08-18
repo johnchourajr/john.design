@@ -1,3 +1,5 @@
+'use client';
+
 import { NavColorOverlay } from '@/components/globals/Header/NavColorOverlay';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
