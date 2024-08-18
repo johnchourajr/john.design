@@ -1,10 +1,12 @@
+'use client';
+
 import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { contactData } from '@/data/contactContent';
 import clsx from 'clsx';
 import Link from 'next/link';
 
-export default function WorkPage({
+export default function ContactPage({
   title,
   contactSocial,
   contactEmail,
@@ -71,12 +73,4 @@ export default function WorkPage({
       ))}
     </>
   );
-}
-
-export function getStaticProps() {
-  return {
-    props: {
-      ...contactData,
-    },
-  };
 }

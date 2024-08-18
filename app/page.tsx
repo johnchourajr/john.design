@@ -1,6 +1,6 @@
 // Import your Client Component
+import HomePage from '@/app-pages/home-page';
 import { homepageContent } from '@/data/homepageContent';
-import HomePage from './home-page';
 
 export default async function Page() {
   const content = homepageContent;

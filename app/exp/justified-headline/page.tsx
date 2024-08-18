@@ -1,3 +1,5 @@
+'use client';
+
 import { SettingsGroup } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
 import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';

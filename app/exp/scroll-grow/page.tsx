@@ -1,3 +1,5 @@
+'use client';
+
 import InlineLink from '@/components/fragments/InlineLink';
 import clsx from 'clsx';
 import { motion, useScroll, useTransform } from 'framer-motion';
