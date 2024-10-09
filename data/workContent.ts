@@ -3,6 +3,12 @@ import { PageItem } from '../types/content-types';
 
 const daylightData: PageItem[] = [
   {
+    slug: 'retool-dot-com',
+    title: 'Retool Site',
+    date: '2024-9-12',
+    status: 'Coming Soon',
+  },
+  {
     slug: 'retool-blog',
     title: 'Retool Blog',
     date: '2024-5-1',
@@ -73,7 +79,21 @@ const daylightData: PageItem[] = [
 
 const moonlightData: PageItem[] = [
   {
-    slug: 'buen-type',
+    slug: 'goodheart-bread',
+    title: 'goodheartbread.com',
+    date: '2024-10-5',
+    tags: ['Design', 'Dev'],
+    externalHref: 'https://goodheartbread.com/',
+  },
+  {
+    slug: 'muybuen-cursor',
+    title: 'cursor.muybuen.dev',
+    date: '2024-10-1',
+    tags: ['Dev', 'Open Source'],
+    externalHref: 'https://cursor.muybuen.dev/',
+  },
+  {
+    slug: 'muybuen-type',
     title: 'type.muybuen.dev',
     date: '2024-5-1',
     tags: ['Dev', 'Open Source'],
