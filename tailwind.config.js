@@ -1,5 +1,4 @@
-// const typePlugin = require('./lib/plugins/type-plugin');
-const { buenTypeTailwind } = require('@buen/type');
+const { buenTypeTailwind } = require('@muybuen/type');
 const { headline, text } = require('./lib/config/type-config-js');
 
 const customDefinitions = {
