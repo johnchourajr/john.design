@@ -64,3 +64,36 @@
   font-display: swap;
   src: url('../fonts/OTNeueMontreal-BookSemiSqueezed.woff2') format('woff2');
 }
+
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * big-caslon-fb:
+ *   - http://typekit.com/eulas/0000000000000000774a672d
+ *
+ * © 2009-2024 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2024-04-26 04:31:42 UTC"}*/
+
+@import url('https://p.typekit.net/p.css?s=1&k=wqj3mof&ht=tk&f=29403&a=808403&app=typekit&e=css');
+
+@font-face {
+  font-family: 'big-caslon-fb';
+  src: url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+.tk-big-caslon-fb {
+  font-family: 'big-caslon-fb', serif;
+}

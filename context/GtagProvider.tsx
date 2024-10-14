@@ -1,7 +1,7 @@
 'use client';
 
 import * as gtag from '@/lib/core/gtag';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Script from 'next/script';
 import React, { createContext, useContext, useEffect } from 'react';
 
@@ -18,7 +18,6 @@ export function useGtagContext() {
 }
 
 export function GtagProvider({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -27,12 +26,9 @@ export function GtagProvider({ children }: { children: React.ReactNode }) {
     };
 
     handleRouteChange(pathname);
-    // router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
       handleRouteChange(pathname);
-
-      // router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [pathname]);
 

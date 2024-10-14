@@ -3,7 +3,6 @@ import { AppProvider } from '@/context/AppProvider';
 import { DrawingProvider } from '@/context/DrawingContext';
 import { GtagProvider } from '@/context/GtagProvider';
 import type { Metadata, Viewport } from 'next';
-import Head from 'next/head';
 import { CSSProperties } from 'react';
 import '../styles/globals.css';
 
@@ -27,9 +26,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={{ '--root-color': '#ff0000' } as CSSProperties}>
-      <Head>
-        <link rel="stylesheet" href="https://use.typekit.net/wqj3mof.css" />
-      </Head>
       <body>
         <GtagProvider>
           <AppProvider>

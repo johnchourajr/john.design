@@ -40,7 +40,6 @@ export const useDrawing = () => {
 };
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
-  // const { events } = useRouter();
   const pathname = usePathname();
   const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
