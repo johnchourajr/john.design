@@ -15,8 +15,8 @@ import Link from 'next/link';
 import { useEffect, useRef, useState, type SVGProps } from 'react';
 export type ResumeSectionProps = HomePageData['resumeSection'];
 
-function ResumeItem({ item, index }: any) {
-  const ref = useRef(null);
+function ResumeItem({ item, index }: { item: any; index: number }) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start 95%', 'end 85%'],
@@ -32,9 +32,9 @@ function ResumeItem({ item, index }: any) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPositions((prev: any[]) => {
+      setPositions((prev) => {
         const last = prev.pop();
-        return [last, ...prev];
+        return last ? [last, ...prev] : prev;
       });
     }, 1000);
 
@@ -117,13 +117,11 @@ const DynamicResumeItem = dynamic(() => Promise.resolve(ResumeItem), {
 
 export function ResumeSection({ title, resumeList }: ResumeSectionProps) {
   return (
-    <>
-      <section className="my-[6vw] px-6 grid auto-rows-fr items-start overflow-x-hidden">
-        {title && <h2>{title}</h2>}
-        {resumeList.map((item, index) => {
-          return <DynamicResumeItem key={index} item={item} index={index} />;
-        })}
-      </section>
-    </>
+    <section className="my-[6vw] px-6 grid auto-rows-fr items-start overflow-hidden">
+      {title && <h2>{title}</h2>}
+      {resumeList.map((item, index) => (
+        <DynamicResumeItem key={index} item={item} index={index} />
+      ))}
+    </section>
   );
 }

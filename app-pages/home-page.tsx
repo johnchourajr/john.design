@@ -1,5 +1,3 @@
-'use client';
-
 import { DynamicHomepageHero } from '@/components/slices/HomepageHero';
 import { PillBlockList } from '@/components/slices/PillBlockList';
 import { ResumeSection } from '@/components/slices/ResumeSection';
