@@ -20,6 +20,46 @@ export type HomepageHeroProps = {
   rolesSection: SectionStructure;
 };
 
+function RolesItem({
+  rolesSection,
+  index,
+  item,
+  scrollYProgress,
+}: {
+  rolesSection: SectionStructure;
+  index: number;
+  item: string | { text: string };
+  scrollYProgress: any;
+}) {
+  const list = rolesSection?.text || [];
+  const calc = -index / list.length - 0.1;
+  const opacity = useTransform(scrollYProgress, [0, 1], [calc, 1]);
+
+  const letterVariants = {
+    initial: { rotate: 0 },
+    hover: { rotate: makeRandomRotate() },
+  };
+
+  return typeof item === 'string' ? (
+    <motion.span key={index} style={{ opacity }}>
+      {wrapLettersInSpansWithWordsInSpans({
+        text: item,
+        layout: false,
+        className: 'mx-[0.1em] inline-block',
+        letterClassName: 'inline-flex',
+        letterInitial: 'initial',
+        letterWhileHover: 'hover',
+        letterVariants,
+        letterTransition: { duration: 0.05, ease: 'easeOut' },
+      })}
+    </motion.span>
+  ) : (
+    <motion.span key={index} style={{ opacity }}>
+      <ParentheticalChunk key={index} text={item.text} />
+    </motion.span>
+  );
+}
+
 function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
   const ref = useRef(null);
   const { enableDrawing } = useDrawing();
@@ -41,32 +81,14 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
         className="headline-display-xl !normal-case !font-pixel !font-normal text-center items-center leading-tight"
       >
         {rolesSection?.text?.map((item, index) => {
-          const list = rolesSection?.text || [];
-          const calc = -index / list.length - 0.1;
-          const opacity = useTransform(scrollYProgress, [0, 1], [calc, 1]);
-
-          const letterVariants = {
-            initial: { rotate: 0 },
-            hover: { rotate: makeRandomRotate() },
-          };
-
-          return typeof item === 'string' ? (
-            <motion.span key={index} style={{ opacity }}>
-              {wrapLettersInSpansWithWordsInSpans({
-                text: item,
-                layout: false,
-                className: 'mx-[0.1em] inline-block',
-                letterClassName: 'inline-flex',
-                letterInitial: 'initial',
-                letterWhileHover: 'hover',
-                letterVariants,
-                letterTransition: { duration: 0.05, ease: 'easeOut' },
-              })}
-            </motion.span>
-          ) : (
-            <motion.span key={index} style={{ opacity }}>
-              <ParentheticalChunk key={index} text={item.text} />
-            </motion.span>
+          return (
+            <RolesItem
+              key={index}
+              index={index}
+              item={item}
+              rolesSection={rolesSection}
+              scrollYProgress={scrollYProgress}
+            />
           );
         })}
       </p>
