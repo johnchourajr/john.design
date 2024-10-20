@@ -1,12 +1,12 @@
 import { PageItem } from '@/types/content-types';
 
 export const expData: PageItem[] = [
-  {
-    href: '/exp/multiplayer',
-    title: 'Multiplayer',
-    description: 'Collaborative drawing with friends.',
-    status: 'NEW',
-  },
+  // {
+  //   href: '/exp/multiplayer',
+  //   title: 'Multiplayer',
+  //   description: 'Collaborative drawing with friends.',
+  //   status: 'NEW',
+  // },
   {
     href: '/exp/color-wheel',
     title: 'Color Wheel',
