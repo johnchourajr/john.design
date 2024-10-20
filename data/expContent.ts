@@ -2,9 +2,9 @@ import { PageItem } from '@/types/content-types';
 
 export const expData: PageItem[] = [
   {
-    href: '/exp/rss-substack',
-    title: 'RSS Substack',
-    description: 'Get substack content.',
+    href: '/exp/multiplayer',
+    title: 'Multiplayer',
+    description: 'Collaborative drawing with friends.',
     status: 'NEW',
   },
   {
