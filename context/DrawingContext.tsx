@@ -1,8 +1,14 @@
 'use client';
 
-import FreehandCanvas from '@/components/experimental/FreehandCanvas';
+import { DynamicFreehandCanvas } from '@/components/experimental';
 import { usePathname } from 'next/navigation';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 type Point = [number, number, number];
 type StoredPoint = Point[];
@@ -51,8 +57,10 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
 
   const isClient = typeof window !== 'undefined';
 
-  const serializePoints = (points: StoredPointObj): string =>
-    JSON.stringify(points);
+  const serializePoints = useCallback(
+    (points: StoredPointObj): string => JSON.stringify(points),
+    [],
+  );
 
   const clearStoredPoints = () => {
     const newPathPoints = { ...storedPoints, [pathname]: [] };
@@ -62,7 +70,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
     setStoredPoints(newPathPoints);
   };
 
-  const storeCurrentDrawing = () => {
+  const storeCurrentDrawing = useCallback(() => {
     if (points.length > MIN_POINTS_COUNT) {
       const startPoint = points[0];
       const endPoint = points[points.length - 1];
@@ -87,26 +95,26 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
         setStoredPoints(newStoredPoints);
       }
     }
-  };
+  }, [points, storedPoints, pathname, isClient, serializePoints]);
 
-  const updateStoredPoints = (
-    newPoints: StoredPoint[],
-    currentStoredPoints: StoredPointObj,
-  ) => {
-    const updatedStoredPoints = {
-      ...currentStoredPoints,
-      [pathname]: newPoints,
+  const undo = useCallback(() => {
+    const updateStoredPoints = (
+      newPoints: StoredPoint[],
+      currentStoredPoints: StoredPointObj,
+    ) => {
+      const updatedStoredPoints = {
+        ...currentStoredPoints,
+        [pathname]: newPoints,
+      };
+      if (isClient) {
+        localStorage.setItem(
+          'storedPoints',
+          serializePoints(updatedStoredPoints),
+        );
+      }
+      return updatedStoredPoints;
     };
-    if (isClient) {
-      localStorage.setItem(
-        'storedPoints',
-        serializePoints(updatedStoredPoints),
-      );
-    }
-    return updatedStoredPoints;
-  };
 
-  const undo = () => {
     setStoredPoints((currentStoredPoints) => {
       const currentPathPoints = currentStoredPoints[pathname];
       if (currentPathPoints && currentPathPoints.length > 0) {
@@ -123,7 +131,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
         return updateStoredPoints([], currentStoredPoints);
       }
     });
-  };
+  }, [pathname, isClient, serializePoints]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -175,7 +183,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [points, pathname, enableDrawing]);
+  }, [points, pathname, enableDrawing, storeCurrentDrawing]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -212,7 +220,7 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      <FreehandCanvas />
+      <DynamicFreehandCanvas />
     </DrawingContext.Provider>
   );
 }

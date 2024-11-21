@@ -2,7 +2,7 @@
 
 import { SettingsGroup } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import React from 'react';
 

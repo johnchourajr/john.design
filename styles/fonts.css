@@ -1,4 +1,6 @@
 /* fonts.css */
+@import url('https://use.typekit.net/wqj3mof.css');
+@import url('https://p.typekit.net/p.css?s=1&k=wqj3mof&ht=tk&f=29403&a=808403&app=typekit&e=css');
 
 @font-face {
   font-family: 'KUniforma Bold';
@@ -77,8 +79,6 @@
  * © 2009-2024 Adobe Systems Incorporated. All Rights Reserved.
  */
 /*{"last_published":"2024-04-26 04:31:42 UTC"}*/
-
-@import url('https://p.typekit.net/p.css?s=1&k=wqj3mof&ht=tk&f=29403&a=808403&app=typekit&e=css');
 
 @font-face {
   font-family: 'big-caslon-fb';

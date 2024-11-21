@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { motion, useReducedMotion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import React from 'react';
 import { getSettingValue } from '../experimental/SettingsComponents';
 import { TextContainer } from './TextContainer';
@@ -56,11 +55,3 @@ export function JustifiedHeadlineInner({
     </motion.p>
   );
 }
-
-export const DynamicJustifiedHeadlineInner = dynamic(
-  () => Promise.resolve(JustifiedHeadlineInner),
-  {
-    ssr: false,
-    loading: () => <div className="h-svh w-svw" />,
-  },
-);

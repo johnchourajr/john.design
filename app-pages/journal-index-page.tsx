@@ -2,7 +2,7 @@
 
 import JournalArchiveGridItem from '@/components/fragments/JournalArchiveGridItem';
 import JournalGridItem from '@/components/fragments/JournalGridItem';
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';

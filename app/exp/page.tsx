@@ -1,7 +1,7 @@
 'use client';
 
 import LinkGridItem from '@/components/fragments/LinkGridItem';
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { expData } from '@/data/expContent';
 import clsx from 'clsx';

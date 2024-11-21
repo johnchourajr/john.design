@@ -1,6 +1,5 @@
 @import 'fonts.css';
 @import 'kerning.css';
-@import url('https://use.typekit.net/wqj3mof.css');
 
 @tailwind base;
 @tailwind components;
