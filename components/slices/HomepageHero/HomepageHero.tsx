@@ -4,16 +4,17 @@ import clsx from 'clsx';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useMemo, useRef } from 'react';
 
-import { JohnGLCanvas } from '@/components/experimental/JohnGL';
+import { DynamicJohnGLCanvas } from '@/components/experimental';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { ParentheticalChunk } from '@/components/fragments/ParentheticalChunk';
 import { useDrawing } from '@/context/DrawingContext';
 import { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
+import useLCP from '@/lib/hooks/useLCP';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
 import { makeRandomRotate } from '../../../lib/utils/randomBetween';
-import { DynamicJustifiedHeadlineInner } from '../../justified-headline/JustifiedHeadlineInner';
+import { DynamicJustifiedHeadlineInner } from '../../justified-headline';
 
 export type HomepageHeroProps = {
   heroSection: HomePageData['heroSection'];
@@ -99,6 +100,7 @@ function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const { enableDrawing } = useDrawing();
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
+  const lcpOccurred = useLCP();
 
   return (
     <section
@@ -136,7 +138,9 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
         </div>
       </motion.div>
       <RolesSection rolesSection={rolesSection} />
-      <JohnGLCanvas className="h-[150vw] md:h-[100vw]" />
+      {lcpOccurred && (
+        <DynamicJohnGLCanvas className="h-[150vw] md:h-[100vw]" />
+      )}
     </section>
   );
 }

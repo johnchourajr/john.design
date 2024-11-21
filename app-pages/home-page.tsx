@@ -1,4 +1,4 @@
-import { DynamicHomepageHero } from '@/components/slices/HomepageHero';
+import { HomepageHero } from '@/components/slices/HomepageHero';
 import { PillBlockList } from '@/components/slices/PillBlockList';
 import { ResumeSection } from '@/components/slices/ResumeSection';
 import { homepageContent } from '@/data/homepageContent';
@@ -18,10 +18,7 @@ export default function HomePage({
 }: HomePageProps) {
   return (
     <>
-      <DynamicHomepageHero
-        heroSection={heroSection}
-        rolesSection={rolesSection}
-      />
+      <HomepageHero heroSection={heroSection} rolesSection={rolesSection} />
       <PillBlockList {...personalSection} />
       <ResumeSection {...resumeSection} />
     </>
