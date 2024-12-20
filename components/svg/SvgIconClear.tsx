@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 const SvgIconClear = ({ className }: { className?: string }) => (
-  <motion.svg
+  <m.svg
     width={26}
     height={26}
     viewBox="0 0 26 26"
@@ -13,7 +13,7 @@ const SvgIconClear = ({ className }: { className?: string }) => (
       disabled: { opacity: 0.5 },
     }}
   >
-    <motion.path
+    <m.path
       opacity={0.2}
       variants={{
         initial: { opacity: 0 },
@@ -35,6 +35,6 @@ const SvgIconClear = ({ className }: { className?: string }) => (
     <path d="M15 14V15H16V16H17V15H16V14H15Z" />
     <path d="M14 14H15V13H16V12H17V11H16V12H15V13H14V12H13V11H12V12H13V13H14V14Z" />
     <path d="M14 14H13V15H12V16H13V15H14V14Z" />
-  </motion.svg>
+  </m.svg>
 );
 export default SvgIconClear;

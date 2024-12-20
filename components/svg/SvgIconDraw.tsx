@@ -1,13 +1,13 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 const SvgIconDraw = () => (
-  <motion.svg
+  <m.svg
     width={26}
     height={26}
     viewBox="0 0 26 26"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <motion.path
+    <m.path
       opacity={0.2}
       variants={{
         initial: { opacity: 0.2 },
@@ -54,6 +54,6 @@ const SvgIconDraw = () => (
     <path d="M20 8H21V9H20V8Z" />
     <path d="M11 18H12V19H11V18Z" />
     <path d="M8 15H9V16H8V15Z" />
-  </motion.svg>
+  </m.svg>
 );
 export default SvgIconDraw;

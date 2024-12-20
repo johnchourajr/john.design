@@ -1,6 +1,6 @@
 import { RenderColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 
 export type NavColorOverlayProps = {};
 
@@ -17,7 +17,7 @@ export function NavColorOverlay({}: NavColorOverlayProps) {
             handleColorChange={handleColorChange}
             className="!w-[20.25rem] !h-[20.25rem] z-[9999]"
           />
-          <motion.button
+          <m.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

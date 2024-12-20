@@ -16,7 +16,7 @@ export default function JohnGL() {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      <JohnGLCanvas settings={settings} />
+      <JohnGLCanvas settings={settings} className="h-[150vw] md:h-[100vw]" />
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
   );

@@ -2,7 +2,7 @@
 
 import InlineLink from '@/components/fragments/InlineLink';
 import clsx from 'clsx';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import React from 'react';
 
 const EXAMPLE_LIST = [
@@ -88,28 +88,28 @@ function Item({ index, scrollYProgress, text }: any) {
   ]);
 
   return (
-    <motion.div
+    <m.div
       className="absolute w-full h-[100vh] flex justify-center items-center"
       style={{ zIndex }}
     >
-      <motion.figure
+      <m.figure
         className={clsx(
           'bg-black absolute border-shadow overflow-hidden',
           "after:content-[''] after:absolute after:inset-0 after:bg-[var(--root-color)] after:opacity-20 ",
         )}
         style={{ width, height, right, bottom }}
       >
-        <motion.h3
+        <m.h3
           style={{ fontSize }}
           className=" font-black tracking-tighter m-0 absolute top-0 left-[4%]"
         >
           {text}
-        </motion.h3>
+        </m.h3>
         <svg className="absolute w-full h-full inset-0">
           <rect width="100%" height="100%" fill="transparent" />
         </svg>
-      </motion.figure>
-    </motion.div>
+      </m.figure>
+    </m.div>
   );
 }
 

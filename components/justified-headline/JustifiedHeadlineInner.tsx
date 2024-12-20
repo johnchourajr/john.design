@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { motion, useReducedMotion } from 'framer-motion';
 import React from 'react';

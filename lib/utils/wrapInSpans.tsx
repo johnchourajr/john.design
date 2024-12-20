@@ -1,6 +1,6 @@
 import {
   Transition,
-  motion,
+  m,
   type VariantLabels,
   type Variants,
 } from 'framer-motion';
@@ -28,14 +28,14 @@ export function wrapWordsInSpans({ text, className, layout }: SpanProps) {
   return (
     text &&
     text.split(' ').map((word, index) => (
-      <motion.span
+      <m.span
         key={index}
         data-word={slugify(`${word} ${index}`)}
         className={className}
         layout={layout}
       >
         {word}{' '}
-      </motion.span>
+      </m.span>
     ))
   );
 }
@@ -48,14 +48,14 @@ export function wrapLettersInSpans({ text, className, layout }: SpanProps) {
   return (
     text &&
     text.split('').map((letter, index) => (
-      <motion.span
+      <m.span
         key={index}
         data-letter={slugify(`${letter} ${index}`)}
         className={className}
         layout={layout}
       >
         {letter}
-      </motion.span>
+      </m.span>
     ))
   );
 }
@@ -80,7 +80,7 @@ export function wrapLettersInSpansWithWordsInSpans({
   return (
     text &&
     text.split(' ').map((word, wi) => (
-      <motion.span
+      <m.span
         key={slugify(word)}
         data-word={slugify(word)}
         className={className}
@@ -91,7 +91,7 @@ export function wrapLettersInSpansWithWordsInSpans({
       >
         {word &&
           word.split('').map((letter, li) => (
-            <motion.span
+            <m.span
               key={slugify(`${word} ${letter} ${li}`)}
               data-letter={slugify(`${word} ${letter} ${li}`)}
               className={letterClassName}
@@ -99,15 +99,12 @@ export function wrapLettersInSpansWithWordsInSpans({
               whileHover={letterWhileHover}
               layout={layout}
             >
-              <motion.span
-                variants={letterVariants}
-                transition={letterTransition}
-              >
+              <m.span variants={letterVariants} transition={letterTransition}>
                 {letter}
-              </motion.span>
-            </motion.span>
+              </m.span>
+            </m.span>
           ))}{' '}
-      </motion.span>
+      </m.span>
     ))
   );
 }
