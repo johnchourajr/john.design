@@ -1,6 +1,6 @@
 'use client';
 
-import { DynamicFreehandCanvas } from '@/components/experimental';
+import FreehandCanvas from '@/components/experimental/FreehandCanvas';
 import InlineLink from '@/components/fragments/InlineLink';
 
 export default function Freehand() {
@@ -14,7 +14,7 @@ export default function Freehand() {
       <div className="relative flex items-center justify-start w-full h-[100vh]">
         <p className="fixed bottom-2">Start drawing with your cursor ✎</p>
       </div>
-      <DynamicFreehandCanvas />
+      <FreehandCanvas />
     </>
   );
 }
