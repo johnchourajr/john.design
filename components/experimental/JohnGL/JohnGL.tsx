@@ -3,10 +3,9 @@
 import { getSettingValue } from '@/components/experimental/SettingsComponents';
 import { useDevicePixelRatio } from '@/hooks/useDevicePixelRatio';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { EffectComposer, Noise } from '@react-three/postprocessing';
 import clsx from 'clsx';
 import { motion } from 'framer-motion-3d';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import * as THREE from 'three';
 
 function Light({ type, light, hide, ...rest }: any) {
@@ -18,13 +17,6 @@ function Light({ type, light, hide, ...rest }: any) {
   } else return null;
 }
 
-export const Effect: FC = () => {
-  return (
-    <EffectComposer>
-      <Noise opacity={0.035} />
-    </EffectComposer>
-  );
-};
 // interpolate an array of inputs into an array of outputs
 function transform(value: number, input: number[], output: number[]) {
   if (value <= input[0]) return output[0];
@@ -36,22 +28,25 @@ function transform(value: number, input: number[], output: number[]) {
     }
   }
 }
-function Mesh({ settings }: any) {
+
+function Mesh({
+  settings,
+}: {
+  settings: {
+    [key: string]: any;
+  };
+}) {
   const ref = useRef<THREE.Mesh>();
-  const [me, memap] = useLoader(THREE.TextureLoader, [
+  const [alphaMap, normalMap] = useLoader(THREE.TextureLoader, [
     '/me-alpha.png',
     '/me-map.png',
   ]);
 
-  const light_1 = getSettingValue(settings, 'Blue Light', true);
-  const light_2 = getSettingValue(settings, 'Red Light', true);
+  const light_1 = getSettingValue(settings, 'Red Light', true);
   const light_3 = getSettingValue(settings, 'White Light', true);
   const metalness = getSettingValue(settings, 'Metalness', 0.5);
 
-  // use mouse position to rotate the mesh
   const { mouse } = useThree();
-
-  // use mouse position to move lights
   const [x, setX] = useState(3);
   const [y, setY] = useState(3);
 
@@ -63,47 +58,30 @@ function Mesh({ settings }: any) {
   const light1 = {
     x: transform(x, [-1, 1], [1, 0.5]),
     y: transform(y, [-1, 1], [-0.66, -0.4]),
-    z: 0,
-  };
-
-  const light2 = {
-    // x: transform(x, [-1, 1], [0, 1]),
-    // y: transform(y, [-1, 1], [-0.2, -0.44]),
-    x: transform(x, [-1, 1], [1, 0.5]),
-    y: transform(y, [-1, 1], [-0.66, -0.4]),
-    z: 0,
+    z: 0.5,
   };
 
   const light3 = {
-    x: -100,
-    y: -100,
-    z: 1000,
+    x: 0,
+    y: 0,
+    z: 2,
   };
 
   const sharedProps = {
-    intensity: 10,
-    distance: 100,
-    penumbra: 1,
-    angle: 1,
+    intensity: 500,
+    distance: 10,
+    penumbra: 0.5,
+    angle: 0.8,
     castShadow: true,
+    decay: 1,
     transition: { ease: [0.16, 1, 0.3, 1] },
   };
 
-  // get color from html data attribute 'data-color'
   const color = document.documentElement.getAttribute('data-color');
-
-  // convert hex to webgl color
   const colorHex = new THREE.Color(color || '#ff0000');
 
   return (
     <motion.mesh ref={ref as any} scale={1}>
-      {/* <Light
-              type={"spotLight"}
-              light={light2 as any}
-              color={0x0000ff}
-              hide={!light_2}
-              {...sharedProps}
-            /> */}
       <Light
         type={'spotLight'}
         light={light1 as any}
@@ -114,7 +92,7 @@ function Mesh({ settings }: any) {
       <Light
         type={'pointLight'}
         light={light3 as any}
-        intensity={2}
+        intensity={300}
         color={16777215}
         hide={!light_3}
       />
@@ -126,20 +104,17 @@ function Mesh({ settings }: any) {
       />
       <meshStandardMaterial
         metalness={metalness}
-        roughness={0}
-        normalMap={memap}
-        map={me}
+        roughness={5}
+        normalMap={normalMap}
+        normalScale={new THREE.Vector2(1, 1)}
+        alphaMap={alphaMap}
         transparent
       />
     </motion.mesh>
   );
 }
+
 export const SETTINGS = [
-  {
-    name: 'Blue Light',
-    type: 'Boolean',
-    value: true,
-  },
   {
     name: 'Red Light',
     type: 'Boolean',
@@ -151,11 +126,6 @@ export const SETTINGS = [
     value: true,
   },
   {
-    name: 'Noise',
-    type: 'Boolean',
-    value: false,
-  },
-  {
     name: 'Metalness',
     type: 'Slider',
     value: 0.5,
@@ -165,10 +135,16 @@ export const SETTINGS = [
   },
 ];
 
-export function JohnGLCanvas({ settings, className }: any) {
+export function JohnGLCanvas({
+  settings,
+  className,
+}: {
+  settings: {
+    [key: string]: any;
+  };
+  className?: string;
+}) {
   const devicePixelRatio = useDevicePixelRatio();
-
-  const noise = getSettingValue(settings, 'Noise', false);
 
   return (
     <div className={clsx('absolute inset-0 z-[1]', className)}>
@@ -183,12 +159,11 @@ export function JohnGLCanvas({ settings, className }: any) {
           position: [0, 0, 2],
           aspect: 1,
           fov: 25,
-          near: 0.2,
+          near: 0.1,
           far: 100,
         }}
       >
         <Mesh settings={settings} />
-        {noise && <Effect />}
       </Canvas>
     </div>
   );

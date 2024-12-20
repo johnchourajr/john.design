@@ -4,7 +4,7 @@ import { slugify } from '@/lib/utils/slugify';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
 import clsx from 'clsx';
-import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
+import { m, MotionValue, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 export type PillBlockListProps = SectionStructure & {};
@@ -24,7 +24,7 @@ function PillItem({
   const insetCalc = `${index * 4}px`;
 
   return (
-    <motion.div
+    <m.div
       key={index}
       className={clsx('relative px-10 py-6', 'group hover:z-20 z-10')}
       initial="initial"
@@ -33,7 +33,7 @@ function PillItem({
         opacity: useTransform(scrollYProgress, [0, 1], [calc, 1]),
       }}
     >
-      <motion.div
+      <m.div
         className={clsx(
           'absolute border-2 border-root rounded-full flex items-center justify-center bg-black',
         )}
@@ -44,14 +44,14 @@ function PillItem({
         <p className="headline-display-sm group-hover:font-bold-ritalic">
           {wrapLettersInSpansWithWordsInSpans({ text: item })}
         </p>
-      </motion.div>
+      </m.div>
       <p
         className="headline-display-sm invisible select-none"
         aria-hidden="true"
       >
         {wrapLettersInSpansWithWordsInSpans({ text: item })}
       </p>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -73,7 +73,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
       )}
     >
       <p className="text-string">{title}</p>
-      <motion.div
+      <m.div
         className={clsx(
           'flex flex-wrap items-center justify-center w-[112vw] -mx-[6vw]',
         )}
@@ -89,7 +89,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
             />
           );
         })}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

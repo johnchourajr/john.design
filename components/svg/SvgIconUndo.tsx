@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 const SvgIconUndo = ({ className }: { className?: string }) => (
-  <motion.svg
+  <m.svg
     width={26}
     height={26}
     viewBox="0 0 26 26"
@@ -13,7 +13,7 @@ const SvgIconUndo = ({ className }: { className?: string }) => (
       disabled: { opacity: 0.5 },
     }}
   >
-    <motion.path
+    <m.path
       opacity={0.2}
       variants={{
         initial: { opacity: 0 },
@@ -34,6 +34,6 @@ const SvgIconUndo = ({ className }: { className?: string }) => (
     <path d="M20 10H19V9H20V10Z" />
     <path d="M21 11H20V10H21V11Z" />
     <path d="M22 11H21V14H22V11Z" />
-  </motion.svg>
+  </m.svg>
 );
 export default SvgIconUndo;

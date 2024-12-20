@@ -5,7 +5,7 @@ import {
   basicAnimateVariants,
 } from '@/lib/config/motion-config';
 import { slugify } from '@/utils/slugify';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { addStrongTags } from './utils';
 
@@ -31,7 +31,7 @@ export const TextContainer = ({
       const lettersArray = text.split('');
       return lettersArray.map((letter: any, index: number) => {
         return (
-          <motion.span
+          <m.span
             key={index}
             id={slugify(`${letter} ${index}`)}
             data-word={slugify(`${letter} ${index}`)}
@@ -39,14 +39,14 @@ export const TextContainer = ({
             {...motionProps}
           >
             {addStrongTags(letter)}
-          </motion.span>
+          </m.span>
         );
       });
     } else {
       const childrenArray = typeof text === 'string' ? text.split(' ') : [];
       return childrenArray.map((child: any, index: number) => {
         return (
-          <motion.span
+          <m.span
             key={index}
             id={slugify(`${child} ${index}`)}
             data-word={slugify(`${child} ${index}`)}
@@ -54,7 +54,7 @@ export const TextContainer = ({
             {...motionProps}
           >
             {addStrongTags(child)} {index !== childrenArray.length - 1 && ' '}
-          </motion.span>
+          </m.span>
         );
       });
     }
@@ -67,7 +67,7 @@ export const TextContainer = ({
         motionController.parent,
       )}
     >
-      <motion.span
+      <m.span
         className={clsx('inline-flex whitespace-pre', motionController.child)}
         variants={basicAnimateParentVariants({
           staggerChildren: 0.1,
@@ -78,7 +78,7 @@ export const TextContainer = ({
         layout
       >
         {renderText()}
-      </motion.span>
+      </m.span>
     </span>
   );
 };

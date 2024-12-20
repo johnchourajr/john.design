@@ -1,9 +1,9 @@
+import { useDrawing } from '@/components/Drawing/Drawing.context';
 import SvgIconClear from '@/components/svg/SvgIconClear';
 import SvgIconDraw from '@/components/svg/SvgIconDraw';
 import SvgIconUndo from '@/components/svg/SvgIconUndo';
-import { useDrawing } from '@/context/DrawingContext';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export function NavDrawingControls() {
   const {
@@ -63,7 +63,7 @@ export function NavDrawingControls() {
 
   return (
     <>
-      <motion.button
+      <m.button
         key="draw-button"
         onClick={() => setEnableDrawing(!enableDrawing)}
         className={clsx('text-string relative', 'z-50')}
@@ -97,8 +97,8 @@ export function NavDrawingControls() {
         title={`${enableDrawing ? 'Disable' : 'Enable'} drawing mode`}
       >
         <SvgIconDraw />
-      </motion.button>
-      <motion.button
+      </m.button>
+      <m.button
         key="undo-button"
         onClick={undo}
         aria-label="Undo the last drawn line"
@@ -106,8 +106,8 @@ export function NavDrawingControls() {
         {...sharedProps}
       >
         <SvgIconUndo />
-      </motion.button>
-      <motion.button
+      </m.button>
+      <m.button
         key="clear-button"
         onClick={clearStoredPoints}
         aria-label="Clear the drawing"
@@ -115,7 +115,7 @@ export function NavDrawingControls() {
         {...sharedProps}
       >
         <SvgIconClear />
-      </motion.button>
+      </m.button>
     </>
   );
 }

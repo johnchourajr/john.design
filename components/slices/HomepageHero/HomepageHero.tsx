@@ -1,13 +1,13 @@
 'use client';
 
 import clsx from 'clsx';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { useMemo, useRef } from 'react';
 
-import { DynamicJohnGLCanvas } from '@/components/experimental';
+import { useDrawing } from '@/components/Drawing/Drawing.context';
+import { FunShaderV1 } from '@/components/experimental/FunShader';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { ParentheticalChunk } from '@/components/fragments/ParentheticalChunk';
-import { useDrawing } from '@/context/DrawingContext';
 import { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import useLCP from '@/lib/hooks/useLCP';
@@ -42,7 +42,7 @@ function RolesItem({
   };
 
   return typeof item === 'string' ? (
-    <motion.span key={index} style={{ opacity }}>
+    <m.span key={index} style={{ opacity }}>
       {wrapLettersInSpansWithWordsInSpans({
         text: item,
         layout: false,
@@ -53,11 +53,11 @@ function RolesItem({
         letterVariants,
         letterTransition: { duration: 0.05, ease: 'easeOut' },
       })}
-    </motion.span>
+    </m.span>
   ) : (
-    <motion.span key={index} style={{ opacity }}>
+    <m.span key={index} style={{ opacity }}>
       <ParentheticalChunk key={index} text={item.text} />
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -117,7 +117,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           headline={headlineData}
         />
       </div>
-      <motion.div
+      <m.div
         className={clsx(
           'flex items-start flex-col gap-6 p-4 justify-center relative z-[100] mb-[8vw]',
           enableDrawing && 'select-none',
@@ -136,11 +136,16 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             <InformationalChunk key={index} text={chunk.text} />
           ))}
         </div>
-      </motion.div>
+      </m.div>
       <RolesSection rolesSection={rolesSection} />
-      {lcpOccurred && (
-        <DynamicJohnGLCanvas className="h-[150vw] md:h-[100vw]" />
-      )}
+      <div
+        className={clsx(
+          'absolute w-screen aspect-square flex items-center justify-center z-0 mix-blend-hard-light',
+          '-translate-y-[5%]',
+        )}
+      >
+        <FunShaderV1 className={clsx('absolute', 'w-full h-full')} />
+      </div>
     </section>
   );
 }

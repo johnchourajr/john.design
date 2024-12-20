@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export function ParentheticalChunk({ text }: any) {
   const blinkVariants = {
@@ -19,12 +19,12 @@ export function ParentheticalChunk({ text }: any) {
   };
 
   return (
-    <motion.span
+    <m.span
       className="whitespace-nowrap"
       initial={'initial'}
       whileHover={'hover'}
     >
-      <motion.span variants={blinkVariants}>( </motion.span>
+      <m.span variants={blinkVariants}>( </m.span>
       <span className="inline-flex h-fit items-center justify-center -translate-y-[50%] lg:-translate-y-[100%]">
         <span
           className={clsx(
@@ -35,7 +35,7 @@ export function ParentheticalChunk({ text }: any) {
           {text}
         </span>
       </span>
-      <motion.span variants={blinkVariants}> )</motion.span>
-    </motion.span>
+      <m.span variants={blinkVariants}> )</m.span>
+    </m.span>
   );
 }
