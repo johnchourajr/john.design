@@ -4,7 +4,7 @@ import { RenderColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
 import { useTime } from '@/hooks/useTime';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { NavDrawingControls } from './NavDrawingControls';
 
 export function NavRight() {
@@ -33,7 +33,7 @@ export function NavRight() {
         <span>{dateStr}</span>
         <span>
           {hour}
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             animate={{
               opacity: [0, 1],
@@ -45,7 +45,7 @@ export function NavRight() {
             }}
           >
             :
-          </motion.span>
+          </m.span>
           {timeRest}
         </span>
       </p>

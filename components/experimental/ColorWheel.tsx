@@ -1,6 +1,6 @@
 import ColorWheelSvg from '@/components/experimental/color-wheel/ColorWheelSvg';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export const RenderColorWheel = ({
   className,
@@ -9,7 +9,7 @@ export const RenderColorWheel = ({
 }: any) => {
   const active = typeof handleColorChange === 'function' ? true : false;
   return (
-    <motion.button
+    <m.button
       aria-label="Change color"
       title="Change color"
       onClick={handleClick}
@@ -17,6 +17,6 @@ export const RenderColorWheel = ({
       className={clsx('h-[1em] translate-y-[-0em] inline-block', className)}
     >
       <ColorWheelSvg active={active} />
-    </motion.button>
+    </m.button>
   );
 };

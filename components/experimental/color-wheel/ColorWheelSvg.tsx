@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const Rect = ({ active, ...props }: any) => {
   const sharedClasses =
@@ -14,7 +14,7 @@ const Rect = ({ active, ...props }: any) => {
     className: active ? sharedClasses : '',
   };
 
-  return <motion.rect {...sharedStyles} {...props} />;
+  return <m.rect {...sharedStyles} {...props} />;
 };
 
 const ColorWheelSvg = ({ active, ...rest }: any) => {

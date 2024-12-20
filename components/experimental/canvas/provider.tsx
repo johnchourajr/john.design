@@ -1,6 +1,6 @@
 'use client';
 
-import { useDrawing } from '@/context/DrawingContext';
+import { useDrawing } from '@/components/Drawing/Drawing.context';
 import { LiveblocksProvider } from '@liveblocks/react';
 import { useEffect } from 'react';
 

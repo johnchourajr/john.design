@@ -8,22 +8,25 @@ export const expData: PageItem[] = [
   //   status: 'NEW',
   // },
   {
+    href: '/exp/shader',
+    title: 'JohnShader',
+    description: 'What if I got pulled into a shader?',
+    status: 'NEW',
+  },
+  {
     href: '/exp/color-wheel',
     title: 'Color Wheel',
     description: 'All of the colors of the rainbow.',
-    status: 'NEW',
   },
   {
     href: '/exp/john-gl',
     title: 'JohnGL',
     description: 'What if picture of John and webGL had a bebe.',
-    status: 'NEW',
   },
   {
     href: '/exp/justified-headline',
     title: 'Justified Headline',
     description: "It's like a headline the feels really justified.",
-    status: 'NEW',
   },
   {
     href: '/exp/freehand',

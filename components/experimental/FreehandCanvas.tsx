@@ -1,4 +1,4 @@
-import { useDrawing } from '@/context/DrawingContext';
+import { useDrawing } from '@/components/Drawing/Drawing.context';
 import { getSvgPathFromStroke } from '@/utils/getSvgPathFromStroke';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
