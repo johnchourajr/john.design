@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { motion, useScroll } from 'framer-motion';
+import { m, useScroll } from 'framer-motion';
 
 import { SvgGoDaddy } from '@/components/svg/SvgGoDaddy';
 import { SvgHappyMoney } from '@/components/svg/SvgHappyMoney';
@@ -62,7 +62,7 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       key={index}
       className="text-center clip pt-[4vw] group"
@@ -85,7 +85,7 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
         )}
       >
         {item.showLogo && LogoComponent && (
-          <motion.span
+          <m.span
             className={clsx(
               'mr-[.15em] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out-expo',
             )}
@@ -95,19 +95,19 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
               className="h-[.85em] w-[.85em] inline-block translate-y-[-10%]"
               aria-labelledby={`company-name-${index}`}
             />
-          </motion.span>
+          </m.span>
         )}
         <WrapWords text={item.role} layout />
-        <motion.span
+        <m.span
           className={clsx('h-[.85em] flex mr-[.1em]', getJustify())}
           layout
         >
           <span className="headline-display-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out-expo">
             <WrapLetterWords text={item.company} />
           </span>
-        </motion.span>
+        </m.span>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }
 

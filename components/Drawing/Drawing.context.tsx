@@ -1,6 +1,6 @@
 'use client';
 
-import { DynamicFreehandCanvas } from '@/components/experimental';
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import React, {
   createContext,
@@ -9,27 +9,16 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import {
+  DocSizeType,
+  DrawingContextType,
+  StoredPoint,
+  StoredPointObj,
+} from './Drawing.types';
 
-type Point = [number, number, number];
-type StoredPoint = Point[];
-type SetPoint = React.Dispatch<React.SetStateAction<StoredPoint>>;
-type StoredPointObj = { [x: string]: never[] | StoredPoint[] };
-type SetStoredPoints = React.Dispatch<React.SetStateAction<StoredPointObj>>;
-type DocSizeType = { width: number; height: number };
-
-type DrawingContextType = {
-  enableDrawing: boolean;
-  setEnableDrawing: React.Dispatch<React.SetStateAction<boolean>>;
-  points: Point[];
-  storedPoints: StoredPoint[];
-  setPoints: SetPoint;
-  setStoredPoints: SetStoredPoints;
-  storeCurrentDrawing: () => void;
-  clearStoredPoints: () => void;
-  undo: () => void;
-  docSize: DocSizeType;
-  setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
-};
+export const DynamicFreehandCanvas = dynamic(
+  () => import('@/components/experimental/FreehandCanvas'),
+);
 
 const MAX_STORED_POINTS = 60;
 const MIN_POINTS_COUNT = 5;

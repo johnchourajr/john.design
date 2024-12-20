@@ -1,11 +1,11 @@
-import React from "react";
-import { LayoutGroup, motion } from "framer-motion";
-import clsx from "clsx";
+import clsx from 'clsx';
+import { LayoutGroup, m } from 'framer-motion';
+import React from 'react';
 
 export function getSettingValue(
   settings: any,
   name: string,
-  fallback: string | boolean | number = true
+  fallback: string | boolean | number = true,
 ) {
   if (!settings || settings === undefined) return fallback;
   return settings?.find((setting: any) => setting.name === name).value;
@@ -44,16 +44,16 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
       <button
         onClick={toggle}
         className={clsx(
-          " flex p-1 rounded-full bg-[rgba(255,255,255,.2)] w-12",
-          state.value ? " justify-end" : " justify-start"
+          ' flex p-1 rounded-full bg-[rgba(255,255,255,.2)] w-12',
+          state.value ? ' justify-end' : ' justify-start',
         )}
       >
-        <motion.div
+        <m.div
           id={`toggle-${index}`}
           layout
           className={clsx(
-            "w-5 h-5 rounded-full ",
-            state.value ? "bg-[var(--root-color)]" : "bg-[#000000]"
+            'w-5 h-5 rounded-full ',
+            state.value ? 'bg-[var(--root-color)]' : 'bg-[#000000]',
           )}
         />
       </button>
@@ -96,7 +96,7 @@ export function SettingsGroup({ settings, setSettings }: any) {
       <div className="fixed bg-black p-4 bottom-0 left-0 flex gap-4 flex-col items-start justify-start w-fit z-[100] rounded-tr-2xl">
         {settings.map(({ type, ...rest }: any, index: number) => {
           switch (type) {
-            case "Boolean":
+            case 'Boolean':
               return (
                 <SettingsBoolean
                   key={index}
@@ -105,7 +105,7 @@ export function SettingsGroup({ settings, setSettings }: any) {
                   {...rest}
                 />
               );
-            case "Slider":
+            case 'Slider':
               return (
                 <SettingsSlider
                   key={index}

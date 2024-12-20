@@ -1,6 +1,6 @@
+import { DrawingProvider } from '@/components/Drawing';
 import { GlobalLayout } from '@/components/globals/layout';
 import { AppProvider } from '@/context/AppProvider';
-import { DrawingProvider } from '@/context/DrawingContext';
 import { GtagProvider } from '@/context/GtagProvider';
 import type { Metadata, Viewport } from 'next';
 import { CSSProperties } from 'react';
