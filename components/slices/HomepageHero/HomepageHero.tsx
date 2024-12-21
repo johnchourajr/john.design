@@ -144,7 +144,10 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           '-translate-y-[5%]',
         )}
       >
-        <FunShaderV1 className={clsx('absolute', 'w-full h-full')} />
+        <FunShaderV1
+          className={clsx('absolute', 'w-full h-full')}
+          src="/me-alpha-moody.png"
+        />
       </div>
     </section>
   );
