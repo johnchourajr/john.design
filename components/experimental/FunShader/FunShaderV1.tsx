@@ -3,7 +3,13 @@
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 
-export const FunShaderV1 = ({ className }: { className?: string }) => {
+export const FunShaderV1 = ({
+  className,
+  src,
+}: {
+  className?: string;
+  src: string;
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -67,7 +73,7 @@ export const FunShaderV1 = ({ className }: { className?: string }) => {
     gl.useProgram(program);
 
     const image = new Image();
-    image.src = '/me-alpha-moody.png';
+    image.src = src;
     image.onload = () => {
       const texture = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, texture);
