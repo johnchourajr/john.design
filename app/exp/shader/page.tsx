@@ -19,7 +19,7 @@ const SETTINGS: {
     name: 'Shader',
     type: 'Select',
     value: 'distortion',
-    options: ['distortion', 'ripple', 'fluted', 'smoke'],
+    options: ['distortion', 'ripple', 'fluted', 'vertical'],
   },
 ];
 
