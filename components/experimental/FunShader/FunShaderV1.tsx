@@ -1,14 +1,17 @@
 'use client';
 
+import { ShaderVariant, fragmentShaders } from '@/types/shaders';
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 
 export const FunShaderV1 = ({
   className,
   src,
+  variant = 'distortion',
 }: {
   className?: string;
   src: string;
+  variant?: ShaderVariant;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -20,56 +23,12 @@ export const FunShaderV1 = ({
     }
   `;
 
-  const fragmentShader = `
-    precision highp float;
-    uniform vec2 resolution;
-    uniform vec2 mouse;
-    uniform float time;
-    uniform sampler2D image;
-    uniform vec2 imageResolution;
-
-    void main() {
-      vec2 uv = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y) / resolution.xy;
-
-      // Force 1:1 aspect ratio
-      float aspect = resolution.x / resolution.y;
-      vec2 adjustedUV = uv;
-
-      if (aspect > 1.0) {
-        // Width is larger than height
-        adjustedUV.x = (uv.x - 0.5) * aspect + 0.5;
-      } else {
-        // Height is larger than width
-        adjustedUV.y = (uv.y - 0.5) / aspect + 0.5;
-      }
-
-      // Center the effect
-      vec2 mouseUV = mouse.xy / resolution.xy;
-      mouseUV.y = 1.0 - mouseUV.y;
-
-      // Rest of the shader calculations
-      float dist = distance(adjustedUV, mouseUV);
-      float strength = smoothstep(0.2, 0.0, dist); // Increased radius from 0.1 to 0.2
-      vec2 displacement = normalize(adjustedUV - mouseUV) * strength * 0.1; // Increased from 0.1 to 0.25
-
-      vec4 color = texture2D(image, adjustedUV - displacement);
-      float noise = fract(sin(dot(adjustedUV, vec2(12.9898, 78.233))) * 43758.5453);
-      vec2 pos = adjustedUV + displacement * noise * sin(time) * 1.5; // Added multiplier for stronger effect
-
-      if (adjustedUV.x < 0.0 || adjustedUV.x > 1.0 || adjustedUV.y < 0.0 || adjustedUV.y > 1.0) {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
-      } else {
-        gl_FragColor = texture2D(image, pos);
-      }
-    }
-  `;
-
   useEffect(() => {
     const canvas = canvasRef.current;
     const gl = canvas?.getContext('webgl');
     if (!gl) return;
 
-    const program = createProgram(gl, vertexShader, fragmentShader);
+    const program = createProgram(gl, vertexShader, fragmentShaders[variant]);
     gl.useProgram(program);
 
     const image = new Image();
@@ -139,7 +98,7 @@ export const FunShaderV1 = ({
       window.removeEventListener('resize', resize);
       gl.deleteProgram(program);
     };
-  }, []);
+  }, [variant]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;

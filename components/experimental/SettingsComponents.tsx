@@ -90,10 +90,36 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
     </div>
   );
 }
+
+function SettingsSelect({ index, name, settings, setSettings, options }: any) {
+  const [state, setArrayState] = useArrayState(settings, setSettings, index);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setArrayState({ ...state, value: e.target.value });
+  };
+
+  return (
+    <div className="inline-flex flex-row items-center justify-center gap-3">
+      {name}
+      <select
+        value={state.value}
+        onChange={handleChange}
+        className="bg-[rgba(255,255,255,.2)] text-white p-1 rounded"
+      >
+        {options.map((option: string) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
 export function SettingsGroup({ settings, setSettings }: any) {
   return (
     <LayoutGroup>
-      <div className="fixed bg-black p-4 bottom-0 left-0 flex gap-4 flex-col items-start justify-start w-fit z-[100] rounded-tr-2xl">
+      <div className="sticky bg-black p-4 bottom-0 left-0 flex gap-4 flex-col items-start justify-start w-fit z-[100] rounded-tr-2xl">
         {settings.map(({ type, ...rest }: any, index: number) => {
           switch (type) {
             case 'Boolean':
@@ -108,6 +134,15 @@ export function SettingsGroup({ settings, setSettings }: any) {
             case 'Slider':
               return (
                 <SettingsSlider
+                  key={index}
+                  index={index}
+                  {...{ settings, setSettings }}
+                  {...rest}
+                />
+              );
+            case 'Select':
+              return (
+                <SettingsSelect
                   key={index}
                   index={index}
                   {...{ settings, setSettings }}
