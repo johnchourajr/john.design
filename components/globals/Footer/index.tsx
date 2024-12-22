@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer
       className={clsx(
-        'w-full flex flex-col gap-4 relative p-4 bg-black pt-10 mt-24',
+        'w-full flex flex-col gap-4 relative p-4 bg-black pt-10 mt-24 z-0',
         'border-t border-root',
       )}
     >
