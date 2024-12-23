@@ -4,7 +4,7 @@ import { ShaderVariant, fragmentShaders } from '@/types/shaders';
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 
-export const FunShaderV1 = ({
+export const ImageShader = ({
   className,
   src,
   variant = 'distortion',
@@ -98,7 +98,7 @@ export const FunShaderV1 = ({
       window.removeEventListener('resize', resize);
       gl.deleteProgram(program);
     };
-  }, [variant]);
+  }, [variant, src, vertexShader]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;

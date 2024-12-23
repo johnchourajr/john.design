@@ -5,7 +5,7 @@ import { m, useScroll, useTransform } from 'framer-motion';
 import { useMemo, useRef } from 'react';
 
 import { useDrawing } from '@/components/Drawing/Drawing.context';
-import { FunShaderV1 } from '@/components/experimental/FunShader';
+import { ImageShader } from '@/components/experimental/ImageShader';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { ParentheticalChunk } from '@/components/fragments/ParentheticalChunk';
 import { HomePageData } from '@/data/homepageContent';
@@ -107,10 +107,10 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       id="hero"
       className="relative flex flex-col items-center z-10 min-h-[100vh] overflow-hidden"
     >
-      <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw]">
+      <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none">
         <DynamicJustifiedHeadlineInner
           className={clsx(
-            'my-[16vw] w-full font-black',
+            'my-[16vw] w-full font-black pointer',
             enableDrawing && 'select-none',
           )}
           iterations={8}
@@ -140,13 +140,14 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       <RolesSection rolesSection={rolesSection} />
       <div
         className={clsx(
-          'absolute w-screen aspect-square flex items-center justify-center z-0 mix-blend-hard-light',
+          'absolute w-screen aspect-square flex items-center justify-center -z-10 ',
           '-translate-y-[5%]',
         )}
       >
-        <FunShaderV1
+        <ImageShader
           className={clsx('absolute', 'w-full h-full')}
           src="/me-alpha-moody.png"
+          variant="distortion"
         />
       </div>
     </section>

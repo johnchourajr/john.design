@@ -7,7 +7,7 @@ export default function Freehand() {
   return (
     <>
       <InlineLink href="/exp/" className="relative z-50 no-underline">
-        <h2 className="my-8">
+        <h2 className="m-4">
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
