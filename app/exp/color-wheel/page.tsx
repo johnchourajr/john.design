@@ -2,10 +2,10 @@
 
 import InlineLink from '@/components/fragments/InlineLink';
 
-import { RenderColorWheel } from '@/components/experimental/ColorWheel';
+import { ColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
 
-export default function ColorWheel() {
+export default function Page() {
   const { rootColor, handleColorChange } = useAppContext();
 
   return (
@@ -16,13 +16,13 @@ export default function ColorWheel() {
         </h2>
       </InlineLink>
       <div className="flex h-[80vh] flex-col items-start justify-center">
-        <RenderColorWheel
+        <ColorWheel
           handleColorChange={handleColorChange}
           className="lg:hidden visible lg:invisible inline-flex text-[40vw] mb-10"
         />
         <h1 className="inline-flex w-full align-baseline flex-wrap font-pixel text-[12vw] leading-[1.1]  whitespace-normal">
           Click The &nbsp;
-          <RenderColorWheel
+          <ColorWheel
             handleColorChange={handleColorChange}
             className="hidden lg:visible invisible lg:inline-flex"
           />

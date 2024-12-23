@@ -1,4 +1,4 @@
-import { RenderColorWheel } from '@/components/experimental/ColorWheel';
+import { ColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
 import { AnimatePresence, m } from 'framer-motion';
 
@@ -12,7 +12,7 @@ export function NavColorOverlay({}: NavColorOverlayProps) {
     <AnimatePresence>
       {toggleColorActive && (
         <div className="fixed flex flex-col items-center justify-center inset-0 z-[9000]">
-          <RenderColorWheel
+          <ColorWheel
             handleClick={() => handleActive(false)}
             handleColorChange={handleColorChange}
             className="!w-[20.25rem] !h-[20.25rem] z-[9999]"

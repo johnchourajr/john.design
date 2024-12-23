@@ -1,3 +1,5 @@
+'use client';
+
 import { useDrawing } from '@/components/Drawing/Drawing.context';
 import SvgIconClear from '@/components/svg/SvgIconClear';
 import SvgIconDraw from '@/components/svg/SvgIconDraw';
