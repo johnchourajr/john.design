@@ -1,7 +1,22 @@
 import { HomepageHero } from '@/components/slices/HomepageHero';
-import { PillBlockList } from '@/components/slices/PillBlockList';
-import { ResumeSection } from '@/components/slices/ResumeSection';
 import { homepageContent } from '@/data/homepageContent';
+import dynamic from 'next/dynamic';
+
+const PillBlockList = dynamic(
+  () =>
+    import('@/components/slices/PillBlockList').then(
+      (mod) => mod.PillBlockList,
+    ),
+  { ssr: false },
+);
+
+const ResumeSection = dynamic(
+  () =>
+    import('@/components/slices/ResumeSection').then(
+      (mod) => mod.ResumeSection,
+    ),
+  { ssr: false },
+);
 
 type HomePageProps = {
   heroSection: typeof homepageContent.heroSection;

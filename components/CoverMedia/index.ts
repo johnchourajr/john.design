@@ -1,0 +1,1 @@
+export { CoverMedia } from './CoverMedia';
