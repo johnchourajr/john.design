@@ -1,4 +1,4 @@
-import { DrawingProvider } from '@/components/Drawing';
+import { DrawingProvider } from '@/components/experimental/Drawing';
 import { GlobalLayout } from '@/components/globals/layout';
 import { AppProvider } from '@/context/AppProvider';
 import { GtagProvider } from '@/context/GtagProvider';
