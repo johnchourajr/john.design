@@ -73,7 +73,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
       )}
     >
       <p className="text-string">{title}</p>
-      <m.div
+      <div
         className={clsx(
           'flex flex-wrap items-center justify-center w-[112vw] -mx-[6vw]',
         )}
@@ -89,7 +89,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
             />
           );
         })}
-      </m.div>
+      </div>
     </section>
   );
 }

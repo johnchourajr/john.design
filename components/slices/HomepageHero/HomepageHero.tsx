@@ -1,24 +1,29 @@
 'use client';
 
 import clsx from 'clsx';
-import { m, useScroll, useTransform } from 'framer-motion';
+import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import { useDrawing } from '@/components/Drawing/Drawing.context';
 import { ImageShader } from '@/components/experimental/ImageShader';
-import { InformationalChunk } from '@/components/fragments/InformationalChunk';
-import { ParentheticalChunk } from '@/components/fragments/ParentheticalChunk';
 import { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
-import useLCP from '@/lib/hooks/useLCP';
-import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
-import { makeRandomRotate } from '../../../lib/utils/randomBetween';
 
 const DynamicJustifiedHeadlineInner = dynamic(() =>
   import('@/components/justified-headline').then(
     (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
+
+const RolesSection = dynamic(() =>
+  import('@/components/slices/RolesSection').then((mod) => mod.RolesSection),
+);
+
+const InformationalChunk = dynamic(() =>
+  import('@/components/fragments/InformationalChunk').then(
+    (mod) => mod.InformationalChunk,
   ),
 );
 
@@ -27,86 +32,9 @@ export type HomepageHeroProps = {
   rolesSection: SectionStructure;
 };
 
-function RolesItem({
-  rolesSection,
-  index,
-  item,
-  scrollYProgress,
-}: {
-  rolesSection: SectionStructure;
-  index: number;
-  item: string | { text: string };
-  scrollYProgress: any;
-}) {
-  const list = rolesSection?.text || [];
-  const calc = -index / list.length - 0.1;
-  const opacity = useTransform(scrollYProgress, [0, 1], [calc, 1]);
-
-  const letterVariants = {
-    initial: { rotate: 0 },
-    hover: { rotate: makeRandomRotate() },
-  };
-
-  return typeof item === 'string' ? (
-    <m.span key={index} style={{ opacity }}>
-      {wrapLettersInSpansWithWordsInSpans({
-        text: item,
-        layout: false,
-        className: 'mx-[0.1em] inline-block',
-        letterClassName: 'inline-flex',
-        letterInitial: 'initial',
-        letterWhileHover: 'hover',
-        letterVariants,
-        letterTransition: { duration: 0.05, ease: 'easeOut' },
-      })}
-    </m.span>
-  ) : (
-    <m.span key={index} style={{ opacity }}>
-      <ParentheticalChunk key={index} text={item.text} />
-    </m.span>
-  );
-}
-
-function RolesSection({ rolesSection }: { rolesSection: SectionStructure }) {
-  const ref = useRef(null);
-  const { enableDrawing } = useDrawing();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 100%', 'end 95%'],
-  });
-
-  return (
-    <div
-      className={clsx(
-        'inline-flex items-center flex-col p-4 gap-6 justify-center w-full relative z-[100] mb-[8vw]',
-        'relative z-10',
-        enableDrawing && 'select-none',
-      )}
-    >
-      <p
-        ref={ref}
-        className="headline-display-xl !normal-case !font-pixel !font-normal text-center items-center leading-tight"
-      >
-        {rolesSection?.text?.map((item, index) => {
-          return (
-            <RolesItem
-              key={index}
-              index={index}
-              item={item}
-              rolesSection={rolesSection}
-              scrollYProgress={scrollYProgress}
-            />
-          );
-        })}
-      </p>
-    </div>
-  );
-}
-
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const { enableDrawing } = useDrawing();
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
-  const lcpOccurred = useLCP();
 
   return (
     <section
