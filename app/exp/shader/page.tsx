@@ -1,6 +1,6 @@
 'use client';
 
-import { FunShaderV1 } from '@/components/experimental/FunShader';
+import { ImageShader } from '@/components/experimental/ImageShader';
 import {
   SettingsGroup,
   getSettingValue,
@@ -34,11 +34,11 @@ export default function Page() {
   return (
     <>
       <InlineLink href="/exp/" className="no-underline">
-        <h2 className="my-8">
+        <h2 className="m-4">
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      <FunShaderV1
+      <ImageShader
         className="w-screen h-[65vw]"
         src="/film/mission.jpg"
         variant={currentShader}

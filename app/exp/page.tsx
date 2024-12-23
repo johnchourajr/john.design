@@ -7,8 +7,6 @@ import { expData } from '@/data/expContent';
 import clsx from 'clsx';
 
 export default function ExpPage() {
-  const data = expData;
-
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
@@ -26,7 +24,7 @@ export default function ExpPage() {
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8 my-[10vw] px-4">
-        {data.map((item, i) => (
+        {expData.map((item, i) => (
           <LinkGridItem key={i} {...item} />
         ))}
       </section>

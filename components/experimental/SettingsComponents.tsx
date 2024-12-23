@@ -104,7 +104,7 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
       <select
         value={state.value}
         onChange={handleChange}
-        className="bg-[rgba(255,255,255,.2)] text-white p-1 rounded"
+        className="border-1 border-root ring-root text-root p-1 rounded"
       >
         {options.map((option: string) => (
           <option key={option} value={option}>

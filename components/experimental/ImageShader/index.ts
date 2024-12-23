@@ -1,0 +1,1 @@
+export { ImageShader } from './ImageShader';
