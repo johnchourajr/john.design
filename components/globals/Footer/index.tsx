@@ -46,9 +46,9 @@ export default function Footer() {
         <InlineLink href="https://v4.john.design/?ref=v5" target="_blank">
           v4
         </InlineLink>
-        <p>
+        {/* <p>
           <s>v3</s>
-        </p>
+        </p> */}
         <InlineLink href="http://v2.objectsubject.com/?ref=v5" target="_blank">
           v2
         </InlineLink>
