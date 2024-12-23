@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@liveblocks/client": "^2.9.1",
-    "@liveblocks/react": "^2.9.1",
     "@muybuen/type": "^1.1.6",
     "@react-three/drei": "^9.96.1",
     "@react-three/fiber": "^8.15.15",

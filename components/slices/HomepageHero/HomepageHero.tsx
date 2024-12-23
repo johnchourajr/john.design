@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { m, useScroll, useTransform } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { useMemo, useRef } from 'react';
 
 import { useDrawing } from '@/components/Drawing/Drawing.context';
@@ -14,7 +15,12 @@ import useLCP from '@/lib/hooks/useLCP';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
 import { makeRandomRotate } from '../../../lib/utils/randomBetween';
-import { DynamicJustifiedHeadlineInner } from '../../justified-headline';
+
+const DynamicJustifiedHeadlineInner = dynamic(() =>
+  import('@/components/justified-headline').then(
+    (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
 
 export type HomepageHeroProps = {
   heroSection: HomePageData['heroSection'];

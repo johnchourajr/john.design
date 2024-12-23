@@ -1,4 +1,4 @@
-import ColorWheelSvg from '@/components/experimental/color-wheel/ColorWheelSvg';
+import ColorWheelSvg from '@/components/experimental/ColorWheelSvg/ColorWheelSvg';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 

@@ -16,8 +16,10 @@ import {
   StoredPointObj,
 } from './Drawing.types';
 
-export const DynamicFreehandCanvas = dynamic(
-  () => import('@/components/experimental/FreehandCanvas'),
+export const DynamicFreehandCanvas = dynamic(() =>
+  import('@/components/experimental/FreehandCanvas').then(
+    (mod) => mod.FreehandCanvas,
+  ),
 );
 
 const MAX_STORED_POINTS = 60;

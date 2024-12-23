@@ -1,10 +1,14 @@
-'use client';
-
 import LinkGridItem from '@/components/fragments/LinkGridItem';
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { workContent } from '@/data/workContent';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+
+const DynamicJustifiedHeadlineInner = dynamic(() =>
+  import('@/components/justified-headline').then(
+    (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
 
 export default function WorkPage({
   daylightData,

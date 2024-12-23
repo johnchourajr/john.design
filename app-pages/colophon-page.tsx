@@ -1,9 +1,15 @@
 'use client';
 
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { colophonData } from '@/data/colophonContent';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+
+const DynamicJustifiedHeadlineInner = dynamic(() =>
+  import('@/components/justified-headline').then(
+    (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
 
 export default function ColophonPage({
   title,

@@ -1,10 +1,14 @@
-'use client';
-
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { contactData } from '@/data/contactContent';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+
+const DynamicJustifiedHeadlineInner = dynamic(() =>
+  import('@/components/justified-headline').then(
+    (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
 
 export default function ContactPage({
   title,

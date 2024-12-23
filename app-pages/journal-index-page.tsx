@@ -1,13 +1,16 @@
-'use client';
-
 import JournalArchiveGridItem from '@/components/fragments/JournalArchiveGridItem';
 import JournalGridItem from '@/components/fragments/JournalGridItem';
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
-import { m } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+const DynamicJustifiedHeadlineInner = dynamic(() =>
+  import('@/components/justified-headline').then(
+    (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
 
 type JournalPageProps = {
   posts: PostData[];
@@ -23,7 +26,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
 
   return (
     <>
-      <m.section className="my-[4vw] max-w-[100vw] overflow-hidden" layout>
+      <section className="my-[4vw] max-w-[100vw] overflow-hidden">
         <DynamicJustifiedHeadlineInner
           className={clsx('leading-[1] w-full font-black pointer-events-none')}
           headline={[
@@ -35,7 +38,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
           iterations={8}
           letters={true}
         />
-      </m.section>
+      </section>
 
       <section className="grid grid-cols-1 md:grid-cols-4 gap-8 my-[10vw] px-4">
         <h2 className="text-string col-span-full">The latest</h2>

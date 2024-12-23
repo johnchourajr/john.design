@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 
 import { ImageShader } from '@/components/experimental/ImageShader';
 import {
@@ -7,7 +8,6 @@ import {
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
 import { ShaderVariant } from '@/types/shaders';
-import { useState } from 'react';
 
 const SETTINGS: {
   name: string;
