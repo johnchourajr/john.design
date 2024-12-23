@@ -1,4 +1,4 @@
-import { PostPage } from '@/components/PostPage';
+import { PostPage } from '@/components/journal/PostPage';
 import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
 import { PostData } from '@/types/content-types';
 import { GetStaticPropsContext } from 'next';

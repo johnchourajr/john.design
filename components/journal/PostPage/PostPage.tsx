@@ -1,5 +1,5 @@
-import { CoverMedia } from '@/components/CoverMedia';
 import InlineLink from '@/components/fragments/InlineLink';
+import { CoverMedia } from '@/components/journal/CoverMedia';
 import { PostBody } from '@/components/journal/PostBody';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';

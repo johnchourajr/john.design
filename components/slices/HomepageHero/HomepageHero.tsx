@@ -5,7 +5,7 @@ import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
-import { useDrawing } from '@/components/Drawing/Drawing.context';
+import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import { ImageShader } from '@/components/experimental/ImageShader';
 import { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
