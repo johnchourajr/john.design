@@ -1,6 +1,6 @@
 'use client';
 
-import FreehandCanvas from '@/components/experimental/FreehandCanvas';
+import FreehandCanvas from '@/components/experimental/FreehandCanvas/FreehandCanvas';
 import InlineLink from '@/components/fragments/InlineLink';
 
 export default function Freehand() {

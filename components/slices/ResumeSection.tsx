@@ -3,16 +3,35 @@
 import clsx from 'clsx';
 import { m, useScroll } from 'framer-motion';
 
-import { SvgGoDaddy } from '@/components/svg/SvgGoDaddy';
-import { SvgHappyMoney } from '@/components/svg/SvgHappyMoney';
-import { SvgPayPal } from '@/components/svg/SvgPayPal';
-import { SvgRetool } from '@/components/svg/SvgRetool';
 import { HomePageData } from '@/data/homepageContent';
 import { WrapLetterWords, WrapWords } from '@/lib/utils/wrapInSpans';
 
+const SvgGoDaddy = dynamic(() => import('@/components/svg/SvgGoDaddy'), {
+  ssr: false,
+  loading: () => <div></div>,
+});
+const SvgHappyMoney = dynamic(() => import('@/components/svg/SvgHappyMoney'), {
+  ssr: false,
+  loading: () => <div></div>,
+});
+const SvgPayPal = dynamic(() => import('@/components/svg/SvgPayPal'), {
+  ssr: false,
+  loading: () => <div></div>,
+});
+const SvgRetool = dynamic(() => import('@/components/svg/SvgRetool'), {
+  ssr: false,
+  loading: () => <div></div>,
+});
+
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useEffect, useRef, useState, type SVGProps } from 'react';
+import {
+  ComponentType,
+  useEffect,
+  useRef,
+  useState,
+  type SVGProps,
+} from 'react';
 export type ResumeSectionProps = HomePageData['resumeSection'];
 
 function ResumeItem({ item, index }: { item: any; index: number }) {
@@ -45,10 +64,7 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
     return () => clearInterval(interval);
   }, [isHovering]);
 
-  const logoMapping: Record<
-    string,
-    (props: SVGProps<SVGSVGElement>) => JSX.Element
-  > = {
+  const logoMapping: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
     GoDaddy: SvgGoDaddy,
     'Happy Money': SvgHappyMoney,
     PayPal: SvgPayPal,

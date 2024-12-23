@@ -1,10 +1,19 @@
 'use client';
+import dynamic from 'next/dynamic';
+import { useMemo, useState } from 'react';
 
 import { SettingsGroup } from '@/components/experimental/SettingsComponents';
-import InlineLink from '@/components/fragments/InlineLink';
-import { DynamicJustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-import React from 'react';
+
+const DynamicJustifiedHeadlineInner = dynamic(() =>
+  import('@/components/justified-headline').then(
+    (mod) => mod.JustifiedHeadlineInner,
+  ),
+);
+
+const InlineLink = dynamic(() => import('@/components/fragments/InlineLink'), {
+  ssr: false,
+});
 
 const SETTINGS = [
   {
@@ -27,9 +36,9 @@ const SETTINGS = [
 ];
 
 export default function JustifiedHeadline() {
-  const [settings, setSettings] = React.useState(SETTINGS);
+  const [settings, setSettings] = useState(SETTINGS);
 
-  const headlineData = React.useMemo(() => {
+  const headlineData = useMemo(() => {
     return [
       {
         text: 'John Is',

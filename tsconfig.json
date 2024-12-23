@@ -52,7 +52,5 @@
   ],
   "exclude": [
     "node_modules",
-    "components/experimental/canvas",
-    "components/experimental/multiplayer",
   ]
 }
