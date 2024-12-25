@@ -29,8 +29,8 @@ export const pixelShader = `
       vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
       float dist = distance(effectUV, mouseUV) / screenAspect;
 
-      float innerRadius = 0.15;
-      float outerRadius = 0.16;
+      float innerRadius = 0.10;
+      float outerRadius = 0.14;
       float pixelSize = smoothstep(innerRadius, outerRadius, dist) * 0.05;
       pixelSize = pow(pixelSize, 1.5);
 

@@ -29,12 +29,12 @@ export const zoomShader = `
       vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
       float dist = distance(effectUV, mouseUV) / screenAspect;
 
-      float zoomStrength = smoothstep(0.3, 0.0, dist) * 0.5;
+      float zoomStrength = smoothstep(0.3, 0.0, dist) * 0.25; // Reduced from 0.5 to 0.25
       vec2 zoomOffset = (textureUV - mouseUV) * zoomStrength;
       zoomOffset.x *= screenAspect;
       vec2 zoomedUV = textureUV - zoomOffset;
 
-      float lensDistort = 1.0 - dist * 0.2;
+      float lensDistort = 1.0 - dist * 0.3; // Increased from 0.2 to 0.3 to emphasize lens effect
       vec2 distortedOffset = (zoomedUV - mouseUV);
       distortedOffset.x *= screenAspect;
       zoomedUV = mouseUV + distortedOffset * lensDistort;
