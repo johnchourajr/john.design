@@ -1,20 +1,27 @@
 'use client';
-
-import { ShaderVariant, fragmentShaders } from '@/types/shaders';
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
+
+import {
+  AspectRatio,
+  fragmentShaders,
+  ShaderVariant,
+} from '@/components/experimental/ImageShader/shaders';
 
 export const ImageShader = ({
   className,
   src,
   variant = 'distortion',
+  aspectRatio = '1:1',
 }: {
   className?: string;
   src: string;
   variant?: ShaderVariant;
+  aspectRatio?: AspectRatio;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const glRef = useRef<WebGLRenderingContext | null>(null);
 
   const vertexShader = `
     attribute vec2 position;
@@ -23,10 +30,46 @@ export const ImageShader = ({
     }
   `;
 
+  // Extract resize function
+  const handleResize = () => {
+    const canvas = canvasRef.current;
+    const gl = glRef.current;
+    if (!canvas || !gl) return;
+
+    const container = canvas.parentElement;
+    if (!container) return;
+
+    const containerBounds = container.getBoundingClientRect();
+    const containerWidth = containerBounds.width;
+    const containerHeight = containerBounds.height;
+
+    const [numerator, denominator] = aspectRatio.split(':').map(Number);
+    const targetRatio = numerator / denominator;
+
+    let width, height;
+
+    if (containerWidth / containerHeight > targetRatio) {
+      height = containerHeight;
+      width = containerHeight * targetRatio;
+    } else {
+      width = containerWidth;
+      height = containerWidth / targetRatio;
+    }
+
+    canvas.width = Math.round(width);
+    canvas.height = Math.round(height);
+    canvas.style.width = `${canvas.width}px`;
+    canvas.style.height = `${canvas.height}px`;
+
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const gl = canvas?.getContext('webgl');
     if (!gl) return;
+
+    glRef.current = gl;
 
     const program = createProgram(gl, vertexShader, fragmentShaders[variant]);
     gl.useProgram(program);
@@ -69,17 +112,8 @@ export const ImageShader = ({
     gl.enableVertexAttribArray(positionLocation);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-    const resize = () => {
-      // Make canvas square using the minimum dimension
-      const size = Math.min(window.innerWidth, window.innerHeight);
-      if (canvas) {
-        canvas.width = size;
-        canvas.height = size;
-        gl.viewport(0, 0, size, size);
-      }
-    };
-    window.addEventListener('resize', resize);
-    resize();
+    window.addEventListener('resize', handleResize);
+    handleResize();
 
     let startTime = performance.now();
     const render = () => {
@@ -95,10 +129,15 @@ export const ImageShader = ({
     render();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', handleResize);
       gl.deleteProgram(program);
     };
-  }, [variant, src, vertexShader]);
+  }, [variant, src, vertexShader, aspectRatio]);
+
+  // Add effect to handle resize when variant changes
+  useEffect(() => {
+    handleResize();
+  }, [variant]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -144,11 +183,23 @@ export const ImageShader = ({
     return program;
   };
 
+  const aspect = {
+    '1:1': 'aspect-square',
+    '4:3': 'aspect-[4/3]',
+    '2000:1327': 'aspect-[2000/1327]',
+  };
+
   return (
-    <canvas
-      ref={canvasRef}
-      onMouseMove={handleMouseMove}
-      className={clsx('aspect-square', className)}
-    />
+    <div className="relative inline-block w-full h-full">
+      <canvas
+        ref={canvasRef}
+        onMouseMove={handleMouseMove}
+        className={clsx(
+          'w-full h-full object-contain',
+          aspect[aspectRatio],
+          className,
+        )}
+      />
+    </div>
   );
 };

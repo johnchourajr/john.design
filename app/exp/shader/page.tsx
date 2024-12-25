@@ -2,12 +2,12 @@
 import { useState } from 'react';
 
 import { ImageShader } from '@/components/experimental/ImageShader';
+import { ShaderVariant } from '@/components/experimental/ImageShader/shaders';
 import {
   SettingsGroup,
   getSettingValue,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
-import { ShaderVariant } from '@/types/shaders';
 
 const SETTINGS: {
   name: string;
@@ -19,7 +19,15 @@ const SETTINGS: {
     name: 'Shader',
     type: 'Select',
     value: 'distortion',
-    options: ['distortion', 'ripple', 'fluted', 'vertical'],
+    options: [
+      'distortion',
+      'ripple',
+      'fluted',
+      'vertical',
+      'pixel',
+      'zoom',
+      'twist',
+    ],
   },
 ];
 
@@ -39,9 +47,10 @@ export default function Page() {
         </h2>
       </InlineLink>
       <ImageShader
-        className="w-screen h-[65vw]"
+        className="w-screen h-auto"
         src="/film/mission.jpg"
         variant={currentShader}
+        aspectRatio="2000:1327"
       />
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
