@@ -35,6 +35,13 @@ export type HomepageHeroProps = {
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const { enableDrawing } = useDrawing();
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
+  const shaderVariant = useMemo(() => {
+    const variants = ['pixel', 'distortion', 'vertical'];
+    return variants[Math.floor(Math.random() * variants.length)] as
+      | 'pixel'
+      | 'distortion'
+      | 'vertical';
+  }, []);
 
   return (
     <section
@@ -81,7 +88,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
         <ImageShader
           className={clsx('absolute', 'w-full h-full')}
           src="/me-alpha-moody.png"
-          variant="distortion"
+          variant={shaderVariant}
         />
       </div>
     </section>
