@@ -30,7 +30,7 @@ export function NavDateTime() {
       </span>
       <span
         className={clsx(
-          'min-w-[65px]', // Fixed width for time
+          'min-w-[65px]',
           isLoading && 'bg-gray-200 animate-pulse rounded',
         )}
       >
