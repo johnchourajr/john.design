@@ -1,14 +1,13 @@
-export const zoomShader = `
-    precision highp float;
+export const zoomThree = `
     uniform vec2 resolution;
     uniform vec2 mouse;
     uniform float time;
     uniform sampler2D image;
     uniform vec2 imageResolution;
+    varying vec2 vUv;
 
     void main() {
-      vec2 uv = gl_FragCoord.xy / resolution.xy;
-      uv.y = 1.0 - uv.y;
+      vec2 uv = vUv;
 
       float imageAspect = imageResolution.x / imageResolution.y;
       float screenAspect = resolution.x / resolution.y;
@@ -29,12 +28,12 @@ export const zoomShader = `
       vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
       float dist = distance(effectUV, mouseUV) / screenAspect;
 
-      float zoomStrength = smoothstep(0.3, 0.0, dist) * 0.25; // Reduced from 0.5 to 0.25
+      float zoomStrength = smoothstep(0.3, 0.0, dist) * 0.25;
       vec2 zoomOffset = (textureUV - mouseUV) * zoomStrength;
       zoomOffset.x *= screenAspect;
       vec2 zoomedUV = textureUV - zoomOffset;
 
-      float lensDistort = 1.0 - dist * 0.3; // Increased from 0.2 to 0.3 to emphasize lens effect
+      float lensDistort = 1.0 - dist * 0.3;
       vec2 distortedOffset = (zoomedUV - mouseUV);
       distortedOffset.x *= screenAspect;
       zoomedUV = mouseUV + distortedOffset * lensDistort;

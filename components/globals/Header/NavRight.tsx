@@ -31,7 +31,7 @@ const NavDateTime = dynamic(() =>
 
 export function NavRight() {
   return (
-    <div className="hidden lg:inline-flex row gap-6 items-center h-5">
+    <div className="hidden md:inline-flex row gap-6 items-center h-5">
       <NavDrawingControls />
       <ColorWheelControl />
       <NavDateTime />

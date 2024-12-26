@@ -5,10 +5,11 @@ export const flutedShader = `
     uniform float time;
     uniform sampler2D image;
     uniform vec2 imageResolution;
+    varying vec2 vUv;
+
 
     void main() {
-      vec2 uv = gl_FragCoord.xy / resolution.xy;
-      uv.y = 1.0 - uv.y;
+      vec2 uv = vUv;
 
       float imageAspect = imageResolution.x / imageResolution.y;
       float screenAspect = resolution.x / resolution.y;

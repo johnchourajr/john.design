@@ -5,14 +5,14 @@ export const verticalShader = `
   uniform float time;
   uniform sampler2D image;
   uniform vec2 imageResolution;
+  varying vec2 vUv;
 
   float sharpenWave(float x, float power) {
     return pow(0.5 + 0.5 * sin(x), power) * 2.0 - 1.0;
   }
 
   void main() {
-    vec2 uv = gl_FragCoord.xy / resolution.xy;
-    uv.y = 1.0 - uv.y;
+    vec2 uv = vUv;
 
     float imageAspect = imageResolution.x / imageResolution.y;
     float screenAspect = resolution.x / resolution.y;

@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 
-import { ImageShader } from '@/components/experimental/ImageShader';
-import { ShaderVariant } from '@/components/experimental/ImageShader/shaders';
+import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
+import { ShaderVariant } from '@/components/experimental/ImageThreeShader/shaders';
 import {
   SettingsGroup,
   getSettingValue,
@@ -46,7 +46,8 @@ export default function Page() {
           &larr; <span className="underline">Back</span>
         </h2>
       </InlineLink>
-      <ImageShader
+
+      <ImageThreeShader
         className="w-screen h-auto"
         src="/film/mission.jpg"
         variant={currentShader}

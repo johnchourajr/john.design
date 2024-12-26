@@ -1,14 +1,15 @@
-export const distortionShader = `
+export const rippleShader = `
     precision highp float;
     uniform vec2 resolution;
     uniform vec2 mouse;
     uniform float time;
     uniform sampler2D image;
     uniform vec2 imageResolution;
+    varying vec2 vUv;
+
 
     void main() {
-      vec2 uv = gl_FragCoord.xy / resolution.xy;
-      uv.y = 1.0 - uv.y;
+      vec2 uv = vUv;
 
       float imageAspect = imageResolution.x / imageResolution.y;
       float screenAspect = resolution.x / resolution.y;
@@ -23,22 +24,29 @@ export const distortionShader = `
         textureUV.y = (uv.y - 0.5) / scale + 0.5;
       }
 
-      // Aspect-corrected UV for effect calculations
+      // Effect calculations
       vec2 effectUV = uv;
       effectUV.x *= screenAspect;
 
       vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
-      float dist = distance(effectUV, mouseUV) / screenAspect; // Normalize distance
-      float strength = smoothstep(0.2, 0.0, dist);
-      vec2 displacement = normalize(effectUV - mouseUV) * strength * 0.1;
-      displacement.x /= screenAspect; // Correct displacement
+      float dist = distance(effectUV, mouseUV) / screenAspect;
 
-      vec4 color = texture2D(image, textureUV - displacement);
-      float noise = fract(sin(dot(effectUV, vec2(1, 78.233))) * 43758.5453);
-      vec2 pos = textureUV + displacement * noise * sin(time) * 1.5;
+      float radius = 0.2;
+      float falloff = 0.05;
+      float distortionStrength = smoothstep(radius, radius - falloff, dist);
 
-      gl_FragColor = pos.x < 0.0 || pos.x > 1.0 || pos.y < 0.0 || pos.y > 1.0
+      vec2 direction = normalize(effectUV - mouseUV);
+      direction.x /= screenAspect;  // Correct the direction aspect ratio
+
+      // Create waves that follow the cursor
+      float wave = sin(dist * 60.0 - time * 2.5) * 0.3;
+      wave *= distortionStrength;
+
+      vec2 newUV = textureUV;
+      newUV += direction * wave;
+
+      gl_FragColor = newUV.x < 0.0 || newUV.x > 1.0 || newUV.y < 0.0 || newUV.y > 1.0
         ? vec4(0.0)
-        : texture2D(image, pos);
+        : texture2D(image, newUV);
     }
 `;
