@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
-import { ImageShader } from '@/components/experimental/ImageShader';
+import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import { SectionStructure } from '@/types/content-types';
@@ -85,9 +85,10 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           '-translate-y-[5%]',
         )}
       >
-        <ImageShader
+        <ImageThreeShader
           className={clsx('absolute', 'w-full h-full')}
           src="/me-alpha-moody.png"
+          aspectRatio="1:1"
           variant={shaderVariant}
         />
       </div>

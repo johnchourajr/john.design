@@ -1,14 +1,14 @@
-export const pixelShader = `
+export const distortionThreeShader = `
     precision highp float;
     uniform vec2 resolution;
     uniform vec2 mouse;
     uniform float time;
     uniform sampler2D image;
     uniform vec2 imageResolution;
+    varying vec2 vUv;
 
     void main() {
-      vec2 uv = gl_FragCoord.xy / resolution.xy;
-      uv.y = 1.0 - uv.y;
+      vec2 uv = vUv;
 
       float imageAspect = imageResolution.x / imageResolution.y;
       float screenAspect = resolution.x / resolution.y;
@@ -23,27 +23,22 @@ export const pixelShader = `
         textureUV.y = (uv.y - 0.5) / scale + 0.5;
       }
 
+      // Aspect-corrected UV for effect calculations
       vec2 effectUV = uv;
       effectUV.x *= screenAspect;
 
       vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
-      float dist = distance(effectUV, mouseUV) / screenAspect;
+      float dist = distance(effectUV, mouseUV) / screenAspect; // Normalize distance
+      float strength = smoothstep(0.2, 0.0, dist);
+      vec2 displacement = normalize(effectUV - mouseUV) * strength * 0.1;
+      displacement.x /= screenAspect; // Correct displacement
 
-      float innerRadius = 0.10;
-      float outerRadius = 0.14;
-      float pixelSize = smoothstep(innerRadius, outerRadius, dist) * 0.05;
-      pixelSize = pow(pixelSize, 1.5);
+      vec4 color = texture2D(image, textureUV - displacement);
+      float noise = fract(sin(dot(effectUV, vec2(1, 78.233))) * 43758.5453);
+      vec2 pos = textureUV + displacement * noise * sin(time) * 1.5;
 
-      vec2 pixelated = dist < innerRadius
-        ? textureUV
-        : floor(textureUV / pixelSize) * pixelSize;
-
-      float wobble = sin(time * 2.0 + dist * 10.0) * 0.002;
-      wobble *= smoothstep(innerRadius, outerRadius, dist);
-      pixelated += vec2(wobble) / vec2(screenAspect, 1.0);
-
-      gl_FragColor = pixelated.x < 0.0 || pixelated.x > 1.0 || pixelated.y < 0.0 || pixelated.y > 1.0
+      gl_FragColor = pos.x < 0.0 || pos.x > 1.0 || pos.y < 0.0 || pos.y > 1.0
         ? vec4(0.0)
-        : texture2D(image, pixelated);
+        : texture2D(image, pos);
     }
 `;
