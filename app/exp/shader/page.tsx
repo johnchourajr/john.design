@@ -2,32 +2,22 @@
 import { useState } from 'react';
 
 import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
-import { ShaderVariant } from '@/components/experimental/ImageThreeShader/shaders';
 import {
-  SettingsGroup,
+  fragmentThreeShaders,
+  ShaderVariant,
+} from '@/components/experimental/ImageThreeShader/shaders';
+import {
   getSettingValue,
+  SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
 
-const SETTINGS: {
-  name: string;
-  type: string;
-  value: string | number;
-  options?: ShaderVariant[];
-}[] = [
+const SETTINGS = [
   {
     name: 'Shader',
     type: 'Select',
     value: 'distortion',
-    options: [
-      'distortion',
-      'ripple',
-      'fluted',
-      'vertical',
-      'pixel',
-      'zoom',
-      'twist',
-    ],
+    options: Object.keys(fragmentThreeShaders) as ShaderVariant[],
   },
 ];
 
@@ -38,6 +28,10 @@ export default function Page() {
     'Shader',
     'distortion',
   ) as ShaderVariant;
+
+  const shaderConfig = {
+    fragmentShader: fragmentThreeShaders[currentShader],
+  };
 
   return (
     <>
@@ -50,7 +44,7 @@ export default function Page() {
       <ImageThreeShader
         className="w-screen h-auto"
         src="/film/mission.jpg"
-        variant={currentShader}
+        shaderConfig={shaderConfig}
         aspectRatio="2000:1327"
       />
       <SettingsGroup settings={settings} setSettings={setSettings} />

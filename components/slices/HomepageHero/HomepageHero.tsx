@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
+import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
 import { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import { SectionStructure } from '@/types/content-types';
@@ -35,12 +36,13 @@ export type HomepageHeroProps = {
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const { enableDrawing } = useDrawing();
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
-  const shaderVariant = useMemo(() => {
-    const variants = ['pixel', 'distortion', 'vertical'];
-    return variants[Math.floor(Math.random() * variants.length)] as
-      | 'pixel'
-      | 'distortion'
-      | 'vertical';
+
+  const shaderConfig = useMemo(() => {
+    const variants = ['pixel', 'distortion', 'vertical'] as const;
+    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+    return {
+      fragmentShader: fragmentThreeShaders[randomVariant],
+    };
   }, []);
 
   return (
@@ -89,7 +91,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           className={clsx('absolute', 'w-full h-full')}
           src="/me-alpha-moody.png"
           aspectRatio="1:1"
-          variant={shaderVariant}
+          shaderConfig={shaderConfig}
         />
       </div>
     </section>
