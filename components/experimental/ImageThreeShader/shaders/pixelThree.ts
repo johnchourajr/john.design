@@ -23,6 +23,7 @@ export const pixelShader = `
         textureUV.y = (uv.y - 0.5) / scale + 0.5;
       }
 
+      // Create normalized effect space
       vec2 effectUV = uv;
       effectUV.x *= screenAspect;
 
@@ -31,22 +32,28 @@ export const pixelShader = `
 
       float innerRadius = 0.07;
       float outerRadius = 0.14;
-      float pixelSize = smoothstep(innerRadius, outerRadius, dist) * 0.05;
+      float basePixelSize = 0.055;
+      float pixelSize = smoothstep(innerRadius, outerRadius, dist) * basePixelSize;
       pixelSize = pow(pixelSize, 1.5);
 
-      vec2 pixelated = dist < innerRadius
-        ? textureUV
-        : floor(textureUV / pixelSize) * pixelSize;
+      // Apply pixelation in normalized space
+      vec2 normalizedUV = textureUV;
+      normalizedUV.x *= screenAspect;
 
-      // Clamp pixelated coordinates to avoid hairline issues
-      pixelated = clamp(pixelated, vec2(0.0), vec2(1.0));
+      vec2 pixelated;
+      if (dist < innerRadius) {
+        pixelated = textureUV;
+      } else {
+        normalizedUV = floor(normalizedUV / pixelSize) * pixelSize;
+        pixelated = normalizedUV;
+        pixelated.x /= screenAspect;
+      }
 
       float wobble = sin(time * 2.0 + dist * 10.0) * 0.002;
       wobble *= smoothstep(innerRadius, outerRadius, dist);
-      pixelated += vec2(wobble) / vec2(screenAspect, 1.0);
+      pixelated += wobble;
 
-      gl_FragColor = pixelated.x < 0.0 || pixelated.x > 1.0 || pixelated.y < 0.0 || pixelated.y > 1.0
-        ? vec4(0.0)
-        : texture2D(image, pixelated);
+      pixelated = clamp(pixelated, vec2(0.001), vec2(0.999));
+      gl_FragColor = texture2D(image, pixelated);
     }
 `;
