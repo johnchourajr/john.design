@@ -1,110 +1,200 @@
 'use client';
 import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { fragmentThreeShaders, ShaderVariant } from './shaders';
 
-type AspectRatio = '1:1' | '4:3' | '2000:1327';
+/**
+ * Aspect ratio values supported by the ImageThreeShader component
+ * @type AspectRatio
+ */
+type AspectRatio =
+  | '1:1'
+  | '4:3'
+  | '16:9'
+  | '21:9'
+  | '3:2'
+  | '2:3'
+  | '5:4'
+  | '9:16'
+  | '4:5'
+  | '2000:1327';
 
+/**
+ * Configuration object for defining shader properties
+ * @type ShaderConfig
+ */
+type ShaderConfig = {
+  /** Optional vertex shader code. If not provided, a default vertex shader will be used */
+  vertexShader?: string;
+  /** Required fragment shader code */
+  fragmentShader: string;
+  /** Optional additional uniforms to pass to the shader */
+  uniforms?: Record<string, THREE.IUniform>;
+};
+
+/**
+ * Props for the ImageThreeShader component
+ * @type ImageThreeShaderProps
+ */
+type ImageThreeShaderProps = {
+  /** Optional CSS class name to apply to the container */
+  className?: string;
+  /** URL or path of the image to be processed */
+  src: string;
+  /** Aspect ratio of the container. Supported values: 1:1, 4:3, 16:9, 21:9, 3:2, 2:3, 5:4, 9:16, 4:5, 2000:1327 */
+  aspectRatio: AspectRatio;
+  /** Shader configuration object */
+  shaderConfig: ShaderConfig;
+};
+
+const defaultVertexShader = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const calculateDimensions = (container: DOMRect, aspectRatio: string) => {
+  const [numerator, denominator] = aspectRatio.split(':').map(Number);
+  const targetRatio = numerator / denominator;
+
+  let width = container.width;
+  let height = container.width / targetRatio;
+
+  if (container.width / container.height > targetRatio) {
+    height = container.height;
+    width = container.height * targetRatio;
+  }
+
+  return { width, height };
+};
+
+/**
+ * A React component that applies WebGL shaders to images using Three.js
+ *
+ * @component
+ * @example
+ * // Basic usage with a simple color manipulation shader
+ * const colorShader = {
+ *   fragmentShader: `
+ *     uniform sampler2D image;
+ *     varying vec2 vUv;
+ *     void main() {
+ *       vec4 color = texture2D(image, vUv);
+ *       gl_FragColor = vec4(color.r, color.g * 0.5, color.b, color.a);
+ *     }
+ *   `
+ * };
+ *
+ * <ImageThreeShader
+ *   src="/path/to/image.jpg"
+ *   aspectRatio="1:1"
+ *   shaderConfig={colorShader}
+ * />
+ *
+ * @example
+ * // Advanced usage with custom uniforms and mouse interaction
+ * const waveShader = {
+ *   fragmentShader: `
+ *     uniform sampler2D image;
+ *     uniform vec2 mouse;
+ *     uniform float time;
+ *     varying vec2 vUv;
+ *
+ *     void main() {
+ *       vec2 uv = vUv;
+ *       uv.x += sin(uv.y * 10.0 + time) * 0.1;
+ *       vec4 color = texture2D(image, uv);
+ *       gl_FragColor = color;
+ *     }
+ *   `,
+ *   uniforms: {
+ *     intensity: { value: 1.0 }
+ *   }
+ * };
+ *
+ * <ImageThreeShader
+ *   src="/path/to/image.jpg"
+ *   aspectRatio="4:3"
+ *   shaderConfig={waveShader}
+ *   className="my-custom-class"
+ * />
+ */
 export const ImageThreeShader = ({
   className,
   src,
   aspectRatio = '1:1',
-  variant = 'distortion',
-}: {
-  className?: string;
-  src: string;
-  aspectRatio: AspectRatio;
-  variant?: ShaderVariant;
-}) => {
+  shaderConfig,
+}: ImageThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
 
+  const baseUniforms = useMemo(
+    () => ({
+      image: { value: null },
+      resolution: { value: new THREE.Vector2() },
+      imageResolution: { value: new THREE.Vector2() },
+      mouse: { value: new THREE.Vector2() },
+      time: { value: 0 },
+    }),
+    [],
+  );
+
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Setup
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    let renderer = rendererRef.current;
     const container = containerRef.current;
     sceneRef.current = scene;
 
-    // Check if renderer already exists
-    if (!renderer) {
-      renderer = new THREE.WebGLRenderer({ alpha: true });
-      rendererRef.current = renderer;
-      container.appendChild(renderer.domElement);
-    }
+    // Initialize renderer
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    rendererRef.current = renderer;
+    container.appendChild(renderer.domElement);
 
-    // Initial size setup
-    const bounds = container.getBoundingClientRect();
-    const [numerator, denominator] = aspectRatio.split(':').map(Number);
-    const targetRatio = numerator / denominator;
-
-    let width = bounds.width;
-    let height = bounds.width / targetRatio;
-
-    if (bounds.width / bounds.height > targetRatio) {
-      height = bounds.height;
-      width = bounds.height * targetRatio;
-    }
-
-    renderer.setSize(width, height);
-
-    // Load texture
+    // Load texture and setup material
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load(src, (texture) => {
       const geometry = new THREE.PlaneGeometry(2, 2);
       const material = new THREE.ShaderMaterial({
         uniforms: {
-          image: { value: texture },
-          resolution: { value: new THREE.Vector2() },
-          imageResolution: {
-            value: new THREE.Vector2(texture.image.width, texture.image.height),
-          },
-          mouse: { value: new THREE.Vector2() },
-          time: { value: 0 },
+          ...baseUniforms,
+          ...shaderConfig.uniforms,
         },
-        vertexShader: `
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: fragmentThreeShaders[variant],
+        vertexShader: shaderConfig.vertexShader || defaultVertexShader,
+        fragmentShader: shaderConfig.fragmentShader,
       });
+
+      material.uniforms.image.value = texture;
+      material.uniforms.imageResolution.value.set(
+        texture.image.width,
+        texture.image.height,
+      );
 
       materialRef.current = material;
 
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
 
-      // Force initial render after mesh is added
-      if (renderer) {
-        material.uniforms.resolution.value.set(width, height);
-        renderer.render(scene, camera);
-      }
+      // Initial render
+      const { width, height } = calculateDimensions(
+        container.getBoundingClientRect(),
+        aspectRatio,
+      );
+      renderer.setSize(width, height);
+      material.uniforms.resolution.value.set(width, height);
+      renderer.render(scene, camera);
     });
 
     // Sizing
     const handleResize = () => {
       const bounds = container.getBoundingClientRect();
-      const [numerator, denominator] = aspectRatio.split(':').map(Number);
-      const targetRatio = numerator / denominator;
-
-      let width, height;
-      if (bounds.width / bounds.height > targetRatio) {
-        height = bounds.height;
-        width = bounds.height * targetRatio;
-      } else {
-        width = bounds.width;
-        height = bounds.width / targetRatio;
-      }
+      const { width, height } = calculateDimensions(bounds, aspectRatio);
 
       if (renderer) {
         renderer.setSize(width, height);
@@ -126,8 +216,10 @@ export const ImageThreeShader = ({
       mouseRef.current = { x, y };
     };
 
-    // Animation
+    // Animation frame management
+    let animationFrameId: number;
     const startTime = performance.now();
+
     const animate = () => {
       const mesh = scene.children[0] as THREE.Mesh;
       if (mesh?.material instanceof THREE.ShaderMaterial) {
@@ -135,10 +227,8 @@ export const ImageThreeShader = ({
         uniforms.time.value = (performance.now() - startTime) * 0.001;
         uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
       }
-      if (renderer) {
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
-      }
+      renderer.render(scene, camera);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     // Event listeners
@@ -148,25 +238,25 @@ export const ImageThreeShader = ({
     animate();
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
+      renderer.dispose();
+      scene.clear();
+      container.removeChild(renderer.domElement);
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
-      if (renderer) {
-        renderer.dispose();
-      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src, aspectRatio]);
-
-  useEffect(() => {
-    if (materialRef.current) {
-      materialRef.current.fragmentShader = fragmentThreeShaders[variant];
-      materialRef.current.needsUpdate = true;
-    }
-  }, [variant]);
+  }, [src, aspectRatio, shaderConfig, baseUniforms]);
 
   const aspect = {
     '1:1': 'aspect-square',
     '4:3': 'aspect-[4/3]',
+    '16:9': 'aspect-[16/9]',
+    '21:9': 'aspect-[21/9]',
+    '3:2': 'aspect-[3/2]',
+    '2:3': 'aspect-[2/3]',
+    '5:4': 'aspect-[5/4]',
+    '9:16': 'aspect-[9/16]',
+    '4:5': 'aspect-[4/5]',
     '2000:1327': 'aspect-[2000/1327]',
   };
 
