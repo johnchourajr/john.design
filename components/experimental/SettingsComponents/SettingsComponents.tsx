@@ -98,20 +98,43 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
     setArrayState({ ...state, value: e.target.value });
   };
 
+  const navigateOptions = (direction: 'prev' | 'next') => {
+    const currentIndex = options.indexOf(state.value);
+    const newIndex =
+      direction === 'prev'
+        ? (currentIndex - 1 + options.length) % options.length
+        : (currentIndex + 1) % options.length;
+    setArrayState({ ...state, value: options[newIndex] });
+  };
+
   return (
     <div className="inline-flex flex-row items-center justify-center gap-3">
       {name}
-      <select
-        value={state.value}
-        onChange={handleChange}
-        className="border-1 border-root ring-root text-root p-1 rounded"
-      >
-        {options.map((option: string) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+      <div className="inline-flex items-center gap-1">
+        <select
+          value={state.value}
+          onChange={handleChange}
+          className="border-1 border-root ring-root text-root p-1 rounded"
+        >
+          {options.map((option: string) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        <button
+          onClick={() => navigateOptions('prev')}
+          className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
+        >
+          ↑
+        </button>
+        <button
+          onClick={() => navigateOptions('next')}
+          className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
+        >
+          ↓
+        </button>
+      </div>
     </div>
   );
 }
