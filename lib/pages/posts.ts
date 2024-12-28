@@ -41,7 +41,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
       thumb,
       refer,
       tags,
-      hidden, // Add this line
+      hidden,
     },
     wordCount,
     timeToRead,

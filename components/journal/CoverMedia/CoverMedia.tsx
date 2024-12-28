@@ -1,12 +1,41 @@
+import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+
+const ImageThreeShader = dynamic(() =>
+  import('@/components/experimental/ImageThreeShader').then(
+    (mod) => mod.ImageThreeShader,
+  ),
+);
 
 interface CoverMediaProps {
   videoCover?: string;
   cover?: string;
+  template?: string;
 }
 
-export const CoverMedia = ({ videoCover, cover }: CoverMediaProps) => {
-  if (!videoCover && !cover) return null;
+export const CoverMedia = ({
+  videoCover,
+  cover,
+  template,
+}: CoverMediaProps) => {
+  if (!videoCover && !cover && !template) return null;
+
+  if (template === 'shader') {
+    return (
+      <div className="relative w-full my-6">
+        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-[1200/600] inset-0" />
+        <ImageThreeShader
+          src={cover!}
+          shaderConfig={{
+            fragmentShader: fragmentThreeShaders['distortion'],
+          }}
+          aspectRatio="1200:600"
+          className="overflow-clip rounded"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full my-6">
