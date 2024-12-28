@@ -25,6 +25,11 @@ const SETTINGS = [
     value: 'distortion',
     options: Object.keys(fragmentThreeShaders) as ShaderVariant[],
   },
+  {
+    name: 'Overlay',
+    type: 'Boolean',
+    value: true,
+  },
 ];
 
 export default function Page() {
@@ -34,6 +39,8 @@ export default function Page() {
     'Shader',
     'distortion',
   ) as ShaderVariant;
+
+  const hasOverlay = getSettingValue(settings, 'Overlay', true);
 
   const shaderConfig = {
     fragmentShader: fragmentThreeShaders[currentShader],
@@ -53,7 +60,9 @@ export default function Page() {
           shaderConfig={shaderConfig}
           aspectRatio="1680:1050"
         />
-        <div className="absolute bg-root z-10 inset-0 mix-blend-darken aspect-[1680/1050] pointer-events-none" />
+        {!!hasOverlay && (
+          <div className="absolute bg-root z-10 inset-0 mix-blend-darken aspect-[1680/1050] pointer-events-none" />
+        )}
       </div>
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
