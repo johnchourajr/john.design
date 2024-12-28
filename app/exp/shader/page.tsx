@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 
-import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import {
   fragmentThreeShaders,
   ShaderVariant,
@@ -11,6 +10,17 @@ import {
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
+import dynamic from 'next/dynamic';
+
+const ImageThreeShader = dynamic(
+  () =>
+    import('@/components/experimental/ImageThreeShader').then(
+      (mod) => mod.ImageThreeShader,
+    ),
+  {
+    loading: () => <div className="aspect-[2000/1327]" />,
+  },
+);
 
 const SETTINGS = [
   {

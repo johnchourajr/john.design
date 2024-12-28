@@ -31,6 +31,15 @@ const CustomParagraph: React.FC<{ children: React.ReactNode }> = ({
 };
 
 const components: Partial<Components> = {
+  ul({ children }) {
+    return <ul>{children}</ul>;
+  },
+  ol({ children }) {
+    return <ol>{children}</ol>;
+  },
+  li({ children }) {
+    return <li>{children}</li>;
+  },
   p({ children }) {
     return <CustomParagraph>{children}</CustomParagraph>;
   },

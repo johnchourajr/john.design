@@ -33,6 +33,7 @@ export type PageItem = {
 export type PostFrontMatter = {
   title: string;
   date: string; // date as ISO string
+  hidden?: boolean; // Add this line
   [key: string]: any; // Add this to allow for any other dynamic keys in the front matter
 };
 
