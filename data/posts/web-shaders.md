@@ -5,7 +5,7 @@ date: "2024-12-27"
 title: "Super Simple Image Shader Component"
 cover: /journal-images/web-shaders/shader.png
 thumb: /journal-images/web-shaders/shader.png
-# hidden: true
+hidden: true
 tags:
   - Dev
 ---
