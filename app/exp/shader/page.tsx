@@ -12,14 +12,10 @@ import {
 import InlineLink from '@/components/fragments/InlineLink';
 import dynamic from 'next/dynamic';
 
-const ImageThreeShader = dynamic(
-  () =>
-    import('@/components/experimental/ImageThreeShader').then(
-      (mod) => mod.ImageThreeShader,
-    ),
-  {
-    loading: () => <div className="aspect-[2000/1327]" />,
-  },
+const ImageThreeShader = dynamic(() =>
+  import('@/components/experimental/ImageThreeShader').then(
+    (mod) => mod.ImageThreeShader,
+  ),
 );
 
 const SETTINGS = [
@@ -51,12 +47,14 @@ export default function Page() {
         </h2>
       </InlineLink>
 
-      <ImageThreeShader
-        className="w-screen h-auto"
-        src="/film/mission.jpg"
-        shaderConfig={shaderConfig}
-        aspectRatio="2000:1327"
-      />
+      <div className="relative w-screen h-auto ">
+        <ImageThreeShader
+          src="/film/clouds.jpg"
+          shaderConfig={shaderConfig}
+          aspectRatio="1680:1050"
+        />
+        <div className="absolute bg-root z-10 inset-0 mix-blend-darken aspect-[1680/1050] pointer-events-none" />
+      </div>
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
   );
