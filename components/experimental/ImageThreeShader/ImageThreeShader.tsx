@@ -17,7 +17,8 @@ type AspectRatio =
   | '5:4'
   | '9:16'
   | '4:5'
-  | '2000:1327';
+  | '2000:1327'
+  | '1680:1050';
 
 /**
  * Configuration object for defining shader properties
@@ -247,7 +248,7 @@ export const ImageThreeShader = ({
     };
   }, [src, aspectRatio, shaderConfig, baseUniforms]);
 
-  const aspect = {
+  const aspect: Record<AspectRatio, string> = {
     '1:1': 'aspect-square',
     '4:3': 'aspect-[4/3]',
     '16:9': 'aspect-[16/9]',
@@ -258,6 +259,7 @@ export const ImageThreeShader = ({
     '9:16': 'aspect-[9/16]',
     '4:5': 'aspect-[4/5]',
     '2000:1327': 'aspect-[2000/1327]',
+    '1680:1050': 'aspect-[1680/1050]',
   };
 
   return (
