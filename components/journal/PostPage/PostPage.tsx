@@ -12,7 +12,7 @@ interface PostPageProps {
 export const PostPage = ({
   post: {
     markdown,
-    frontmatter: { title, date, author, cover, videoCover },
+    frontmatter: { template, title, date, author, cover, videoCover },
   },
 }: PostPageProps) => {
   if (!markdown) {
@@ -33,7 +33,7 @@ export const PostPage = ({
       >
         {title}
       </h1>
-      <CoverMedia videoCover={videoCover} cover={cover} />
+      <CoverMedia videoCover={videoCover} cover={cover} template={template} />
       <div className="mb-10">
         <p className="text-pretty text-body">
           Published {formatDate(date)} by {author || 'John Choura'}

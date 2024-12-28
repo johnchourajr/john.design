@@ -1,10 +1,10 @@
 ---
-template: "post"
+template: "shader"
 slug: "/journal/web-shaders"
 date: "2024-12-27"
 title: "Super Simple Image Shader Component"
-cover: /journal-images/web-shaders/shader.png
-thumb: /journal-images/web-shaders/shader.png
+cover: /journal-images/web-shaders/shader.jpg
+thumb: /journal-images/web-shaders/shader.jpg
 hidden: true
 tags:
   - Dev
