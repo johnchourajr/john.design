@@ -6,11 +6,10 @@ import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
-import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
-import { HomePageData } from '@/data/homepageContent';
+import type { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
-import { SectionStructure } from '@/types/content-types';
+import type { SectionStructure } from '@/types/content-types';
 
 const DynamicJustifiedHeadlineInner = dynamic(() =>
   import('@/components/justified-headline').then(
@@ -25,6 +24,12 @@ const RolesSection = dynamic(() =>
 const InformationalChunk = dynamic(() =>
   import('@/components/fragments/InformationalChunk').then(
     (mod) => mod.InformationalChunk,
+  ),
+);
+
+const ImageThreeShader = dynamic(() =>
+  import('@/components/experimental/ImageThreeShader').then(
+    (mod) => mod.ImageThreeShader,
   ),
 );
 

@@ -24,6 +24,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
     thumb = null,
     refer = null,
     tags = [],
+    hidden = false, // Add this line
   } = data;
 
   const wordCount = markdown.split(/\s+/).length;
@@ -40,6 +41,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
       thumb,
       refer,
       tags,
+      hidden, // Add this line
     },
     wordCount,
     timeToRead,
@@ -50,6 +52,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
 export function getAllPosts(): PostData[] {
   return getPostSlugs()
     .map((slug) => getPostBySlug(slug))
+    .filter((post) => !post.frontmatter.hidden) // Add this filter
     .sort(
       (a, b) =>
         new Date(b.frontmatter.date).getTime() -

@@ -49,7 +49,7 @@
     "lib/**/*.{d.ts,ts,tsx,js}",
     "lib/**/*{.d.ts,.ts,.tsx,.js}",
     ".next/types/**/*.ts"
-  ],
+, "components/experimental/ImageThreeShader/shaders/pixelThree.ts"  ],
   "exclude": [
     "node_modules",
   ]
