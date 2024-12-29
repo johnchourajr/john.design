@@ -13,7 +13,9 @@ tags:
 > Note: This is an update to an article written in 2021. This new update is written in `TypeScript` and on the latest version of `framer-motion` (v11.0.14). Enjoy.
 >
 
-A straightforward and well-built show/hide on scroll feature can significantly enhance the user experience on a website. This feature can serve two primary functions: 1) It can reduce distractions, allowing content to take center stage while keeping navigation within easy reach, and 2) It can enable a change in the scale of the nav header, which can start large and minimize upon scrolling. These two techniques can also be combined.
+A straightforward and well-built show/hide on scroll feature can significantly enhance the user experience on a website. This feature can serve two primary functions:
+1. It can reduce distractions, allowing content to take center stage while keeping navigation within easy reach, and
+2. It can enable a change in the scale of the nav header, which can start large and minimize upon scrolling. These two techniques can also be combined.
 
 This show/hide or minimize/maximize effect is something I've enjoyed incorporating into websites for years. It dates back to 2015 when I created a vanilla JavaScript version, inspired by Marius Craciunoiu's [article](https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c) from 2013.
 

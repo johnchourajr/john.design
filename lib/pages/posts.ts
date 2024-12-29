@@ -24,7 +24,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
     thumb = null,
     refer = null,
     tags = [],
-    hidden = false, // Add this line
+    hidden = false,
   } = data;
 
   const wordCount = markdown.split(/\s+/).length;
@@ -50,9 +50,11 @@ export function getPostBySlug(slug: PostSlug): PostData {
 }
 
 export function getAllPosts(): PostData[] {
+  const isProduction = process.env.NODE_ENV === 'production';
+
   return getPostSlugs()
     .map((slug) => getPostBySlug(slug))
-    .filter((post) => !post.frontmatter.hidden) // Add this filter
+    .filter((post) => !isProduction || !post.frontmatter.hidden)
     .sort(
       (a, b) =>
         new Date(b.frontmatter.date).getTime() -

@@ -19,8 +19,6 @@ export const CoverMedia = ({
   cover,
   template,
 }: CoverMediaProps) => {
-  if (!videoCover && !cover && !template) return null;
-
   if (template === 'shader') {
     return (
       <div className="relative w-full my-6">
@@ -37,6 +35,8 @@ export const CoverMedia = ({
     );
   }
 
+  if (!videoCover && !cover) return <div className="w-full my-6" />;
+
   return (
     <div className="w-full my-6">
       {videoCover ? (
@@ -51,7 +51,7 @@ export const CoverMedia = ({
         />
       ) : (
         <Image
-          src={cover!}
+          src={cover! || ''}
           alt=""
           width={1200}
           height={600}
