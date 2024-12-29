@@ -9,12 +9,9 @@ const cyan = '#00ffff';
 
 export default {
   'code[class*="language-"]': {
-    color: red,
-    background: '#230000',
     fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
     fontSize: '1em',
     textAlign: 'left',
-    textShadow: '0 -.1em .2em black',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
     wordBreak: 'normal',
@@ -29,12 +26,9 @@ export default {
     hyphens: 'none',
   },
   'pre[class*="language-"]': {
-    color: red,
-    background: '#230000',
     fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
     fontSize: '1em',
     textAlign: 'left',
-    textShadow: '0 -.1em .2em black',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
     wordBreak: 'normal',
