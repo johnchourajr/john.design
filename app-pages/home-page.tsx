@@ -2,20 +2,12 @@ import { HomepageHero } from '@/components/slices/HomepageHero';
 import { homepageContent } from '@/data/homepageContent';
 import dynamic from 'next/dynamic';
 
-const PillBlockList = dynamic(
-  () =>
-    import('@/components/slices/PillBlockList').then(
-      (mod) => mod.PillBlockList,
-    ),
-  { ssr: false },
+const PillBlockList = dynamic(() =>
+  import('@/components/slices/PillBlockList').then((mod) => mod.PillBlockList),
 );
 
-const ResumeSection = dynamic(
-  () =>
-    import('@/components/slices/ResumeSection').then(
-      (mod) => mod.ResumeSection,
-    ),
-  { ssr: false },
+const ResumeSection = dynamic(() =>
+  import('@/components/slices/ResumeSection').then((mod) => mod.ResumeSection),
 );
 
 type HomePageProps = {
