@@ -4,6 +4,7 @@ import { PostBody } from '@/components/journal/PostBody';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
+import { PostPageOuter } from './PostPageOuter';
 
 interface PostPageProps {
   post: PostData;
@@ -20,7 +21,7 @@ export const PostPage = ({
   }
 
   return (
-    <article className="p-4">
+    <PostPageOuter>
       <InlineLink href="/journal" className="no-underline">
         <p className="my-4">
           &larr; <span>Back</span>
@@ -40,6 +41,6 @@ export const PostPage = ({
         </p>
       </div>
       <PostBody markdown={markdown} />
-    </article>
+    </PostPageOuter>
   );
 };
