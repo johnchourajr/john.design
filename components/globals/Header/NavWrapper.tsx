@@ -2,8 +2,9 @@
 
 import clsx from 'clsx';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export function NavWrapper({ children }: { children: React.ReactNode }) {
+function NavWrapperComponent({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
 
@@ -20,5 +21,13 @@ export function NavWrapper({ children }: { children: React.ReactNode }) {
     >
       {children}
     </nav>
+  );
+}
+
+export function NavWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense>
+      <NavWrapperComponent>{children}</NavWrapperComponent>
+    </Suspense>
   );
 }
