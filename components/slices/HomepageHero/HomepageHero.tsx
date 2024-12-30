@@ -43,7 +43,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const headlineData = useMemo(() => heroSection.headlineData, [heroSection]);
 
   const shaderConfig = useMemo(() => {
-    const variants = ['pixel', 'distortion', 'vertical'] as const;
+    const variants = ['pixel', 'distortion', 'vertical', 'loupe'] as const;
     const randomVariant = variants[Math.floor(Math.random() * variants.length)];
     return {
       fragmentShader: fragmentThreeShaders[randomVariant],

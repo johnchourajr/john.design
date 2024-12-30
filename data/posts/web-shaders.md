@@ -287,6 +287,46 @@ After some initial versions, inputting more feedback, and a few iterations, I la
   uniform vec2 imageResolution;
   varying vec2 vUv;
 
+  // Pixelation function must be declared outside main
+  vec4 getPixelated(vec2 uv) {
+    float pixelSize = 100.0; // Adjust this value to change pixelation amount
+    vec2 pixelatedUV = floor(uv * pixelSize) / pixelSize;
+    return texture2D(image, pixelatedUV);
+  }
+
+  // Higher quality blur using separable Gaussian
+  vec4 getBlurredColor(vec2 uv) {
+    float sigma = 3.0; // Blur spread
+    float blurSize = 0.003; // Overall blur size
+
+    // Gaussian weights
+    float weights[5];
+    weights[0] = 0.2270270270;
+    weights[1] = 0.1945945946;
+    weights[2] = 0.1216216216;
+    weights[3] = 0.0540540541;
+    weights[4] = 0.0162162162;
+
+    vec4 color = texture2D(image, uv) * weights[0];
+
+    // Horizontal pass
+    for (int i = 1; i < 5; i++) {
+      vec2 offset = vec2(float(i) * blurSize, 0.0);
+      color += texture2D(image, uv + offset) * weights[i];
+      color += texture2D(image, uv - offset) * weights[i];
+    }
+
+    // Vertical pass
+    vec4 finalColor = color * weights[0];
+    for (int i = 1; i < 5; i++) {
+      vec2 offset = vec2(0.0, float(i) * blurSize);
+      finalColor += texture2D(image, uv + offset) * weights[i];
+      finalColor += texture2D(image, uv - offset) * weights[i];
+    }
+
+    return finalColor;
+  }
+
   void main() {
     vec2 uv = vUv;
 
@@ -312,14 +352,15 @@ After some initial versions, inputting more feedback, and a few iterations, I la
     float dist = distance(effectUV, mouseUV) / screenAspect;
 
     float radius = 0.15;
-    float softness = 0.03;
+    float softness = 0.01; // Reduced softness for sharper edge
 
     // Create loupe magnification with corrected coordinates
     vec2 dir = normalize(effectUV - mouseUV);
     dir.x /= screenAspect;
 
-    float edge = smoothstep(radius + softness, radius - softness, dist);
-    vec2 magnifiedUv = textureUV + (textureUV - vec2(mouse.x / resolution.x, 1.0 - mouse.y / resolution.y)) * edge * -0.5;
+    // Sharper edge transition
+    float edge = smoothstep(radius + softness/2.0, radius - softness/2.0, dist);
+    vec2 magnifiedUv = textureUV + (textureUV - vec2(mouse.x / resolution.x, 1.0 - mouse.y / resolution.y)) * edge * -0.2;
 
     // Enhanced glass-like refraction
     float refraction = 0.3; // Adjust for stronger/weaker effect
@@ -378,42 +419,20 @@ After some initial versions, inputting more feedback, and a few iterations, I la
     chromaticColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
     magnifiedColor = mix(clearColor, chromaticColor, edgeStrength);
 
-    // Adjust fresnel to be stronger at edges
-    float fresnelPower = 3.0; // Increased power for sharper edge highlight
-    float fresnel = pow(edgeStrength, fresnelPower) * 0.5;
-    vec4 lightEffect = vec4(1.0) * fresnel;
+    // Remove all fresnel and light effects
+    vec4 outsideColor = texture2D(image, textureUV);
+    vec4 blurredColor = getBlurredColor(textureUV);
 
-    // Enhanced high-quality blur for non-magnified area
-    vec4 blurredColor = vec4(0.0);
-    float blurSize = 0.002; // Reduced blur size for higher quality
-    float totalWeight = 0.0;
+    // Clean transition between blurred and magnified
+    float blurStrength = 0.7;
+    vec4 outsideBlurred = mix(outsideColor, blurredColor, blurStrength);
 
-    // Gaussian weights for better blur quality
-    for(float i = -3.0; i <= 3.0; i++) {
-      for(float j = -3.0; j <= 3.0; j++) {
-        float weight = exp(-(i*i + j*j) / 8.0); // Gaussian distribution
-        vec2 offset = vec2(i, j) * blurSize;
-        blurredColor += texture2D(image, textureUV + offset) * weight;
-        totalWeight += weight;
-      }
-    }
-    blurredColor /= totalWeight;
+    // Direct color mixing without any additional effects
+    vec4 finalColor = mix(outsideBlurred, magnifiedColor, edge);
 
-    // Slightly darken the blurred area
-    blurredColor *= 0.7; // Reduce brightness of outer area
-
-    // Adjust fresnel to be more subtle
-    fresnelPower = 4.0; // Increased power for sharper falloff
-    fresnel = pow(edgeStrength, fresnelPower) * 0.3; // Reduced fresnel intensity
-    lightEffect = vec4(1.0) * fresnel;
-
-    // Final color mixing with enhanced glass effect
-    vec4 finalColor = mix(blurredColor, magnifiedColor, edge) * edgeFade;
-    finalColor += lightEffect * (1.0 - 0.5 * (1.0 - edge)) * edgeFade;
-
-    // Add subtle inner shadow with improved falloff
-    float innerShadow = smoothstep(radius - softness * 2.0, radius, dist) * 0.4;
-    finalColor *= (1.0 - innerShadow * edge);
+    // Subtle inner shadow only
+    float innerShadow = smoothstep(radius - softness/2.0, radius, dist) * 0.2;
+    finalColor *= 1.0 - (innerShadow * edge);
 
     gl_FragColor = finalColor;
   }
