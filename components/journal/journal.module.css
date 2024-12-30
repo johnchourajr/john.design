@@ -68,7 +68,7 @@
   }
 
   & iframe {
-    @apply col-start-1 col-span-full md:col-span-2 mb-4 max-w-full select-none !border-root !border-[0.5px];
+    @apply col-start-1 md:col-start-2 col-span-full md:col-span-3 mb-4 max-w-full select-none overflow-clip my-4 border-[#ffffff2c] !border-[0.5px] !rounded;
 
     @media (min-width: 768px) {
       max-width: calc(100% - 1rem);

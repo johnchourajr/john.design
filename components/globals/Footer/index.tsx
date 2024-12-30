@@ -1,12 +1,16 @@
 'use client';
 
 import clsx from 'clsx';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import InlineLink from '../../fragments/InlineLink';
 import Logo from '../../svg/logo';
 
 export default function Footer() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const isIframe = searchParams.get('iframe') !== null;
+
+  if (isIframe) return null;
 
   return (
     <>

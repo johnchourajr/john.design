@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import {
   fragmentThreeShaders,
@@ -11,6 +11,7 @@ import {
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 
 const ImageThreeShader = dynamic(() =>
   import('@/components/experimental/ImageThreeShader').then(
@@ -22,7 +23,7 @@ const SETTINGS = [
   {
     name: 'Shader',
     type: 'Select',
-    value: 'distortion',
+    value: undefined, // Will be set dynamically
     options: Object.keys(fragmentThreeShaders) as ShaderVariant[],
   },
   {
@@ -33,7 +34,19 @@ const SETTINGS = [
 ];
 
 export default function Page() {
-  const [settings, setSettings] = useState(SETTINGS);
+  const searchParams = useSearchParams();
+  const isIframe = searchParams.get('iframe') !== null;
+  const defaultShader =
+    (searchParams.get('shader') as ShaderVariant) || 'distortion';
+
+  const [settings, setSettings] = useState(
+    SETTINGS.map((setting) =>
+      setting.name === 'Shader'
+        ? { ...setting, value: defaultShader }
+        : setting,
+    ),
+  );
+
   const currentShader = getSettingValue(
     settings,
     'Shader',
@@ -47,14 +60,16 @@ export default function Page() {
   };
 
   return (
-    <>
-      <InlineLink href="/exp/" className="no-underline">
-        <h2 className="m-4">
-          &larr; <span className="underline">Back</span>
-        </h2>
-      </InlineLink>
+    <Suspense fallback={<div />}>
+      {!isIframe && (
+        <InlineLink href="/exp/" className="no-underline">
+          <h2 className="m-4">
+            &larr; <span className="underline">Back</span>
+          </h2>
+        </InlineLink>
+      )}
 
-      <div className="relative w-screen h-auto ">
+      <div className="relative w-screen h-auto">
         <ImageThreeShader
           src="/film/clouds.jpg"
           shaderConfig={shaderConfig}
@@ -65,6 +80,6 @@ export default function Page() {
         )}
       </div>
       <SettingsGroup settings={settings} setSettings={setSettings} />
-    </>
+    </Suspense>
   );
 }

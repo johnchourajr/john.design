@@ -1,5 +1,6 @@
 import Footer from './Footer';
 import Header from './Header';
+import { LayoutInner } from './LayoutInner';
 import { LayoutOuter } from './LayoutOuter';
 
 export type GlobalLayoutProps = {
@@ -10,7 +11,7 @@ export function GlobalLayout({ children }: GlobalLayoutProps) {
   return (
     <LayoutOuter>
       <Header />
-      <main className="relative z-10 min-h-[100vh] pt-14">{children}</main>
+      <LayoutInner>{children}</LayoutInner>
       <Footer />
     </LayoutOuter>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React, {
   createContext,
   useCallback,
@@ -193,6 +193,15 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener('resize', handleResize);
     };
   }, [isClient, pathname]);
+
+  const searchParams = useSearchParams();
+  const isIframe = searchParams.get('iframe') !== null;
+
+  useEffect(() => {
+    if (isIframe) {
+      setEnableDrawing(false);
+    }
+  }, [isIframe]);
 
   return (
     <DrawingContext.Provider
