@@ -1,9 +1,10 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React, {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -36,8 +37,15 @@ export const useDrawing = () => {
   return context;
 };
 
-export function DrawingProvider({ children }: { children: React.ReactNode }) {
+export function DrawingProviderComponent({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [isIframe, setIsIframe] = useState<boolean>(false);
   const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -194,6 +202,10 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
     };
   }, [isClient, pathname]);
 
+  useEffect(() => {
+    setIsIframe(searchParams.get('iframe') !== null);
+  }, [searchParams]);
+
   return (
     <DrawingContext.Provider
       value={{
@@ -208,10 +220,20 @@ export function DrawingProvider({ children }: { children: React.ReactNode }) {
         undo,
         docSize,
         setDocSize,
+        isIframe,
+        setIsIframe,
       }}
     >
       {children}
       <DynamicFreehandCanvas />
     </DrawingContext.Provider>
+  );
+}
+
+export function DrawingProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense>
+      <DrawingProviderComponent>{children}</DrawingProviderComponent>
+    </Suspense>
   );
 }

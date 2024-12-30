@@ -1,15 +1,14 @@
 'use client';
 
+import { useDrawing } from '@/components/experimental/Drawing';
 import clsx from 'clsx';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { usePathname } from 'next/navigation';
 import InlineLink from '../../fragments/InlineLink';
 import Logo from '../../svg/logo';
 
-function FooterComponent() {
+export default function Footer() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const isIframe = searchParams.get('iframe') !== null;
+  const { isIframe } = useDrawing();
 
   if (isIframe) return null;
 
@@ -85,13 +84,5 @@ function FooterComponent() {
         </InlineLink>
       </div>
     </>
-  );
-}
-
-export default function Footer() {
-  return (
-    <Suspense>
-      <FooterComponent />
-    </Suspense>
   );
 }
