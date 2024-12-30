@@ -19,20 +19,6 @@ const ImageThreeShader = dynamic(() =>
   ),
 );
 
-const SETTINGS = [
-  {
-    name: 'Shader',
-    type: 'Select',
-    value: undefined, // Will be set dynamically
-    options: Object.keys(fragmentThreeShaders) as ShaderVariant[],
-  },
-  {
-    name: 'Overlay',
-    type: 'Boolean',
-    value: true,
-  },
-];
-
 export default function Page() {
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
@@ -40,6 +26,22 @@ export default function Page() {
   const defaultShader =
     (searchParams.get('shader') as ShaderVariant) || 'distortion';
   const defaultOverlay = searchParams.get('overlay') !== 'false';
+
+  const SETTINGS = [
+    {
+      name: 'Shader',
+      type: 'Select',
+      value: undefined,
+      options: Object.keys(fragmentThreeShaders).filter(
+        (key) => key !== 'loupe' && (!isIframe || key === defaultShader),
+      ) as ShaderVariant[],
+    },
+    {
+      name: 'Overlay',
+      type: 'Boolean',
+      value: true,
+    },
+  ];
 
   const [settings, setSettings] = useState(
     SETTINGS.map((setting) =>
