@@ -2,10 +2,11 @@
 
 import clsx from 'clsx';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import InlineLink from '../../fragments/InlineLink';
 import Logo from '../../svg/logo';
 
-export default function Footer() {
+function FooterComponent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
@@ -84,5 +85,13 @@ export default function Footer() {
         </InlineLink>
       </div>
     </>
+  );
+}
+
+export default function Footer() {
+  return (
+    <Suspense>
+      <FooterComponent />
+    </Suspense>
   );
 }
