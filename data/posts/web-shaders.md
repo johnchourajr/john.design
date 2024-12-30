@@ -4,8 +4,7 @@ slug: "/journal/web-shaders"
 date: "2024-12-27"
 title: "Getting Creative with GLSL Shaders"
 cover: /journal-images/web-shaders/shader.jpg
-thumb: /journal-images/web-shaders/shader.**jpg**
-hidden: true
+thumb: /journal-images/web-shaders/shader.jpg
 tags:
   - Dev
 ---
