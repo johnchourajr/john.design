@@ -36,13 +36,17 @@ const SETTINGS = [
 export default function Page() {
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
+  const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader =
     (searchParams.get('shader') as ShaderVariant) || 'distortion';
+  const defaultOverlay = searchParams.get('overlay') !== 'false';
 
   const [settings, setSettings] = useState(
     SETTINGS.map((setting) =>
       setting.name === 'Shader'
         ? { ...setting, value: defaultShader }
+        : setting.name === 'Overlay'
+        ? { ...setting, value: defaultOverlay }
         : setting,
     ),
   );
@@ -79,7 +83,9 @@ export default function Page() {
           <div className="absolute bg-root z-10 inset-0 mix-blend-darken aspect-[1680/1050] pointer-events-none" />
         )}
       </div>
-      <SettingsGroup settings={settings} setSettings={setSettings} />
+      {!hideSettings && (
+        <SettingsGroup settings={settings} setSettings={setSettings} />
+      )}
     </Suspense>
   );
 }
