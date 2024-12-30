@@ -19,4 +19,6 @@ export type DrawingContextType = {
   undo: () => void;
   docSize: DocSizeType;
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
+  isIframe: boolean;
+  setIsIframe: React.Dispatch<React.SetStateAction<boolean>>;
 };

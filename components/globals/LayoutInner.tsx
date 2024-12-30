@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDrawing } from '../experimental/Drawing';
 
@@ -10,9 +9,7 @@ export type LayoutInnerProps = {
 };
 
 export function LayoutInner({ children }: LayoutInnerProps) {
-  const searchParams = useSearchParams();
-  const isIframe = searchParams.get('iframe') !== null;
-  const { setEnableDrawing } = useDrawing();
+  const { setEnableDrawing, isIframe } = useDrawing();
 
   useEffect(() => {
     if (isIframe) {
