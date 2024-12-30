@@ -1,5 +1,6 @@
 import { distortionThreeShader } from './distortionThree';
 import { flutedShader } from './flutedThree';
+import { loupeShader } from './loupeThree';
 import { pixelShader } from './pixelThree';
 import { rippleShader } from './rippleThree';
 import { twistShader } from './twistThree';
@@ -15,6 +16,7 @@ export const fragmentThreeShaders: Record<ShaderVariant, string> = {
   twist: twistShader,
   pixel: pixelShader,
   zoom: zoomThree,
+  loupe: loupeShader,
 };
 
 export type { AspectRatio, ShaderVariant } from './types';

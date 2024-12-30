@@ -167,6 +167,7 @@ export const ImageThreeShader = ({
         uniforms: {
           ...baseUniforms,
           ...shaderConfig.uniforms,
+          time: { value: 0 },
         },
         vertexShader: shaderConfig.vertexShader || defaultVertexShader,
         fragmentShader: shaderConfig.fragmentShader,

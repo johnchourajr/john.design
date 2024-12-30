@@ -5,6 +5,7 @@ export type ShaderVariant =
   | 'vertical'
   | 'pixel'
   | 'zoom'
-  | 'twist';
+  | 'twist'
+  | 'loupe';
 
 export type AspectRatio = '1:1' | '4:3' | '2000:1327';
