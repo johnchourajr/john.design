@@ -10,7 +10,8 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default async function Page({ params }: any) {
+export default async function Page(props: any) {
+  const params = await props.params;
   const post = await getPostBySlug(params.slug);
 
   return <PostPage post={post} />;
