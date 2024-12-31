@@ -4,8 +4,8 @@ slug: "/journal/web-shaders"
 date: "2024-12-27"
 title: "Getting Creative with GLSL Shaders"
 cover: /journal-images/web-shaders/shader.jpg
-thumb: /journal-images/web-shaders/shader-og.jpg
-ogImage: /journal-images/web-shaders/shader-og.jpg
+thumb: /journal-images/web-shaders/shader.jpg
+ogImage: /journal-images/web-shaders/shaders-og.jpg
 description: "Exploring the world of GLSL shaders and creating mesmerizing visual effects with the help of AI tools."
 tags:
   - Dev
