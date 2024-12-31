@@ -2,10 +2,9 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { Children, ReactElement, isValidElement } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeRaw from 'rehype-raw';
 
-import codestyle from './codestyle';
+import { CodeBlock } from './CodeBlock';
 import styles from './journal.module.css';
 
 export type PostBodyProps = {
@@ -59,13 +58,7 @@ const components: Partial<Components> = {
     const { children, className, node, ...rest } = props;
     const match = /language-(\w+)/.exec(className || '');
     return match ? (
-      <SyntaxHighlighter
-        PreTag="div"
-        // eslint-disable-next-line react/no-children-prop
-        children={String(children).replace(/\n$/, '')}
-        language={match[1]}
-        style={codestyle}
-      />
+      <CodeBlock language={match[1]}>{String(children)}</CodeBlock>
     ) : (
       <code {...rest} className={className}>
         {children}
