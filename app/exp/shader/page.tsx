@@ -32,9 +32,7 @@ export default function Page() {
       name: 'Shader',
       type: 'Select',
       value: undefined,
-      options: Object.keys(fragmentThreeShaders).filter(
-        (key) => key !== 'loupe' && (!isIframe || key === defaultShader),
-      ) as ShaderVariant[],
+      options: Object.keys(fragmentThreeShaders),
     },
     {
       name: 'Overlay',

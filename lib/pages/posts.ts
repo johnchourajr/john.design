@@ -25,6 +25,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
     refer = null,
     tags = [],
     hidden = false,
+    description = '',
   } = data;
 
   const wordCount = markdown.split(/\s+/).length;
@@ -42,6 +43,8 @@ export function getPostBySlug(slug: PostSlug): PostData {
       refer,
       tags,
       hidden,
+      description,
+      slug: realSlug,
     },
     wordCount,
     timeToRead,

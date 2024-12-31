@@ -41,6 +41,8 @@ export type PostFrontMatter = {
   refer?: string;
   tags?: string[];
   hidden?: boolean; // Add this line
+  description?: string;
+  slug: string;
 };
 
 export type PostData = {
