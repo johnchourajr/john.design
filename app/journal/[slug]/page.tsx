@@ -14,7 +14,8 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: { params: PostData }) {
   const params = await props.params;
   const post = getPostBySlug(params.slug);
-  const { title, description, cover, videoCover, slug } = post.frontmatter;
+  const { title, description, cover, videoCover, ogImage, slug } =
+    post.frontmatter;
 
   return {
     title,
@@ -24,13 +25,13 @@ export async function generateMetadata(props: { params: PostData }) {
       description,
       type: 'article',
       url: `https://yourwebsite.com/journal/${slug}`,
-      images: cover || videoCover,
+      images: ogImage || cover || videoCover,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: cover || videoCover,
+      images: ogImage || cover || videoCover,
     },
   };
 }

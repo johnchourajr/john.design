@@ -38,6 +38,7 @@ export type PostFrontMatter = {
   cover?: string;
   videoCover?: string;
   thumb?: string;
+  ogImage?: string;
   refer?: string;
   tags?: string[];
   hidden?: boolean; // Add this line

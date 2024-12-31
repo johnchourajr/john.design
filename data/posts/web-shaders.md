@@ -4,7 +4,9 @@ slug: "/journal/web-shaders"
 date: "2024-12-27"
 title: "Getting Creative with GLSL Shaders"
 cover: /journal-images/web-shaders/shader.jpg
-thumb: /journal-images/web-shaders/shader.jpg
+thumb: /journal-images/web-shaders/shader-og.jpg
+ogImage: /journal-images/web-shaders/shader-og.jpg
+description: "Exploring the world of GLSL shaders and creating mesmerizing visual effects with the help of AI tools."
 tags:
   - Dev
 ---
@@ -452,3 +454,9 @@ A few improvements I hope to make in the future would be creating a version with
 My main takeaway is that using LLMs to help write code in these creative pursuits jumpstarts my learning. I've always been a learn-by-doing type of person, and this just accelerates that.
 
 Cheers and enjoy. ✌️
+
+----
+
+*Photography used in header by John Choura Jr.
+
+**Shader code generated using GitHub Copilot with GPT 4o and Claude 3.5 Sonnet models
