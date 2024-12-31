@@ -31,17 +31,6 @@ export default function WorkPage({
           iterations={8}
           letters={true}
         />
-        <DynamicJustifiedHeadlineInner
-          className={clsx('leading-[1] w-full font-black pointer-events-none')}
-          headline={[
-            {
-              text: 'Coming Soon',
-              motionObject: getRandomParentAndChildClassesArray(8),
-              className:
-                '!text-[1rem] lg:!text-[1vw] !tracking-wider uppercase',
-            },
-          ]}
-        />
       </section>
       <section className="my-[10vw] px-4">
         <h2 className="text-string">Moonlight Work</h2>
