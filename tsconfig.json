@@ -52,5 +52,6 @@
 , "components/experimental/ImageThreeShader/shaders/pixelThree.ts"  ],
   "exclude": [
     "node_modules",
+    ".next",
   ]
 }
