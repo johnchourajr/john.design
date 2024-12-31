@@ -185,22 +185,65 @@ export function DrawingProviderComponent({
   }, [points, pathname, enableDrawing, storeCurrentDrawing]);
 
   useEffect(() => {
-    const handleResize = () => {
+    const calculateFullHeight = () => {
       if (isClient) {
         const width = window.innerWidth;
-        const height = document.body.scrollHeight;
 
-        setDocSize({ width, height });
+        // Get the main content height more accurately
+        const mainContent = document.querySelector('main');
+        const height = mainContent
+          ? mainContent.getBoundingClientRect().height
+          : Math.min(
+              document.documentElement.scrollHeight,
+              document.body.scrollHeight,
+            );
+
+        // Add small buffer for any margins
+        const finalHeight = Math.ceil(height) + 100;
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Height calculations:', {
+            mainHeight: mainContent?.getBoundingClientRect().height,
+            documentHeight: document.documentElement.scrollHeight,
+            bodyHeight: document.body.scrollHeight,
+            finalHeight,
+          });
+        }
+
+        setDocSize({ width, height: finalHeight });
       }
     };
 
-    handleResize();
+    const handleResize = () => {
+      // Debounce the calculation
+      clearTimeout(resizeTimeout.current);
+      resizeTimeout.current = setTimeout(calculateFullHeight, 100);
+    };
+
+    const resizeTimeout = { current: null as any };
+    const observer = new MutationObserver(handleResize);
+
+    // Observe only the main content
+    const mainContent = document.querySelector('main');
+    if (mainContent) {
+      observer.observe(mainContent, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+      });
+    }
+
+    calculateFullHeight();
     window.addEventListener('resize', handleResize);
+    window.addEventListener('load', calculateFullHeight);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('load', calculateFullHeight);
+      observer.disconnect();
+      clearTimeout(resizeTimeout.current);
     };
-  }, [isClient, pathname]);
+  }, [isClient]);
 
   useEffect(() => {
     setIsIframe(searchParams.get('iframe') !== null);
