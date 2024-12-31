@@ -13,12 +13,35 @@ interface PostPageProps {
 export const PostPage = ({
   post: {
     markdown,
-    frontmatter: { template, title, date, author, cover, videoCover },
+    frontmatter: {
+      template,
+      title,
+      date,
+      author,
+      cover,
+      videoCover,
+      description,
+      slug,
+    },
   },
 }: PostPageProps) => {
   if (!markdown) {
     return <div>Post not found</div>;
   }
+
+  const schemaOrgJSONLD = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    datePublished: date,
+    author: {
+      '@type': 'Person',
+      name: author || 'John Choura',
+    },
+    image: cover || videoCover,
+    description: description,
+    url: `https://john.design/journal/${slug}`,
+  };
 
   return (
     <PostPageOuter>
@@ -41,6 +64,9 @@ export const PostPage = ({
         </p>
       </div>
       <PostBody markdown={markdown} />
+      <script type="application/ld+json">
+        {JSON.stringify(schemaOrgJSONLD)}
+      </script>
     </PostPageOuter>
   );
 };
