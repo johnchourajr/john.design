@@ -10,11 +10,8 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata(props: any) {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   const { title, description, cover, videoCover, slug } = post.frontmatter;
 
