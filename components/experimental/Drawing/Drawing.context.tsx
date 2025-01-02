@@ -8,6 +8,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -55,6 +56,10 @@ export function DrawingProviderComponent({
   });
 
   const isClient = typeof window !== 'undefined';
+
+  // Add new refs for size tracking
+  const previousSizeRef = useRef<DocSizeType>({ width: 0, height: 0 });
+  const sizeTimeoutRef = useRef<NodeJS.Timeout>();
 
   const serializePoints = useCallback(
     (points: StoredPointObj): string => JSON.stringify(points),
@@ -185,46 +190,53 @@ export function DrawingProviderComponent({
   }, [points, pathname, enableDrawing, storeCurrentDrawing]);
 
   useEffect(() => {
+    const DEBOUNCE_TIME = 150;
+    const SIZE_THRESHOLD = 50; // Minimum pixel difference to trigger update
+
+    const shouldUpdateSize = (newSize: DocSizeType) => {
+      const prevSize = previousSizeRef.current;
+      return (
+        Math.abs(newSize.width - prevSize.width) > SIZE_THRESHOLD ||
+        Math.abs(newSize.height - prevSize.height) > SIZE_THRESHOLD
+      );
+    };
+
     const calculateFullHeight = () => {
-      if (isClient) {
-        const width = window.innerWidth;
+      if (!isClient) return;
 
-        // Get the main content height more accurately
-        const mainContent = document.querySelector('main');
-        const height = mainContent
-          ? mainContent.getBoundingClientRect().height
-          : Math.min(
-              document.documentElement.scrollHeight,
-              document.body.scrollHeight,
-            );
+      const width = window.innerWidth;
+      const mainContent = document.querySelector('main');
+      const height = mainContent
+        ? mainContent.getBoundingClientRect().height
+        : Math.min(
+            document.documentElement.scrollHeight,
+            document.body.scrollHeight,
+          );
 
-        // Add small buffer for any margins
-        const finalHeight = Math.ceil(height) + 100;
+      const newSize = {
+        width,
+        height: Math.ceil(height) + 100,
+      };
+
+      // Only update state if size changed significantly
+      if (shouldUpdateSize(newSize)) {
+        previousSizeRef.current = newSize;
+        setDocSize(newSize);
 
         if (process.env.NODE_ENV === 'development') {
-          console.log('Height calculations:', {
-            mainHeight: mainContent?.getBoundingClientRect().height,
-            documentHeight: document.documentElement.scrollHeight,
-            bodyHeight: document.body.scrollHeight,
-            finalHeight,
-          });
+          console.log('Size updated:', newSize);
         }
-
-        setDocSize({ width, height: finalHeight });
       }
     };
 
     const handleResize = () => {
-      // Debounce the calculation
-      clearTimeout(resizeTimeout.current);
-      resizeTimeout.current = setTimeout(calculateFullHeight, 100);
+      clearTimeout(sizeTimeoutRef.current);
+      sizeTimeoutRef.current = setTimeout(calculateFullHeight, DEBOUNCE_TIME);
     };
 
-    const resizeTimeout = { current: null as any };
     const observer = new MutationObserver(handleResize);
-
-    // Observe only the main content
     const mainContent = document.querySelector('main');
+
     if (mainContent) {
       observer.observe(mainContent, {
         childList: true,
@@ -241,7 +253,7 @@ export function DrawingProviderComponent({
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('load', calculateFullHeight);
       observer.disconnect();
-      clearTimeout(resizeTimeout.current);
+      clearTimeout(sizeTimeoutRef.current);
     };
   }, [isClient]);
 

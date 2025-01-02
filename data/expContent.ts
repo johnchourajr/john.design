@@ -2,8 +2,14 @@ import { PageItem } from '@/types/content-types';
 
 export const expData: PageItem[] = [
   {
+    href: '/exp/gen-shader',
+    title: 'Generative Shader',
+    description: 'Some more fun with WebGL shaders.',
+    status: 'NEW',
+  },
+  {
     href: '/exp/shader',
-    title: 'Shaders',
+    title: 'Image Shader',
     description: 'Some fun with WebGL shaders.',
     status: 'NEW',
   },
