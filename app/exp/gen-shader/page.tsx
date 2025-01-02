@@ -135,7 +135,6 @@ export default function Page() {
   const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader =
     (searchParams.get('shader') as ShaderVariant) || 'kaleidoscopeShader';
-  const defaultOverlay = searchParams.get('overlay') !== 'false';
 
   const SETTINGS = [
     {
