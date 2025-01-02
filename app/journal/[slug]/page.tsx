@@ -24,7 +24,7 @@ export async function generateMetadata(props: { params: PostData }) {
       title,
       description,
       type: 'article',
-      url: `https://yourwebsite.com/journal/${slug}`,
+      url: `https://john.design/journal/${slug}`,
       images: ogImage || cover || videoCover,
     },
     twitter: {
