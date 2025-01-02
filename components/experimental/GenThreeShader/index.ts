@@ -1,0 +1,1 @@
+export { GenThreeShader } from './GenThreeShader';

@@ -39,20 +39,20 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
   };
 
   return (
-    <div className="inline-flex flex-row items-center justify-center gap-3">
-      {name}
+    <div className="grid grid-cols-[5rem_1fr] items-center gap-4">
+      <span className="truncate">{name}</span>
       <button
         onClick={toggle}
         className={clsx(
-          ' flex p-1 rounded-full bg-[rgba(255,255,255,.2)] w-12',
-          state.value ? ' justify-end' : ' justify-start',
+          'flex p-1 rounded-full bg-[rgba(255,255,255,.2)] w-12',
+          state.value ? 'justify-end' : 'justify-start',
         )}
       >
         <m.div
           id={`toggle-${index}`}
           layout
           className={clsx(
-            'w-5 h-5 rounded-full ',
+            'w-5 h-5 rounded-full',
             state.value ? 'bg-[var(--root-color)]' : 'bg-[#000000]',
           )}
         />
@@ -71,8 +71,8 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
   };
 
   return (
-    <div className="inline-flex flex-row items-center justify-center gap-3">
-      {name}
+    <div className="grid grid-cols-[5rem_1fr_1rem] items-center gap-4">
+      <span className="truncate">{name}</span>
       <input
         ref={slider}
         type="range"
@@ -81,9 +81,8 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
         step={state.step || 1}
         value={state.value}
         onChange={update}
-        className="w-32"
       />
-      <span className="inline-flex flex-row whitespace-nowrap">
+      <span>
         {state.value}
         {state.unit}
       </span>
@@ -108,13 +107,13 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
   };
 
   return (
-    <div className="inline-flex flex-row items-center justify-center gap-3">
-      {name}
+    <div className="grid grid-cols-[5rem_1fr] items-center gap-4">
+      <span className="truncate">{name}</span>
       <div className="inline-flex items-center gap-1">
         <select
           value={state.value}
           onChange={handleChange}
-          className="border-1 border-root ring-root text-root p-1 rounded"
+          className="border-1 border-root ring-root text-root p-1 rounded w-32"
         >
           {options.map((option: string) => (
             <option key={option} value={option}>
@@ -122,18 +121,20 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
             </option>
           ))}
         </select>
-        <button
-          onClick={() => navigateOptions('prev')}
-          className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
-        >
-          ↑
-        </button>
-        <button
-          onClick={() => navigateOptions('next')}
-          className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
-        >
-          ↓
-        </button>
+        <div className="inline-flex gap-1">
+          <button
+            onClick={() => navigateOptions('prev')}
+            className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
+          >
+            ↑
+          </button>
+          <button
+            onClick={() => navigateOptions('next')}
+            className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
+          >
+            ↓
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -142,7 +143,7 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
 export function SettingsGroup({ settings, setSettings }: any) {
   return (
     <LayoutGroup>
-      <div className="sticky bg-black p-4 bottom-0 left-0 flex gap-4 flex-col items-start justify-start w-fit z-[100] rounded-tr-2xl">
+      <div className="sticky bg-black p-4 bottom-0 left-0 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-tr-2xl">
         {settings.map(({ type, ...rest }: any, index: number) => {
           switch (type) {
             case 'Boolean':
