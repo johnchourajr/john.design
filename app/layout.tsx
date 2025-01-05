@@ -1,5 +1,6 @@
 import { DrawingProvider } from '@/components/experimental/Drawing';
 import { GlobalLayout } from '@/components/globals/layout';
+import { SchemaJson } from '@/components/globals/SchemaJson';
 import { AppProvider } from '@/context/AppProvider';
 import { GtagProvider } from '@/context/GtagProvider';
 import type { Metadata, Viewport } from 'next';
@@ -26,6 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={{ '--root-color': '#ff0000' } as CSSProperties}>
+      <head>
+        <SchemaJson />
+      </head>
       <body>
         <GtagProvider>
           <AppProvider>
