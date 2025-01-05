@@ -13,18 +13,21 @@ export default function InlineLink({
   href,
   children,
   className,
+  target,
   ...props
 }: InlineLinkProps) {
   return (
     <Link
       href={href}
       className={clsx(
-        'relative z-50 underline pointer-events-auto cursor-pointer',
+        'relative z-50 pointer-events-auto cursor-pointer',
         className,
       )}
+      target={target}
       {...props}
     >
-      {children}
+      <span className="underline">{children}</span>{' '}
+      {target === '_blank' && <span>↗</span>}
     </Link>
   );
 }
