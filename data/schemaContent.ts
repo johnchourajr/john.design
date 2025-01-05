@@ -6,6 +6,9 @@ export const schema = {
       '@id': 'https://john.design/#person',
       name: 'John Choura',
       url: 'https://john.design',
+      jobTitle: 'Designer',
+      image: 'https://john.design/images/me-mini.png',
+      description: 'John is working on the internet',
       sameAs: [
         'https://threads.net/johnchoura',
         'https://github.com/johnchourajr',
@@ -19,6 +22,8 @@ export const schema = {
       '@id': 'https://john.design/#website',
       url: 'https://john.design',
       name: 'John.Design',
+      description: 'John is working on the internet',
+      inLanguage: 'en-US',
       publisher: {
         '@id': 'https://john.design/#person',
       },

@@ -34,13 +34,23 @@ export const PostPage = ({
     '@type': 'BlogPosting',
     headline: title,
     datePublished: date,
-    author: {
-      '@type': 'Person',
-      name: author || 'John Choura',
-    },
+    dateModified: date, // Add if you track modifications
     image: cover || videoCover,
     description: description,
     url: `https://john.design/journal/${slug}`,
+    author: {
+      '@type': 'Person',
+      name: author || 'John Choura',
+      url: 'https://john.design',
+    },
+    publisher: {
+      '@type': 'Person',
+      '@id': 'https://john.design/#person',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://john.design/journal/${slug}`,
+    },
   };
 
   return (
