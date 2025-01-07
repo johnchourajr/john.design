@@ -23,8 +23,8 @@ export function NavLeft() {
           'text-string relative',
           'z-50 pointer-events-none',
           'md:inline-flex hidden',
-          'no-underline',
         )}
+        underline={false}
       >
         John.Design™
       </InlineLink>
@@ -37,8 +37,8 @@ export function NavLeft() {
             'text-string relative',
             'z-50 pointer-events-none',
             'inline-flex ',
-            'no-underline',
           )}
+          underline={false}
         >
           {title}
         </InlineLink>

@@ -55,7 +55,7 @@ export const PostPage = ({
 
   return (
     <PostPageOuter>
-      <InlineLink href="/journal" className="no-underline">
+      <InlineLink href="/journal" className="no-underline" underline={false}>
         <p className="my-4">
           &larr; <span>Back</span>
         </p>

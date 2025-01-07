@@ -134,7 +134,7 @@ function Section() {
 export default function ScrollGrow() {
   return (
     <>
-      <InlineLink href="/exp/" className="no-underline">
+      <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="m-4">
           &larr; <span className="underline">Back</span>
         </h2>

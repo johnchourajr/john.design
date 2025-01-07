@@ -6,6 +6,8 @@ type InlineLinkProps = {
   children: React.ReactNode;
   target?: '_blank' | '_self' | '_parent' | '_top';
   title?: string;
+  underline?: boolean;
+  showArrow?: boolean;
   'aria-label'?: string;
 } & LinkProps;
 
@@ -14,6 +16,8 @@ export default function InlineLink({
   children,
   className,
   target,
+  underline = true,
+  showArrow = true,
   ...props
 }: InlineLinkProps) {
   return (
@@ -26,8 +30,8 @@ export default function InlineLink({
       target={target}
       {...props}
     >
-      <span className="underline">{children}</span>{' '}
-      {target === '_blank' && <span>↗</span>}
+      <span className={clsx(underline && 'underline')}>{children}</span>{' '}
+      {showArrow && target === '_blank' && <span>↗</span>}
     </Link>
   );
 }

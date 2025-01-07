@@ -28,7 +28,7 @@ export default function JohnGL() {
 
   return (
     <>
-      <InlineLink href="/exp/" className="no-underline">
+      <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="my-8">
           &larr; <span className="underline">Back</span>
         </h2>
