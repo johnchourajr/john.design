@@ -30,7 +30,13 @@ export default function InlineLink({
       target={target}
       {...props}
     >
-      <span className={clsx(underline && 'underline')}>{children}</span>{' '}
+      <span
+        className={clsx(
+          underline && 'underline underline-offset-2 decoration-1',
+        )}
+      >
+        {children}
+      </span>{' '}
       {showArrow && target === '_blank' && <span>↗</span>}
     </Link>
   );
