@@ -61,7 +61,7 @@ export default function JustifiedHeadline() {
     <>
       <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="m-4 font-sans">
-          &larr; <span className="underline">Back</span>
+          &larr; <span>Back</span>
         </h2>
       </InlineLink>
       <DynamicJustifiedHeadlineInner

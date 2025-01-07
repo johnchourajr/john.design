@@ -12,7 +12,7 @@ export default function Page() {
     <>
       <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="m-4">
-          &larr; <span className="underline">Back</span>
+          &larr; <span>Back</span>
         </h2>
       </InlineLink>
       <div className="flex h-[80vh] flex-col items-start justify-center">

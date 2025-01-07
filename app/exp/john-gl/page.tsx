@@ -30,7 +30,7 @@ export default function JohnGL() {
     <>
       <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="my-8">
-          &larr; <span className="underline">Back</span>
+          &larr; <span>Back</span>
         </h2>
       </InlineLink>
       <JohnGLCanvas settings={settings} className="h-[150vw] md:h-[100vw]" />
