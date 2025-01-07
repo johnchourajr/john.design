@@ -12,7 +12,7 @@ export default function Freehand() {
         underline={false}
       >
         <h2 className="m-4">
-          &larr; <span className="underline">Back</span>
+          &larr; <span>Back</span>
         </h2>
       </InlineLink>
       <div className="relative flex items-center justify-start w-full h-[100vh]">

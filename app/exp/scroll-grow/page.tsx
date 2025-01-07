@@ -136,7 +136,7 @@ export default function ScrollGrow() {
     <>
       <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="m-4">
-          &larr; <span className="underline">Back</span>
+          &larr; <span>Back</span>
         </h2>
       </InlineLink>
       <div className="relative w-full">
