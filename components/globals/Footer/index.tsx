@@ -85,6 +85,8 @@ export default function Footer() {
             'text-title z-50 relative pointer-events-none',
             'no-underline',
           )}
+          underline={false}
+          showArrow={false}
         >
           {'</>'}
         </InlineLink>

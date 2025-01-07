@@ -59,7 +59,7 @@ export default function JustifiedHeadline() {
 
   return (
     <>
-      <InlineLink href="/exp/" className="no-underline">
+      <InlineLink href="/exp/" className="no-underline" underline={false}>
         <h2 className="m-4 font-sans">
           &larr; <span className="underline">Back</span>
         </h2>

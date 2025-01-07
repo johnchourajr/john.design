@@ -6,7 +6,11 @@ import InlineLink from '@/components/fragments/InlineLink';
 export default function Freehand() {
   return (
     <>
-      <InlineLink href="/exp/" className="relative z-50 no-underline">
+      <InlineLink
+        href="/exp/"
+        className="relative z-50 no-underline"
+        underline={false}
+      >
         <h2 className="m-4">
           &larr; <span className="underline">Back</span>
         </h2>
