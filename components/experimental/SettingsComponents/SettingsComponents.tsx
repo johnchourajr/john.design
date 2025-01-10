@@ -173,6 +173,16 @@ export function SettingsGroup({ settings, setSettings }: any) {
                   {...rest}
                 />
               );
+            case 'Button':
+              return (
+                <button
+                  key={index}
+                  onClick={rest.onClick}
+                  className="bg-root text-white p-2 rounded"
+                >
+                  {rest.label}
+                </button>
+              );
             default:
               return null;
           }
