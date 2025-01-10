@@ -1,7 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing';
 import {
@@ -117,6 +117,44 @@ const SHADER_SETTINGS: Record<ShaderVariant, any[]> = {
       uniform: 'colorIntensity',
     },
   ],
+  wavesShader: [
+    {
+      name: 'Scale',
+      type: 'Slider',
+      value: 1.0,
+      min: 0.1,
+      max: 3.0,
+      step: 0.1,
+      uniform: 'scale',
+    },
+    {
+      name: 'Speed',
+      type: 'Slider',
+      value: 1.0,
+      min: 0.1,
+      max: 2.0,
+      step: 0.1,
+      uniform: 'speed',
+    },
+    {
+      name: 'Distortion',
+      type: 'Slider',
+      value: 1.0,
+      min: 0.1,
+      max: 3.0,
+      step: 0.1,
+      uniform: 'distortion',
+    },
+    {
+      name: 'Color Intensity',
+      type: 'Slider',
+      value: 0.7,
+      min: 0.1,
+      max: 1.0,
+      step: 0.05,
+      uniform: 'colorIntensity',
+    },
+  ],
 };
 
 export default function Page() {
@@ -136,12 +174,20 @@ export default function Page() {
   const defaultShader =
     (searchParams.get('shader') as ShaderVariant) || 'kaleidoscopeShader';
 
+  const downloadRef = useRef<(() => void) | null>(null);
+
   const SETTINGS = [
     {
       name: 'Shader',
       type: 'Select',
       value: undefined,
       options: Object.keys(genShaders),
+    },
+    {
+      name: 'Download',
+      type: 'Button',
+      onClick: () => downloadRef.current?.(),
+      label: 'Download PNG',
     },
   ];
 
@@ -165,7 +211,9 @@ export default function Page() {
   ) as ShaderVariant;
 
   useEffect(() => {
-    const baseSettings = settings.filter((s) => s.name === 'Shader');
+    const baseSettings = settings.filter(
+      (s) => s.name === 'Shader' || s.name === 'Download',
+    );
     setSettings([...baseSettings, ...SHADER_SETTINGS[currentShader]]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentShader]);
@@ -190,7 +238,13 @@ export default function Page() {
       )}
 
       <div className="relative w-screen h-auto">
-        <GenThreeShader shaderConfig={shaderConfig} className="aspect-square" />
+        <GenThreeShader
+          shaderConfig={shaderConfig}
+          className="aspect-square"
+          onDownload={(fn) => {
+            downloadRef.current = fn;
+          }}
+        />
       </div>
 
       {!hideSettings && (

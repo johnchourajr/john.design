@@ -25,6 +25,8 @@ type GenThreeShaderProps = {
   className?: string;
   /** Shader configuration object */
   shaderConfig: ShaderConfig;
+  /** Optional download action */
+  onDownload: (ref: () => void) => void;
 };
 
 const defaultVertexShader = `
@@ -38,12 +40,14 @@ const defaultVertexShader = `
 export const GenThreeShader = ({
   className,
   shaderConfig,
+  onDownload,
 }: GenThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const downloadHandlerRef = useRef<(() => void) | null>(null);
   const sizeRef = useRef<{ width: number; height: number }>({
     width: 0,
     height: 0,
@@ -132,8 +136,23 @@ export const GenThreeShader = ({
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Event listeners
-    container.addEventListener('mousemove', handleMouseMove);
+    // Store download handler in ref
+    downloadHandlerRef.current = () => {
+      renderer.render(scene, camera);
+      renderer.domElement.toBlob((blob) => {
+        if (blob) {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `shader-${Date.now()}.png`;
+          link.click();
+        }
+      });
+    };
+
+    // Pass the ref's current value
+    onDownload(() => downloadHandlerRef.current?.());
+
+    // Start animation
     animate();
 
     return () => {
@@ -144,7 +163,7 @@ export const GenThreeShader = ({
       container.removeChild(renderer.domElement);
       container.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [shaderConfig, baseUniforms]);
+  }, [shaderConfig, baseUniforms]); // Remove onDownload from deps
 
   return (
     <div
