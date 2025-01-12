@@ -24,6 +24,7 @@ export default function JournalGridItem({
           'group flex gap-1',
           'headline-display-sm sm:headline-display-md',
           'text-left group max-w-[20em] cursor-help z-50 relative pointer-events-none',
+          'text-pretty max-w-[14em]',
         )}
       >
         <span className="no-underline group-hover:underline underline-offset-4 decoration-2">
