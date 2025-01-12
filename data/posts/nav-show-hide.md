@@ -8,6 +8,8 @@ videoCover: /journal-images/video/nav-cover.mp4
 thumb: /journal-images/images/nav-cover.svg
 tags:
   - Dev
+  - Framer motion
+  - TypeScript
 ---
 
 > Note: This is an update to an article written in 2021. This new update is written in `TypeScript` and on the latest version of `framer-motion` (v11.0.14). Enjoy.

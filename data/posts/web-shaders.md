@@ -9,6 +9,8 @@ ogImage: /journal-images/web-shaders/shaders-og.jpg
 description: "Exploring the world of GLSL shaders and creating mesmerizing visual effects with the help of AI tools."
 tags:
   - Dev
+  - TypeScript
+  - GLSL
 ---
 
 ## For some time now, I’ve wanted to explore shaders.

@@ -8,6 +8,8 @@ videoCover: /journal-images/font-file-separatornator/font-cover.mp4
 thumb: /journal-images/font-file-separatornator/font-cover.svg
 tags:
   - Dev
+  - Shell Script
+  - Fonts
 ---
 
 Hello, typophiles! Have you ever been overwhelmed by a sea of font folders with combined .ttf, .woff2, and .otf files? Ever wished for a magic solution that could neatly organize them? Well, your wish has been granted! Introducing the **[Font File Separatornator](https://github.com/johnchourajr/font-file-separatornator/tree/main)** (cue infomercial music) – the script you didn't realize you needed, but now can't live without.
