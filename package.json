@@ -22,6 +22,7 @@
     "gray-matter": "^4.0.3",
     "html-react-parser": "^3.0.4",
     "next": "^15.1.3",
+    "next-plausible": "^3.12.4",
     "perfect-freehand": "^1.2.0",
     "postprocessing": "^6.34.1",
     "r3f-perf": "^6.6.0",
