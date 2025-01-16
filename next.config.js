@@ -1,4 +1,4 @@
-const { withPlausibleProxy } = require('./next-plausible');
+const { withPlausibleProxy } = require('next-plausible');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
