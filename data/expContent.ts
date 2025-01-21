@@ -2,9 +2,15 @@ import { PageItem } from '@/types/content-types';
 
 export const expData: PageItem[] = [
   {
+    href: '/exp/video-shader',
+    title: 'Video Shader',
+    description: 'WebGL with video what could go wrong?',
+    status: 'NEW',
+  },
+  {
     href: '/exp/gen-shader',
     title: 'Generative Shader',
-    description: 'Some more fun with WebGL shaders.',
+    description: 'Generative color fun with WebGL.',
     status: 'NEW',
   },
   {
