@@ -153,7 +153,7 @@ export function SettingsGroup({ settings, setSettings }: any) {
   return (
     <LayoutGroup>
       <m.div
-        className="sticky bg-black p-4 bottom-0 left-0 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-tr-2xl overflow-hidden"
+        className="sticky bg-black p-4 bottom-2 left-2 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-2xl overflow-hidden border-1 border-[#ffffff24]"
         layout
       >
         {settings.map(({ type, ...rest }: any, index: number) => {
