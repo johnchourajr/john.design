@@ -1,3 +1,33 @@
+export const kaleidoscopeShaderSettings = [
+  {
+    name: 'Pattern Scale',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 5.0,
+    step: 0.1,
+    uniform: 'patternScale',
+  },
+  {
+    name: 'Kaleidoscope Segments',
+    type: 'Slider',
+    value: 6.0,
+    min: 2.0,
+    max: 12.0,
+    step: 1.0,
+    uniform: 'kaleidoSegments',
+  },
+  {
+    name: 'Color Intensity',
+    type: 'Slider',
+    value: 0.7,
+    min: 0.1,
+    max: 1.0,
+    step: 0.05,
+    uniform: 'colorIntensity',
+  },
+];
+
 export const kaleidoscopeShader = `
 uniform vec2 resolution;
 uniform float time;

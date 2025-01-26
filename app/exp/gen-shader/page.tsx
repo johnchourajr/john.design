@@ -6,6 +6,7 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { useDrawing } from '@/components/experimental/Drawing';
 import {
   genShaders,
+  shaderSettings as SHADER_SETTINGS,
   ShaderVariant,
 } from '@/components/experimental/GenThreeShader/shaders';
 import {
@@ -20,142 +21,7 @@ const GenThreeShader = dynamic(() =>
   ),
 );
 
-const SHADER_SETTINGS: Record<ShaderVariant, any[]> = {
-  kaleidoscopeShader: [
-    {
-      name: 'Pattern Scale',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 5.0,
-      step: 0.1,
-      uniform: 'patternScale',
-    },
-    {
-      name: 'Kaleidoscope Segments',
-      type: 'Slider',
-      value: 6.0,
-      min: 2.0,
-      max: 12.0,
-      step: 1.0,
-      uniform: 'kaleidoSegments',
-    },
-    {
-      name: 'Color Intensity',
-      type: 'Slider',
-      value: 0.7,
-      min: 0.1,
-      max: 1.0,
-      step: 0.05,
-      uniform: 'colorIntensity',
-    },
-  ],
-  spaceTimeShader: [
-    {
-      name: 'Pattern Scale',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 5.0,
-      step: 0.1,
-      uniform: 'patternScale',
-    },
-    {
-      name: 'Motion Speed',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 2.0,
-      step: 0.1,
-      uniform: 'motionSpeed',
-    },
-    {
-      name: 'Warp Intensity',
-      type: 'Slider',
-      value: 0.5,
-      min: 0.0,
-      max: 1.0,
-      step: 0.05,
-      uniform: 'warpIntensity',
-    },
-    {
-      name: 'Color Intensity',
-      type: 'Slider',
-      value: 0.7,
-      min: 0.1,
-      max: 1.0,
-      step: 0.05,
-      uniform: 'colorIntensity',
-    },
-  ],
-  pinwheelShader: [
-    {
-      name: 'Rotation Speed',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 2.0,
-      step: 0.1,
-      uniform: 'rotationSpeed',
-    },
-    {
-      name: 'Vortex Strength',
-      type: 'Slider',
-      value: 5.0,
-      min: 1.0,
-      max: 10.0,
-      step: 0.5,
-      uniform: 'vortexStrength',
-    },
-    {
-      name: 'Color Intensity',
-      type: 'Slider',
-      value: 0.7,
-      min: 0.1,
-      max: 1.0,
-      step: 0.05,
-      uniform: 'colorIntensity',
-    },
-  ],
-  wavesShader: [
-    {
-      name: 'Scale',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 3.0,
-      step: 0.1,
-      uniform: 'scale',
-    },
-    {
-      name: 'Speed',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 2.0,
-      step: 0.1,
-      uniform: 'speed',
-    },
-    {
-      name: 'Distortion',
-      type: 'Slider',
-      value: 1.0,
-      min: 0.1,
-      max: 3.0,
-      step: 0.1,
-      uniform: 'distortion',
-    },
-    {
-      name: 'Color Intensity',
-      type: 'Slider',
-      value: 0.7,
-      min: 0.1,
-      max: 1.0,
-      step: 0.05,
-      uniform: 'colorIntensity',
-    },
-  ],
-};
+const DEFAULT_SHADER = 'spiralSphereShader';
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -172,7 +38,7 @@ export default function Page() {
 
   const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader =
-    (searchParams.get('shader') as ShaderVariant) || 'kaleidoscopeShader';
+    (searchParams.get('shader') as ShaderVariant) || DEFAULT_SHADER;
 
   const downloadRef = useRef<(() => void) | null>(null);
 
@@ -207,7 +73,7 @@ export default function Page() {
   const currentShader = getSettingValue(
     settings,
     'Shader',
-    'kaleidoscopeShader',
+    DEFAULT_SHADER,
   ) as ShaderVariant;
 
   useEffect(() => {
@@ -245,11 +111,15 @@ export default function Page() {
             downloadRef.current = fn;
           }}
         />
+        {/* Add this to debug settings */}
+        {!hideSettings && (
+          <SettingsGroup
+            settings={settings}
+            setSettings={setSettings}
+            className="relative z-10"
+          />
+        )}
       </div>
-
-      {!hideSettings && (
-        <SettingsGroup settings={settings} setSettings={setSettings} />
-      )}
     </Suspense>
   );
 }

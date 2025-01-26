@@ -39,7 +39,10 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
   };
 
   return (
-    <div className="grid grid-cols-[5rem_1fr] items-center gap-4">
+    <m.div
+      className="grid grid-cols-[5rem_1fr] items-center gap-4"
+      layout="position"
+    >
       <span className="truncate">{name}</span>
       <button
         onClick={toggle}
@@ -57,7 +60,7 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
           )}
         />
       </button>
-    </div>
+    </m.div>
   );
 }
 function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
@@ -71,7 +74,10 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
   };
 
   return (
-    <div className="grid grid-cols-[5rem_1fr_1rem] items-center gap-4">
+    <m.div
+      className="grid grid-cols-[5rem_1fr_1rem] items-center gap-4"
+      layout="position"
+    >
       <span className="truncate">{name}</span>
       <input
         ref={slider}
@@ -86,7 +92,7 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
         {state.value}
         {state.unit}
       </span>
-    </div>
+    </m.div>
   );
 }
 
@@ -107,7 +113,10 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
   };
 
   return (
-    <div className="grid grid-cols-[5rem_1fr] items-center gap-4">
+    <m.div
+      className="grid grid-cols-[5rem_1fr] items-center gap-4"
+      layout="position"
+    >
       <span className="truncate">{name}</span>
       <div className="inline-flex items-center gap-1">
         <select
@@ -136,14 +145,17 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
           </button>
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }
 
 export function SettingsGroup({ settings, setSettings }: any) {
   return (
     <LayoutGroup>
-      <div className="sticky bg-black p-4 bottom-0 left-0 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-tr-2xl">
+      <m.div
+        className="sticky bg-black p-4 bottom-0 left-0 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-tr-2xl overflow-hidden"
+        layout
+      >
         {settings.map(({ type, ...rest }: any, index: number) => {
           switch (type) {
             case 'Boolean':
@@ -175,19 +187,20 @@ export function SettingsGroup({ settings, setSettings }: any) {
               );
             case 'Button':
               return (
-                <button
+                <m.button
                   key={index}
                   onClick={rest.onClick}
                   className="bg-root text-white p-2 rounded"
+                  layout="position"
                 >
                   {rest.label}
-                </button>
+                </m.button>
               );
             default:
               return null;
           }
         })}
-      </div>
+      </m.div>
     </LayoutGroup>
   );
 }

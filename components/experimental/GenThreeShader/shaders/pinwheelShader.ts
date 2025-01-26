@@ -1,3 +1,33 @@
+export const pinwheelShaderSettings = [
+  {
+    name: 'Rotation Speed',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 2.0,
+    step: 0.1,
+    uniform: 'rotationSpeed',
+  },
+  {
+    name: 'Vortex Strength',
+    type: 'Slider',
+    value: 5.0,
+    min: 1.0,
+    max: 10.0,
+    step: 0.5,
+    uniform: 'vortexStrength',
+  },
+  {
+    name: 'Color Intensity',
+    type: 'Slider',
+    value: 0.7,
+    min: 0.1,
+    max: 1.0,
+    step: 0.05,
+    uniform: 'colorIntensity',
+  },
+];
+
 export const pinwheelShader = `
 uniform float time;
 uniform vec2 mouse;

@@ -1,3 +1,42 @@
+export const wavesShaderSettings = [
+  {
+    name: 'Scale',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 3.0,
+    step: 0.1,
+    uniform: 'scale',
+  },
+  {
+    name: 'Speed',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 2.0,
+    step: 0.1,
+    uniform: 'speed',
+  },
+  {
+    name: 'Distortion',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 3.0,
+    step: 0.1,
+    uniform: 'distortion',
+  },
+  {
+    name: 'Color Intensity',
+    type: 'Slider',
+    value: 0.7,
+    min: 0.1,
+    max: 1.0,
+    step: 0.05,
+    uniform: 'colorIntensity',
+  },
+];
+
 export const wavesShader = `
 precision mediump float;
 uniform float time;
