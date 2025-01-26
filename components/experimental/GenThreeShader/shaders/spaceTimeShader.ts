@@ -1,3 +1,42 @@
+export const spaceTimeShaderSettings = [
+  {
+    name: 'Pattern Scale',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 5.0,
+    step: 0.1,
+    uniform: 'patternScale',
+  },
+  {
+    name: 'Motion Speed',
+    type: 'Slider',
+    value: 1.0,
+    min: 0.1,
+    max: 2.0,
+    step: 0.1,
+    uniform: 'motionSpeed',
+  },
+  {
+    name: 'Warp Intensity',
+    type: 'Slider',
+    value: 0.5,
+    min: 0.0,
+    max: 1.0,
+    step: 0.05,
+    uniform: 'warpIntensity',
+  },
+  {
+    name: 'Color Intensity',
+    type: 'Slider',
+    value: 0.7,
+    min: 0.1,
+    max: 1.0,
+    step: 0.05,
+    uniform: 'colorIntensity',
+  },
+];
+
 export const spaceTimeShader = `
 uniform vec2 resolution;
 uniform float time;
