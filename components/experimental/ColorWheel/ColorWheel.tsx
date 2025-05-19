@@ -1,6 +1,6 @@
 import { ColorWheelSvg } from '@/components/experimental/ColorWheelSvg';
 import clsx from 'clsx';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 
 export const ColorWheel = ({
   className,

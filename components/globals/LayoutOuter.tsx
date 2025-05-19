@@ -2,7 +2,7 @@
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import clsx from 'clsx';
-import { domAnimation, LazyMotion } from 'framer-motion';
+import { domAnimation, LazyMotion } from 'motion/react';
 
 export type LayoutOuterProps = {
   children: React.ReactNode;

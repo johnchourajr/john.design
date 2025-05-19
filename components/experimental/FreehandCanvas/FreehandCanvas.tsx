@@ -1,7 +1,7 @@
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import { getSvgPathFromStroke } from '@/utils/getSvgPathFromStroke';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { getStroke } from 'perfect-freehand';
 
 const options = {

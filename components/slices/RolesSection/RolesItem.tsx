@@ -1,7 +1,7 @@
 import { makeRandomRotate } from '@/lib/utils/randomBetween';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
-import { m, useTransform } from 'framer-motion';
+import { m, useTransform } from 'motion/react';
 import { ParentheticalChunk } from '../../fragments/ParentheticalChunk';
 
 export function RolesItem({

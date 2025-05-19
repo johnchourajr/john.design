@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { m, useScroll } from 'framer-motion';
+import { m, useScroll } from 'motion/react';
 
 import { HomePageData } from '@/data/homepageContent';
 import { WrapLetterWords, WrapWords } from '@/lib/utils/wrapInSpans';

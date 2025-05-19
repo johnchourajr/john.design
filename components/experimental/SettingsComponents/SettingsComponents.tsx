@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { LayoutGroup, m } from 'framer-motion';
+import { LayoutGroup, m } from 'motion/react';
 import React from 'react';
 
 export function getSettingValue(

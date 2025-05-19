@@ -2,7 +2,7 @@
 
 import InlineLink from '@/components/fragments/InlineLink';
 import clsx from 'clsx';
-import { m, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'motion/react';
 import React from 'react';
 
 const EXAMPLE_LIST = [
