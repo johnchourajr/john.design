@@ -1,4 +1,4 @@
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 const SvgIconClear = ({ className }: { className?: string }) => (
   <m.svg
     width={26}

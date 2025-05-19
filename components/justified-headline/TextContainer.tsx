@@ -5,7 +5,7 @@ import {
   basicAnimateVariants,
 } from '@/lib/config/motion-config';
 import { slugify } from '@/utils/slugify';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
 import { addStrongTags } from './utils';
 

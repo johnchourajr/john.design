@@ -1,6 +1,6 @@
 import { ColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
-import { AnimatePresence, m } from 'framer-motion';
+import { AnimatePresence, m } from 'motion/react';
 
 export type NavColorOverlayProps = {};
 

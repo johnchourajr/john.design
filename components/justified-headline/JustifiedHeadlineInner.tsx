@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'motion/react';
 import React from 'react';
 import { getSettingValue } from '../experimental/SettingsComponents';
 import { TextContainer } from './TextContainer';

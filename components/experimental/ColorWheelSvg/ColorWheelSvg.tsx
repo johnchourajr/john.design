@@ -1,4 +1,4 @@
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 
 const Rect = ({ active, ...props }: any) => {
   const sharedClasses =

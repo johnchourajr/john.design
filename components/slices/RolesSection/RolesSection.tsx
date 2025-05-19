@@ -1,6 +1,6 @@
 import { SectionStructure } from '@/types/content-types';
 import clsx from 'clsx';
-import { useScroll } from 'framer-motion';
+import { useScroll } from 'motion/react';
 import { useRef } from 'react';
 import { useDrawing } from '../../experimental/Drawing';
 import { RolesItem } from './RolesItem';

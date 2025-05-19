@@ -1,4 +1,4 @@
-import { type Variants } from 'framer-motion';
+import { type Variants } from 'motion/react';
 
 type Delay = 0.1 | 0.2 | 0.3 | number;
 

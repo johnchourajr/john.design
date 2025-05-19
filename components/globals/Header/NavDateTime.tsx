@@ -2,7 +2,7 @@
 
 import { useTime } from '@/hooks/useTime';
 import clsx from 'clsx';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 
 export function NavDateTime() {
   const { time, dateStr } = useTime();

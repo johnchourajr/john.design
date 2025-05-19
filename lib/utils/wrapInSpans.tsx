@@ -1,9 +1,4 @@
-import {
-  Transition,
-  m,
-  type VariantLabels,
-  type Variants,
-} from 'framer-motion';
+import { Transition, m, type VariantLabels, type Variants } from 'motion/react';
 
 import { slugify } from './slugify';
 

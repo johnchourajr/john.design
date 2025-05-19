@@ -5,7 +5,7 @@ import SvgIconClear from '@/components/svg/SvgIconClear';
 import SvgIconDraw from '@/components/svg/SvgIconDraw';
 import SvgIconUndo from '@/components/svg/SvgIconUndo';
 import clsx from 'clsx';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
 
 export function NavDrawingControls() {
   const {

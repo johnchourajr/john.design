@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { domAnimation, LazyMotion, m } from 'framer-motion';
+import { domAnimation, LazyMotion, m } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import codestyle from './codestyle';

@@ -4,7 +4,7 @@ import { slugify } from '@/lib/utils/slugify';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
 import clsx from 'clsx';
-import { m, MotionValue, useScroll, useTransform } from 'framer-motion';
+import { m, MotionValue, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 
 export type PillBlockListProps = SectionStructure & {};
