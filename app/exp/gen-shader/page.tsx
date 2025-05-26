@@ -21,7 +21,7 @@ const GenThreeShader = dynamic(() =>
   ),
 );
 
-const DEFAULT_SHADER = 'spiralSphereShader';
+const DEFAULT_SHADER = 'pinwheelShader';
 
 export default function Page() {
   const searchParams = useSearchParams();
