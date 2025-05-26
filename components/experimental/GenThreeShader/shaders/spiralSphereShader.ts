@@ -2,7 +2,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'Speed',
     type: 'Slider',
-    value: 0.5,
+    value: 0.3,
     min: 0,
     max: 2,
     step: 0.1,
@@ -11,7 +11,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'Density',
     type: 'Slider',
-    value: 6,
+    value: 20,
     min: 1,
     max: 20,
     step: 1,
@@ -20,7 +20,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'Width',
     type: 'Slider',
-    value: 0.02,
+    value: 0.1,
     min: 0.01,
     max: 0.1,
     step: 0.01,
@@ -29,7 +29,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'Rainbow Speed',
     type: 'Slider',
-    value: 1,
+    value: 0.5,
     min: 0,
     max: 5,
     step: 0.1,
@@ -38,7 +38,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'Rotation',
     type: 'Slider',
-    value: 0,
+    value: 3.058,
     min: -Math.PI,
     max: Math.PI,
     step: 0.1,
@@ -47,7 +47,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'X Rotation',
     type: 'Slider',
-    value: 0,
+    value: -2.241,
     min: -Math.PI,
     max: Math.PI,
     step: 0.1,
@@ -56,7 +56,7 @@ export const spiralSphereShaderSettings = [
   {
     name: 'Y Rotation',
     type: 'Slider',
-    value: 0,
+    value: 1.0584,
     min: -Math.PI,
     max: Math.PI,
     step: 0.1,
