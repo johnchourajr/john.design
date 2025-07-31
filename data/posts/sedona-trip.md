@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/sedona-trip"
 date: "2016-11-25"

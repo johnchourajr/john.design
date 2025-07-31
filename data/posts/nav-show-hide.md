@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/nav-show-hide"
 date: "2024-5-1"

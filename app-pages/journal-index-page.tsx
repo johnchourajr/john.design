@@ -49,6 +49,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
             title={item.frontmatter.title}
             description={formatDate(item.frontmatter.date)}
             tags={item.frontmatter.tags}
+            filePath={item.filePath}
             {...item}
           />
         ))}
@@ -73,6 +74,7 @@ export default function JournalPage({ posts }: JournalPageProps) {
             title={item.frontmatter.title}
             description={formatDate(item.frontmatter.date)}
             tags={item.frontmatter.tags}
+            filePath={item.filePath}
             {...item}
           />
         ))}

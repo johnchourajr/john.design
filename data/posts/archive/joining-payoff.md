@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: 'journal-post-template'
 slug: '/journal-images/joining-payoff'
 date: '2015-08-05'

@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/designer-meets-react-native"
 date: "2018-09-28"

@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/user-interface-hierarchy"
 date: "2018-12-08"
