@@ -1,7 +1,8 @@
 ---
-template: "post"
-slug: "/journal-images/fresh-start"
-date: "2014-01-24"
+type: 'post'
+template: 'post'
+slug: '/journal-images/fresh-start'
+date: '2014-01-24'
 title: Object Matter
 cover: /journal-images/images/01-objsbj-poster.jpg
 thumb: /journal-images/images/01-objsbj-poster.jpg

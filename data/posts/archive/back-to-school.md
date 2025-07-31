@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/back-to-school"
 date: "2017-01-23"

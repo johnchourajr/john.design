@@ -1,12 +1,13 @@
 ---
-template: "shader"
-slug: "/journal/web-shaders"
-date: "2024-12-27"
-title: "Getting Creative with GLSL Shaders"
+type: 'post'
+template: 'shader'
+slug: '/journal/web-shaders'
+date: '2024-12-27'
+title: 'Getting Creative with GLSL Shaders'
 cover: /journal-images/web-shaders/shader.jpg
 thumb: /journal-images/web-shaders/shader.jpg
 ogImage: /journal-images/web-shaders/shaders-og.jpg
-description: "Exploring the world of GLSL shaders and creating mesmerizing visual effects with the help of AI tools."
+description: 'Exploring the world of GLSL shaders and creating mesmerizing visual effects with the help of AI tools.'
 tags:
   - Dev
   - TypeScript
@@ -30,7 +31,6 @@ So over this wonderful holiday break, I decided to dive into this space.
 
 Simple enough, but with some trial and error (LLMs aren't perfect), I achieved my result. Surprisingly, one of the toughest challenges was handling varying aspect ratios of images.
 
-
 <iframe
   src="/exp/simple-shader?iframe"
   class="w-full aspect-[1680/1050]"
@@ -42,10 +42,10 @@ The idea itself is pretty straightforward too, load an image, pass it to a shade
 ```tsx
 // ImageShader.tsx
 
-import { useEffect, useRef } from "react";
-import { distortionShader } from "./distortion";
+import { useEffect, useRef } from 'react';
+import { distortionShader } from './distortion';
 
-export const ImageShader = ({ className, src, aspectRatio = "4:3" }) => {
+export const ImageShader = ({ className, src, aspectRatio = '4:3' }) => {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const glRef = useRef(null);
@@ -64,7 +64,7 @@ export const ImageShader = ({ className, src, aspectRatio = "4:3" }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const gl = canvas?.getContext("webgl");
+    const gl = canvas?.getContext('webgl');
     if (!gl) return;
 
     glRef.current = gl;
@@ -72,7 +72,7 @@ export const ImageShader = ({ className, src, aspectRatio = "4:3" }) => {
     gl.useProgram(program);
 
     const image = new Image();
-    image.crossOrigin = "anonymous";
+    image.crossOrigin = 'anonymous';
     image.src = src;
     image.onload = () => {
       // Create texture and bind image
@@ -83,7 +83,7 @@ export const ImageShader = ({ className, src, aspectRatio = "4:3" }) => {
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
     // Configure shader attributes and uniforms
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize();
 
     const render = () => {
@@ -93,7 +93,7 @@ export const ImageShader = ({ className, src, aspectRatio = "4:3" }) => {
     render();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
       gl.deleteProgram(program);
     };
   }, [src, aspectRatio]);
@@ -125,20 +125,28 @@ Instead of building handlers and programs from scratch, I leverage Three.js's ba
 ```tsx
 // ImageThreeShader.tsx
 
-export const ImageThreeShader = ({ className, src, aspectRatio = '1:1', shaderConfig }) => {
+export const ImageThreeShader = ({
+  className,
+  src,
+  aspectRatio = '1:1',
+  shaderConfig,
+}) => {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const materialRef = useRef(null);
 
-  const baseUniforms = useMemo(() => ({
-    image: { value: null },
-    resolution: { value: new THREE.Vector2() },
-    imageResolution: { value: new THREE.Vector2() },
-    mouse: { value: new THREE.Vector2() },
-    time: { value: 0 },
-  }), []);
+  const baseUniforms = useMemo(
+    () => ({
+      image: { value: null },
+      resolution: { value: new THREE.Vector2() },
+      imageResolution: { value: new THREE.Vector2() },
+      mouse: { value: new THREE.Vector2() },
+      time: { value: 0 },
+    }),
+    [],
+  );
 
   useEffect(() => {
     const container = containerRef.current;
@@ -162,7 +170,10 @@ export const ImageThreeShader = ({ className, src, aspectRatio = '1:1', shaderCo
         fragmentShader: shaderConfig.fragmentShader,
       });
       material.uniforms.image.value = texture;
-      material.uniforms.imageResolution.value.set(texture.image.width, texture.image.height);
+      material.uniforms.imageResolution.value.set(
+        texture.image.width,
+        texture.image.height,
+      );
       materialRef.current = material;
 
       // Add mesh to scene
@@ -170,7 +181,10 @@ export const ImageThreeShader = ({ className, src, aspectRatio = '1:1', shaderCo
       scene.add(mesh);
 
       // Render initial frame
-      const { width, height } = calculateDimensions(container.getBoundingClientRect(), aspectRatio);
+      const { width, height } = calculateDimensions(
+        container.getBoundingClientRect(),
+        aspectRatio,
+      );
       renderer.setSize(width, height);
       material.uniforms.resolution.value.set(width, height);
       renderer.render(scene, camera);
@@ -187,7 +201,10 @@ export const ImageThreeShader = ({ className, src, aspectRatio = '1:1', shaderCo
     // Handle mouse movement
     const handleMouseMove = (e) => {
       const bounds = container.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - bounds.left, y: e.clientY - bounds.top };
+      mouseRef.current = {
+        x: e.clientX - bounds.left,
+        y: e.clientY - bounds.top,
+      };
     };
 
     // Animation loop
@@ -196,8 +213,12 @@ export const ImageThreeShader = ({ className, src, aspectRatio = '1:1', shaderCo
     const animate = () => {
       const mesh = scene.children[0];
       if (mesh?.material instanceof THREE.ShaderMaterial) {
-        mesh.material.uniforms.time.value = (performance.now() - startTime) * 0.001;
-        mesh.material.uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+        mesh.material.uniforms.time.value =
+          (performance.now() - startTime) * 0.001;
+        mesh.material.uniforms.mouse.value.set(
+          mouseRef.current.x,
+          mouseRef.current.y,
+        );
       }
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -229,7 +250,14 @@ export const ImageThreeShader = ({ className, src, aspectRatio = '1:1', shaderCo
   };
 
   return (
-    <div ref={containerRef} className={clsx('relative w-full h-full', aspectClasses[aspectRatio], className)} />
+    <div
+      ref={containerRef}
+      className={clsx(
+        'relative w-full h-full',
+        aspectClasses[aspectRatio],
+        className,
+      )}
+    />
   );
 };
 ```
@@ -260,7 +288,7 @@ const colorShader = {
   src="/path/to/image.jpg"
   aspectRatio="1:1"
   shaderConfig={colorShader}
-/>
+/>;
 ```
 
 <iframe
@@ -457,8 +485,8 @@ My main takeaway is that using LLMs to help write code in these creative pursuit
 
 Cheers and enjoy. ✌️
 
-----
+---
 
-*Photography used in header by John Choura Jr.
+\*Photography used in header by John Choura Jr.
 
-**Shader code generated using GitHub Copilot with GPT 4o and Claude 3.5 Sonnet models
+\*\*Shader code generated using GitHub Copilot with GPT 4o and Claude 3.5 Sonnet models

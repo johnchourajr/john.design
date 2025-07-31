@@ -51,6 +51,7 @@ export function getPostBySlug(slug: PostSlug): PostData {
     wordCount,
     timeToRead,
     markdown,
+    filePath: `data/posts/${realSlug}.md`, // Add file path for Visual Editor
   };
 }
 

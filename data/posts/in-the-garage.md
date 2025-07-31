@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/in-the-garage"
 date: "2020-04-22"

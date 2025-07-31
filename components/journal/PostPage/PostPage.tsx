@@ -13,6 +13,7 @@ interface PostPageProps {
 export const PostPage = ({
   post: {
     markdown,
+    filePath,
     frontmatter: {
       template,
       title,
@@ -54,7 +55,7 @@ export const PostPage = ({
   };
 
   return (
-    <PostPageOuter>
+    <PostPageOuter data-sb-object-id={filePath}>
       <InlineLink href="/journal" className="no-underline" underline={false}>
         <p className="my-4">
           &larr; <span>Back</span>
@@ -64,16 +65,25 @@ export const PostPage = ({
         className={clsx(
           'headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em]',
         )}
+        data-sb-field-path="title"
       >
         {title}
       </h1>
-      <CoverMedia videoCover={videoCover} cover={cover} template={template} />
+      <CoverMedia
+        videoCover={videoCover}
+        cover={cover}
+        template={template}
+        data-sb-field-path="cover"
+      />
       <div className="mb-10">
         <p className="text-pretty text-body">
-          Published {formatDate(date)} by {author || 'John Choura'}
+          Published <span data-sb-field-path="date">{formatDate(date)}</span> by{' '}
+          {author || 'John Choura'}
         </p>
       </div>
-      <PostBody markdown={markdown} />
+      <div data-sb-field-path="markdown_content">
+        <PostBody markdown={markdown} />
+      </div>
       <script type="application/ld+json">
         {JSON.stringify(schemaOrgJSONLD)}
       </script>

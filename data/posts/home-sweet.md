@@ -1,4 +1,5 @@
 ---
+type: "post"
 template: "post"
 slug: "/journal-images/home-sweet"
 date: "2018-04-10"
