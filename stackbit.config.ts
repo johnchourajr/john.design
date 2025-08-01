@@ -4,8 +4,8 @@ import { defineStackbitConfig } from '@stackbit/types';
 export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
   ssgName: 'nextjs',
-  nodeVersion: '18',
-  devCommand: 'npm run dev -- --port {PORT}',
+  nodeVersion: '20',
+  devCommand: 'npm run dev -- --port {PORT} --hostname 0.0.0.0',
   contentSources: [
     new GitContentSource({
       rootPath: __dirname,

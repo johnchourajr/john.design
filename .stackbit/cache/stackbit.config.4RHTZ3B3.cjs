@@ -28,8 +28,8 @@ var import_types = require("@stackbit/types");
 var stackbit_config_default = (0, import_types.defineStackbitConfig)({
   stackbitVersion: "~0.6.0",
   ssgName: "nextjs",
-  nodeVersion: "18",
-  devCommand: "npm run dev -- --port {PORT}",
+  nodeVersion: "20",
+  devCommand: "npm run dev -- --port {PORT} --hostname 0.0.0.0",
   contentSources: [
     new import_cms_git.GitContentSource({
       rootPath: "/Users/johnchoura/Dropbox/Sites/john.design",
@@ -117,4 +117,4 @@ var stackbit_config_default = (0, import_types.defineStackbitConfig)({
     })
   ]
 });
-//# sourceMappingURL=stackbit.config.OPSB4BET.cjs.map
+//# sourceMappingURL=stackbit.config.4RHTZ3B3.cjs.map

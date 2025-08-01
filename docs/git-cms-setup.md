@@ -135,11 +135,36 @@ title: 'Post Title'
 ---
 ```
 
+## Troubleshooting
+
+### Preview Server Issues
+
+If the Netlify preview server fails to start:
+
+1. **Authentication Issues**: Make sure you have proper permissions on the repository and are logged into Netlify
+2. **Memory Issues**: The preview server may timeout due to resource constraints in Netlify's build environment
+3. **Node Version**: Ensure the `nodeVersion` in `stackbit.config.ts` matches your Netlify build environment (currently set to Node 20)
+
+Common fixes:
+
+- Re-authorize GitHub/BitBucket access in Netlify Visual Editor settings
+- Try restarting the preview server from the Visual Editor dashboard
+- Check that all dependencies are properly installed
+
+### Local Development Issues
+
+If local development isn't working:
+
+- Ensure you have Node.js 18+ installed
+- Run `npm run dev` first, then `stackbit dev` in a separate terminal
+- Check that ports 3003 (Next.js) and 8090 (Visual Editor) are available
+
 ## Limitations
 
 - No scheduling feature (posts are live immediately)
 - Limited to GitHub/BitBucket repositories
-- Requires Node.js 14+ for local development
+- Requires Node.js 18+ for local development
+- Preview server may require manual restarts in cloud environment
 
 ## Next Steps
 
