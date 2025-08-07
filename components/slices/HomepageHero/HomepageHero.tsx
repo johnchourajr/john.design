@@ -27,11 +27,12 @@ const InformationalChunk = dynamic(() =>
   ),
 );
 
-const ImageThreeShader = dynamic(() =>
-  import('@/components/experimental/ImageThreeShader').then(
-    (mod) => mod.ImageThreeShader,
-  ),
-  { ssr: false }
+const ImageThreeShader = dynamic(
+  () =>
+    import('@/components/experimental/ImageThreeShader').then(
+      (mod) => mod.ImageThreeShader,
+    ),
+  { ssr: false, loading: () => <div className="bg-black" /> },
 );
 
 export type HomepageHeroProps = {
