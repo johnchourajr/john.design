@@ -9,7 +9,7 @@ const DynamicJustifiedHeadlineInner = dynamic(
     import('@/components/justified-headline').then(
       (mod) => mod.JustifiedHeadlineInner,
     ),
-  { ssr: true }
+  { ssr: true },
 );
 
 export default function ContactPage({
