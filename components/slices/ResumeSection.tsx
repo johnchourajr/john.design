@@ -7,19 +7,19 @@ import { HomePageData } from '@/data/homepageContent';
 import { WrapLetterWords, WrapWords } from '@/lib/utils/wrapInSpans';
 
 const SvgGoDaddy = dynamic(() => import('@/components/svg/SvgGoDaddy'), {
-  ssr: false,
+  ssr: true,
   loading: () => <div></div>,
 });
 const SvgHappyMoney = dynamic(() => import('@/components/svg/SvgHappyMoney'), {
-  ssr: false,
+  ssr: true,
   loading: () => <div></div>,
 });
 const SvgPayPal = dynamic(() => import('@/components/svg/SvgPayPal'), {
-  ssr: false,
+  ssr: true,
   loading: () => <div></div>,
 });
 const SvgRetool = dynamic(() => import('@/components/svg/SvgRetool'), {
-  ssr: false,
+  ssr: true,
   loading: () => <div></div>,
 });
 

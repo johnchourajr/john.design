@@ -4,10 +4,12 @@ import { workContent } from '@/data/workContent';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 
-const DynamicJustifiedHeadlineInner = dynamic(() =>
-  import('@/components/justified-headline').then(
-    (mod) => mod.JustifiedHeadlineInner,
-  ),
+const DynamicJustifiedHeadlineInner = dynamic(
+  () =>
+    import('@/components/justified-headline').then(
+      (mod) => mod.JustifiedHeadlineInner,
+    ),
+  { ssr: true },
 );
 
 export default function WorkPage({

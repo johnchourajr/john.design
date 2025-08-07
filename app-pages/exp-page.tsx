@@ -5,10 +5,12 @@ import LinkGridItem from '@/components/fragments/LinkGridItem';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { PageItem } from '@/types/content-types';
 
-const DynamicJustifiedHeadlineInner = dynamic(() =>
-  import('@/components/justified-headline').then(
-    (mod) => mod.JustifiedHeadlineInner,
-  ),
+const DynamicJustifiedHeadlineInner = dynamic(
+  () =>
+    import('@/components/justified-headline').then(
+      (mod) => mod.JustifiedHeadlineInner,
+    ),
+  { ssr: true },
 );
 
 export default function ExpPage({ content: expData }: { content: PageItem[] }) {

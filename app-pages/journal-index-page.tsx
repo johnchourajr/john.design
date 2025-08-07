@@ -6,10 +6,12 @@ import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 
-const DynamicJustifiedHeadlineInner = dynamic(() =>
-  import('@/components/justified-headline').then(
-    (mod) => mod.JustifiedHeadlineInner,
-  ),
+const DynamicJustifiedHeadlineInner = dynamic(
+  () =>
+    import('@/components/justified-headline').then(
+      (mod) => mod.JustifiedHeadlineInner,
+    ),
+  { ssr: true },
 );
 
 type JournalPageProps = {
