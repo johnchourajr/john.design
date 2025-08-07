@@ -4,10 +4,12 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-const DynamicJustifiedHeadlineInner = dynamic(() =>
-  import('@/components/justified-headline').then(
-    (mod) => mod.JustifiedHeadlineInner,
-  ),
+const DynamicJustifiedHeadlineInner = dynamic(
+  () =>
+    import('@/components/justified-headline').then(
+      (mod) => mod.JustifiedHeadlineInner,
+    ),
+  { ssr: true }
 );
 
 export default function ContactPage({
