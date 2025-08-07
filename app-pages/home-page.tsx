@@ -1,6 +1,16 @@
-import { HomepageHero } from '@/components/slices/HomepageHero';
+'use client';
+
 import { homepageContent } from '@/data/homepageContent';
 import dynamic from 'next/dynamic';
+
+const HomepageHero = dynamic(
+  () =>
+    import('@/components/slices/HomepageHero').then((mod) => mod.HomepageHero),
+  {
+    ssr: false,
+    loading: () => <div className="bg-black aspect-square w-full" />,
+  },
+);
 
 const PillBlockList = dynamic(() =>
   import('@/components/slices/PillBlockList').then((mod) => mod.PillBlockList),
