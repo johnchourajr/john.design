@@ -1,9 +1,9 @@
 'use client';
-import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing';
+import { GenThreeShader } from '@/components/experimental/GenThreeShader';
 import {
   genShaders,
   shaderSettings as SHADER_SETTINGS,
@@ -14,12 +14,6 @@ import {
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
-
-const GenThreeShader = dynamic(() =>
-  import('@/components/experimental/GenThreeShader').then(
-    (mod) => mod.GenThreeShader,
-  ),
-);
 
 const DEFAULT_SHADER = 'pinwheelShader';
 

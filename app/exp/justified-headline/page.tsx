@@ -1,19 +1,10 @@
 'use client';
-import dynamic from 'next/dynamic';
-import { useMemo, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 
 import { SettingsGroup } from '@/components/experimental/SettingsComponents';
+import InlineLink from '@/components/fragments/InlineLink';
+import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-
-const DynamicJustifiedHeadlineInner = dynamic(() =>
-  import('@/components/justified-headline').then(
-    (mod) => mod.JustifiedHeadlineInner,
-  ),
-);
-
-const InlineLink = dynamic(() => import('@/components/fragments/InlineLink'), {
-  ssr: false,
-});
 
 const SETTINGS = [
   {
@@ -64,11 +55,13 @@ export default function JustifiedHeadline() {
           &larr; <span>Back</span>
         </h2>
       </InlineLink>
-      <DynamicJustifiedHeadlineInner
-        settings={settings}
-        headline={headlineData}
-        iterations={8}
-      />
+      <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+        <JustifiedHeadlineInner
+          settings={settings}
+          headline={headlineData}
+          iterations={8}
+        />
+      </Suspense>
       <SettingsGroup settings={settings} setSettings={setSettings} />
     </>
   );

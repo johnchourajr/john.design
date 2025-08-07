@@ -1,12 +1,6 @@
+import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-
-const ImageThreeShader = dynamic(() =>
-  import('@/components/experimental/ImageThreeShader').then(
-    (mod) => mod.ImageThreeShader,
-  ),
-);
 
 interface CoverMediaProps {
   videoCover?: string;

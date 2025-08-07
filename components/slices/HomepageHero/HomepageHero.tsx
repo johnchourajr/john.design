@@ -2,46 +2,17 @@
 
 import clsx from 'clsx';
 import { m } from 'motion/react';
-import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
+import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
+import { InformationalChunk } from '@/components/fragments/InformationalChunk';
+import { JustifiedHeadlineInner } from '@/components/justified-headline';
+import { RolesSection } from '@/components/slices/RolesSection';
 import type { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import type { SectionStructure } from '@/types/content-types';
-
-const DynamicJustifiedHeadlineInner = dynamic(
-  () =>
-    import('@/components/justified-headline').then(
-      (mod) => mod.JustifiedHeadlineInner,
-    ),
-  { ssr: true },
-);
-
-const RolesSection = dynamic(
-  () =>
-    import('@/components/slices/RolesSection').then((mod) => mod.RolesSection),
-  { ssr: true },
-);
-
-const InformationalChunk = dynamic(
-  () =>
-    import('@/components/fragments/InformationalChunk').then(
-      (mod) => mod.InformationalChunk,
-    ),
-  { ssr: true },
-);
-
-const ImageThreeShader = dynamic(
-  () =>
-    import('@/components/experimental/ImageThreeShader').then(
-      (mod) => mod.ImageThreeShader,
-    ),
-  {
-    ssr: false,
-  },
-);
 
 export type HomepageHeroProps = {
   heroSection: HomePageData['heroSection'];
@@ -68,14 +39,16 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       className="relative flex flex-col items-center z-10 min-h-[100vh] overflow-hidden"
     >
       <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none">
-        <DynamicJustifiedHeadlineInner
-          className={clsx(
-            'my-[16vw] w-full font-black pointer',
-            enableDrawing && 'select-none',
-          )}
-          iterations={8}
-          headline={headlineData}
-        />
+        <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+          <JustifiedHeadlineInner
+            className={clsx(
+              'my-[16vw] w-full font-black pointer',
+              enableDrawing && 'select-none',
+            )}
+            iterations={8}
+            headline={headlineData}
+          />
+        </Suspense>
       </div>
       <m.div
         className={clsx(
@@ -114,5 +87,3 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     </section>
   );
 }
-
-export const DynamicHomepageHero = HomepageHero;

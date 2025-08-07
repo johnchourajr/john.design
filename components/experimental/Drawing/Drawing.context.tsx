@@ -1,6 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { FreehandCanvas } from '@/components/experimental/FreehandCanvas';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React, {
   createContext,
@@ -17,12 +17,6 @@ import {
   StoredPoint,
   StoredPointObj,
 } from './Drawing.types';
-
-export const DynamicFreehandCanvas = dynamic(() =>
-  import('@/components/experimental/FreehandCanvas').then(
-    (mod) => mod.FreehandCanvas,
-  ),
-);
 
 const MAX_STORED_POINTS = 60;
 const MIN_POINTS_COUNT = 5;
@@ -280,7 +274,7 @@ export function DrawingProviderComponent({
       }}
     >
       {children}
-      <DynamicFreehandCanvas />
+      <FreehandCanvas />
     </DrawingContext.Provider>
   );
 }

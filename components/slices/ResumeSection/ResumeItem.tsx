@@ -1,40 +1,23 @@
 'use client';
 
+import SvgGoDaddy from '@/components/svg/SvgGoDaddy';
+import SvgHappyMoney from '@/components/svg/SvgHappyMoney';
+import SvgPayPal from '@/components/svg/SvgPayPal';
+import SvgRetool from '@/components/svg/SvgRetool';
+import { WrapLetterWords, WrapWords } from '@/lib/utils/wrapInSpans';
 import clsx from 'clsx';
 import { m, useScroll } from 'motion/react';
-
-import { HomePageData } from '@/data/homepageContent';
-import { WrapLetterWords, WrapWords } from '@/lib/utils/wrapInSpans';
-
-const SvgGoDaddy = dynamic(() => import('@/components/svg/SvgGoDaddy'), {
-  ssr: true,
-  loading: () => <div></div>,
-});
-const SvgHappyMoney = dynamic(() => import('@/components/svg/SvgHappyMoney'), {
-  ssr: true,
-  loading: () => <div></div>,
-});
-const SvgPayPal = dynamic(() => import('@/components/svg/SvgPayPal'), {
-  ssr: true,
-  loading: () => <div></div>,
-});
-const SvgRetool = dynamic(() => import('@/components/svg/SvgRetool'), {
-  ssr: true,
-  loading: () => <div></div>,
-});
-
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import {
   ComponentType,
+  SVGProps,
   useEffect,
+  useMemo,
   useRef,
   useState,
-  type SVGProps,
 } from 'react';
-export type ResumeSectionProps = HomePageData['resumeSection'];
 
-function ResumeItem({ item, index }: { item: any; index: number }) {
+export function ResumeItem({ item, index }: { item: any; index: number }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -42,14 +25,26 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
   });
 
   const [isHovering, setIsHovering] = useState(false);
-  const [positions, setPositions] = useState([
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Static positions - always the same order for SSR/hydration consistency
+  const basePositions = [
     'justify-start',
     'justify-around',
     'justify-center',
     'justify-end',
-  ]);
+  ];
+
+  const [positions, setPositions] = useState(basePositions);
 
   useEffect(() => {
+    // Mark as mounted to enable client-side animations
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return; // Don't run until after hydration
+
     const interval = setInterval(() => {
       setPositions((prev) => {
         const last = prev.pop();
@@ -62,7 +57,7 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
     }
 
     return () => clearInterval(interval);
-  }, [isHovering]);
+  }, [isHovering, isMounted]);
 
   const logoMapping: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
     GoDaddy: SvgGoDaddy,
@@ -72,10 +67,12 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
   };
   const LogoComponent = logoMapping[item.company];
 
-  const getJustify = () => {
-    const randomIndex = Math.floor(Math.random() * positions.length);
-    return positions[randomIndex];
-  };
+  // Cache the justify value to prevent multiple calls returning different values
+  const justifyClass = useMemo(() => {
+    // Use index to ensure consistent server/client rendering
+    const determinedIndex = index % positions.length;
+    return positions[determinedIndex];
+  }, [positions, index]);
 
   return (
     <m.div
@@ -97,7 +94,7 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
         rel="noopener noreferrer"
         className={clsx(
           'headline-display-lg-serif w-full flex-wrap inline-flex items-center justify-start whitespace-pre-wrap-children',
-          getJustify(),
+          justifyClass,
         )}
       >
         {item.showLogo && LogoComponent && (
@@ -115,7 +112,7 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
         )}
         <WrapWords text={item.role} layout />
         <m.span
-          className={clsx('h-[.85em] flex mr-[.1em]', getJustify())}
+          className={clsx('h-[.85em] flex mr-[.1em]', justifyClass)}
           layout
         >
           <span className="headline-display-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out-expo">
@@ -124,20 +121,5 @@ function ResumeItem({ item, index }: { item: any; index: number }) {
         </m.span>
       </Link>
     </m.div>
-  );
-}
-
-const DynamicResumeItem = dynamic(() => Promise.resolve(ResumeItem), {
-  ssr: false,
-});
-
-export function ResumeSection({ title, resumeList }: ResumeSectionProps) {
-  return (
-    <section className="my-[6vw] px-6 grid auto-rows-fr items-start overflow-hidden">
-      {title && <h2>{title}</h2>}
-      {resumeList.map((item, index) => (
-        <DynamicResumeItem key={index} item={item} index={index} />
-      ))}
-    </section>
   );
 }

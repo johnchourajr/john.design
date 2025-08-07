@@ -5,16 +5,10 @@ import {
   getSettingValue,
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
+import { VideoThreeShader } from '@/components/experimental/VideoThreeShader';
 import { fragmentThreeVideoShaders } from '@/components/experimental/VideoThreeShader/shaders';
 import InlineLink from '@/components/fragments/InlineLink';
-import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-
-const VideoThreeShader = dynamic(() =>
-  import('@/components/experimental/VideoThreeShader').then(
-    (mod) => mod.VideoThreeShader,
-  ),
-);
 
 type ShaderVariant = keyof typeof fragmentThreeVideoShaders;
 

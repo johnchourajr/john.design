@@ -1,18 +1,11 @@
 import JournalArchiveGridItem from '@/components/fragments/JournalArchiveGridItem';
 import JournalGridItem from '@/components/fragments/JournalGridItem';
+import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
-
-const DynamicJustifiedHeadlineInner = dynamic(
-  () =>
-    import('@/components/justified-headline').then(
-      (mod) => mod.JustifiedHeadlineInner,
-    ),
-  { ssr: true },
-);
+import { Suspense } from 'react';
 
 type JournalPageProps = {
   posts: PostData[];
@@ -29,17 +22,21 @@ export default function JournalPage({ posts }: JournalPageProps) {
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <DynamicJustifiedHeadlineInner
-          className={clsx('leading-[1] w-full font-black pointer-events-none')}
-          headline={[
-            {
-              text: 'Journal',
-              motionObject: getRandomParentAndChildClassesArray(8),
-            },
-          ]}
-          iterations={8}
-          letters={true}
-        />
+        <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+          <JustifiedHeadlineInner
+            className={clsx(
+              'leading-[1] w-full font-black pointer-events-none',
+            )}
+            headline={[
+              {
+                text: 'Journal',
+                motionObject: getRandomParentAndChildClassesArray(8),
+              },
+            ]}
+            iterations={8}
+            letters={true}
+          />
+        </Suspense>
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-4 gap-8 my-[10vw] px-4">
