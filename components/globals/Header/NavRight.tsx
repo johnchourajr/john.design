@@ -1,33 +1,6 @@
-'use client';
-import dynamic from 'next/dynamic';
-
-const NavDrawingControls = dynamic(
-  () =>
-    import('@/components/globals/Header/NavDrawingControls').then(
-      (mod) => mod.NavDrawingControls,
-    ),
-  {
-    ssr: false,
-    loading: () => <div className="h-8 w-8" />,
-  },
-);
-
-const ColorWheelControl = dynamic(
-  () =>
-    import('@/components/experimental/ColorWheel').then(
-      (mod) => mod.ColorWheelControl,
-    ),
-  {
-    ssr: false,
-    loading: () => <div className="h-8 w-8" />,
-  },
-);
-
-const NavDateTime = dynamic(() =>
-  import('@/components/globals/Header/NavDateTime').then(
-    (mod) => mod.NavDateTime,
-  ),
-);
+import { ColorWheelControl } from '@/components/experimental/ColorWheel';
+import { NavDateTime } from '@/components/globals/Header/NavDateTime';
+import { NavDrawingControls } from '@/components/globals/Header/NavDrawingControls';
 
 export function NavRight() {
   return (

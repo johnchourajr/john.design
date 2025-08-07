@@ -6,7 +6,6 @@ import {
 } from '@/lib/config/motion-config';
 import { slugify } from '@/utils/slugify';
 import { m } from 'motion/react';
-import dynamic from 'next/dynamic';
 import { addStrongTags } from './utils';
 
 export const TextContainer = ({
@@ -82,10 +81,3 @@ export const TextContainer = ({
     </span>
   );
 };
-
-export const DynamicTextContainer = dynamic(
-  () => Promise.resolve(TextContainer),
-  {
-    ssr: false,
-  },
-);

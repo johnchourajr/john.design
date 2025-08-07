@@ -1,32 +1,7 @@
-'use client';
-
+import { HomepageHero } from '@/components/slices/HomepageHero';
+import { PillBlockList } from '@/components/slices/PillBlockList';
+import { ResumeSection } from '@/components/slices/ResumeSection';
 import { homepageContent } from '@/data/homepageContent';
-import dynamic from 'next/dynamic';
-
-const HomepageHero = dynamic(
-  () =>
-    import('@/components/slices/HomepageHero').then((mod) => mod.HomepageHero),
-  {
-    ssr: true,
-    loading: () => <div className="bg-black aspect-square w-full" />,
-  },
-);
-
-const PillBlockList = dynamic(
-  () =>
-    import('@/components/slices/PillBlockList').then(
-      (mod) => mod.PillBlockList,
-    ),
-  { ssr: true },
-);
-
-const ResumeSection = dynamic(
-  () =>
-    import('@/components/slices/ResumeSection').then(
-      (mod) => mod.ResumeSection,
-    ),
-  { ssr: true },
-);
 
 type HomePageProps = {
   heroSection: typeof homepageContent.heroSection;

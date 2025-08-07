@@ -1,27 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { SETTINGS } from '@/components/experimental/JohnGL';
-
-const JohnGLCanvas = dynamic(
-  () =>
-    import('@/components/experimental/JohnGL').then((mod) => mod.JohnGLCanvas),
-  { ssr: false },
-);
-
-const SettingsGroup = dynamic(
-  () =>
-    import('@/components/experimental/SettingsComponents').then(
-      (mod) => mod.SettingsGroup,
-    ),
-  { ssr: false },
-);
-
-const InlineLink = dynamic(() => import('@/components/fragments/InlineLink'), {
-  ssr: false,
-});
+import { JohnGLCanvas, SETTINGS } from '@/components/experimental/JohnGL';
+import { SettingsGroup } from '@/components/experimental/SettingsComponents';
+import InlineLink from '@/components/fragments/InlineLink';
 
 export default function JohnGL() {
   const [settings, setSettings] = React.useState(SETTINGS);

@@ -1,16 +1,9 @@
+import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { contactData } from '@/data/contactContent';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
-
-const DynamicJustifiedHeadlineInner = dynamic(
-  () =>
-    import('@/components/justified-headline').then(
-      (mod) => mod.JustifiedHeadlineInner,
-    ),
-  { ssr: true },
-);
+import { Suspense } from 'react';
 
 export default function ContactPage({
   title,
@@ -20,22 +13,24 @@ export default function ContactPage({
   return (
     <>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        {title.map((item, i) => (
-          <DynamicJustifiedHeadlineInner
-            key={i}
-            className={clsx(
-              'leading-[1] w-full font-black pointer-events-none',
-            )}
-            headline={[
-              {
-                text: item,
-                motionObject: getRandomParentAndChildClassesArray(8),
-              },
-            ]}
-            iterations={8}
-            letters={true}
-          />
-        ))}
+        <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+          {title.map((item, i) => (
+            <JustifiedHeadlineInner
+              key={i}
+              className={clsx(
+                'leading-[1] w-full font-black pointer-events-none',
+              )}
+              headline={[
+                {
+                  text: item,
+                  motionObject: getRandomParentAndChildClassesArray(8),
+                },
+              ]}
+              iterations={8}
+              letters={true}
+            />
+          ))}
+        </Suspense>
       </section>
       <section className="my-[8vw] px-4">
         <h2 className="text-string">Social</h2>
