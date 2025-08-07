@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React, {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -285,5 +286,9 @@ export function DrawingProviderComponent({
 }
 
 export function DrawingProvider({ children }: { children: React.ReactNode }) {
-  return <DrawingProviderComponent>{children}</DrawingProviderComponent>;
+  return (
+    <Suspense fallback={null}>
+      <DrawingProviderComponent>{children}</DrawingProviderComponent>
+    </Suspense>
+  );
 }
