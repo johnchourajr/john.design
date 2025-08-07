@@ -15,10 +15,12 @@ const DynamicJustifiedHeadlineInner = dynamic(() =>
   import('@/components/justified-headline').then(
     (mod) => mod.JustifiedHeadlineInner,
   ),
+  { ssr: false }
 );
 
 const RolesSection = dynamic(() =>
   import('@/components/slices/RolesSection').then((mod) => mod.RolesSection),
+  { ssr: false }
 );
 
 const InformationalChunk = dynamic(() =>
