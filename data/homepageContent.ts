@@ -1,5 +1,3 @@
-import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-
 import type {
   SectionStructure,
   TextList,
@@ -32,16 +30,16 @@ export const homepageContent: HomePageData = {
     headlineData: [
       {
         text: 'John Is',
-        motionObject: getRandomParentAndChildClassesArray(8),
+        motionObject: [],
         className: 'z-[100] relative headline-display-xs',
       },
       {
         text: 'Working On',
-        motionObject: getRandomParentAndChildClassesArray(8),
+        motionObject: [],
       },
       {
         text: 'The *Internet*',
-        motionObject: getRandomParentAndChildClassesArray(8),
+        motionObject: [],
       },
     ],
     typographies: [
