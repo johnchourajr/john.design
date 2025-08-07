@@ -47,17 +47,7 @@ export type HomepageHeroProps = {
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const { enableDrawing } = useDrawing();
   const headlineData = useMemo(() => {
-    return heroSection.headlineData.map((item) => ({
-      ...item,
-      motionObject:
-        item.motionObject?.length === 0 || !item.motionObject
-          ? typeof window !== 'undefined'
-            ? require('@/components/justified-headline/data').getRandomParentAndChildClassesArray(
-                8,
-              )
-            : []
-          : item.motionObject,
-    }));
+    return heroSection.headlineData;
   }, [heroSection]);
 
   const shaderConfig = useMemo(() => {

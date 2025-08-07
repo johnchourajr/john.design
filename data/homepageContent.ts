@@ -3,6 +3,7 @@ import type {
   TextList,
   TextStructure,
 } from '../types/content-types';
+import { getRandomParentAndChildClassesArray } from '../components/justified-headline/data';
 
 export type HomePageData = {
   heroSection: {
@@ -32,16 +33,16 @@ export const homepageContent: HomePageData = {
     headlineData: [
       {
         text: 'John Is',
-        motionObject: [],
+        motionObject: getRandomParentAndChildClassesArray(8),
         className: 'z-[100] relative headline-display-xs',
       },
       {
         text: 'Working On',
-        motionObject: [],
+        motionObject: getRandomParentAndChildClassesArray(8),
       },
       {
         text: 'The *Internet*',
-        motionObject: [],
+        motionObject: getRandomParentAndChildClassesArray(8),
       },
     ],
     typographies: [
