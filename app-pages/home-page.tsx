@@ -7,19 +7,25 @@ const HomepageHero = dynamic(
   () =>
     import('@/components/slices/HomepageHero').then((mod) => mod.HomepageHero),
   {
-    ssr: false,
+    ssr: true,
     loading: () => <div className="bg-black aspect-square w-full" />,
   },
 );
 
-const PillBlockList = dynamic(() =>
-  import('@/components/slices/PillBlockList').then((mod) => mod.PillBlockList),
-  { ssr: false }
+const PillBlockList = dynamic(
+  () =>
+    import('@/components/slices/PillBlockList').then(
+      (mod) => mod.PillBlockList,
+    ),
+  { ssr: true },
 );
 
-const ResumeSection = dynamic(() =>
-  import('@/components/slices/ResumeSection').then((mod) => mod.ResumeSection),
-  { ssr: false }
+const ResumeSection = dynamic(
+  () =>
+    import('@/components/slices/ResumeSection').then(
+      (mod) => mod.ResumeSection,
+    ),
+  { ssr: true },
 );
 
 type HomePageProps = {

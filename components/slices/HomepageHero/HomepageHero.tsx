@@ -11,22 +11,26 @@ import type { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import type { SectionStructure } from '@/types/content-types';
 
-const DynamicJustifiedHeadlineInner = dynamic(() =>
-  import('@/components/justified-headline').then(
-    (mod) => mod.JustifiedHeadlineInner,
-  ),
-  { ssr: false }
+const DynamicJustifiedHeadlineInner = dynamic(
+  () =>
+    import('@/components/justified-headline').then(
+      (mod) => mod.JustifiedHeadlineInner,
+    ),
+  { ssr: true },
 );
 
-const RolesSection = dynamic(() =>
-  import('@/components/slices/RolesSection').then((mod) => mod.RolesSection),
-  { ssr: false }
+const RolesSection = dynamic(
+  () =>
+    import('@/components/slices/RolesSection').then((mod) => mod.RolesSection),
+  { ssr: true },
 );
 
-const InformationalChunk = dynamic(() =>
-  import('@/components/fragments/InformationalChunk').then(
-    (mod) => mod.InformationalChunk,
-  ),
+const InformationalChunk = dynamic(
+  () =>
+    import('@/components/fragments/InformationalChunk').then(
+      (mod) => mod.InformationalChunk,
+    ),
+  { ssr: true },
 );
 
 const ImageThreeShader = dynamic(

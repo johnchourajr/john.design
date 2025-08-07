@@ -3,8 +3,15 @@ const { withPlausibleProxy } = require('next-plausible');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  serverExternalPackages: ['three'],
   experimental: {
-    optimizePackageImports: ['@react-three/fiber', '@react-three/drei', '@react-three/postprocessing', 'three', 'motion', 'framer-motion-3d'],
+    optimizePackageImports: [
+      '@react-three/fiber',
+      '@react-three/drei',
+      '@react-three/postprocessing',
+      'motion',
+      'framer-motion-3d',
+    ],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
