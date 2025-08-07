@@ -6,6 +6,7 @@ import type {
 
 export type HomePageData = {
   heroSection: {
+    staticHeadline: string;
     headlineData: TextStructure[];
     typographies: TextStructure[];
     informationalChunks: {
@@ -27,6 +28,7 @@ export type HomePageData = {
 
 export const homepageContent: HomePageData = {
   heroSection: {
+    staticHeadline: 'John Is Working On The Internet',
     headlineData: [
       {
         text: 'John Is',

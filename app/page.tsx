@@ -5,5 +5,10 @@ import { homepageContent } from '@/data/homepageContent';
 export default async function Page() {
   const content = homepageContent;
 
-  return <HomePage {...content} />;
+  return (
+    <>
+      <h1 className="sr-only">{content.heroSection.staticHeadline}</h1>
+      <HomePage {...content} />
+    </>
+  );
 }
