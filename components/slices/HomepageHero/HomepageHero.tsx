@@ -31,6 +31,7 @@ const ImageThreeShader = dynamic(() =>
   import('@/components/experimental/ImageThreeShader').then(
     (mod) => mod.ImageThreeShader,
   ),
+  { ssr: false }
 );
 
 export type HomepageHeroProps = {
