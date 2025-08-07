@@ -1,4 +1,5 @@
 import PlausibleProvider from 'next-plausible';
+import dynamic from 'next/dynamic';
 
 import { DrawingProvider } from '@/components/experimental/Drawing';
 import { GlobalLayout } from '@/components/globals/layout';
@@ -11,6 +12,10 @@ import type { Metadata, Viewport } from 'next';
 import type { CSSProperties } from 'react';
 
 import '../styles/globals.css';
+
+const PerformanceScript = dynamic(() => import('./performance-script'), { 
+  ssr: false 
+});
 
 export const metadata: Metadata = metadataContent;
 
@@ -45,6 +50,7 @@ export default function RootLayout({
             </AppProvider>
           </GtagProvider>
         </PlausibleProvider>
+        <PerformanceScript />
       </body>
     </html>
   );

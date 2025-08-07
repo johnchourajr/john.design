@@ -14,10 +14,12 @@ const HomepageHero = dynamic(
 
 const PillBlockList = dynamic(() =>
   import('@/components/slices/PillBlockList').then((mod) => mod.PillBlockList),
+  { ssr: false }
 );
 
 const ResumeSection = dynamic(() =>
   import('@/components/slices/ResumeSection').then((mod) => mod.ResumeSection),
+  { ssr: false }
 );
 
 type HomePageProps = {
