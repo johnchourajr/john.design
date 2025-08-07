@@ -29,7 +29,7 @@ export default function RootLayout({
       <head>
         <SchemaJson />
       </head>
-      <body>
+      <body className="bg-black">
         <PlausibleProvider
           domain={domain}
           trackOutboundLinks
