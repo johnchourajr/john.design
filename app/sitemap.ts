@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://john.design';
-  
+
   return [
     {
       url: baseUrl,
@@ -39,12 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/exp/john-gl`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.4,
     },
     {
       url: `${baseUrl}/exp/gen-shader`,
