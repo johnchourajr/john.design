@@ -10,7 +10,7 @@
       ],
       "@/hooks/*": [
         "./lib/hooks/*"
-      ],
+      ]
     },
     "target": "ESNext",
     "lib": [
@@ -29,7 +29,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -48,10 +48,12 @@
     "lib/config/type-config-js.js",
     "lib/**/*.{d.ts,ts,tsx,js}",
     "lib/**/*{.d.ts,.ts,.tsx,.js}",
-    ".next/types/**/*.ts"
-, "components/experimental/ImageThreeShader/shaders/pixelThree.ts"  ],
+    ".next/types/**/*.ts",
+    "components/experimental/ImageThreeShader/shaders/pixelThree.ts",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
-    ".next",
+    ".next"
   ]
 }

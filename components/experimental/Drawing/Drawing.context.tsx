@@ -53,7 +53,7 @@ export function DrawingProviderComponent({
 
   // Add new refs for size tracking
   const previousSizeRef = useRef<DocSizeType>({ width: 0, height: 0 });
-  const sizeTimeoutRef = useRef<NodeJS.Timeout>();
+  const sizeTimeoutRef = useRef<NodeJS.Timeout>(undefined);
 
   const serializePoints = useCallback(
     (points: StoredPointObj): string => JSON.stringify(points),

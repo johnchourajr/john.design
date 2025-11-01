@@ -11,7 +11,7 @@ export type PostBodyProps = {
   markdown: string;
 };
 
-const isImageNode = (node: ReactElement): boolean => {
+const isImageNode = (node: ReactElement<any>): boolean => {
   return node.props.src && typeof node.props.src === 'string';
 };
 
@@ -19,7 +19,7 @@ const CustomParagraph: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const imageChildren = Children.toArray(children).filter(
-    (child) => isValidElement(child) && isImageNode(child as ReactElement),
+    (child) => isValidElement(child) && isImageNode(child as ReactElement<any>),
   );
 
   if (imageChildren.length > 0) {
@@ -43,9 +43,10 @@ const components: Partial<Components> = {
     return <CustomParagraph>{children}</CustomParagraph>;
   },
   img({ src, alt }) {
+    const imageSrc = typeof src === 'string' ? src : '';
     return (
       <Image
-        src={src || ''}
+        src={imageSrc}
         alt={alt || ''}
         sizes="(max-width: 640px) 100vw, 640px"
         className={styles.postImage}
