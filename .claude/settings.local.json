@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:john.design)",
+      "Bash(npm run dev:*)",
+      "Bash(npx next build:*)",
+      "mcp__ide__getDiagnostics"
+    ],
+    "deny": []
+  }
+}
