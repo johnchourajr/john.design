@@ -40,7 +40,14 @@ export function DrawingProviderComponent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [isIframe, setIsIframe] = useState<boolean>(false);
+  // Initialize iframe state from searchParams, but handle potential errors
+  const [isIframe, setIsIframe] = useState<boolean>(() => {
+    try {
+      return searchParams?.get('iframe') !== null;
+    } catch {
+      return false;
+    }
+  });
   const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -252,7 +259,11 @@ export function DrawingProviderComponent({
   }, [isClient]);
 
   useEffect(() => {
-    setIsIframe(searchParams.get('iframe') !== null);
+    try {
+      setIsIframe(searchParams?.get('iframe') !== null);
+    } catch {
+      setIsIframe(false);
+    }
   }, [searchParams]);
 
   return (

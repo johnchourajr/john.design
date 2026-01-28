@@ -61,7 +61,7 @@ export default function RootLayout({
           domain={domain}
           trackOutboundLinks
           trackFileDownloads
-          enabled={domain.indexOf('localhost') !== -1 || undefined}
+          enabled={domain.indexOf('localhost') === -1}
           trackLocalhost={domain.indexOf('localhost') !== -1}
         >
           <GtagProvider>
