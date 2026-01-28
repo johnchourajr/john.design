@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 /**
@@ -134,6 +134,7 @@ export const ImageThreeShader = ({
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const isVisibleRef = useRef(true);
 
   const baseUniforms = useMemo(
     () => ({
@@ -145,6 +146,22 @@ export const ImageThreeShader = ({
     }),
     [],
   );
+
+  // Track visibility with Intersection Observer to pause animation when off-screen
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -224,6 +241,11 @@ export const ImageThreeShader = ({
     const startTime = performance.now();
 
     const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+
+      // Skip rendering when not visible to save GPU/CPU cycles
+      if (!isVisibleRef.current) return;
+
       const mesh = scene.children[0] as THREE.Mesh;
       if (mesh?.material instanceof THREE.ShaderMaterial) {
         const uniforms = mesh.material.uniforms;
@@ -231,7 +253,6 @@ export const ImageThreeShader = ({
         uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
       }
       renderer.render(scene, camera);
-      animationFrameId = requestAnimationFrame(animate);
     };
 
     // Event listeners
