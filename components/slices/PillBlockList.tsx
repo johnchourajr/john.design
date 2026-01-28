@@ -45,11 +45,12 @@ function PillItem({
           {wrapLettersInSpansWithWordsInSpans({ text: item })}
         </p>
       </m.div>
+      {/* Plain text for sizing - no Motion wrappers needed */}
       <p
         className="headline-display-sm invisible select-none"
         aria-hidden="true"
       >
-        {wrapLettersInSpansWithWordsInSpans({ text: item })}
+        {item}
       </p>
     </m.div>
   );

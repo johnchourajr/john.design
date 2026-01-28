@@ -2,11 +2,14 @@
 
 import clsx from 'clsx';
 import { m } from 'motion/react';
-import { Suspense, useMemo } from 'react';
+import dynamic from 'next/dynamic';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
-import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
-import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
+import {
+  fragmentThreeShaders,
+  type ShaderVariant,
+} from '@/components/experimental/ImageThreeShader/shaders';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { RolesSection } from '@/components/slices/RolesSection';
@@ -14,9 +17,25 @@ import type { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import type { SectionStructure } from '@/types/content-types';
 
+// Lazy load Three.js shader component to reduce initial bundle size
+const ImageThreeShader = dynamic(
+  () =>
+    import('@/components/experimental/ImageThreeShader').then(
+      (mod) => mod.ImageThreeShader,
+    ),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-black" />,
+  },
+);
+
 export type HomepageHeroProps = {
   heroSection: HomePageData['heroSection'];
   rolesSection: SectionStructure;
+};
+
+type ShaderConfig = {
+  fragmentShader: string;
 };
 
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
@@ -25,12 +44,20 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     return heroSection.headlineData;
   }, [heroSection]);
 
-  const shaderConfig = useMemo(() => {
-    const variants = ['pixel', 'distortion', 'vertical', 'loupe'] as const;
+  // Defer shader variant selection to client to avoid hydration mismatch
+  const [shaderConfig, setShaderConfig] = useState<ShaderConfig | null>(null);
+
+  useEffect(() => {
+    const variants: ShaderVariant[] = [
+      'pixel',
+      'distortion',
+      'vertical',
+      'loupe',
+    ];
     const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-    return {
+    setShaderConfig({
       fragmentShader: fragmentThreeShaders[randomVariant],
-    };
+    });
   }, []);
 
   return (
@@ -77,12 +104,14 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           '-translate-y-[5%]',
         )}
       >
-        <ImageThreeShader
-          className={clsx('absolute', 'w-full h-full')}
-          src="/me-alpha-moody.png"
-          aspectRatio="1:1"
-          shaderConfig={shaderConfig}
-        />
+        {shaderConfig && (
+          <ImageThreeShader
+            className={clsx('absolute', 'w-full h-full')}
+            src="/me-alpha-moody.png"
+            aspectRatio="1:1"
+            shaderConfig={shaderConfig}
+          />
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 /* fonts.css */
-@import url('https://use.typekit.net/wqj3mof.css');
-@import url('https://p.typekit.net/p.css?s=1&k=wqj3mof&ht=tk&f=29403&a=808403&app=typekit&e=css');
+/* Typekit fonts are now loaded asynchronously via layout.tsx to prevent render blocking */
 
 @font-face {
   font-family: 'KUniforma Bold';
@@ -82,13 +81,14 @@
 
 @font-face {
   font-family: 'big-caslon-fb';
-  src: url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
+  src:
+    url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
       format('woff2'),
     url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
       format('woff'),
     url('https://use.typekit.net/af/5f99b8/0000000000000000774a672d/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3')
       format('opentype');
-  font-display: auto;
+  font-display: swap;
   font-style: normal;
   font-weight: 400;
   font-stretch: normal;

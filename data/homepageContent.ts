@@ -3,7 +3,6 @@ import type {
   TextList,
   TextStructure,
 } from '../types/content-types';
-import { getRandomParentAndChildClassesArray } from '../components/justified-headline/data';
 
 export type HomePageData = {
   heroSection: {
@@ -27,22 +26,57 @@ export type HomePageData = {
   } & SectionStructure;
 };
 
+// Static layout variations for headline animations
+// Pre-defined to avoid hydration mismatches from random generation
+const headlineMotionVariants = {
+  johnIs: [
+    { parent: 'w-full', child: 'w-full justify-between' },
+    { parent: 'w-3/4', child: 'w-full justify-center' },
+    { parent: 'w-full', child: 'w-full justify-end' },
+    { parent: 'w-3/4 ml-auto', child: 'w-full justify-start' },
+    { parent: 'w-fit mr-auto', child: 'w-full justify-between' },
+    { parent: 'w-full', child: 'w-full justify-center' },
+    { parent: 'w-3/4', child: 'w-full justify-between' },
+    { parent: 'w-full', child: 'w-full justify-start' },
+  ],
+  workingOn: [
+    { parent: 'w-3/4 ml-auto', child: 'w-full justify-between' },
+    { parent: 'w-full', child: 'w-full justify-center' },
+    { parent: 'w-fit mr-auto', child: 'w-full justify-start' },
+    { parent: 'w-full', child: 'w-full justify-between' },
+    { parent: 'w-3/4', child: 'w-full justify-end' },
+    { parent: 'w-full', child: 'w-full justify-between' },
+    { parent: 'w-3/4 ml-auto', child: 'w-full justify-center' },
+    { parent: 'w-full', child: 'w-full justify-start' },
+  ],
+  theInternet: [
+    { parent: 'w-full', child: 'w-full justify-center' },
+    { parent: 'w-3/4 ml-auto', child: 'w-full justify-between' },
+    { parent: 'w-full', child: 'w-full justify-start' },
+    { parent: 'w-fit mr-auto', child: 'w-full justify-center' },
+    { parent: 'w-full', child: 'w-full justify-between' },
+    { parent: 'w-3/4', child: 'w-full justify-end' },
+    { parent: 'w-full', child: 'w-full justify-between' },
+    { parent: 'w-3/4 ml-auto', child: 'w-full justify-start' },
+  ],
+};
+
 export const homepageContent: HomePageData = {
   heroSection: {
     staticHeadline: 'John Is Working On The Internet',
     headlineData: [
       {
         text: 'John Is',
-        motionObject: getRandomParentAndChildClassesArray(8),
+        motionObject: headlineMotionVariants.johnIs,
         className: 'z-[100] relative headline-display-xs',
       },
       {
         text: 'Working On',
-        motionObject: getRandomParentAndChildClassesArray(8),
+        motionObject: headlineMotionVariants.workingOn,
       },
       {
         text: 'The *Internet*',
-        motionObject: getRandomParentAndChildClassesArray(8),
+        motionObject: headlineMotionVariants.theInternet,
       },
     ],
     typographies: [
