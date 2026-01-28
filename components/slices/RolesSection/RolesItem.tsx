@@ -1,4 +1,3 @@
-import { makeRandomRotate } from '@/lib/utils/randomBetween';
 import { wrapLettersInSpansWithWordsInSpans } from '@/lib/utils/wrapInSpans';
 import { SectionStructure } from '@/types/content-types';
 import { m, useTransform } from 'motion/react';
@@ -19,11 +18,6 @@ export function RolesItem({
   const calc = -index / list.length - 0.1;
   const opacity = useTransform(scrollYProgress, [0, 1], [calc, 1]);
 
-  const letterVariants = {
-    initial: { rotate: 0 },
-    hover: { rotate: makeRandomRotate() },
-  };
-
   return typeof item === 'string' ? (
     <m.span key={index} style={{ opacity }}>
       {wrapLettersInSpansWithWordsInSpans({
@@ -33,7 +27,6 @@ export function RolesItem({
         letterClassName: 'inline-flex',
         letterInitial: 'initial',
         letterWhileHover: 'hover',
-        letterVariants,
         letterTransition: { duration: 0.05, ease: 'easeOut' },
       })}
     </m.span>
