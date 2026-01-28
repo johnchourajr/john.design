@@ -19,8 +19,11 @@ export function useGtagContext() {
 
 export function GtagProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   useEffect(() => {
+    if (!gaId) return;
+
     const handleRouteChange = (url: string) => {
       gtag.pageview(url);
     };
@@ -30,26 +33,30 @@ export function GtagProvider({ children }: { children: React.ReactNode }) {
     return () => {
       handleRouteChange(pathname);
     };
-  }, [pathname]);
+  }, [pathname, gaId]);
 
   return (
     <GtagContext.Provider value={{}}>
       {children}
 
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `window.dataLayer = window.dataLayer || [];
+      {gaId && (
+        <>
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');`,
-        }}
-      />
+            gtag('config', '${gaId}');`,
+            }}
+          />
+        </>
+      )}
     </GtagContext.Provider>
   );
 }
