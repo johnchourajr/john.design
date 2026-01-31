@@ -33,7 +33,6 @@ export const distortionThreeShader = `
       vec2 displacement = normalize(effectUV - mouseUV) * strength * 0.1;
       displacement.x /= screenAspect; // Correct displacement
 
-      vec4 color = texture2D(image, textureUV - displacement);
       float noise = fract(sin(dot(effectUV, vec2(1, 78.233))) * 43758.5453);
       vec2 pos = textureUV + displacement * noise * sin(time) * 1.5;
 

@@ -53,6 +53,8 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       'distortion',
       'vertical',
       'loupe',
+      'sphere',
+      'prism',
     ];
     const randomVariant = variants[Math.floor(Math.random() * variants.length)];
     setShaderConfig({
