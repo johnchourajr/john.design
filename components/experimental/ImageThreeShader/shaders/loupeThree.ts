@@ -133,11 +133,6 @@ export const loupeShader = `
     vec4 chromaticColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
     vec4 magnifiedColor = mix(clearColor, chromaticColor, edgeStrength) * edgeFade;
 
-    // Enhanced clarity in center
-    clearColor = texture2D(image, magnifiedUv);
-    chromaticColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
-    magnifiedColor = mix(clearColor, chromaticColor, edgeStrength);
-
     // Remove all fresnel and light effects
     vec4 outsideColor = texture2D(image, textureUV);
     vec4 blurredColor = getBlurredColor(textureUV);

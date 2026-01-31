@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
@@ -171,8 +171,9 @@ export const ImageThreeShader = ({
     const container = containerRef.current;
     sceneRef.current = scene;
 
-    // Initialize renderer
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    // Initialize renderer with device pixel ratio for sharp rendering
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     rendererRef.current = renderer;
     container.appendChild(renderer.domElement);
 
@@ -228,12 +229,15 @@ export const ImageThreeShader = ({
       }
     };
 
-    // Mouse handling
+    // Mouse handling with damping
+    const targetMouse = { x: 0, y: 0 };
+    const smoothMouse = { x: 0, y: 0 };
+    const dampingFactor = 0.08; // Lower = smoother/slower
+
     const handleMouseMove = (event: MouseEvent) => {
       const bounds = container.getBoundingClientRect();
-      const x = event.clientX - bounds.left;
-      const y = event.clientY - bounds.top;
-      mouseRef.current = { x, y };
+      targetMouse.x = event.clientX - bounds.left;
+      targetMouse.y = event.clientY - bounds.top;
     };
 
     // Animation frame management
@@ -246,11 +250,16 @@ export const ImageThreeShader = ({
       // Skip rendering when not visible to save GPU/CPU cycles
       if (!isVisibleRef.current) return;
 
+      // Lerp mouse position for smooth damping
+      smoothMouse.x += (targetMouse.x - smoothMouse.x) * dampingFactor;
+      smoothMouse.y += (targetMouse.y - smoothMouse.y) * dampingFactor;
+      mouseRef.current = { x: smoothMouse.x, y: smoothMouse.y };
+
       const mesh = scene.children[0] as THREE.Mesh;
       if (mesh?.material instanceof THREE.ShaderMaterial) {
         const uniforms = mesh.material.uniforms;
         uniforms.time.value = (performance.now() - startTime) * 0.001;
-        uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+        uniforms.mouse.value.set(smoothMouse.x, smoothMouse.y);
       }
       renderer.render(scene, camera);
     };
