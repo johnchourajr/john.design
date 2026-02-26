@@ -5,7 +5,6 @@ import { TagsList } from './TagsList';
 
 export type JournalGridItemProps = {
   tags?: string[];
-  filePath?: string; // Add for Visual Editor annotations
 } & PageItem;
 
 export default function JournalGridItem({
@@ -14,13 +13,11 @@ export default function JournalGridItem({
   title,
   description,
   tags,
-  filePath,
 }: JournalGridItemProps) {
   return (
     <Link
       href={href || ''}
       className={clsx('group col-span-2 mb-10', className)}
-      data-sb-object-id={filePath}
     >
       <p
         className={clsx(
@@ -30,21 +27,15 @@ export default function JournalGridItem({
           'text-pretty max-w-[14em]',
         )}
       >
-        <span
-          className="no-underline group-hover:underline underline-offset-4 decoration-2"
-          data-sb-field-path="title"
-        >
+        <span className="no-underline group-hover:underline underline-offset-4 decoration-2">
           {title}
         </span>{' '}
       </p>
-      <p
-        className={clsx('headline-display-xs mt-3 mb-4')}
-        data-sb-field-path="date"
-      >
+      <p className={clsx('headline-display-xs mt-3 mb-4')}>
         {description}
       </p>
       {tags && (
-        <div data-sb-field-path="tags">
+        <div>
           <TagsList tags={tags} size="md" />
         </div>
       )}

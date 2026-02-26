@@ -16,7 +16,7 @@ type ColophonData = {
 export const colophonData: ColophonData = {
   title: 'Colophon',
   description: 'Site Technical Specs',
-  summary: `This site is hand made by John Choura with Next.js, TypeScript, Tailwind CSS, and Framer Motion. For now, it's deployed and hosted with Netlify.`,
+  summary: `This site is hand made by John Choura with Next.js, TypeScript, Tailwind CSS, and Framer Motion. For now, it's deployed and hosted with Vercel.`,
   dependencies: {
     ...packageJSON.dependencies,
   },
