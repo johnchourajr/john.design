@@ -52,7 +52,6 @@ export type PostData = {
   wordCount: number;
   timeToRead: number;
   markdown: string;
-  filePath?: string; // Add this for Visual Editor annotations
 };
 
 export type PostSlug = string;

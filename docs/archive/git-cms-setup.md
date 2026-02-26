@@ -1,3 +1,9 @@
+# Git CMS (Netlify Visual Editor) Setup [ARCHIVED]
+
+This document described the Git CMS setup using Netlify's Visual Editor. The site is now deployed on Vercel; this doc is kept for reference only.
+
+---
+
 # Git CMS (Netlify Visual Editor) Setup
 
 This document outlines the Git CMS setup for the john.design project using Netlify's Visual Editor.

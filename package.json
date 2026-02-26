@@ -36,9 +36,6 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^5.6.2",
-    "@stackbit/cms-git": "^1.0.35",
-    "@stackbit/types": "^2.1.14",
     "@types/node": "^20.11.24",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",

@@ -31,6 +31,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# stackbit (legacy)
+.stackbit
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# pnpm-store
+.pnpm-store
