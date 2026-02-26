@@ -118,6 +118,9 @@ const components: Partial<Components> = {
   h3({ children }) {
     return <HeadingWithId level={3}>{children}</HeadingWithId>;
   },
+  hr() {
+    return <hr className="!border-t-white/10" />;
+  },
   code(props) {
     const { children, className, node, ...rest } = props;
     const match = /language-(\w+)/.exec(className || '');
@@ -195,7 +198,7 @@ export function ProposalBody({ markdown }: ProposalBodyProps) {
   const tocItems = extractToc(markdown);
 
   return (
-    <div className={clsx(styles.postBody, 'grid')}>
+    <div className={clsx(styles.postBody, 'grid text-white')}>
       <TableOfContents items={tocItems} />
       <ReactMarkdown rehypePlugins={[rehypeRaw]} components={components}>
         {markdown}
