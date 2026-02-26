@@ -55,3 +55,19 @@ export type PostData = {
 };
 
 export type PostSlug = string;
+
+export type ProposalFrontMatter = {
+  title: string;
+  client: string;
+  date: string;
+  description?: string;
+  slug: string;
+};
+
+export type ProposalData = {
+  slug: string;
+  frontmatter: ProposalFrontMatter;
+  markdown: string;
+};
+
+export type ProposalSlug = string;
