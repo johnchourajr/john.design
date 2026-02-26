@@ -10,7 +10,9 @@ export default function Footer() {
   const pathname = usePathname();
   const { isIframe } = useDrawing();
 
-  if (isIframe) return null;
+  const isProposalDetail = pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+
+  if (isIframe || isProposalDetail) return null;
 
   return (
     <>

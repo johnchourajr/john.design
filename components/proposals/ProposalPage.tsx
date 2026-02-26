@@ -1,6 +1,5 @@
 'use client';
 
-import InlineLink from '@/components/fragments/InlineLink';
 import { useDrawing } from '@/components/experimental/Drawing';
 import { formatDate } from '@/lib/utils/formatDate';
 import { ProposalData } from '@/types/content-types';
@@ -33,17 +32,12 @@ export function ProposalPage({
   }
 
   return (
-    <article className="p-4">
-      <InlineLink href="/proposals" className="no-underline" underline={false}>
-        <p className="my-4">
-          &larr; <span>All Proposals</span>
-        </p>
-      </InlineLink>
-      <div className="mb-10">
+    <article className="p-4 text-white">
+      <div className="mb-10 pt-8">
         <p className="text-body text-white/50 mb-2">{client}</p>
         <h1
           className={clsx(
-            'headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em]',
+            'headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em] text-white',
           )}
         >
           {title}
