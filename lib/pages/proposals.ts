@@ -1,4 +1,5 @@
 import { ProposalData, ProposalSlug } from '@/types/content-types';
+import { isValidThemeColor } from '@/lib/theme/theme-config';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { join } from 'path';
@@ -22,7 +23,18 @@ export function getProposalBySlug(slug: ProposalSlug): ProposalData {
     client = '',
     date = new Date().toISOString(),
     description = '',
+    themeColor,
+    themeBackground,
+    background,
   } = data;
+  const parsedThemeColor = isValidThemeColor(themeColor)
+    ? themeColor.trim()
+    : undefined;
+  const parsedThemeBackground = isValidThemeColor(themeBackground)
+    ? themeBackground.trim()
+    : isValidThemeColor(background)
+      ? background.trim()
+      : undefined;
 
   return {
     slug: realSlug,
@@ -31,6 +43,8 @@ export function getProposalBySlug(slug: ProposalSlug): ProposalData {
       client,
       date: new Date(date).toISOString(),
       description,
+      themeColor: parsedThemeColor,
+      themeBackground: parsedThemeBackground,
       slug: realSlug,
     },
     markdown,
