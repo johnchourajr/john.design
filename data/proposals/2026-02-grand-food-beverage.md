@@ -7,7 +7,7 @@ description: A monthly retainer to keep your sites running smoothly, securely, a
 
 ## The Proposal
 
-A monthly retainer of **$150/mo** to keep your sites—thegrandlb.com and lbpetroleum.club—running smoothly, securely, and professionally supported.
+A monthly retainer of **$185/mo** to keep your sites—thegrandlb, elegancia and lbpetroleum—running smoothly, securely, and professionally supported.
 
 This retainer covers all infrastructure costs, proactive maintenance, and guaranteed support response—so you're not caught off guard by unexpected bills when something breaks.
 
@@ -15,7 +15,7 @@ This retainer covers all infrastructure costs, proactive maintenance, and guaran
 
 ## What's Included
 
-### Infrastructure & Platform Costs — $70/mo
+### Infrastructure & Platform Costs — $85/mo
 
 All SaaS costs for running your sites are covered:
 
@@ -27,10 +27,10 @@ All SaaS costs for running your sites are covered:
 
 No separate infrastructure invoices. It's all bundled.
 
-### Support & Maintenance — $80/mo
+### Support & Maintenance — $100/mo
 
 - **24/7 Monitoring** — Uptime monitoring with automated alerts. If the site goes down, I know before your customers do.
-- **Proactive Maintenance** — Security patches, dependency updates, and routine maintenance handled before they become problems.
+- **Proactive Maintenance** — Security patches, dependency updates, and routine maintenance handled before they become problems. Includes the creation of dashboards, and workflows to makntain and monitor the site. 
 - **Incident Response SLA** — Same-day acknowledgment for any issues. Critical problems addressed within 24-48 hours.
 - **Priority Support** — You're not in a queue—you're a priority.
 
@@ -50,7 +50,7 @@ Typical range: $300–1,500 depending on complexity.
 
 **Performance & Analytics Reporting**
 Custom dashboards for traffic, conversions, and site health.
-Setup: $200–400 | Monthly reporting: $75–150/mo
+Setup: $200–400 | Monthly reporting: +$50/mo
 
 ---
 
@@ -68,7 +68,7 @@ With this retainer:
 
 ## Terms
 
-- **Monthly billing**: $150/mo, invoiced at the start of each month
+- **Monthly billing**: $185/mo, invoiced at the start of each month
 - **Add-on work**: Billed at $75/hr with advance notice
 - **Cancellation**: 30-day notice to end the retainer
 
