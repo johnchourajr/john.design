@@ -61,6 +61,8 @@ export type ProposalFrontMatter = {
   client: string;
   date: string;
   description?: string;
+  themeColor?: string;
+  themeBackground?: string;
   slug: string;
 };
 

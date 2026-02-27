@@ -3,8 +3,8 @@ title: Site Service Retainer
 client: Grand Food & Beverage
 date: 2026-02-01
 description: A monthly retainer to keep your sites running smoothly, securely, and professionally supported.
-background: #1A0B0A
-foreground: #FAF2EB
+themeColor: '#FAF2EB'
+themeBackground: '#1A0B0A'
 ---
 
 ## The Proposal
