@@ -1,7 +1,13 @@
 'use client';
 
 import clsx from 'clsx';
-import { Children, isValidElement, ReactElement, useEffect, useState } from 'react';
+import {
+  Children,
+  isValidElement,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 
@@ -50,15 +56,14 @@ const CustomParagraph: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const imageChildren = Children.toArray(children).filter(
-    (child) =>
-      isValidElement(child) && isImageNode(child as ReactElement<any>),
+    (child) => isValidElement(child) && isImageNode(child as ReactElement<any>),
   );
 
   if (imageChildren.length > 0) {
     return <>{imageChildren}</>;
   }
 
-  return <p>{children}</p>;
+  return <p className="whitespace-pre">{children}</p>;
 };
 
 function getChildText(children: React.ReactNode): string {
@@ -86,14 +91,14 @@ function HeadingWithId({
 
   if (level === 2) {
     return (
-      <h2 id={id} className="scroll-mt-20">
+      <h2 id={id} className="!headline-display-sm scroll-mt-20">
         {children}
       </h2>
     );
   }
 
   return (
-    <h3 id={id} className="scroll-mt-20">
+    <h3 id={id} className="text-title scroll-mt-20">
       {children}
     </h3>
   );
@@ -164,24 +169,21 @@ function TableOfContents({ items }: { items: TocItem[] }) {
   }
 
   return (
-    <nav className="hidden md:block md:col-start-1 md:col-span-2 md:row-start-1 sticky top-20 self-start pr-4">
-      <p className="text-caption uppercase tracking-widest text-white/30 mb-4">
-        Contents
-      </p>
-      <ul className="space-y-2 list-none pl-0">
-        {items.map(({ id, text, level }) => (
+    <nav className="hidden md:block sticky top-20 self-start pr-4 h-0 pt-4">
+      <ul className="space-y-2 !list-none !pl-0 flex flex-col gap-2">
+        {items.map(({ id, text, level }, key) => (
           <li key={id} className="!pl-0 !mb-0">
             <button
               onClick={() => handleClick(id)}
               className={clsx(
-                'text-left text-caption transition-colors duration-200 leading-snug cursor-pointer',
+                'text-body transition-colors duration-200 leading-snug cursor-pointer line-clamp-1',
                 level === 3 && 'ml-3',
                 activeId === id
                   ? 'text-white'
                   : 'text-white/40 hover:text-white/70',
               )}
             >
-              {text}
+              0{key + 1}. {text}
             </button>
           </li>
         ))}

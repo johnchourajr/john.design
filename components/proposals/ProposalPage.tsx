@@ -32,9 +32,9 @@ export function ProposalPage({
   }
 
   return (
-    <article className="p-4 text-white">
-      <div className="mb-10 pt-8">
-        <p className="text-body text-white/50 mb-2">{client}</p>
+    <article className="p-4 text-white pb-40">
+      <div className="flex flex-col gap-3 py-20 mt-10">
+        <p className="headline-display-xs text-white">{client}</p>
         <h1
           className={clsx(
             'headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em] text-white',
@@ -42,11 +42,9 @@ export function ProposalPage({
         >
           {title}
         </h1>
-        <p className="text-body text-white/50 mt-4">{formatDate(date)}</p>
+        <p className="text-body text-white">{formatDate(date)}</p>
       </div>
-      <div>
-        <ProposalBody markdown={markdown} />
-      </div>
+      <ProposalBody markdown={markdown} />
     </article>
   );
 }
