@@ -2,15 +2,11 @@
 
 import { useDrawing } from '@/components/experimental/Drawing';
 import clsx from 'clsx';
-import { usePathname } from 'next/navigation';
 
 export function NavWrapper({ children }: { children: React.ReactNode }) {
   const { isIframe } = useDrawing();
-  const pathname = usePathname();
 
-  const isProposalDetail = pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
-
-  if (isIframe || isProposalDetail) return null;
+  if (isIframe) return null;
 
   return (
     <nav

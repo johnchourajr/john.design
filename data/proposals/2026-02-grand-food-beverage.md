@@ -3,6 +3,8 @@ title: Site Service Retainer
 client: Grand Food & Beverage
 date: 2026-02-01
 description: A monthly retainer to keep your sites running smoothly, securely, and professionally supported.
+background: #1A0B0A
+foreground: #FAF2EB
 ---
 
 ## The Proposal
@@ -19,18 +21,18 @@ This retainer covers all infrastructure costs, proactive maintenance, and guaran
 
 All SaaS costs for running your sites are covered:
 
-- **Vercel** — Hosting and deployment
-- **Mailgun** — Transactional email for lbpetroleum.club
-- **Retool** — Automated reporting, dashboards, and database
-- **Prismic** — Content management
-- **Resend** — Additional email services
+- **Vercel** — Hosting and deployment ($20/mo)
+- **Mailgun** — Transactional email for lbpetroleum.club ($35/mo)
+- **Retool** — Automated reporting, dashboards, and database ($15/mo)
+- **Prismic** — Content management ($15/mo)
+- **Resend** — Additional email services (free tier)
 
 No separate infrastructure invoices. It's all bundled.
 
 ### Support & Maintenance — $100/mo
 
 - **24/7 Monitoring** — Uptime monitoring with automated alerts. If the site goes down, I know before your customers do.
-- **Proactive Maintenance** — Security patches, dependency updates, and routine maintenance handled before they become problems. Includes the creation of dashboards, and workflows to makntain and monitor the site. 
+- **Proactive Maintenance** — Security patches, dependency updates, and routine maintenance handled before they become problems. Includes the creation of dashboards, and workflows to makntain and monitor the site.
 - **Incident Response SLA** — Same-day acknowledgment for any issues. Critical problems addressed within 24-48 hours.
 - **Priority Support** — You're not in a queue—you're a priority.
 
@@ -59,6 +61,7 @@ Setup: $200–400 | Monthly reporting: +$50/mo
 Recent incidents cost **$1,050** in reactive billing at my standard $150/hr rate. Unexpected issues add up quickly.
 
 With this retainer:
+
 - Infrastructure costs are predictable and covered
 - You get priority treatment and faster response
 - Proactive maintenance reduces incidents in the first place

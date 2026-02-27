@@ -1,11 +1,19 @@
+'use client';
+
 import clsx from 'clsx';
 
 import InlineLink from '@/components/fragments/InlineLink';
 import Logo from '@/components/svg/logo';
 import navData from '@/data/navData';
+import { usePathname } from 'next/navigation';
 import { NavSlash } from './NavSlash';
 
 export function NavLeft() {
+  const pathname = usePathname();
+
+  const isProposalDetail =
+    pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+
   return (
     <div className="inline-flex row gap-6 items-center">
       <InlineLink
@@ -28,21 +36,23 @@ export function NavLeft() {
       >
         John.Design™
       </InlineLink>
-      <NavSlash />
-      {navData.map(({ href, title }: any, i: number) => (
-        <InlineLink
-          key={title}
-          href={href}
-          className={clsx(
-            'text-string relative',
-            'z-50 pointer-events-none',
-            'inline-flex ',
-          )}
-          underline={false}
-        >
-          {title}
-        </InlineLink>
-      ))}
+
+      {!isProposalDetail && <NavSlash />}
+      {!isProposalDetail &&
+        navData.map(({ href, title }: any, i: number) => (
+          <InlineLink
+            key={title}
+            href={href}
+            className={clsx(
+              'text-string relative',
+              'z-50 pointer-events-none',
+              'inline-flex ',
+            )}
+            underline={false}
+          >
+            {title}
+          </InlineLink>
+        ))}
     </div>
   );
 }
