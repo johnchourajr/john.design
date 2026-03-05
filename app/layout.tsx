@@ -9,12 +9,9 @@ import { domain, metadataContent, viewportContent } from '@/data/metadata';
 import {
   DEFAULT_ROOT_BACKGROUND,
   DEFAULT_ROOT_COLOR,
-  ROOT_COLOR_COOKIE_NAME,
-  resolveThemeColor,
 } from '@/lib/theme/theme-config';
 
 import type { Metadata, Viewport } from 'next';
-import { cookies } from 'next/headers';
 import Script from 'next/script';
 import type { CSSProperties } from 'react';
 
@@ -24,27 +21,29 @@ export const metadata: Metadata = metadataContent;
 
 export const viewport: Viewport = viewportContent;
 
-export default async function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode;
-}) {
-  const cookieStore = await cookies();
-  const cookieColor = cookieStore.get(ROOT_COLOR_COOKIE_NAME)?.value;
-  const rootColor = resolveThemeColor(DEFAULT_ROOT_COLOR, cookieColor);
+};
 
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       style={
         {
-          '--root-color': rootColor,
+          '--root-color': DEFAULT_ROOT_COLOR,
           '--root-background': DEFAULT_ROOT_BACKGROUND,
         } as CSSProperties
       }
     >
       <head>
         <SchemaJson />
+        <Script
+          id="root-color-cookie"
+          src="/scripts/root-color-cookie.js"
+          strategy="beforeInteractive"
+        />
         {/* Load Typekit fonts asynchronously to prevent render blocking */}
         <link
           rel="stylesheet"
@@ -57,22 +56,7 @@ export default async function RootLayout({
       </head>
       <body className="bg-[var(--root-background)]">
         {/* Script to load Typekit CSS asynchronously after initial render */}
-        <Script id="typekit-async" strategy="afterInteractive">
-          {`
-            (function() {
-              const link = document.querySelector('link[href="https://use.typekit.net/wqj3mof.css"]');
-              if (link) {
-                link.media = 'all';
-              } else {
-                // Fallback: create link if it doesn't exist
-                const newLink = document.createElement('link');
-                newLink.rel = 'stylesheet';
-                newLink.href = 'https://use.typekit.net/wqj3mof.css';
-                document.head.appendChild(newLink);
-              }
-            })();
-          `}
-        </Script>
+        <Script id="typekit-async" src="/scripts/typekit-async.js" strategy="afterInteractive" />
         <PlausibleProvider
           domain={domain}
           trackOutboundLinks

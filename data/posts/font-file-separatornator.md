@@ -1,7 +1,7 @@
 ---
 type: "post"
 template: "post"
-slug: "/journal/nav-show-hide"
+slug: "/journal/font-file-separatornator"
 date: "2024-5-25"
 title: "A Magical Font File Separating Script"
 cover: /journal-images/font-file-separatornator/font-cover.svg
@@ -48,7 +48,6 @@ Then, let it do its thing:
 ```bash
 ./Font_File_Separatornator.sh
 ```
-
 
 ![xs](/journal-images/font-file-separatornator/runsh.gif)
 
