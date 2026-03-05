@@ -8,6 +8,11 @@ interface CoverMediaProps {
   template?: string;
 }
 
+function isSvg(src: string | undefined): boolean {
+  if (!src) return false;
+  return src.toLowerCase().includes('.svg');
+}
+
 export const CoverMedia = ({
   videoCover,
   cover,
@@ -41,6 +46,14 @@ export const CoverMedia = ({
           autoPlay
           playsInline
           loop
+          className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+        />
+      ) : isSvg(cover) ? (
+        <img
+          src={cover!}
+          alt=""
+          width={1200}
+          height={600}
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : (

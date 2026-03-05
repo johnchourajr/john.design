@@ -44,6 +44,20 @@ const components: Partial<Components> = {
   },
   img({ src, alt }) {
     const imageSrc = typeof src === 'string' ? src : '';
+    const useNativeImg =
+      /\.(gif|svg)(\?.*)?$/i.test(imageSrc) ||
+      imageSrc.startsWith('/journal-images/');
+    if (useNativeImg) {
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={imageSrc}
+          alt={alt || ''}
+          className={styles.postImage}
+          loading="lazy"
+        />
+      );
+    }
     return (
       <Image
         src={imageSrc}
