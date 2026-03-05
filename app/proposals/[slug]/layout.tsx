@@ -7,11 +7,14 @@ import {
 
 type ProposalLayoutProps = {
   children: React.ReactNode;
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
-export default function ProposalLayout({ children, params }: ProposalLayoutProps) {
-  const { slug } = params;
+export default async function ProposalLayout({
+  children,
+  params,
+}: ProposalLayoutProps) {
+  const { slug } = await params;
   const proposal = getProposalBySlug(slug);
   const rootColor = resolveThemeColor(
     DEFAULT_ROOT_COLOR,
