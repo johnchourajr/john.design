@@ -6,6 +6,7 @@ import {
   isValidElement,
   ReactElement,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
@@ -161,11 +162,19 @@ function TableOfContents({ items }: { items: TocItem[] }) {
     return () => observer.disconnect();
   }, [items]);
 
-  function handleClick(id: string) {
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (!el) return;
+
+    e.preventDefault();
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    el.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
+    history.replaceState(null, '', `#${id}`);
   }
 
   return (
@@ -173,9 +182,10 @@ function TableOfContents({ items }: { items: TocItem[] }) {
       <ul className="space-y-2 !list-none !pl-0 flex flex-col gap-2">
         {items.map(({ id, text, level }, key) => (
           <li key={id} className="!pl-0 !mb-0">
-            <button
-              type="button"
-              onClick={() => handleClick(id)}
+            <a
+              href={`#${id}`}
+              onClick={(e) => handleClick(e, id)}
+              aria-current={activeId === id ? 'location' : undefined}
               className={clsx(
                 'text-body transition-colors duration-200 leading-snug cursor-pointer line-clamp-1',
                 level === 3 && 'ml-3',
@@ -184,8 +194,8 @@ function TableOfContents({ items }: { items: TocItem[] }) {
                   : 'text-white/40 hover:text-white/70',
               )}
             >
-              0{key + 1}. {text}
-            </button>
+              {String(key + 1).padStart(2, '0')}. {text}
+            </a>
           </li>
         ))}
       </ul>
@@ -198,7 +208,7 @@ interface ProposalBodyProps {
 }
 
 export function ProposalBody({ markdown }: ProposalBodyProps) {
-  const tocItems = extractToc(markdown);
+  const tocItems = useMemo(() => extractToc(markdown), [markdown]);
 
   return (
     <div className={clsx(styles.postBody, 'grid text-white')}>
