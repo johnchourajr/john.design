@@ -47,10 +47,10 @@ export const CodeBlock = ({
             onClick={() => setIsExpanded(!isExpanded)}
             className={clsx(
               'absolute w-full bottom-0 left-0 right-0 text-root p-4 text-right text-string cursor-pointer border-none',
-              !isExpanded && 'bg-gradient-to-t from-black to-transparent',
+              !isExpanded && 'bg-linear-to-t from-black to-transparent',
             )}
           >
-            <span className="bg-black backdrop-blur p-1 px-2 rounded-md border-1 border-root">
+            <span className="bg-black backdrop-blur-sm p-1 px-2 rounded-md border-1 border-root">
               {isExpanded ? 'Show less' : 'Show more'}
             </span>
           </button>

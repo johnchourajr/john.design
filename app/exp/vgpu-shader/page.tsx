@@ -40,7 +40,7 @@ export default function Page() {
     <>
       <InlineLink
         href="/exp/"
-        className="no-underline [[data-iframe]_&]:hidden"
+        className="no-underline in-data-iframe:hidden"
         underline={false}
       >
         <h2 className="m-4">

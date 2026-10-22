@@ -9,7 +9,7 @@ const Rect = ({ active, ...props }: RectProps) => {
     <m.rect
       className={clsx(
         active &&
-          'relative scale-1 group-hover:opacity-100 hover:!opacity-70 transition-all ease-out-expo duration-300',
+          'relative group-hover:opacity-100 hover:opacity-70! transition-all ease-out-expo duration-300',
         active && "touch-none cursor-[url('/eyedrop.svg')_6_15,auto]",
       )}
       {...props}

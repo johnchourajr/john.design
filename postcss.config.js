@@ -1,8 +1,7 @@
 module.exports = {
-  plugins: [
-    'postcss-import',
-    'tailwindcss/nesting',
-    'tailwindcss',
-    'autoprefixer',
-  ],
+  plugins: {
+    // Tailwind v4 inlines @import, handles nesting and adds vendor prefixes,
+    // so postcss-import, tailwindcss/nesting and autoprefixer are no longer needed.
+    '@tailwindcss/postcss': {},
+  },
 };

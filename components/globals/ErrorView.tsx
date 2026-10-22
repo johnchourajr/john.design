@@ -20,7 +20,7 @@ export function ErrorView({ error, reset }: ErrorViewProps) {
 
   return (
     <section className="min-h-[70vh] px-4 py-[10vw] flex flex-col justify-center">
-      <h1 className="uppercase headline-display-xl font-black leading-[1] text-root">
+      <h1 className="uppercase headline-display-xl leading-none text-root">
         500
       </h1>
       <p className="text-string mt-6">Something broke on our end.</p>
@@ -32,7 +32,7 @@ export function ErrorView({ error, reset }: ErrorViewProps) {
           type="button"
           onClick={reset}
           className={clsx(
-            'bg-root text-white px-4 py-2 rounded',
+            'bg-root text-white px-4 py-2 rounded-sm',
             'hover:opacity-70 transition-opacity',
           )}
         >
@@ -40,7 +40,7 @@ export function ErrorView({ error, reset }: ErrorViewProps) {
         </button>
         <Link
           href="/"
-          className="border-1 border-root text-root px-4 py-2 rounded hover:opacity-70 transition-opacity"
+          className="border-1 border-root text-root px-4 py-2 rounded-sm hover:opacity-70 transition-opacity"
         >
           Go home
         </Link>

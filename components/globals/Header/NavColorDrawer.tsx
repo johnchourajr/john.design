@@ -76,7 +76,7 @@ export function NavColorDrawer() {
         aria-hidden={!toggleColorActive}
         data-testid="color-drawer"
         className={clsx(
-          'fixed inset-x-0 top-0 z-[60] flex h-[100px]',
+          'fixed inset-x-0 top-0 z-60 flex h-[100px]',
           COLOR_DRAWER_TRANSITION_CLASS,
           !toggleColorActive && '-translate-y-full',
         )}
@@ -100,7 +100,7 @@ export function NavColorDrawer() {
                 'group h-full flex-1 flex flex-col items-start justify-between p-4',
                 // Only widen on devices that can hover, so taps don't leave a column stuck open.
                 '[@media(hover:hover)]:hover:flex-[1.25] focus-visible:flex-[1.25]',
-                'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-black',
+                'focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-black',
                 'transition-[flex-grow] duration-500 ease-out-expo motion-reduce:transition-none',
                 'font-mono text-xs uppercase text-black',
                 className,
@@ -129,7 +129,7 @@ export function NavColorDrawer() {
           aria-label="Close color picker"
           data-testid="color-drawer-dismiss"
           onClick={() => handleActive(false)}
-          className="fixed inset-x-0 top-[100px] bottom-0 z-[60] cursor-default"
+          className="fixed inset-x-0 top-[100px] bottom-0 z-60 cursor-default"
         />
       )}
     </>

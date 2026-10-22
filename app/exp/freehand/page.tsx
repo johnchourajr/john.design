@@ -15,7 +15,7 @@ export default function Freehand() {
           &larr; <span>Back</span>
         </h2>
       </InlineLink>
-      <div className="relative flex items-center justify-start w-full h-[100vh]">
+      <div className="relative flex items-center justify-start w-full h-screen">
         <p className="fixed bottom-2">Start drawing with your cursor ✎</p>
       </div>
       <FreehandCanvas />

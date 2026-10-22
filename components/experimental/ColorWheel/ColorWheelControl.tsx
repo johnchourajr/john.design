@@ -12,7 +12,7 @@ export function ColorWheelControl() {
       handleClick={() => setToggleColorActive(!toggleColorActive)}
       expanded={toggleColorActive}
       controls={COLOR_DRAWER_ID}
-      className="z-[9999] h-8 w-8"
+      className="z-9999 h-8 w-8"
     />
   );
 }
