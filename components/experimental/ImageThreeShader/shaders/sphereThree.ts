@@ -11,6 +11,11 @@ export const sphereShader = `
 
   ${layers}
 
+  // The type's depth-of-field blur inside the sphere: taps, and the disc's
+  // radius in frame heights.
+  #define BLUR_TAPS 16
+  #define BLUR_RADIUS 0.012
+
   void main() {
     vec2 uv = frameUv();
     float screenAspect = resolution.x / resolution.y;
@@ -116,20 +121,22 @@ export const sphereShader = `
     // Blend with smooth edge
     vec4 imageColor = mix(outsideColor, sphereColor * g_inFrame, sphereMask);
 
-    // The type is refracted, split and shaded by the same glass, as far as
-    // the hover reaches. Light lands on the letters, not on empty glass.
-    vec4 redType = sampleHeadline(redUV);
-    vec4 greenType = sampleHeadline(sphereUV);
-    vec4 blueType = sampleHeadline(blueUV);
-    vec4 sphereType = vec4(
-      redType.r,
-      greenType.g,
-      blueType.b,
-      max(redType.a, max(greenType.a, blueType.a))
-    );
-    sphereType.rgb += (specular + rim) * sphereType.a;
-    sphereType.rgb *= 0.9 + z * 0.1;
-    vec4 type = mix(restingType, sphereType, sphereMask * hover);
+    // The type reads as the near side of the glass, out of focus: the
+    // refracted type, blurred, inside exactly the portrait's silhouette
+    // (sphereMask), so the two share one edge. No rim or highlight of its
+    // own, which would draw a second halo just inside the first.
+    vec4 blurredType = vec4(0.0);
+    for (int i = 0; i < BLUR_TAPS; i++) {
+      // A golden-angle spiral fills the disc evenly with few taps.
+      float t = (float(i) + 0.5) / float(BLUR_TAPS);
+      float angle = float(i) * 2.39996;
+      vec2 offset = vec2(cos(angle), sin(angle)) * sqrt(t) * BLUR_RADIUS;
+      offset.x /= screenAspect;
+      blurredType += sampleHeadline(sphereUV + offset);
+    }
+    blurredType /= float(BLUR_TAPS);
+    blurredType.rgb *= 0.9 + z * 0.1;
+    vec4 type = mix(restingType, blurredType, sphereMask * hover);
 
     gl_FragColor = over(type, imageColor);
   }

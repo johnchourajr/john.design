@@ -84,6 +84,19 @@ export const layers = `
     return texture2D(headline, bandUv);
   }
 
+  // A colour split, composited one channel at a time: each channel's copy
+  // of the type covers only that channel of what's under it. On the
+  // portrait the copies fringe in colour; on the black page they leave the
+  // type's own colour, as glass would.
+  vec4 overSplit(vec4 red, vec4 green, vec4 blue, vec4 bottom) {
+    return vec4(
+      red.r + bottom.r * (1.0 - red.a),
+      green.g + bottom.g * (1.0 - green.a),
+      blue.b + bottom.b * (1.0 - blue.a),
+      max(bottom.a, max(red.a, max(green.a, blue.a)))
+    );
+  }
+
   // Premultiplied \`top\` over \`bottom\`.
   vec4 over(vec4 top, vec4 bottom) {
     return top + bottom * (1.0 - top.a);
