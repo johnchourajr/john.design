@@ -27,6 +27,12 @@ const MyComponent = () => {
 };
 ```
 
+Rendering is handled by the shared `useShaderRenderer` hook
+(`components/experimental/useShaderRenderer.ts`), the same one behind
+`ImageThreeShader` and `VideoThreeShader`. It pauses while the shader is
+off-screen and, under `prefers-reduced-motion`, renders one still frame
+instead of animating.
+
 ## Props
 
 - `className?: string` - Optional CSS class name for the container
