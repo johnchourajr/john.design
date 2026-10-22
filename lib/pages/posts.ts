@@ -1,3 +1,4 @@
+import { mediaUrl } from '@/lib/media/hosted';
 import { PostData, PostSlug } from '@/types/content-types';
 import fs from 'fs';
 import matter from 'gray-matter';
@@ -38,10 +39,11 @@ export function getPostBySlug(slug: PostSlug): PostData {
       title,
       date: new Date(date).toISOString(),
       template,
-      cover,
-      videoCover,
-      thumb,
-      ogImage,
+      // Hosted media resolves to the media origin, see #88.
+      cover: mediaUrl(cover),
+      videoCover: mediaUrl(videoCover),
+      thumb: mediaUrl(thumb),
+      ogImage: mediaUrl(ogImage),
       refer,
       tags,
       hidden,
