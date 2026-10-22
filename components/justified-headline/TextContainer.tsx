@@ -4,6 +4,7 @@ import {
   basicAnimateParentVariants,
   basicAnimateVariants,
 } from '@/lib/config/motion-config';
+import type { MotionObject } from '@/types/content-types';
 import { slugify } from '@/utils/slugify';
 import { m } from 'motion/react';
 import { addStrongTags } from './utils';
@@ -14,10 +15,16 @@ export const TextContainer = ({
   motionKey,
   letters,
   className,
-}: any) => {
+}: {
+  text: string;
+  motionObject?: MotionObject;
+  motionKey: number;
+  letters: boolean;
+  className?: string;
+}) => {
   if (!text) return null;
 
-  const motionController = motionObject[motionKey];
+  const motionController = motionObject?.[motionKey];
 
   const motionProps = {
     variants: basicAnimateVariants,
@@ -28,7 +35,7 @@ export const TextContainer = ({
     if (letters) {
       // split each letter in text into its own span
       const lettersArray = text.split('');
-      return lettersArray.map((letter: any, index: number) => {
+      return lettersArray.map((letter, index) => {
         return (
           <m.span
             key={index}
@@ -42,7 +49,7 @@ export const TextContainer = ({
       });
     } else {
       const childrenArray = typeof text === 'string' ? text.split(' ') : [];
-      return childrenArray.map((child: any, index: number) => {
+      return childrenArray.map((child, index) => {
         return (
           <m.span
             key={index}
@@ -61,11 +68,11 @@ export const TextContainer = ({
     <span
       className={clsx(
         'relative flex flex-col items-center justify-start w-full',
-        motionController.parent,
+        motionController?.parent,
       )}
     >
       <m.span
-        className={clsx('inline-flex whitespace-pre', motionController.child)}
+        className={clsx('inline-flex whitespace-pre', motionController?.child)}
         variants={basicAnimateParentVariants({
           staggerChildren: 0.1,
           delayChildren: 0.3,
