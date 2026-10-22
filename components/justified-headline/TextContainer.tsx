@@ -32,7 +32,6 @@ export const TextContainer = ({
         return (
           <m.span
             key={index}
-            id={slugify(`${letter} ${index}`)}
             data-word={slugify(`${letter} ${index}`)}
             className={className}
             {...motionProps}
@@ -47,7 +46,6 @@ export const TextContainer = ({
         return (
           <m.span
             key={index}
-            id={slugify(`${child} ${index}`)}
             data-word={slugify(`${child} ${index}`)}
             className={className}
             {...motionProps}
