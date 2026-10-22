@@ -1,6 +1,7 @@
 'use client';
 
 import { useDrawing } from '@/components/experimental/Drawing';
+import { useIsProposalDetail } from '@/hooks/useIsProposalDetail';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import InlineLink from '../../fragments/InlineLink';
@@ -10,7 +11,7 @@ export default function Footer() {
   const pathname = usePathname();
   const { isIframe } = useDrawing();
 
-  const isProposalDetail = pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+  const isProposalDetail = useIsProposalDetail();
 
   if (isIframe || isProposalDetail) return null;
 
