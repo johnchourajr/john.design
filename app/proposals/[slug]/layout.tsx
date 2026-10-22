@@ -37,7 +37,7 @@ export default async function ProposalLayout({
           background: var(--root-background);
         }
       `}</style>
-      <div className="min-h-[100vh]">{children}</div>
+      <div className="min-h-screen">{children}</div>
     </>
   );
 }

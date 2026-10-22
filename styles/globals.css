@@ -1,9 +1,67 @@
-@import 'fonts.css';
-@import 'kerning.css';
+@import './fonts.css' layer(base);
+@import './kerning.css' layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+  Scan the code directories and the posts, not docs like AGENTS.md or .claude/.
+  Posts embed raw HTML with Tailwind classes (e.g. `aspect-[1680/1050]` on iframes),
+  which v3 only generated because a component happened to use the same class.
+*/
+@import 'tailwindcss' source(none);
+@source '../app';
+@source '../app-pages';
+@source '../components';
+@source '../context';
+@source '../data';
+@source '../lib';
+
+/* Theme extensions and the @muybuen/type plugin (headline-*, text-*) stay in JS. */
+@config '../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* Tailwind v4's preflight leaves buttons on the default cursor; v3 used a pointer. */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility clip {
+  clip-path: inset(0);
+}
+
+@utility clip-x {
+  clip-path: inset(0 100% 0 0);
+}
+
+@utility clip-y {
+  clip-path: inset(100% 0 0 0);
+}
+
+@utility clip-xy {
+  clip-path: inset(100% 0 0 100%);
+}
+
+@utility whitespace-pre-wrap-children {
+  & span {
+    @apply whitespace-pre-wrap;
+  }
+}
 
 @layer base {
   body {
@@ -13,7 +71,7 @@
   }
 
   html[data-dim='true'] .dim-shim {
-    @apply bg-black bg-opacity-80;
+    @apply bg-black/80;
   }
 
   /* selection background on all elements */
@@ -23,28 +81,6 @@
 
   .drawing-cursor {
     cursor: url('/pencil.svg') 6 18, auto;
-  }
-}
-
-@layer utilities {
-  .clip {
-    clip-path: inset(0);
-  }
-
-  .clip-x {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  .clip-y {
-    clip-path: inset(100% 0 0 0);
-  }
-
-  .clip-xy {
-    clip-path: inset(100% 0 0 100%);
-  }
-
-  .whitespace-pre-wrap-children span {
-    @apply whitespace-pre-wrap;
   }
 }
 
@@ -112,38 +148,59 @@
   }
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/*
+  Element defaults live in the base layer so utilities still override them.
+  Tailwind v4 puts utilities in a cascade layer, and unlayered rules beat
+  layered ones regardless of specificity (e.g. `a { color: inherit }` beat
+  `text-white/40` on links).
+*/
+@layer base {
+  html,
   body {
-    color: white;
-    background: black;
-    font-weight: variable;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html {
+      color-scheme: dark;
+    }
+    body {
+      color: white;
+      background: black;
+      font-weight: variable;
+    }
   }
 }
 
-.border-shadow {
+/*
+  The theme names font families `bold` and `black`. v3 still emitted the
+  matching weights for font-bold and font-black too; v4 only emits the family.
+*/
+@utility font-bold {
+  font-weight: 700;
+}
+
+@utility font-black {
+  font-weight: 900;
+}
+
+@utility border-shadow {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 1), 0 2px 2px 0 rgba(0, 0, 0, 1);
 }
 
+/* Unlayered on purpose: it must keep beating everything, as it did in v3. */
 ::selection {
   background: #ffffff20 !important;
   color: var(--root-color) !important;

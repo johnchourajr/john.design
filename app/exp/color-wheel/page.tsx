@@ -24,7 +24,7 @@ export default function Page() {
           Click The &nbsp;
           <ColorWheel
             handleColorChange={handleColorChange}
-            className="hidden lg:visible invisible lg:inline-flex"
+            className="max-lg:hidden lg:visible invisible lg:inline-flex"
           />
           Color Wheel {rootColor}
         </h1>

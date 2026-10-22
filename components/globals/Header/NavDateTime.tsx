@@ -14,7 +14,7 @@ export function NavDateTime() {
     <p
       className={clsx(
         'text-string relative',
-        'inline-flex row gap-4 z-50 relative pointer-events-none',
+        'row gap-4 z-50 relative pointer-events-none',
         'lg:inline-flex hidden',
         'min-w-[165px]',
       )}
@@ -22,7 +22,7 @@ export function NavDateTime() {
       <span
         className={clsx(
           'min-w-[100px]',
-          isLoading && 'bg-current opacity-20 animate-pulse rounded',
+          isLoading && 'bg-current opacity-20 animate-pulse rounded-sm',
         )}
       >
         {dateStr || '\u00A0'}
@@ -30,7 +30,7 @@ export function NavDateTime() {
       <span
         className={clsx(
           'min-w-[65px]',
-          isLoading && 'bg-current opacity-20 animate-pulse rounded',
+          isLoading && 'bg-current opacity-20 animate-pulse rounded-sm',
         )}
       >
         {!isLoading ? (
