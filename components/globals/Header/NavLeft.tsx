@@ -26,7 +26,7 @@ export function NavLeft() {
         href="/"
         className={clsx(
           'text-string relative',
-          'z-50 pointer-events-none',
+          'z-50',
           'md:inline-flex hidden',
         )}
         underline={false}
@@ -42,7 +42,7 @@ export function NavLeft() {
             href={href}
             className={clsx(
               'text-string relative',
-              'z-50 pointer-events-none',
+              'z-50',
               'inline-flex ',
             )}
             underline={false}

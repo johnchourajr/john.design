@@ -55,11 +55,13 @@ export const CoverMedia = ({
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : isSvg(cover) ? (
-        <img
+        // SVGs are already resolution independent; serve the file as-is.
+        <Image
           src={cover!}
           alt=""
           width={1200}
           height={600}
+          unoptimized
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : (

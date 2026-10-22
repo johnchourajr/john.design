@@ -40,7 +40,7 @@ export default function Footer() {
           <InlineLink
             href="/"
             className={clsx(
-              'z-50 headline-display-xs relative font-bold uppercase tracking-wider pointer-events-none',
+              'z-50 headline-display-xs relative font-bold uppercase tracking-wider',
               'md:inline-flex hidden',
               '*:no-underline',
             )}
@@ -85,7 +85,7 @@ export default function Footer() {
           target="_blank"
           aria-label="Link to source code"
           className={clsx(
-            'text-title z-50 relative pointer-events-none',
+            'text-title z-50 relative',
             'no-underline',
           )}
           underline={false}
