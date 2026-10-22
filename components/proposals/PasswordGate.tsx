@@ -50,7 +50,7 @@ export function PasswordGate({ children, hasAccess }: PasswordGateProps) {
           placeholder="Password"
           autoFocus
           className={clsx(
-            'w-full bg-transparent border-b border-white/20 py-2 text-paragraph outline-none',
+            'w-full bg-transparent border-b border-white/20 py-2 text-paragraph outline-hidden',
             'focus:border-root transition-colors duration-200',
             'placeholder:text-white/30',
           )}

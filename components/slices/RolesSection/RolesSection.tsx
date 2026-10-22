@@ -20,14 +20,14 @@ export function RolesSection({
   return (
     <div
       className={clsx(
-        'inline-flex items-center flex-col p-4 gap-6 justify-center w-full relative z-[100] mb-[8vw]',
+        'inline-flex items-center flex-col p-4 gap-6 justify-center w-full relative z-100 mb-[8vw]',
         'relative z-10',
         enableDrawing && 'select-none',
       )}
     >
       <p
         ref={ref}
-        className="headline-display-xl !normal-case !font-pixel !font-normal text-center items-center leading-tight"
+        className="headline-display-xl normal-case! font-pixel! font-normal! text-center items-center leading-tight"
       >
         {rolesSection?.text?.map((item, index) => {
           return (

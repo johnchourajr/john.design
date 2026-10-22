@@ -15,7 +15,7 @@ export function LayoutOuter({ children }: LayoutOuterProps) {
     <LazyMotion features={domAnimation}>
       <div
         className={clsx(
-          'text-root bg-[var(--root-background)] min-h-[100vh] font-sans relative',
+          'text-root bg-(--root-background) min-h-screen font-sans relative',
           enableDrawing && 'drawing-cursor',
         )}
       >

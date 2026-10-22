@@ -29,7 +29,7 @@ export default function GlobalError(props: {
         <title>Something went wrong | John.Design</title>
         <link rel="stylesheet" href="https://use.typekit.net/wqj3mof.css" />
       </head>
-      <body className="bg-[var(--root-background)]">
+      <body className="bg-(--root-background)">
         <ErrorView {...props} />
       </body>
     </html>

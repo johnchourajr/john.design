@@ -21,11 +21,11 @@ export default function LinkGridItem({
 
   const statusClasses = clsx(
     status === 'Coming Soon' &&
-      'opacity-60 bg-gradient-to-r from-root to-black via-transparent bg-clip-text text-transparent',
+      'opacity-60 bg-linear-to-r from-root to-black via-transparent bg-clip-text text-transparent',
     status === 'Coming Soon' &&
-      'transition-all ease-out-expo group-hover:!bg-root group-hover:opacity-100 duration-300',
+      'transition-all ease-out-expo group-hover:bg-root! group-hover:opacity-100 duration-300',
     status === 'Coming Soon' &&
-      'group-focus-visible:!bg-root group-focus-visible:opacity-100',
+      'group-focus-visible:bg-root! group-focus-visible:opacity-100',
   );
 
   const itemProps = () => {

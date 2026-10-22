@@ -19,7 +19,7 @@ export default function ContactPage({
             <JustifiedHeadlineInner
               key={i}
               className={clsx(
-                'leading-[1] w-full font-black pointer-events-none',
+                'leading-none w-full font-black pointer-events-none',
               )}
               headline={[
                 {

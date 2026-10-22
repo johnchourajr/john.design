@@ -25,7 +25,7 @@ export function ParentheticalChunk({ text }: any) {
       whileHover={'hover'}
     >
       <m.span variants={blinkVariants}>( </m.span>
-      <span className="inline-flex h-fit items-center justify-center -translate-y-[50%] lg:-translate-y-[100%]">
+      <span className="inline-flex h-fit items-center justify-center translate-y-[-50%] lg:-translate-y-full">
         <span
           className={clsx(
             'text-body',
