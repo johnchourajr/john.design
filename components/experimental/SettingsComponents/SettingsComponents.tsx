@@ -17,17 +17,12 @@ export function getSettingValue(
 // https://stackoverflow.com/a/58485871/104380
 
 export function useArrayState(array: any, setArray: any, index: number) {
-  const [state, setState] = React.useState(array[index]);
-
-  React.useEffect(() => {
-    setState(array[index]);
-  }, [array, index]);
+  const state = array[index];
 
   const setArrayState = (newState: any) => {
     const newArray = [...array];
     newArray[index] = newState;
     setArray(newArray);
-    setState(newState);
   };
 
   return [state, setArrayState];

@@ -1,17 +1,16 @@
 import PostPage from '@/app-pages/journal-details-page';
 import { getAllPosts, getPostBySlug } from '@/lib/pages/posts';
-import { PostData } from '@/types/content-types';
+
+// Only prerendered posts exist; any other slug is a 404, not a missing file.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
-  return paths;
+  return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata(props: { params: PostData }) {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
   const post = getPostBySlug(params.slug);
   const { title, description, cover, videoCover, ogImage, slug } =
@@ -37,9 +36,11 @@ export async function generateMetadata(props: { params: PostData }) {
   };
 }
 
-export default async function Page(props: { params: PostData }) {
+export default async function Page(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
-  const post = await getPostBySlug(params.slug);
+  const post = getPostBySlug(params.slug);
 
   return <PostPage post={post} />;
 }

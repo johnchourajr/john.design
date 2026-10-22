@@ -2,6 +2,9 @@ import { ProposalPage } from '@/components/proposals/ProposalPage';
 import { getAllProposals, getProposalBySlug } from '@/lib/pages/proposals';
 import { Metadata } from 'next';
 
+// Only prerendered proposals exist; any other slug is a 404.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const proposals = getAllProposals();
   return proposals.map((proposal) => ({
