@@ -63,12 +63,10 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
 }
 function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
   const [state, setArrayState] = useArrayState(settings, setSettings, index);
-  // create slider input
-  const slider = React.useRef<HTMLInputElement>(null);
 
-  // set state.value to slider value
-  const update = () => {
-    setArrayState({ ...state, value: slider?.current?.value });
+  // Store a number: shader uniforms are numeric, and vgpu rejects strings.
+  const update = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setArrayState({ ...state, value: e.currentTarget.valueAsNumber });
   };
 
   return (
@@ -78,7 +76,6 @@ function SettingsSlider({ index, name, settings, setSettings, min, max }: any) {
     >
       <span className="truncate">{name}</span>
       <input
-        ref={slider}
         type="range"
         min={min}
         max={max}

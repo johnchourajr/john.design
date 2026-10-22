@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@muybuen/type": "^1.1.8",
+    "@vgpu/wgsl": "0.6.0",
     "clsx": "^1.2.1",
     "gray-matter": "^4.0.3",
     "motion": "^12.43.0",
@@ -23,7 +24,8 @@
     "react-markdown": "^9.1.0",
     "react-syntax-highlighter": "^15.6.6",
     "rehype-raw": "^7.0.0",
-    "three": "^0.159.0"
+    "three": "^0.159.0",
+    "vgpu": "0.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
