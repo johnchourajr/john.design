@@ -4,7 +4,7 @@
 //   BASE_URL=http://localhost:3000 pnpm smoke
 
 const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
-// proxy.ts serves an empty page to short or bot user agents.
+// Vercel Firewall denies short or bot user agents in production (#90).
 const USER_AGENT =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 
