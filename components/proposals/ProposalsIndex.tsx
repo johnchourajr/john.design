@@ -21,9 +21,6 @@ export function ProposalsIndex({
 
   useEffect(() => {
     setEnableDrawing(false);
-    return () => {
-      setEnableDrawing(true);
-    };
   }, [setEnableDrawing]);
 
   return (

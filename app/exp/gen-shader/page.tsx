@@ -24,10 +24,6 @@ export default function Page() {
 
   useEffect(() => {
     setEnableDrawing(false);
-
-    return () => {
-      setEnableDrawing(true);
-    };
   }, [setEnableDrawing]);
 
   const hideSettings = searchParams.get('hideSettings') !== null;
