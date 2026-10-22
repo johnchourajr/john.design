@@ -1,6 +1,7 @@
 import { cancelFrame, frame as frameLoop, useReducedMotion } from 'motion/react';
 import { useCallback, useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
+import { debugNumber as n, mountShaderDebug } from './shaderDebug';
 import { useShaderUniforms } from './useShaderUniforms';
 
 /** A fullscreen-plane shader: the program plus any extra uniforms. */
@@ -37,6 +38,8 @@ export type ShaderInputHandle = {
   beforeRender?: () => void;
   /** Runs after the canvas resizes, with its drawing buffer in device pixels. */
   resize?: (buffer: ShaderSize) => void;
+  /** Lines for the `?shader-debug` panel. */
+  debug?: () => string[];
   dispose: () => void;
 };
 
@@ -105,6 +108,8 @@ export type ShaderRendererOptions = {
    * the canvas at rest. Touch always jumps.
    */
   jumpOnEnter?: boolean;
+  /** Shows the `?shader-debug` panel, headed with this label. */
+  debug?: string;
 };
 
 /** Seconds for `hover` to cover most of the way to its target. */
@@ -167,6 +172,7 @@ export const combineInputs =
       resize: (buffer) => {
         for (const handle of handles) handle.resize?.(buffer);
       },
+      debug: () => handles.flatMap((handle) => handle.debug?.() ?? []),
       dispose: () => {
         for (const handle of handles) handle.dispose();
       },
@@ -209,6 +215,7 @@ export function useShaderRenderer(
     snapToPixels = false,
     resizeWith,
     jumpOnEnter = false,
+    debug,
   }: ShaderRendererOptions,
 ) {
   // Fixed for the life of the component (motion reads it once).
@@ -289,7 +296,9 @@ export function useShaderRenderer(
     let lastTick = performance.now();
     let handle: ShaderInputHandle | null = null;
 
-    const render = () => {
+    let renders = 0;
+    const draw = () => {
+      renders += 1;
       if (uniforms.time) {
         uniforms.time.value = animate
           ? (performance.now() - startTime) * 0.001
@@ -302,6 +311,17 @@ export function useShaderRenderer(
       if (isReady) handle?.beforeRender?.();
       renderer.render(scene, camera);
     };
+    // With the debug panel up, a failing frame is recorded, not thrown.
+    let recordError: ((message: string) => void) | null = null;
+    const render = debug
+      ? () => {
+          try {
+            draw();
+          } catch (error) {
+            recordError?.(`render: ${String(error)}`);
+          }
+        }
+      : draw;
 
     // Frames run on motion's frame loop, after it has written this frame's
     // styles (postRender), so an input that reads the page, such as the
@@ -505,6 +525,41 @@ export function useShaderRenderer(
     }
     startLoop();
 
+    let panel: ReturnType<typeof mountShaderDebug> | null = null;
+    if (debug) {
+      const gl = renderer.getContext();
+      const maxRenderbuffer = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE);
+      const maxViewport = gl.getParameter(gl.MAX_VIEWPORT_DIMS) as Int32Array;
+      let lastRenders = 0;
+      let lastTime = performance.now();
+      let fps = 0;
+      panel = mountShaderDebug(() => {
+        const now = performance.now();
+        fps = ((renders - lastRenders) * 1000) / Math.max(1, now - lastTime);
+        lastRenders = renders;
+        lastTime = now;
+        const box = canvas.getBoundingClientRect();
+        const agent = navigator.userAgent
+          .replace(/Mozilla\/5\.0 |\(KHTML, like Gecko\) |AppleWebKit\/[\d.]+ /g, '')
+          .slice(0, 110);
+        return [
+          `shader ${debug}`,
+          `window ${window.innerWidth}x${window.innerHeight} @${window.devicePixelRatio}`,
+          `canvas css ${n(box.width)}x${n(box.height)} at ${n(box.left)},${n(box.top)}`,
+          `buffer ${canvas.width}x${canvas.height} (gl ${gl.drawingBufferWidth}x${gl.drawingBufferHeight}) ratio ${n(renderer.getPixelRatio(), 2)}`,
+          `max renderbuffer ${maxRenderbuffer}, viewport ${maxViewport?.[0]}x${maxViewport?.[1]}`,
+          `lost ${lost || gl.isContextLost()} looping ${looping} visible ${visible} ready ${isReady}`,
+          `fps ${n(fps)} (renders ${renders})`,
+          `hover ${n(hover, 2)} -> ${hoverTarget}`,
+          `pointer ${n(pointer.x)},${n(pointer.y)} mouse ${n(mouse.x)},${n(mouse.y)}`,
+          `frame ${n(frame.x)},${n(frame.y)} ${n(frame.width)}x${n(frame.height)} snap ${n(snap.x, 2)},${n(snap.y, 2)}`,
+          ...(handle?.debug?.() ?? []),
+          agent,
+        ];
+      });
+      recordError = panel.record;
+    }
+
     invalidateRef.current = invalidate;
     captureRef.current = () =>
       new Promise((resolve) => {
@@ -513,6 +568,7 @@ export function useShaderRenderer(
       });
 
     return () => {
+      panel?.dispose();
       invalidateRef.current = () => {};
       captureRef.current = () => Promise.resolve(null);
       stopLoop();
@@ -557,6 +613,7 @@ export function useShaderRenderer(
     snapToPixels,
     resizeWith,
     jumpOnEnter,
+    debug,
     reducedMotion,
   ]);
 

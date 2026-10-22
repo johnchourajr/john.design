@@ -95,6 +95,9 @@ export const headlineTexture =
     let retries = 0;
     let retryId = 0;
     let disposed = false;
+    // For the ?shader-debug panel.
+    let failures = 0;
+    let lastFailure = 'none';
     // The canvas's drawing buffer, and the band of it the texture covers:
     // only the headline's rows, so a viewport-wide canvas doesn't upload
     // a viewport-sized texture every time a letter moves.
@@ -347,6 +350,8 @@ export const headlineTexture =
       if (!bufferWidth || !bufferHeight) return;
       const matches = read();
       if (!matches) {
+        failures += 1;
+        lastFailure = new Date().toLocaleTimeString();
         // A font is still loading. Font events usually say when; retry a
         // few times in case they don't.
         setLive(false);
@@ -399,6 +404,14 @@ export const headlineTexture =
         // Refit the band to the new buffer.
         surface.width = 0;
         dirty = true;
+      },
+      debug: () => {
+        const rect = uniforms.headlineRect.value;
+        return [
+          `headline live ${live} (hasHeadline ${uniforms.hasHeadline.value}) dom opacity "${root.style.opacity}"`,
+          `glyphs ${glyphCount} band ${surface.width}x${surface.height} top ${bandTop} headlineRect ${rect.x.toFixed(3)},${rect.y.toFixed(3)} ${rect.z.toFixed(3)}x${rect.w.toFixed(3)}`,
+          `read failures ${failures} (last ${lastFailure}) retries ${retries} fonts ${document.fonts.status}`,
+        ];
       },
       dispose: () => {
         disposed = true;

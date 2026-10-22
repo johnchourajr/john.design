@@ -19,6 +19,7 @@ import {
   isHeadlineInShader,
   pickShaderVariant,
 } from '@/components/experimental/ImageThreeShader/shaders';
+import { isShaderDebug } from '@/components/experimental/shaderDebug';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { RolesSection } from '@/components/slices/RolesSection';
@@ -47,6 +48,8 @@ type ShaderConfig = {
   fragmentShader: string;
   /** Draw the headline inside the shader, so the effects warp it too (#108). */
   withHeadline: boolean;
+  /** `?shader-debug`: the variant's name, to head the debug panel. */
+  debug?: string;
 };
 
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
@@ -65,10 +68,12 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   useEffect(() => {
     // The variant is random, so choosing it during render would differ between server and
     // client and break hydration. Picking it once after mount is the intended pattern here.
+    const variant = pickShaderVariant(heroShaderVariants);
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setShaderConfig({
-      fragmentShader: fragmentThreeShaders[pickShaderVariant(heroShaderVariants)],
+      fragmentShader: fragmentThreeShaders[variant],
       withHeadline: isHeadlineInShader(),
+      debug: isShaderDebug() ? `home ${variant}` : undefined,
     });
   }, []);
 
@@ -126,6 +131,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             aspectRatio="1:1"
             shaderConfig={shaderConfig}
             getHeadline={shaderConfig.withHeadline ? getHeadline : undefined}
+            debug={shaderConfig.debug}
           />
         )}
       </div>

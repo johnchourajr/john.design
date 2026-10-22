@@ -51,6 +51,8 @@ type ImageThreeShaderProps = {
   getHeadline?: () => HTMLElement | null;
   /** WebGL is unavailable or was lost. */
   onError?: () => void;
+  /** Shows the `?shader-debug` panel, headed with this label. */
+  debug?: string;
 };
 
 const calculateDimensions = (
@@ -185,6 +187,7 @@ export const ImageThreeShader = ({
   shaderConfig,
   getHeadline,
   onError,
+  debug,
 }: ImageThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(
@@ -238,6 +241,7 @@ export const ImageThreeShader = ({
     // canvas would be resampled and the type softened.
     snapToPixels: !!getHeadline,
     onError,
+    debug,
   });
 
   return (

@@ -16,6 +16,7 @@ import {
   isHeadlineInShader,
   pickShaderVariant,
 } from '../experimental/ImageThreeShader/shaders';
+import { isShaderDebug } from '../experimental/shaderDebug';
 
 // three.js loads after the page, like the home hero's shader.
 const HeadlineShaderLayer = dynamic(() => import('./HeadlineShaderLayer'), {
@@ -40,25 +41,31 @@ type HeadlineShaderProps = {
 export function HeadlineShader({ children, className }: HeadlineShaderProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const getRoot = useCallback(() => rootRef.current, []);
-  const [fragmentShader, setFragmentShader] = useState<string | null>(null);
+  const [shader, setShader] = useState<{
+    fragmentShader: string;
+    debug?: string;
+  } | null>(null);
 
   useEffect(() => {
     if (!isHeadlineInShader()) return;
+    const variant = pickShaderVariant(heroShaderVariants);
     // Random and URL-driven, so it's chosen after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setFragmentShader(
-      fragmentThreeShaders[pickShaderVariant(heroShaderVariants)],
-    );
+    setShader({
+      fragmentShader: fragmentThreeShaders[variant],
+      debug: isShaderDebug() ? `headline ${variant}` : undefined,
+    });
   }, []);
 
   return (
     <div className={clsx('relative', className)}>
       <div ref={rootRef}>{children}</div>
-      {fragmentShader && (
+      {shader && (
         <HeadlineShaderLayer
           getRoot={getRoot}
-          fragmentShader={fragmentShader}
-          onError={() => setFragmentShader(null)}
+          fragmentShader={shader.fragmentShader}
+          debug={shader.debug}
+          onError={() => setShader(null)}
         />
       )}
     </div>

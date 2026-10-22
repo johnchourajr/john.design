@@ -37,6 +37,8 @@ type HeadlineShaderLayerProps = {
   getRoot: () => HTMLElement | null;
   fragmentShader: string;
   onError: () => void;
+  /** Shows the `?shader-debug` panel, headed with this label. */
+  debug?: string;
 };
 
 /**
@@ -48,6 +50,7 @@ export default function HeadlineShaderLayer({
   getRoot,
   fragmentShader,
   onError,
+  debug,
 }: HeadlineShaderLayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(() => headlineTexture(getRoot), [getRoot]);
@@ -69,6 +72,7 @@ export default function HeadlineShaderLayer({
     // The canvas ignores the pointer so links and selection under it work.
     pointerTarget: 'window',
     onError,
+    debug,
   });
 
   return (
