@@ -23,7 +23,7 @@ export const CoverMedia = ({
   if (template === 'shader') {
     return (
       <div className="relative w-full my-6">
-        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-[1200/600] inset-0" />
+        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-1200/600 inset-0" />
         <ImageThreeShader
           src={cover!}
           shaderConfig={{
