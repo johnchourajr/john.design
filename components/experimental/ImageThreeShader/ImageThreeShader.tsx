@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { useShaderUniforms } from '../useShaderUniforms';
 
 /**
  * Aspect ratio values supported by the ImageThreeShader component
@@ -163,6 +164,8 @@ export const ImageThreeShader = ({
     return () => observer.disconnect();
   }, []);
 
+  const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -178,8 +181,16 @@ export const ImageThreeShader = ({
     container.appendChild(renderer.domElement);
 
     // Load texture and setup material
+    let disposed = false;
+    let disposeMesh = () => {};
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load(src, (texture) => {
+      // The image can finish loading after unmount.
+      if (disposed) {
+        texture.dispose();
+        return;
+      }
+
       const geometry = new THREE.PlaneGeometry(2, 2);
       const material = new THREE.ShaderMaterial({
         uniforms: {
@@ -201,6 +212,11 @@ export const ImageThreeShader = ({
 
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
+      disposeMesh = () => {
+        texture.dispose();
+        geometry.dispose();
+        material.dispose();
+      };
 
       // Initial render
       const { width, height } = calculateDimensions(
@@ -271,14 +287,26 @@ export const ImageThreeShader = ({
     animate();
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(animationFrameId);
+      disposeMesh();
       renderer.dispose();
       scene.clear();
       container.removeChild(renderer.domElement);
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [src, aspectRatio, shaderConfig, baseUniforms]);
+    // Rebuild only when the program itself changes. Uniform values reach the
+    // live material through useShaderUniforms instead.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    src,
+    aspectRatio,
+    shaderConfig.fragmentShader,
+    shaderConfig.vertexShader,
+    uniformKeys,
+    baseUniforms,
+  ]);
 
   const aspect: Record<AspectRatio, string> = {
     '1:1': 'aspect-square',
