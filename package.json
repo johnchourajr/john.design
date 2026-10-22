@@ -52,7 +52,8 @@
   },
   "pnpm": {
     "overrides": {
-      "prismjs": "^1.30.0"
+      "prismjs": "^1.30.0",
+      "@modelcontextprotocol/server": "^2.3.1"
     }
   }
 }
