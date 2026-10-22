@@ -1,10 +1,29 @@
 'use client';
 
 import clsx from 'clsx';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion, type HTMLMotionProps } from 'motion/react';
 import React from 'react';
-import { getSettingValue } from '../experimental/SettingsComponents';
+
+import type { TextStructure } from '@/types/content-types';
+import {
+  getSettingValue,
+  type BooleanSetting,
+  type SliderSetting,
+} from '../experimental/SettingsComponents';
 import { TextContainer } from './TextContainer';
+
+/** The settings /exp/justified-headline passes in. */
+export type HeadlineSetting =
+  | BooleanSetting<'slant'>
+  | BooleanSetting<'letters'>
+  | SliderSetting<'speed'>;
+
+type JustifiedHeadlineInnerProps = Omit<HTMLMotionProps<'p'>, 'children'> & {
+  headline: TextStructure[];
+  letters?: boolean;
+  iterations?: number;
+  settings?: readonly HeadlineSetting[];
+};
 
 export function JustifiedHeadlineInner({
   headline,
@@ -12,11 +31,11 @@ export function JustifiedHeadlineInner({
   iterations = 4,
   settings,
   ...rest
-}: any) {
+}: JustifiedHeadlineInnerProps) {
   const [ani, setAni] = React.useState(0);
-  const speed = getSettingValue(settings, 'Speed', 1000);
-  const slant = getSettingValue(settings, 'Add Slant', false);
-  const animateLetters = getSettingValue(settings, 'Letters', letters);
+  const speed = getSettingValue(settings, 'speed', 1000);
+  const slant = getSettingValue(settings, 'slant', false);
+  const animateLetters = getSettingValue(settings, 'letters', letters);
   const reducedMotion = useReducedMotion();
 
   React.useEffect(() => {
@@ -38,7 +57,7 @@ export function JustifiedHeadlineInner({
       data-id={ani}
       {...rest}
     >
-      {headline.map(({ text, motionObject, className }: any, index: number) => {
+      {headline.map(({ text, motionObject, className }) => {
         return (
           <span
             key={text}
