@@ -8,6 +8,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
 } from 'react';
@@ -160,7 +161,14 @@ export function DrawingProvider({
     if (isClient) {
       const savedPoints = localStorage.getItem('storedPoints');
       if (savedPoints) {
-        const allPoints = JSON.parse(savedPoints);
+        let allPoints: StoredPointObj;
+        try {
+          allPoints = JSON.parse(savedPoints);
+        } catch {
+          // Corrupt or hand-edited storage shouldn't take the site down.
+          localStorage.removeItem('storedPoints');
+          return;
+        }
         // localStorage only exists in the browser, so this has to run after hydration
         // (and again on route change); reading it during render would mismatch the server HTML.
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -168,6 +176,12 @@ export function DrawingProvider({
       }
     }
   }, [isClient, pathname]);
+
+  // Reads the latest points without re-subscribing the listeners below on
+  // every pointer move.
+  const onPointerUp = useEffectEvent(() => {
+    storeCurrentDrawing();
+  });
 
   useEffect(() => {
     if (!enableDrawing) return;
@@ -181,8 +195,8 @@ export function DrawingProvider({
       setPoints((current) => [...current, [e.pageX, e.pageY, e.pressure]]);
     };
 
-    const handlePointerUp = (e: PointerEvent) => {
-      storeCurrentDrawing();
+    const handlePointerUp = () => {
+      onPointerUp();
     };
 
     document.addEventListener('pointerdown', handlePointerDown);
@@ -194,7 +208,7 @@ export function DrawingProvider({
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [points, pathname, enableDrawing, storeCurrentDrawing]);
+  }, [enableDrawing]);
 
   useEffect(() => {
     const DEBOUNCE_TIME = 150;
