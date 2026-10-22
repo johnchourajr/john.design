@@ -32,8 +32,8 @@ export function JustifiedHeadlineInner({
   return (
     <motion.p
       className={clsx(
-        'my-[10vw] w-full min-h-[100vh] font-black pointer-events-none',
-        slant && '!font-black-ritalic',
+        'my-[10vw] w-full min-h-screen font-black pointer-events-none',
+        slant && 'font-black-ritalic!',
       )}
       data-id={ani}
       {...rest}

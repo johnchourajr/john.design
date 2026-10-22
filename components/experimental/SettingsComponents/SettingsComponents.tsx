@@ -54,7 +54,7 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
           layout
           className={clsx(
             'w-5 h-5 rounded-full',
-            state.value ? 'bg-[var(--root-color)]' : 'bg-[#000000]',
+            state.value ? 'bg-(--root-color)' : 'bg-[#000000]',
           )}
         />
       </button>
@@ -117,7 +117,7 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
         <select
           value={state.value}
           onChange={handleChange}
-          className="border-1 border-root ring-root text-root p-1 rounded w-32"
+          className="border-1 border-root ring-root text-root p-1 rounded-sm w-32"
         >
           {options.map((option: string) => (
             <option key={option} value={option}>
@@ -129,14 +129,14 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
           <button
             type="button"
             onClick={() => navigateOptions('prev')}
-            className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
+            className="border-1 border-root ring-root text-root px-2 rounded-sm hover:opacity-50"
           >
             ↑
           </button>
           <button
             type="button"
             onClick={() => navigateOptions('next')}
-            className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
+            className="border-1 border-root ring-root text-root px-2 rounded-sm hover:opacity-50"
           >
             ↓
           </button>
@@ -150,7 +150,7 @@ export function SettingsGroup({ settings, setSettings }: any) {
   return (
     <LayoutGroup>
       <m.div
-        className="sticky bg-black p-4 bottom-2 left-2 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-2xl overflow-hidden border-1 border-[#ffffff24]"
+        className="sticky bg-black p-4 bottom-2 left-2 flex gap-4 flex-col w-fit max-w-[380px] z-100 rounded-2xl overflow-hidden border-1 border-[#ffffff24]"
         layout
       >
         {settings.map(({ type, ...rest }: any, index: number) => {
@@ -188,7 +188,7 @@ export function SettingsGroup({ settings, setSettings }: any) {
                   type="button"
                   key={index}
                   onClick={rest.onClick}
-                  className="bg-root text-white p-2 rounded"
+                  className="bg-root text-white p-2 rounded-sm"
                   layout="position"
                 >
                   {rest.label}

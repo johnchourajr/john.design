@@ -29,7 +29,7 @@ export function ProposalPage({
         <p className="headline-display-xs text-white">{client}</p>
         <h1
           className={clsx(
-            'headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em] text-white',
+            'headline-display-xl normal-case! font-pixel! font-normal! text-pretty max-w-[10em] text-white',
           )}
         >
           {title}

@@ -76,7 +76,7 @@ export function PillBlockList({ title, list }: PillBlockListProps) {
       <p className="text-string">{title}</p>
       <div
         className={clsx(
-          'flex flex-wrap items-center justify-center w-[112vw] -mx-[6vw]',
+          'flex flex-wrap items-center justify-center w-[112vw] mx-[-6vw]',
         )}
       >
         {list.map((item, index) => {

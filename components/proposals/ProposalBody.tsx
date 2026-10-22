@@ -92,7 +92,7 @@ function HeadingWithId({
 
   if (level === 2) {
     return (
-      <h2 id={id} className="!headline-display-sm scroll-mt-20">
+      <h2 id={id} className="headline-display-sm! scroll-mt-20">
         {children}
       </h2>
     );
@@ -125,7 +125,7 @@ const components: Partial<Components> = {
     return <HeadingWithId level={3}>{children}</HeadingWithId>;
   },
   hr() {
-    return <hr className="!border-t-white/10" />;
+    return <hr className="border-t-white/10!" />;
   },
   code(props) {
     const { children, className, node, ...rest } = props;
@@ -179,9 +179,9 @@ function TableOfContents({ items }: { items: TocItem[] }) {
 
   return (
     <nav className="hidden md:block sticky top-20 self-start pr-4 h-0 pt-4">
-      <ul className="space-y-2 !list-none !pl-0 flex flex-col gap-2">
+      <ul className="list-none! pl-0! flex flex-col gap-4">
         {items.map(({ id, text, level }, key) => (
-          <li key={id} className="!pl-0 !mb-0">
+          <li key={id} className="pl-0! mb-0!">
             <a
               href={`#${id}`}
               onClick={(e) => handleClick(e, id)}

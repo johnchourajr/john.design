@@ -21,14 +21,14 @@ export const CoverMedia = ({
   if (template === 'shader') {
     return (
       <div className="relative w-full my-6">
-        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-[1200/600] inset-0" />
+        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded-sm overflow-clip aspect-1200/600 inset-0" />
         <ImageThreeShader
           src={cover!}
           shaderConfig={{
             fragmentShader: fragmentThreeShaders['distortion'],
           }}
           aspectRatio="1200:600"
-          className="overflow-clip rounded"
+          className="overflow-clip rounded-sm"
         />
       </div>
     );
@@ -46,7 +46,7 @@ export const CoverMedia = ({
           autoPlay
           playsInline
           loop
-          className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+          className="w-full overflow-hidden rounded-sm border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : isSvg(cover) ? (
         <img
@@ -54,7 +54,7 @@ export const CoverMedia = ({
           alt=""
           width={1200}
           height={600}
-          className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+          className="w-full overflow-hidden rounded-sm border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : (
         <Image
@@ -63,7 +63,7 @@ export const CoverMedia = ({
           width={1200}
           height={600}
           sizes="(max-width: 640px) 100vw, 640px"
-          className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
+          className="w-full overflow-hidden rounded-sm border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
           priority
           loading="eager"
         />

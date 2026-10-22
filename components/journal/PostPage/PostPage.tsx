@@ -62,7 +62,7 @@ export const PostPage = ({
       </InlineLink>
       <h1
         className={clsx(
-          'headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em]',
+          'headline-display-xl normal-case! font-pixel! font-normal! text-pretty max-w-[10em]',
         )}
       >
         {title}

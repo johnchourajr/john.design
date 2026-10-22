@@ -1,3 +1,6 @@
+/* Makes the theme, the type plugin and the md: variant available to @apply. */
+@reference "../../styles/globals.css";
+
 .postBody {
   @apply grid grid-cols-4 auto-rows-auto;
 
@@ -11,18 +14,18 @@
   & h1,
   & h2,
   & h3 {
-    @apply headline-display-xs !leading-6 max-w-[35em] mt-4;
+    @apply headline-display-xs leading-6! max-w-[35em] mt-4;
   }
 
   & p {
-    @apply text-paragraph mb-4 max-w-[28em] !leading-8;
+    @apply text-paragraph mb-4 max-w-[28em] leading-8!;
 
     & a {
       @apply underline underline-offset-2 decoration-1;
     }
 
     & code {
-      @apply relative font-mono text-[1rem] bg-root text-black px-1 rounded-sm transition-colors duration-200 selection:!text-black;
+      @apply relative font-mono text-[1rem] bg-root text-black px-1 rounded-xs transition-colors duration-200 selection:text-black!;
 
       &:hover {
         @apply bg-white;
@@ -44,7 +47,7 @@
   }
 
   & pre {
-    @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 overflow-auto font-mono text-[.85rem] rounded mb-4 border-[#ffffff2c] bg-[#ffffff0d] border-[0.5px] h-fit mt-2;
+    @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 overflow-auto font-mono text-[.85rem] rounded-sm mb-4 border-[#ffffff2c] bg-[#ffffff0d] border-[0.5px] h-fit mt-2;
 
     @media (min-width: 768px) {
       max-width: calc(100% - 1rem);
@@ -64,11 +67,11 @@
   }
 
   & .postImage {
-    @apply overflow-hidden rounded border-[0.5px] border-[#ffffff30];
+    @apply overflow-hidden rounded-sm border-[0.5px] border-[#ffffff30];
   }
 
   & iframe {
-    @apply col-start-1 md:col-start-2 col-span-full md:col-span-3 mb-4 max-w-full select-none overflow-clip my-4 border-[#ffffff2c] !border-[0.5px] !rounded;
+    @apply col-start-1 md:col-start-2 col-span-full md:col-span-3 mb-4 max-w-full select-none overflow-clip my-4 border-[#ffffff2c] border-[0.5px]! rounded-sm!;
 
     @media (min-width: 768px) {
       max-width: calc(100% - 1rem);

@@ -59,7 +59,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <link rel="stylesheet" href="https://use.typekit.net/wqj3mof.css" />
         </noscript>
       </head>
-      <body className="bg-[var(--root-background)]">
+      <body className="bg-(--root-background)">
         {/* Script to load Typekit CSS asynchronously after initial render */}
         <Script id="typekit-async" src="/scripts/typekit-async.js" strategy="afterInteractive" />
         <PlausibleProvider
