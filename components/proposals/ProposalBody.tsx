@@ -92,7 +92,7 @@ function HeadingWithId({
 
   if (level === 2) {
     return (
-      <h2 id={id} className="headline-display-sm! scroll-mt-20">
+      <h2 id={id} className="headline-display-sm! leading-6! scroll-mt-20">
         {children}
       </h2>
     );
@@ -187,7 +187,7 @@ function TableOfContents({ items }: { items: TocItem[] }) {
               onClick={(e) => handleClick(e, id)}
               aria-current={activeId === id ? 'location' : undefined}
               className={clsx(
-                'text-body transition-colors duration-200 leading-snug cursor-pointer line-clamp-1',
+                'text-body transition-colors duration-200 cursor-pointer line-clamp-1',
                 level === 3 && 'ml-3',
                 activeId === id
                   ? 'text-white'
