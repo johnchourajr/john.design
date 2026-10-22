@@ -82,7 +82,8 @@
 .postImage {
   @apply col-start-1 col-span-full mb-4 max-w-full select-none;
 
-  &[alt='aside'] {
+  &[alt='aside'],
+  &[data-size='aside'] {
     @apply col-span-2 col-start-auto;
 
     @media (min-width: 768px) {
@@ -91,12 +92,16 @@
   }
 
   &[alt='sm'],
+  &[data-size='sm'],
   &[alt='md'],
-  &[alt='lg'] {
+  &[data-size='md'],
+  &[alt='lg'],
+  &[data-size='lg'] {
     @apply my-10;
   }
 
-  &[alt='xs'] {
+  &[alt='xs'],
+  &[data-size='xs'] {
     @apply col-start-1 col-span-2 md:col-start-3;
 
     @media (min-width: 768px) {
@@ -104,12 +109,15 @@
     }
   }
 
-  &[alt='sm'] {
+  &[alt='sm'],
+  &[data-size='sm'] {
     @apply col-start-1 col-span-3;
   }
 
   &[alt='md'],
-  &[alt='lg'] {
+  &[data-size='md'],
+  &[alt='lg'],
+  &[data-size='lg'] {
     @apply col-start-1 col-span-4;
   }
 }

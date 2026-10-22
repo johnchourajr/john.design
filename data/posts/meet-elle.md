@@ -16,4 +16,4 @@ She was born on August 1st, 2018 and she's an amazing little chunk of cuteness. 
 
 Fun nerdy Dad fact, her name is a palindrome, and so is her birthday (Elle and 8.1.18). 🤓
 
-![sm](/journal-images/gif/97a80930-f631-485f-828f-5b48f20d7150-animation.gif)
+![sm](/journal-images/video/97a80930-f631-485f-828f-5b48f20d7150-animation.mp4)
