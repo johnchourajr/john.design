@@ -52,7 +52,7 @@ export default function Footer() {
 
           <div className="inline-flex row gap-4 items-center">
             <p>Previous Versions:</p>
-            <InlineLink href="https://v4.john.design/?ref=v5" target="_blank">
+            <InlineLink href="https://v4.archive.john.design/?ref=v5" target="_blank">
               v4
             </InlineLink>
             <InlineLink
