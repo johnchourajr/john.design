@@ -5,6 +5,10 @@ const { wgslTurbopackRule } = require('@vgpu/wgsl/next');
 const nextConfig = {
   reactStrictMode: true,
   serverExternalPackages: ['three'],
+  images: {
+    // Journal media is served from the R2 bucket, see lib/media/hosted.ts.
+    remotePatterns: [{ protocol: 'https', hostname: 'media.john.design' }],
+  },
   turbopack: {
     rules: {
       // Prepares .wgsl imports for vgpu at build time (app/exp/vgpu-shader).

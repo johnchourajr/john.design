@@ -9,6 +9,7 @@ import {
   getVideoSources,
   isVideoSrc,
 } from '@/lib/pages/journal-media';
+import { mediaUrl } from '@/lib/media/hosted';
 
 import { CodeBlock } from './CodeBlock';
 import { LoopingVideo } from './LoopingVideo';
@@ -61,7 +62,7 @@ const components: Partial<Components> = {
     return <CustomParagraph>{children}</CustomParagraph>;
   },
   img({ src, alt }) {
-    const imageSrc = typeof src === 'string' ? src : '';
+    const imageSrc = mediaUrl(typeof src === 'string' ? src : '');
     const size = getMediaSize(imageSrc);
 
     // Animated GIFs are shipped as looping video, see #87.

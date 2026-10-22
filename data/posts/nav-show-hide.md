@@ -5,7 +5,7 @@ slug: "/journal-images/nav-show-hide"
 date: "2024-5-1"
 title: Make a Nav Show and Hide On Scroll
 cover: /journal-images/images/nav-cover.svg
-videoCover: /journal-images/video/nav-cover.mp4
+videoCover: /journal-images/video/nav-cover-avc.mp4
 thumb: /journal-images/images/nav-cover.svg
 tags:
   - Dev
