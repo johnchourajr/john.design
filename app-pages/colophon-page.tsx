@@ -1,5 +1,3 @@
-'use client';
-
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { colophonData } from '@/data/colophonContent';
