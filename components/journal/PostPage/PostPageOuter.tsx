@@ -12,10 +12,6 @@ export function PostPageOuter({ children }: PostPageOuterProps) {
 
   useEffect(() => {
     setEnableDrawing(false);
-
-    return () => {
-      setEnableDrawing(true);
-    };
   }, [setEnableDrawing]);
 
   return <article className="p-4">{children}</article>;

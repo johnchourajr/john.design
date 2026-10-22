@@ -49,7 +49,7 @@ export function DrawingProviderComponent({
       return false;
     }
   }, [searchParams]);
-  const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
+  const [enableDrawing, setEnableDrawing] = useState<boolean>(false);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
   const [docSize, setDocSize] = useState<DocSizeType>({
