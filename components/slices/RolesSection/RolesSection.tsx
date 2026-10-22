@@ -27,7 +27,7 @@ export function RolesSection({
     >
       <p
         ref={ref}
-        className="headline-display-xl normal-case! font-pixel! font-normal! text-center items-center leading-tight"
+        className="headline-display-xl normal-case! font-pixel! font-normal! text-center items-center"
       >
         {rolesSection?.text?.map((item, index) => {
           return (

@@ -14,7 +14,7 @@ export function NavDateTime() {
     <p
       className={clsx(
         'text-string relative',
-        'inline-flex row gap-4 z-50 relative pointer-events-none',
+        'row gap-4 z-50 relative pointer-events-none',
         'lg:inline-flex hidden',
         'min-w-[165px]',
       )}

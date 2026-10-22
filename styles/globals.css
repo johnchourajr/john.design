@@ -184,6 +184,18 @@
   }
 }
 
+/*
+  The theme names font families `bold` and `black`. v3 still emitted the
+  matching weights for font-bold and font-black too; v4 only emits the family.
+*/
+@utility font-bold {
+  font-weight: 700;
+}
+
+@utility font-black {
+  font-weight: 900;
+}
+
 @utility border-shadow {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 1), 0 2px 2px 0 rgba(0, 0, 0, 1);
 }

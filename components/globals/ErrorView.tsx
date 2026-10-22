@@ -20,7 +20,7 @@ export function ErrorView({ error, reset }: ErrorViewProps) {
 
   return (
     <section className="min-h-[70vh] px-4 py-[10vw] flex flex-col justify-center">
-      <h1 className="uppercase headline-display-xl font-black leading-none text-root">
+      <h1 className="uppercase headline-display-xl leading-none text-root">
         500
       </h1>
       <p className="text-string mt-6">Something broke on our end.</p>

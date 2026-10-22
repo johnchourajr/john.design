@@ -37,7 +37,7 @@ export function ProposalsIndex({
                 <p className="text-caption uppercase tracking-widest text-white/40 mb-2">
                   {proposal.frontmatter.client}
                 </p>
-                <p className="text-paragraph font-bold group-hover:text-root transition-colors duration-200">
+                <p className="text-paragraph group-hover:text-root transition-colors duration-200">
                   {proposal.frontmatter.title}
                 </p>
                 {proposal.frontmatter.description && (

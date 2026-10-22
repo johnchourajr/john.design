@@ -92,7 +92,8 @@ export function ResumeItem({ item, index }: { item: any; index: number }) {
         target="_blank"
         rel="noopener noreferrer"
         className={clsx(
-          'headline-display-lg-serif w-full flex-wrap inline-flex items-center justify-start whitespace-pre-wrap-children',
+          // No base justify-*: justifyClass sets it, and Tailwind v4 orders justify-* alphabetically, so a base justify-start would win.
+          'headline-display-lg-serif w-full flex-wrap inline-flex items-center whitespace-pre-wrap-children',
           justifyClass,
         )}
       >
