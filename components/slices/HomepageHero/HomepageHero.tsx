@@ -57,6 +57,9 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       'prism',
     ];
     const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+    // The variant is random, so choosing it during render would differ between server and
+    // client and break hydration. Picking it once after mount is the intended pattern here.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShaderConfig({
       fragmentShader: fragmentThreeShaders[randomVariant],
     });

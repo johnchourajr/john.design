@@ -10,6 +10,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useMemo,
 } from 'react';
 import {
   DocSizeType,
@@ -40,14 +41,14 @@ export function DrawingProviderComponent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Initialize iframe state from searchParams, but handle potential errors
-  const [isIframe, setIsIframe] = useState<boolean>(() => {
+  // Derived from searchParams, but handle potential errors
+  const isIframe = useMemo(() => {
     try {
       return searchParams?.get('iframe') !== null;
     } catch {
       return false;
     }
-  });
+  }, [searchParams]);
   const [enableDrawing, setEnableDrawing] = useState<boolean>(true);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -158,6 +159,9 @@ export function DrawingProviderComponent({
       const savedPoints = localStorage.getItem('storedPoints');
       if (savedPoints) {
         const allPoints = JSON.parse(savedPoints);
+        // localStorage only exists in the browser, so this has to run after hydration
+        // (and again on route change); reading it during render would mismatch the server HTML.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setStoredPoints(allPoints);
       }
     }
@@ -258,14 +262,6 @@ export function DrawingProviderComponent({
     };
   }, [isClient]);
 
-  useEffect(() => {
-    try {
-      setIsIframe(searchParams?.get('iframe') !== null);
-    } catch {
-      setIsIframe(false);
-    }
-  }, [searchParams]);
-
   return (
     <DrawingContext.Provider
       value={{
@@ -281,7 +277,6 @@ export function DrawingProviderComponent({
         docSize,
         setDocSize,
         isIframe,
-        setIsIframe,
       }}
     >
       {children}

@@ -15,7 +15,10 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from 'react';
+
+const subscribeToNothing = () => () => {};
 
 export function ResumeItem({ item, index }: { item: any; index: number }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -25,7 +28,12 @@ export function ResumeItem({ item, index }: { item: any; index: number }) {
   });
 
   const [isHovering, setIsHovering] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  // false on the server and during hydration, true once on the client
+  const isMounted = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false,
+  );
 
   // Static positions - always the same order for SSR/hydration consistency
   const basePositions = [
@@ -36,11 +44,6 @@ export function ResumeItem({ item, index }: { item: any; index: number }) {
   ];
 
   const [positions, setPositions] = useState(basePositions);
-
-  useEffect(() => {
-    // Mark as mounted to enable client-side animations
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isMounted) return; // Don't run until after hydration

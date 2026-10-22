@@ -20,5 +20,4 @@ export type DrawingContextType = {
   docSize: DocSizeType;
   setDocSize: React.Dispatch<React.SetStateAction<DocSizeType>>;
   isIframe: boolean;
-  setIsIframe: React.Dispatch<React.SetStateAction<boolean>>;
 };
