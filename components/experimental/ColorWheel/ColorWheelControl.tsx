@@ -1,5 +1,6 @@
 'use client';
 
+import { COLOR_DRAWER_ID } from '@/components/globals/Header/NavColorDrawer';
 import { useAppContext } from '@/context/AppProvider';
 import { ColorWheel } from './ColorWheel';
 
@@ -9,7 +10,9 @@ export function ColorWheelControl() {
   return (
     <ColorWheel
       handleClick={() => setToggleColorActive(!toggleColorActive)}
-      className="z-[9999] h-8 w-8 "
+      expanded={toggleColorActive}
+      controls={COLOR_DRAWER_ID}
+      className="z-[9999] h-8 w-8"
     />
   );
 }

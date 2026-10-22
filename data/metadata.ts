@@ -47,9 +47,6 @@ export const metadataContent: Metadata = {
     description: 'Art Director, Interactive Designer, and Creative Developer working on the internet.',
     images: ['/og.png']
   },
-  alternates: {
-    canonical: 'https://john.design',
-  },
   robots: {
     index: true,
     follow: true,
@@ -69,3 +66,23 @@ export const metadataContent: Metadata = {
 export const viewportContent: Viewport = {
   themeColor: '#ff0000',
 };
+
+/**
+ * Per-page metadata. Each page declares its own canonical URL; inheriting
+ * one from the root would mark every page as a duplicate of the homepage.
+ */
+export function pageMetadata({
+  title,
+  description,
+  path,
+}: {
+  title?: string;
+  description?: string;
+  path: string;
+}): Metadata {
+  return {
+    ...(title && { title }),
+    ...(description && { description }),
+    alternates: { canonical: path },
+  };
+}

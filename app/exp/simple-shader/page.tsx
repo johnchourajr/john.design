@@ -4,10 +4,9 @@ import { Suspense } from 'react';
 import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
 import InlineLink from '@/components/fragments/InlineLink';
-import { useSearchParams } from 'next/navigation';
+import { useLocationSearch } from '@/hooks/useLocationSearch';
 
-export default function Page() {
-  const searchParams = useSearchParams();
+function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
 
   const shaderConfig = {
@@ -32,5 +31,15 @@ export default function Page() {
         />
       </div>
     </Suspense>
+  );
+}
+
+// Query params are read after hydration so the page stays statically rendered.
+// Keying on them remounts with the right initial state once they're known.
+export default function Page() {
+  const search = useLocationSearch();
+
+  return (
+    <PageContent key={search} searchParams={new URLSearchParams(search)} />
   );
 }

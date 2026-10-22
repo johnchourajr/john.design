@@ -1,16 +1,16 @@
 'use client';
 
 import { FreehandCanvas } from '@/components/experimental/FreehandCanvas';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useLocationSearch } from '@/hooks/useLocationSearch';
+import { usePathname } from 'next/navigation';
 import React, {
   createContext,
-  Suspense,
   useCallback,
   useContext,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
-  useMemo,
 } from 'react';
 import {
   DocSizeType,
@@ -33,22 +33,25 @@ export const useDrawing = () => {
   return context;
 };
 
-export function DrawingProviderComponent({
+/** Turns drawing off while the calling page is mounted. */
+export function useDisableDrawing() {
+  const { setEnableDrawing } = useDrawing();
+
+  useEffect(() => {
+    setEnableDrawing(false);
+  }, [setEnableDrawing]);
+}
+
+export function DrawingProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  // Derived from searchParams, but handle potential errors
-  const isIframe = useMemo(() => {
-    try {
-      return searchParams?.get('iframe') !== null;
-    } catch {
-      return false;
-    }
-  }, [searchParams]);
+  // Not useSearchParams: that would force every page under this provider to
+  // render on the client only.
+  const search = useLocationSearch();
+  const isIframe = new URLSearchParams(search).has('iframe');
   const [enableDrawing, setEnableDrawing] = useState<boolean>(false);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -158,7 +161,14 @@ export function DrawingProviderComponent({
     if (isClient) {
       const savedPoints = localStorage.getItem('storedPoints');
       if (savedPoints) {
-        const allPoints = JSON.parse(savedPoints);
+        let allPoints: StoredPointObj;
+        try {
+          allPoints = JSON.parse(savedPoints);
+        } catch {
+          // Corrupt or hand-edited storage shouldn't take the site down.
+          localStorage.removeItem('storedPoints');
+          return;
+        }
         // localStorage only exists in the browser, so this has to run after hydration
         // (and again on route change); reading it during render would mismatch the server HTML.
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -166,6 +176,12 @@ export function DrawingProviderComponent({
       }
     }
   }, [isClient, pathname]);
+
+  // Reads the latest points without re-subscribing the listeners below on
+  // every pointer move.
+  const onPointerUp = useEffectEvent(() => {
+    storeCurrentDrawing();
+  });
 
   useEffect(() => {
     if (!enableDrawing) return;
@@ -179,8 +195,8 @@ export function DrawingProviderComponent({
       setPoints((current) => [...current, [e.pageX, e.pageY, e.pressure]]);
     };
 
-    const handlePointerUp = (e: PointerEvent) => {
-      storeCurrentDrawing();
+    const handlePointerUp = () => {
+      onPointerUp();
     };
 
     document.addEventListener('pointerdown', handlePointerDown);
@@ -192,7 +208,7 @@ export function DrawingProviderComponent({
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [points, pathname, enableDrawing, storeCurrentDrawing]);
+  }, [enableDrawing]);
 
   useEffect(() => {
     const DEBOUNCE_TIME = 150;
@@ -227,10 +243,6 @@ export function DrawingProviderComponent({
       if (shouldUpdateSize(newSize)) {
         previousSizeRef.current = newSize;
         setDocSize(newSize);
-
-        if (process.env.NODE_ENV === 'development') {
-          console.log('Size updated:', newSize);
-        }
       }
     };
 
@@ -282,13 +294,5 @@ export function DrawingProviderComponent({
       {children}
       <FreehandCanvas />
     </DrawingContext.Provider>
-  );
-}
-
-export function DrawingProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={null}>
-      <DrawingProviderComponent>{children}</DrawingProviderComponent>
-    </Suspense>
   );
 }

@@ -46,18 +46,14 @@ export function ResumeItem({ item, index }: { item: any; index: number }) {
   const [positions, setPositions] = useState(basePositions);
 
   useEffect(() => {
-    if (!isMounted) return; // Don't run until after hydration
+    if (!isMounted || isHovering) return; // Don't run until after hydration
 
+    // Rotate without mutating prev: StrictMode runs updaters twice.
     const interval = setInterval(() => {
-      setPositions((prev) => {
-        const last = prev.pop();
-        return last ? [last, ...prev] : prev;
-      });
+      setPositions((prev) =>
+        prev.length ? [prev[prev.length - 1], ...prev.slice(0, -1)] : prev,
+      );
     }, 1000);
-
-    if (isHovering) {
-      clearInterval(interval);
-    }
 
     return () => clearInterval(interval);
   }, [isHovering, isMounted]);

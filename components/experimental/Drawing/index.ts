@@ -1,1 +1,5 @@
-export { DrawingProvider, useDrawing } from './Drawing.context';
+export {
+  DrawingProvider,
+  useDisableDrawing,
+  useDrawing,
+} from './Drawing.context';

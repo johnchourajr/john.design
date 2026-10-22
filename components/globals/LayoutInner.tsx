@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useIsProposalDetail } from '@/hooks/useIsProposalDetail';
 import { useDrawing } from '../experimental/Drawing';
 
 export type LayoutInnerProps = {
@@ -11,8 +11,7 @@ export type LayoutInnerProps = {
 
 export function LayoutInner({ children }: LayoutInnerProps) {
   const { setEnableDrawing, isIframe } = useDrawing();
-  const pathname = usePathname();
-  const isProposalDetail = pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+  const isProposalDetail = useIsProposalDetail();
 
   useEffect(() => {
     if (isIframe) {
@@ -21,7 +20,7 @@ export function LayoutInner({ children }: LayoutInnerProps) {
   }, [isIframe, setEnableDrawing]);
 
   return (
-    <main className={clsx('relative z-10', !isIframe && !isProposalDetail && 'min-h-[100vh] pt-14', isProposalDetail && 'min-h-[100vh]')}>
+    <main className={clsx('relative z-10', !isIframe && !isProposalDetail && 'min-h-[100vh] pt-14 [[data-iframe]_&]:min-h-0 [[data-iframe]_&]:pt-0', isProposalDetail && 'min-h-[100vh]')}>
       {children}
     </main>
   );

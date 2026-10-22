@@ -20,6 +20,7 @@ export async function generateMetadata(props: { params: PostData }) {
   return {
     title,
     description,
+    alternates: { canonical: `/journal/${slug}` },
     openGraph: {
       title,
       description,

@@ -23,6 +23,8 @@ Runs on port 2424. See `package.json` scripts for all available commands.
 ### Non-obvious caveats
 
 - The global accent color uses CSS custom property `--root-color`. It is resolved server-side in `app/layout.tsx` from `root_color` cookie fallback to `#ff0000`, proposal pages can provide a per-page default via `themeColor` frontmatter (applied in `app/proposals/[slug]/layout.tsx`), and `AppProvider` persists user overrides back to the cookie.
-- `pnpm build` has a pre-existing failure on `/_global-error` page (`useContext` null reference). The dev server works fine despite this.
-- ESLint 9 requires flat config format. The repo uses `.eslintrc.json` (legacy) alongside `eslint.config.mjs` (flat config bridge). The flat config file imports from `eslint-config-next/core-web-vitals` directly.
-- Proposal detail pages (`/proposals/[slug]`) hide the site Header, Footer, and top padding via pathname checks in `NavWrapper`, `Footer`, and `LayoutInner`.
+- Pages are statically prerendered with full content. Avoid `useSearchParams` in anything that wraps the whole site (providers, layout chrome): it forces every page to render client-only. Read `window.location.search` via `useSyncExternalStore`, use the `useLocationSearch` hook (`lib/hooks/useLocationSearch.tsx`). Check with `pnpm build && pnpm exec next start` and inspect the HTML for `BAILOUT_TO_CLIENT_SIDE_RENDERING`.
+- `?iframe` embeds are flagged on `<html data-iframe>` by `public/scripts/iframe-flag.js` before first paint; site chrome hides with the `[[data-iframe]_&]:hidden` variant.
+- `proxy.ts` serves an empty page to short or bot user agents, including plain `curl`. Pass a browser `-A` user agent when inspecting HTML.
+- ESLint 9 uses the flat config in `eslint.config.mjs`, which imports `eslint-config-next/core-web-vitals`. `.eslintrc.ts` is legacy and ignored; its import-order and Prettier rules are not enforced.
+- Proposal detail pages (`/proposals/[slug]`) hide the site Header, Footer, and top padding via the `useIsProposalDetail` hook (`NavLeft`, `NavRight`, `Footer`, `LayoutInner`).
