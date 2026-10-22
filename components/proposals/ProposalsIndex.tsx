@@ -1,10 +1,9 @@
 'use client';
 
 import InlineLink from '@/components/fragments/InlineLink';
-import { useDrawing } from '@/components/experimental/Drawing';
+import { useDisableDrawing } from '@/components/experimental/Drawing';
 import { formatDate } from '@/lib/utils/formatDate';
 import { ProposalData } from '@/types/content-types';
-import { useEffect } from 'react';
 
 import { PasswordGate } from './PasswordGate';
 
@@ -17,11 +16,7 @@ export function ProposalsIndex({
   proposals,
   hasAccess,
 }: ProposalsIndexProps) {
-  const { setEnableDrawing } = useDrawing();
-
-  useEffect(() => {
-    setEnableDrawing(false);
-  }, [setEnableDrawing]);
+  useDisableDrawing();
 
   return (
     <div className="p-4">

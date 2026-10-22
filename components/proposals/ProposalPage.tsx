@@ -1,10 +1,9 @@
 'use client';
 
-import { useDrawing } from '@/components/experimental/Drawing';
+import { useDisableDrawing } from '@/components/experimental/Drawing';
 import { formatDate } from '@/lib/utils/formatDate';
 import { ProposalData } from '@/types/content-types';
 import clsx from 'clsx';
-import { useEffect } from 'react';
 
 import { ProposalBody } from './ProposalBody';
 
@@ -18,11 +17,7 @@ export function ProposalPage({
     frontmatter: { title, client, date },
   },
 }: ProposalPageProps) {
-  const { setEnableDrawing } = useDrawing();
-
-  useEffect(() => {
-    setEnableDrawing(false);
-  }, [setEnableDrawing]);
+  useDisableDrawing();
 
   if (!markdown) {
     return <div>Proposal not found</div>;

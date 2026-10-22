@@ -32,6 +32,15 @@ export const useDrawing = () => {
   return context;
 };
 
+/** Turns drawing off while the calling page is mounted. */
+export function useDisableDrawing() {
+  const { setEnableDrawing } = useDrawing();
+
+  useEffect(() => {
+    setEnableDrawing(false);
+  }, [setEnableDrawing]);
+}
+
 export function DrawingProvider({
   children,
 }: {

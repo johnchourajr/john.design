@@ -27,4 +27,4 @@ Runs on port 2424. See `package.json` scripts for all available commands.
 - `?iframe` embeds are flagged on `<html data-iframe>` by `public/scripts/iframe-flag.js` before first paint; site chrome hides with the `[[data-iframe]_&]:hidden` variant.
 - `proxy.ts` serves an empty page to short or bot user agents, including plain `curl`. Pass a browser `-A` user agent when inspecting HTML.
 - ESLint 9 requires flat config format. The repo uses `.eslintrc.json` (legacy) alongside `eslint.config.mjs` (flat config bridge). The flat config file imports from `eslint-config-next/core-web-vitals` directly.
-- Proposal detail pages (`/proposals/[slug]`) hide the site Header, Footer, and top padding via pathname checks in `NavWrapper`, `Footer`, and `LayoutInner`.
+- Proposal detail pages (`/proposals/[slug]`) hide the site Header, Footer, and top padding via the `useIsProposalDetail` hook (`NavLeft`, `NavRight`, `Footer`, `LayoutInner`).

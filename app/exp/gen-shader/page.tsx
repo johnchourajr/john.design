@@ -1,7 +1,7 @@
 'use client';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
-import { useDrawing } from '@/components/experimental/Drawing';
+import { useDisableDrawing } from '@/components/experimental/Drawing';
 import { GenThreeShader } from '@/components/experimental/GenThreeShader';
 import {
   genShaders,
@@ -19,11 +19,7 @@ const DEFAULT_SHADER = 'pinwheelShader';
 
 function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
-  const { setEnableDrawing } = useDrawing();
-
-  useEffect(() => {
-    setEnableDrawing(false);
-  }, [setEnableDrawing]);
+  useDisableDrawing();
 
   const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader =

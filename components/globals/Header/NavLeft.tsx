@@ -5,14 +5,11 @@ import clsx from 'clsx';
 import InlineLink from '@/components/fragments/InlineLink';
 import Logo from '@/components/svg/logo';
 import navData from '@/data/navData';
-import { usePathname } from 'next/navigation';
+import { useIsProposalDetail } from '@/hooks/useIsProposalDetail';
 import { NavSlash } from './NavSlash';
 
 export function NavLeft() {
-  const pathname = usePathname();
-
-  const isProposalDetail =
-    pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+  const isProposalDetail = useIsProposalDetail();
 
   return (
     <div className="inline-flex row gap-6 items-center">

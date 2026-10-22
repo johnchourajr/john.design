@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useIsProposalDetail } from '@/hooks/useIsProposalDetail';
 import { useDrawing } from '../experimental/Drawing';
 
 export type LayoutInnerProps = {
@@ -11,8 +11,7 @@ export type LayoutInnerProps = {
 
 export function LayoutInner({ children }: LayoutInnerProps) {
   const { setEnableDrawing, isIframe } = useDrawing();
-  const pathname = usePathname();
-  const isProposalDetail = pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+  const isProposalDetail = useIsProposalDetail();
 
   useEffect(() => {
     if (isIframe) {

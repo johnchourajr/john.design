@@ -1,18 +1,13 @@
 'use client';
 
-import { useDrawing } from '@/components/experimental/Drawing';
-import { useEffect } from 'react';
+import { useDisableDrawing } from '@/components/experimental/Drawing';
 
 export type PostPageOuterProps = {
   children: React.ReactNode;
 };
 
 export function PostPageOuter({ children }: PostPageOuterProps) {
-  const { setEnableDrawing } = useDrawing();
-
-  useEffect(() => {
-    setEnableDrawing(false);
-  }, [setEnableDrawing]);
+  useDisableDrawing();
 
   return <article className="p-4">{children}</article>;
 }
