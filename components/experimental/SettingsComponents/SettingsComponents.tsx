@@ -48,7 +48,7 @@ function SettingsBoolean<T extends BooleanSetting>({
           layout
           className={clsx(
             'w-5 h-5 rounded-full',
-            setting.value ? 'bg-[var(--root-color)]' : 'bg-[#000000]',
+            setting.value ? 'bg-(--root-color)' : 'bg-[#000000]',
           )}
         />
       </button>
@@ -191,7 +191,7 @@ export function SettingsGroup<S extends Setting>({
   return (
     <LayoutGroup>
       <m.div
-        className="sticky bg-black p-4 bottom-2 left-2 flex gap-4 flex-col w-fit max-w-[380px] z-[100] rounded-2xl overflow-hidden border-1 border-[#ffffff24]"
+        className="sticky bg-black p-4 bottom-2 left-2 flex gap-4 flex-col w-fit max-w-[380px] z-100 rounded-2xl overflow-hidden border-1 border-[#ffffff24]"
         layout
       >
         {settings.map((setting, index) => {
