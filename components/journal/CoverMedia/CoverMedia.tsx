@@ -1,5 +1,7 @@
 import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
+import { LoopingVideo } from '@/components/journal/LoopingVideo';
+import { getMediaSize, getVideoSources } from '@/lib/pages/journal-media';
 import Image from 'next/image';
 
 interface CoverMediaProps {
@@ -36,16 +38,20 @@ export const CoverMedia = ({
 
   if (!videoCover && !cover) return <div className="w-full my-6" />;
 
+  const videoSize = videoCover ? getMediaSize(videoCover) : null;
+  const coverSize = (cover && getMediaSize(cover)) || {
+    width: 1200,
+    height: 600,
+  };
+
   return (
     <div className="w-full my-6">
       {videoCover ? (
-        <video
-          src={videoCover}
-          controls={false}
-          muted
-          autoPlay
-          playsInline
-          loop
+        <LoopingVideo
+          sources={getVideoSources(videoCover)}
+          width={videoSize?.width}
+          height={videoSize?.height}
+          lazy={false}
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : isSvg(cover) ? (
@@ -60,9 +66,10 @@ export const CoverMedia = ({
         <Image
           src={cover! || ''}
           alt=""
-          width={1200}
-          height={600}
-          sizes="(max-width: 640px) 100vw, 640px"
+          width={coverSize.width}
+          height={coverSize.height}
+          // The cover spans the full article width.
+          sizes="100vw"
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
           priority
           loading="eager"

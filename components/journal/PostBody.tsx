@@ -4,7 +4,14 @@ import { Children, ReactElement, isValidElement } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 
+import {
+  getMediaSize,
+  getVideoSources,
+  isVideoSrc,
+} from '@/lib/pages/journal-media';
+
 import { CodeBlock } from './CodeBlock';
+import { LoopingVideo } from './LoopingVideo';
 import styles from './journal.module.css';
 
 export type PostBodyProps = {
@@ -13,6 +20,17 @@ export type PostBodyProps = {
 
 const isImageNode = (node: ReactElement<any>): boolean => {
   return node.props.src && typeof node.props.src === 'string';
+};
+
+/**
+ * The rendered width of a post image, from its layout hint in the alt text
+ * (see `.postImage` in journal.module.css): xs and aside take two of the four
+ * columns, sm three, everything else the full width.
+ */
+const imageSizes = (alt?: string): string => {
+  if (alt === 'xs' || alt === 'aside') return '50vw';
+  if (alt === 'sm') return '75vw';
+  return '100vw';
 };
 
 const CustomParagraph: React.FC<{ children: React.ReactNode }> = ({
@@ -44,30 +62,51 @@ const components: Partial<Components> = {
   },
   img({ src, alt }) {
     const imageSrc = typeof src === 'string' ? src : '';
-    const useNativeImg =
-      /\.(gif|svg)(\?.*)?$/i.test(imageSrc) ||
-      imageSrc.startsWith('/journal-images/');
-    if (useNativeImg) {
+    const size = getMediaSize(imageSrc);
+
+    // Animated GIFs are shipped as looping video, see #87.
+    if (isVideoSrc(imageSrc)) {
+      return (
+        <LoopingVideo
+          sources={getVideoSources(imageSrc)}
+          width={size?.width}
+          height={size?.height}
+          size={alt || undefined}
+          className={styles.postImage}
+        />
+      );
+    }
+
+    if (!size || /\.(gif|svg)(\?.*)?$/i.test(imageSrc)) {
       return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={imageSrc}
           alt={alt || ''}
+          width={size?.width}
+          height={size?.height}
           className={styles.postImage}
           loading="lazy"
+          decoding="async"
         />
       );
     }
+
     return (
       <Image
         src={imageSrc}
         alt={alt || ''}
-        sizes="(max-width: 640px) 100vw, 640px"
+        width={size.width}
+        height={size.height}
+        sizes={imageSizes(alt)}
         className={styles.postImage}
-        width={1200}
-        height={1200}
       />
     );
+  },
+  iframe(props) {
+    const { node, ...rest } = props;
+    // Embeds sit far down long posts; don't fetch them with the page.
+    return <iframe {...rest} loading={rest.loading ?? 'lazy'} />;
   },
   code(props) {
     const { children, className, node, ...rest } = props;
