@@ -79,6 +79,13 @@ const daylightData: PageItem[] = [
 
 const moonlightData: PageItem[] = [
   {
+    slug: 'bueno-fund',
+    title: 'bueno.fund',
+    date: '2026-2-16',
+    tags: ['Design', 'Dev'],
+    externalHref: 'https://bueno.fund/',
+  },
+  {
     slug: 'processcreative',
     title: 'Process Creative',
     date: '2025-5-1',
@@ -121,18 +128,11 @@ const moonlightData: PageItem[] = [
     externalHref: 'https://thegrandlb.com/',
   },
   {
-    slug: 'the-cape',
-    title: 'thecape.agency',
-    date: '2023-11-1',
-    tags: ['Design', 'Dev', 'Art Direction'],
-    externalHref: 'https://thecape.agency/',
-  },
-  {
     slug: 'smile-gdp',
     title: 'smilegdp.com',
     date: '2022-5-1',
     tags: ['Design', 'Dev', 'Art Direction'],
-    externalHref: 'https://smilegdp.com/',
+    externalHref: 'https://smilegdp.archive.john.design/',
   },
   {
     slug: 'petroleum-club',

@@ -21,7 +21,7 @@ export function NavDrawingControls() {
   const sharedProps = {
     className: clsx(
       'text-string relative',
-      'z-40',
+      'z-50',
       !hasStoredPoints && 'cursor-not-allowed',
     ),
     variants: {
