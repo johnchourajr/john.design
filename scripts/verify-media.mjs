@@ -11,7 +11,11 @@ const failures = [];
 
 await Promise.all(
   Object.entries(manifest).map(async ([path, { bytes }]) => {
-    const res = await fetch(ORIGIN + encodeURI(path), { method: 'HEAD' });
+    // Compressed responses (e.g. SVG) drop Content-Length, so ask for identity.
+    const res = await fetch(ORIGIN + encodeURI(path), {
+      method: 'HEAD',
+      headers: { 'accept-encoding': 'identity' },
+    });
     const length = Number(res.headers.get('content-length'));
     if (res.status !== 200) failures.push(`${path}: HTTP ${res.status}`);
     else if (length !== bytes) failures.push(`${path}: ${length} bytes, expected ${bytes}`);
