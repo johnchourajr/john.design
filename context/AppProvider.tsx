@@ -1,6 +1,6 @@
 'use client';
 
-import { NavColorOverlay } from '@/components/globals/Header/NavColorOverlay';
+import { NavColorDrawer } from '@/components/globals/Header/NavColorDrawer';
 import {
   DEFAULT_ROOT_COLOR,
   ROOT_COLOR_COOKIE_NAME,
@@ -69,7 +69,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      <NavColorOverlay />
+      <NavColorDrawer />
     </AppContext.Provider>
   );
 }

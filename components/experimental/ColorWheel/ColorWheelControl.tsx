@@ -7,13 +7,9 @@ export function ColorWheelControl() {
   const { toggleColorActive, setToggleColorActive } = useAppContext();
 
   return (
-    <>
-      {!toggleColorActive && (
-        <ColorWheel
-          handleClick={() => setToggleColorActive(true)}
-          className="z-[9999] h-8 w-8 "
-        />
-      )}
-    </>
+    <ColorWheel
+      handleClick={() => setToggleColorActive(!toggleColorActive)}
+      className="z-[9999] h-8 w-8 "
+    />
   );
 }
