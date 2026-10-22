@@ -32,7 +32,7 @@
     "react-markdown": "^9.1.0",
     "react-syntax-highlighter": "^15.6.6",
     "rehype-raw": "^7.0.0",
-    "three": "^0.159.0",
+    "three": "^0.186.1",
     "vgpu": "0.6.0"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "@types/three": "^0.159.0",
+    "@types/three": "^0.186.0",
     "@typescript-eslint/eslint-plugin": "^8.72.0",
     "@typescript-eslint/parser": "^8.72.0",
     "eslint": "^9.39.5",
