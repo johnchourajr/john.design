@@ -20,6 +20,10 @@ Runs on port 2424. See `package.json` scripts for all available commands.
 - `pnpm typecheck` -- TypeScript (`tsc --noEmit`)
 - `pnpm precommit` -- runs both lint and typecheck
 
+### Tickets
+
+Tickets are GitHub Issues, via `gh issue`. How to title, write, label and link them is in `.claude/skills/github-issues/SKILL.md`. PR bodies open with `Closes #N`.
+
 ### Non-obvious caveats
 
 - The global accent color uses CSS custom property `--root-color`. It is resolved server-side in `app/layout.tsx` from `root_color` cookie fallback to `#ff0000`, proposal pages can provide a per-page default via `themeColor` frontmatter (applied in `app/proposals/[slug]/layout.tsx`), and `AppProvider` persists user overrides back to the cookie.
