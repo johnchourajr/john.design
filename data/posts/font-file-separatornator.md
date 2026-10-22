@@ -27,13 +27,13 @@ First things first, head over to the [GitHub repo](https://github.com/johnchoura
 
 Once you’ve got the script, place it in your directory of choice. Anywhere you want. It’s flexible like that.
 
-![xs](/journal-images/font-file-separatornator/movesh.gif)
+![xs](/journal-images/font-file-separatornator/movesh.mp4)
 
 ### Step 3: Open a Terminal (Cue Dramatic Music)
 
 Navigate to your folder of destiny using your terminal. If you don’t know how to open a terminal, we might need to have a different conversation.
 
-![xs](/journal-images/font-file-separatornator/openterminal.gif)
+![xs](/journal-images/font-file-separatornator/openterminal.mp4)
 
 ### Step 4: Command Your Script
 
@@ -49,7 +49,7 @@ Then, let it do its thing:
 ./Font_File_Separatornator.sh
 ```
 
-![xs](/journal-images/font-file-separatornator/runsh.gif)
+![xs](/journal-images/font-file-separatornator/runsh.mp4)
 
 ### Step 5: Bask in the Glory of Organized Fonts
 
