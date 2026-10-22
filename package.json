@@ -13,14 +13,14 @@
   "dependencies": {
     "@muybuen/type": "^1.1.8",
     "@vgpu/wgsl": "0.6.0",
-    "clsx": "^1.2.1",
+    "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "motion": "^12.43.0",
     "next": "^16.4.2",
     "next-plausible": "^3.12.5",
     "perfect-freehand": "^1.2.3",
-    "react": "19.2.9",
-    "react-dom": "19.2.9",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "react-markdown": "^9.1.0",
     "react-syntax-highlighter": "^15.6.6",
     "rehype-raw": "^7.0.0",
@@ -28,10 +28,9 @@
     "vgpu": "0.6.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.7",
-    "@types/node": "^20.19.43",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.7",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/three": "^0.159.0",
     "@typescript-eslint/eslint-plugin": "^8.72.0",
@@ -40,22 +39,13 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.2",
     "postcss": "^8.5.31",
-    "postcss-import": "^16.2.0",
+    "postcss-import": "^17.0.1",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3"
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.2.18",
-      "@types/react-dom": "19.2.7",
       "prismjs": "^1.30.0"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "react": "19",
-        "react-dom": "19",
-        "next": "16"
-      }
     }
   }
 }
