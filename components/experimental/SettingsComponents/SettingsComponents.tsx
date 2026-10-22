@@ -7,8 +7,10 @@ export function getSettingValue(
   name: string,
   fallback: string | boolean | number = true,
 ) {
-  if (!settings || settings === undefined) return fallback;
-  return settings?.find((setting: any) => setting.name === name).value;
+  if (!settings) return fallback;
+  return (
+    settings.find((setting: any) => setting.name === name)?.value ?? fallback
+  );
 }
 
 // hook that can write state to an object on an array
@@ -45,6 +47,7 @@ function SettingsBoolean({ index, name, settings, setSettings, value }: any) {
     >
       <span className="truncate">{name}</span>
       <button
+        type="button"
         onClick={toggle}
         className={clsx(
           'flex p-1 rounded-full bg-[rgba(255,255,255,.2)] w-12',
@@ -132,12 +135,14 @@ function SettingsSelect({ index, name, settings, setSettings, options }: any) {
         </select>
         <div className="inline-flex gap-1">
           <button
+            type="button"
             onClick={() => navigateOptions('prev')}
             className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
           >
             ↑
           </button>
           <button
+            type="button"
             onClick={() => navigateOptions('next')}
             className="border-1 border-root ring-root text-root px-2 rounded hover:opacity-50"
           >
@@ -188,6 +193,7 @@ export function SettingsGroup({ settings, setSettings }: any) {
             case 'Button':
               return (
                 <m.button
+                  type="button"
                   key={index}
                   onClick={rest.onClick}
                   className="bg-root text-white p-2 rounded"

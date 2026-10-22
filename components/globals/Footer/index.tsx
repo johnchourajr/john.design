@@ -32,7 +32,7 @@ export default function Footer() {
         </p>
 
         <div className="inline-flex row gap-6 items-center pt-10">
-          <InlineLink href="/" className={clsx('z-50 relative')}>
+          <InlineLink href="/" aria-label="Home" className="z-50 relative">
             <Logo />
           </InlineLink>
 
