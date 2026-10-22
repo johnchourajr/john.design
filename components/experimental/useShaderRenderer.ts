@@ -90,7 +90,16 @@ export type ShaderRendererOptions = {
   snapToPixels?: boolean;
   /** Another element whose size feeds `getSize`, e.g. content the canvas has to cover. */
   resizeWith?: () => Element | null;
+  /**
+   * Jump `mouse` straight to the pointer when it arrives over the canvas,
+   * instead of gliding in from wherever it was. For effects that wait off
+   * the canvas at rest. Touch always jumps.
+   */
+  jumpOnEnter?: boolean;
 };
+
+/** Seconds for `hover` to cover most of the way to its target. */
+const HOVER_EASE = 0.18;
 
 export const defaultVertexShader = `
   varying vec2 vUv;
@@ -189,6 +198,7 @@ export function useShaderRenderer(
     onError,
     snapToPixels = false,
     resizeWith,
+    jumpOnEnter = false,
   }: ShaderRendererOptions,
 ) {
   // Fixed for the life of the component (motion reads it once).
@@ -258,6 +268,10 @@ export function useShaderRenderer(
     let lost = false;
     let looping = false;
     let stillPending = false;
+    // `hover`: 1 while a pointer or finger is over the canvas, eased.
+    let hover = 0;
+    let hoverTarget = 0;
+    let lastTick = performance.now();
     let handle: ShaderInputHandle | null = null;
 
     const render = () => {
@@ -267,6 +281,7 @@ export function useShaderRenderer(
           : 0;
       }
       uniforms.mouse?.value.set(mouse.x, mouse.y);
+      if (uniforms.hover) uniforms.hover.value = hover;
       // Inputs prepare a frame only once the plane is drawn, so nothing
       // swaps itself out for a canvas that is still empty.
       if (isReady) handle?.beforeRender?.();
@@ -287,6 +302,11 @@ export function useShaderRenderer(
         return;
       }
       if (handle?.shouldAnimate && !handle.shouldAnimate()) return;
+      const now = performance.now();
+      const elapsed = Math.min((now - lastTick) / 1000, 0.1);
+      lastTick = now;
+      hover += (hoverTarget - hover) * (1 - Math.exp(-elapsed / HOVER_EASE));
+      if (Math.abs(hoverTarget - hover) < 0.001) hover = hoverTarget;
       mouse.x += (pointer.x - mouse.x) * mouseDamping;
       mouse.y += (pointer.y - mouse.y) * mouseDamping;
       render();
@@ -305,9 +325,10 @@ export function useShaderRenderer(
     };
 
     // One frame on request, for when the loop isn't running to draw it.
+    // Off-screen, it waits: the loop or the next visible frame draws it.
     const invalidate = () => {
       const animating = looping && handle?.shouldAnimate?.() !== false;
-      if (animating || stillPending || lost) return;
+      if (animating || stillPending || lost || !visible) return;
       stillPending = true;
       frameLoop.postRender(still);
     };
@@ -362,15 +383,17 @@ export function useShaderRenderer(
       ([entry]) => {
         visible = entry.isIntersecting;
         startLoop();
+        // Without the loop, catch up on anything that changed off-screen.
+        if (!animate) invalidate();
       },
       { threshold: 0.1 },
     );
     intersectionObserver.observe(container);
 
-    const handleMouseMove = (event: MouseEvent) => {
+    const setPointer = (clientX: number, clientY: number) => {
       const bounds = container.getBoundingClientRect();
-      const x = event.clientX - bounds.left;
-      const y = event.clientY - bounds.top;
+      const x = clientX - bounds.left;
+      const y = clientY - bounds.top;
       if (mouseSpace === 'ndc') {
         pointer.x = (x / bounds.width) * 2 - 1;
         pointer.y = -(y / bounds.height) * 2 + 1;
@@ -379,9 +402,72 @@ export function useShaderRenderer(
         pointer.y = y - frame.y - snap.y;
       }
     };
+
+    const isOverCanvas = (clientX: number, clientY: number) => {
+      const area = canvas.getBoundingClientRect();
+      return (
+        clientX >= area.left &&
+        clientX <= area.right &&
+        clientY >= area.top &&
+        clientY <= area.bottom
+      );
+    };
+
+    // Mirrored on the canvas as data-hover, for tests and devtools. Only
+    // written when it changes.
+    const setHoverTarget = (next: number) => {
+      if (hoverTarget === next) return;
+      hoverTarget = next;
+      canvas.dataset.hover = String(next);
+    };
+
+    const enter = (jump: boolean) => {
+      // Arriving from rest: start where the pointer is, not where it was.
+      if (jump && hover < 0.05) {
+        mouse.x = pointer.x;
+        mouse.y = pointer.y;
+      }
+      setHoverTarget(1);
+    };
+    const leave = () => {
+      setHoverTarget(0);
+    };
+
+    // A mouse or pen. Touch has its own handlers below.
+    const handlePointerMove = (event: PointerEvent) => {
+      if (event.pointerType === 'touch') return;
+      setPointer(event.clientX, event.clientY);
+      if (pointerTarget === 'container' || isOverCanvas(event.clientX, event.clientY)) {
+        enter(jumpOnEnter);
+      } else {
+        leave();
+      }
+    };
+
+    // A finger drives the effect while it's down on the canvas, scrolling
+    // included (touch events keep coming while the page scrolls), and lets
+    // go when it lifts: nothing stays stuck.
+    const handleTouch = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch || !isOverCanvas(touch.clientX, touch.clientY)) {
+        leave();
+        return;
+      }
+      setPointer(touch.clientX, touch.clientY);
+      enter(true);
+    };
+
     const pointerSource: HTMLElement | Window =
       pointerTarget === 'window' ? window : container;
-    pointerSource.addEventListener('mousemove', handleMouseMove as EventListener);
+    const listen = { passive: true };
+    pointerSource.addEventListener('pointermove', handlePointerMove as EventListener, listen);
+    if (pointerTarget === 'container') container.addEventListener('pointerleave', leave);
+    document.documentElement.addEventListener('pointerleave', leave);
+    window.addEventListener('blur', leave);
+    window.addEventListener('touchstart', handleTouch, listen);
+    window.addEventListener('touchmove', handleTouch, listen);
+    window.addEventListener('touchend', handleTouch, listen);
+    window.addEventListener('touchcancel', leave, listen);
 
     // A lost context draws nothing, so hand back to the fallback. Disposing
     // the input first lets it restore anything it hid.
@@ -417,9 +503,16 @@ export function useShaderRenderer(
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       pointerSource.removeEventListener(
-        'mousemove',
-        handleMouseMove as EventListener,
+        'pointermove',
+        handlePointerMove as EventListener,
       );
+      container.removeEventListener('pointerleave', leave);
+      document.documentElement.removeEventListener('pointerleave', leave);
+      window.removeEventListener('blur', leave);
+      window.removeEventListener('touchstart', handleTouch);
+      window.removeEventListener('touchmove', handleTouch);
+      window.removeEventListener('touchend', handleTouch);
+      window.removeEventListener('touchcancel', leave);
       canvas.removeEventListener('webglcontextlost', handleContextLost);
       handle?.dispose();
       geometry.dispose();
@@ -450,6 +543,7 @@ export function useShaderRenderer(
     pointerTarget,
     snapToPixels,
     resizeWith,
+    jumpOnEnter,
     reducedMotion,
   ]);
 

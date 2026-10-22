@@ -51,16 +51,16 @@ export const pixelShader = `
       pixelated = clamp(pixelated, vec2(0.001), vec2(0.999));
 
       // The headline is the inverse: sharp at rest, pixelated in the window,
-      // so the pointer reads on the type as well as the portrait.
-      float typeSize = pow((1.0 - reveal) * basePixelSize, 1.5);
-      vec2 typeUV = typeSize > 0.0001
-        ? pixelate(textureUV, typeSize, screenAspect)
-        : textureUV;
-      typeUV += wobble * (1.0 - reveal);
-
-      gl_FragColor = over(
-        sampleHeadline(typeUV),
-        texture2D(image, pixelated) * g_inFrame
+      // so the pointer reads on the type as well as the portrait. Its blocks
+      // keep one size (the portrait's) and fade in across the window's edge;
+      // a size that shrank with distance would smear thin type into streaks.
+      vec2 typeBlocks = pixelate(textureUV, pow(basePixelSize, 1.5), screenAspect);
+      vec4 type = mix(
+        sampleHeadline(textureUV),
+        sampleHeadline(typeBlocks + wobble),
+        (1.0 - reveal) * hover
       );
+
+      gl_FragColor = over(type, texture2D(image, pixelated) * g_inFrame);
     }
 `;

@@ -50,20 +50,30 @@ export const prismShader = `
 
   // Global for current texture position
   vec2 g_textureUV;
+  // The headline seen through the cube, gathered alongside the image by
+  // renderCubeWithEdge, with the same weights.
+  vec4 g_typeThrough;
 
   vec3 sampleImage(vec3 rd) {
     // Sample from the current pixel's texture position with refraction offset
     vec2 offset = rd.xy * 0.2;
     vec2 uv = g_textureUV + offset;
-    // The headline is refracted too, unclamped: it can run past the image.
-    vec4 type = sampleHeadline(uv);
     uv = clamp(uv, 0.0, 1.0);
-    return type.rgb + texture2D(image, uv).rgb * (1.0 - type.a);
+    return texture2D(image, uv).rgb;
+  }
+
+  // The headline along a refracted ray, unclamped: it can run past the image.
+  // On its own, a headline is one short line in a tall frame: bent as far
+  // as the portrait, its letters would refract clean out of the cube, so
+  // they bend less and stay legible in the glass.
+  vec4 sampleType(vec3 rd) {
+    return sampleHeadline(g_textureUV + rd.xy * mix(0.2, 0.05, hideImage));
   }
 
   // Returns vec4: rgb = color, a = edge distance (0 = at edge, 1 = center)
   vec4 renderCubeWithEdge(vec3 ro, vec3 rd, float dispersionOffset) {
     float rl = intersectCube(ro, rd);
+    g_typeThrough = vec4(0.0);
 
     if (rl > 0.0) {
       float ior = IOR + DISPERSION * (dispersionOffset - 0.5);
@@ -87,6 +97,7 @@ export const prismShader = `
       vec3 reflectd = reflect(rd, nor);
       float refl = getReflectance(rd, refractd, nor, 1.0, ior);
       vec3 c = sampleImage(reflectd) * refl;
+      g_typeThrough = sampleType(reflectd) * refl;
       power *= 1.0 - refl;
       rd = refractd;
 
@@ -99,6 +110,7 @@ export const prismShader = `
         refl = getReflectance(rd, refractd, -nor, ior, 1.0);
         power *= exp(-ABSORPTION * rl);
         c += sampleImage(refractd) * (1.0 - refl) * power;
+        g_typeThrough += sampleType(refractd) * (1.0 - refl) * power.x;
         power *= refl;
         rd = reflectd;
       }
@@ -115,9 +127,11 @@ export const prismShader = `
     // Set global for image sampling
     g_textureUV = textureUV;
 
-    // Mouse position normalized (0-1)
+    // Mouse position normalized (0-1). A headline on its own has no image
+    // to keep the cube inside, so the cube reaches every letter.
     vec2 mouseNorm = vec2(mouse.x / resolution.x, 1.0 - mouse.y / resolution.y);
-    mouseNorm = clamp(mouseNorm, 0.2, 0.8);
+    vec2 mouseClamped = clamp(mouseNorm, 0.2, 0.8);
+    if (hideImage < 0.5) mouseNorm = mouseClamped;
 
     // ShaderToy-style normalized coordinates centered on mouse
     vec2 fragCoord = uv * resolution;
@@ -131,7 +145,7 @@ export const prismShader = `
     vec3 rd = normalize(vec3(localCoord, 1.0));
 
     // Mouse influence on rotation (centered at 0.5)
-    vec2 mouseInfluence = (mouseNorm - 0.5) * 0.6;
+    vec2 mouseInfluence = (mouseClamped - 0.5) * 0.6;
 
     // Rotation with mouse influence
     vec3 rotation = vec3(
@@ -143,28 +157,44 @@ export const prismShader = `
     rd = rotateCube(rd, rotation);
 
     // Render with edge detection
-    vec4 bgColor = over(sampleHeadline(textureUV), texture2D(image, textureUV) * g_inFrame);
+    vec4 bgColor = texture2D(image, textureUV) * g_inFrame;
+    vec4 restingType = sampleHeadline(textureUV);
+    vec4 type = restingType;
     float hitTest = intersectCube(ro, rd);
 
-    // The cube belongs to the image: past its frame, it stays cut off.
-    if (hitTest > 0.01 && g_inFrame > 0.5) {
+    if (hitTest > 0.01 && (g_inFrame > 0.5 || hideImage > 0.5)) {
       vec4 rResult = renderCubeWithEdge(ro, rd, 0.0);
+      vec4 redType = g_typeThrough;
       vec4 gResult = renderCubeWithEdge(ro, rd, 0.5);
+      vec4 greenType = g_typeThrough;
       vec4 bResult = renderCubeWithEdge(ro, rd, 1.0);
+      vec4 blueType = g_typeThrough;
 
       vec3 col = vec3(rResult.r, gResult.g, bResult.b);
       float edgeDist = min(min(rResult.a, gResult.a), bResult.a);
 
-      if (col.r >= 0.0 && col.g >= 0.0 && col.b >= 0.0) {
+      // The cube belongs to the image: past its frame, it stays cut off.
+      if (g_inFrame > 0.5 && col.r >= 0.0 && col.g >= 0.0 && col.b >= 0.0) {
         col = smoothstep(0.0, 1.0, col);
         col = pow(col, vec3(0.4545));
         col *= 0.7;
-        gl_FragColor = vec4(col, 1.0);
-      } else {
-        gl_FragColor = bgColor;
+        bgColor = vec4(col, 1.0);
       }
-    } else {
-      gl_FragColor = bgColor;
+
+      // The type refracts and splits through the glass, as far as the
+      // hover reaches, and takes the glass's tint.
+      if (rResult.a > -1.0) {
+        vec4 cubeType = vec4(
+          redType.r,
+          greenType.g,
+          blueType.b,
+          max(redType.a, max(greenType.a, blueType.a))
+        );
+        cubeType.rgb *= 0.85;
+        type = mix(restingType, cubeType, hover);
+      }
     }
+
+    gl_FragColor = over(type, bgColor);
   }
 `;

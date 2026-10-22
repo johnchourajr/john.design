@@ -11,11 +11,6 @@ export const sphereShader = `
 
   ${layers}
 
-  // The headline over the image at one point.
-  vec4 sampleLayers(vec2 textureUV) {
-    return over(sampleHeadline(textureUV), texture2D(image, textureUV) * g_inFrame);
-  }
-
   void main() {
     vec2 uv = frameUv();
     float screenAspect = resolution.x / resolution.y;
@@ -29,10 +24,13 @@ export const sphereShader = `
     float radius = 0.15;
     float padding = radius + 0.02;
 
-    // Clamp mouse position to keep sphere inside canvas
+    // Clamp mouse position to keep sphere inside canvas. A headline on its
+    // own has no image to keep it inside, so the sphere reaches every letter.
     vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
-    mouseUV.x = clamp(mouseUV.x, padding * screenAspect, screenAspect - padding * screenAspect);
-    mouseUV.y = clamp(mouseUV.y, padding, 1.0 - padding);
+    if (hideImage < 0.5) {
+      mouseUV.x = clamp(mouseUV.x, padding * screenAspect, screenAspect - padding * screenAspect);
+      mouseUV.y = clamp(mouseUV.y, padding, 1.0 - padding);
+    }
 
     vec2 mouseTextureUV = vec2(mouseUV.x / screenAspect, mouseUV.y);
     float dist = distance(effectUV, mouseUV) / screenAspect;
@@ -42,9 +40,10 @@ export const sphereShader = `
     float sphereMask = smoothstep(radius + edgeSoftness, radius - edgeSoftness, dist);
 
     // Outside the sphere - just show normal image
-    vec4 outsideColor = sampleLayers(textureUV);
+    vec4 outsideColor = texture2D(image, textureUV) * g_inFrame;
+    vec4 restingType = sampleHeadline(textureUV);
     if (sphereMask < 0.01) {
-      gl_FragColor = outsideColor;
+      gl_FragColor = over(restingType, outsideColor);
       return;
     }
 
@@ -86,13 +85,11 @@ export const sphereShader = `
     vec2 redUV = sphereUV + normDir * chromatic;
     vec2 blueUV = sphereUV - normDir * chromatic;
 
-    vec4 redChannel = sampleLayers(redUV);
-    vec4 greenChannel = sampleLayers(sphereUV);
-    vec4 blueChannel = sampleLayers(blueUV);
+    vec4 redChannel = texture2D(image, redUV);
+    vec4 greenChannel = texture2D(image, sphereUV);
+    vec4 blueChannel = texture2D(image, blueUV);
 
-    // Opaque over the image, as before; over the headline alone, as solid as the type.
-    float alpha = max(g_inFrame, max(redChannel.a, max(greenChannel.a, blueChannel.a)));
-    vec4 sphereColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, alpha);
+    vec4 sphereColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
 
     // Lighting - highlight moves based on cursor position, source from top-left
     vec2 cursorOffset = (mouseTextureUV - 0.5) * 0.4;
@@ -110,15 +107,30 @@ export const sphereShader = `
     float rim = fresnel * 0.2;
 
     // Apply lighting effects
-    sphereColor.rgb += specular * alpha;
-    sphereColor.rgb += rim * vec3(0.95, 0.97, 1.0) * alpha;
+    sphereColor.rgb += specular;
+    sphereColor.rgb += rim * vec3(0.95, 0.97, 1.0);
 
     // Slight darkening at edges (depth)
     sphereColor.rgb *= 0.9 + z * 0.1;
 
     // Blend with smooth edge
-    vec4 finalColor = mix(outsideColor, sphereColor, sphereMask);
+    vec4 imageColor = mix(outsideColor, sphereColor * g_inFrame, sphereMask);
 
-    gl_FragColor = finalColor;
+    // The type is refracted, split and shaded by the same glass, as far as
+    // the hover reaches. Light lands on the letters, not on empty glass.
+    vec4 redType = sampleHeadline(redUV);
+    vec4 greenType = sampleHeadline(sphereUV);
+    vec4 blueType = sampleHeadline(blueUV);
+    vec4 sphereType = vec4(
+      redType.r,
+      greenType.g,
+      blueType.b,
+      max(redType.a, max(greenType.a, blueType.a))
+    );
+    sphereType.rgb += (specular + rim) * sphereType.a;
+    sphereType.rgb *= 0.9 + z * 0.1;
+    vec4 type = mix(restingType, sphereType, sphereMask * hover);
+
+    gl_FragColor = over(type, imageColor);
   }
 `;

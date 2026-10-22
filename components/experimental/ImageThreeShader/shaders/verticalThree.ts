@@ -59,10 +59,13 @@ export const verticalShader = `
       texture2D(image, blueOffset).b
     ) * imageAlpha;
 
-    // Each channel is its own layer stack, so the type splits too.
-    vec4 redType = sampleHeadline(redOffset);
-    vec4 greenType = sampleHeadline(distortedUV);
-    vec4 blueType = sampleHeadline(blueOffset);
+    // The type goes through the same flutes, as far as the hover reaches,
+    // and each channel splits like the image's.
+    float typeWave = wave * hover;
+    vec2 typeUV = textureUV + direction * typeWave;
+    vec4 redType = sampleHeadline(typeUV + vec2(typeWave * chromaticOffset, 0.0));
+    vec4 greenType = sampleHeadline(typeUV);
+    vec4 blueType = sampleHeadline(typeUV - vec2(typeWave * chromaticOffset, 0.0));
 
     gl_FragColor = vec4(
       redType.r + imageColor.r * (1.0 - redType.a),

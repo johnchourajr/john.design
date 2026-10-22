@@ -16,8 +16,21 @@ const baseUniforms = () => ({
   hideImage: { value: 1 },
 });
 
-// Until the pointer moves, the effect waits off the canvas, clear of the type.
+// Until the pointer arrives, the effect waits off the canvas.
 const offCanvas = { x: -1e4, y: -1e4 };
+
+/**
+ * The effects are sized from their frame. The home hero's frame is its
+ * portrait, a square as wide as the viewport, so a headline on its own is
+ * measured against the same square: the lens, sphere and cube come out the
+ * same size in CSS pixels on every page.
+ */
+const viewportSquare = () => ({
+  x: 0,
+  y: 0,
+  width: window.innerWidth,
+  height: window.innerWidth,
+});
 
 type HeadlineShaderLayerProps = {
   /** The headline whose text is drawn. */
@@ -47,7 +60,9 @@ export default function HeadlineShaderLayer({
     antialias: true,
     maxPixelRatio: 3,
     mouseDamping: 0.08,
+    getFrame: viewportSquare,
     restingMouse: offCanvas,
+    jumpOnEnter: true,
     // The canvas ignores the pointer so links and selection under it work.
     pointerTarget: 'window',
     onError,

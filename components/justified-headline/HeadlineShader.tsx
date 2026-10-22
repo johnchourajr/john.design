@@ -12,7 +12,7 @@ import {
 
 import {
   fragmentThreeShaders,
-  headlineShaderVariants,
+  heroShaderVariants,
   isHeadlineInShader,
   pickShaderVariant,
 } from '../experimental/ImageThreeShader/shaders';
@@ -47,7 +47,7 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
     // Random and URL-driven, so it's chosen after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setFragmentShader(
-      fragmentThreeShaders[pickShaderVariant(headlineShaderVariants)],
+      fragmentThreeShaders[pickShaderVariant(heroShaderVariants)],
     );
   }, []);
 

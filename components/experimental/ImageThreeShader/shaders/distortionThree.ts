@@ -34,6 +34,11 @@ export const distortionThreeShader = `
       vec4 imageColor = pos.x < 0.0 || pos.x > 1.0 || pos.y < 0.0 || pos.y > 1.0
         ? vec4(0.0)
         : texture2D(image, pos);
-      gl_FragColor = over(sampleHeadline(pos), imageColor * g_inFrame);
+
+      // The type scatters the same way, but never fades to nothing as
+      // sin(time) crosses zero, so a hover always shows.
+      float typePulse = 0.75 + 0.25 * sin(time);
+      vec2 typePos = textureUV + displacement * noise * typePulse * 1.5 * hover;
+      gl_FragColor = over(sampleHeadline(typePos), imageColor * g_inFrame);
     }
 `;

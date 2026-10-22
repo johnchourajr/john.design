@@ -7,6 +7,8 @@ export const headlineUniforms = () => ({
   headline: { value: null },
   hasHeadline: { value: 0 },
   hideImage: { value: 0 },
+  // Driven by the core: how far the effect reaches the type.
+  hover: { value: 0 },
 });
 
 type Glyph = {

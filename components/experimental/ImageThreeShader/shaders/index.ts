@@ -25,7 +25,10 @@ export const fragmentThreeShaders: Record<ShaderVariant, string> = {
   prism: prismShader,
 };
 
-/** The home hero's set. Each one also samples the headline layer (#108). */
+/**
+ * The heroes' set, on home and on every justified headline. Each one also
+ * draws the headline layer, and warps it while the pointer is over it (#108).
+ */
 export const heroShaderVariants: ShaderVariant[] = [
   'pixel',
   'distortion',
@@ -33,19 +36,6 @@ export const heroShaderVariants: ShaderVariant[] = [
   'loupe',
   'sphere',
   'prism',
-];
-
-/**
- * The set for a headline without an image. The sphere and the prism's cube
- * sit on the canvas even at rest, so on type alone they would bend the
- * headline before anyone touched it. These four leave it untouched until
- * the pointer comes near.
- */
-export const headlineShaderVariants: ShaderVariant[] = [
-  'pixel',
-  'distortion',
-  'vertical',
-  'loupe',
 ];
 
 /**

@@ -94,9 +94,6 @@ const baseUniforms = () => ({
   ...headlineUniforms(),
 });
 
-// Until the pointer moves, the effect waits off the canvas, clear of the type.
-const offCanvas = { x: -1e4, y: -1e4 };
-
 /** Loads `src` as the `image` texture. */
 const imageTexture =
   (src: string): ShaderInput =>
@@ -229,7 +226,6 @@ export const ImageThreeShader = ({
     // full ratio when it's in here.
     maxPixelRatio: getHeadline ? 3 : 2,
     mouseDamping: 0.08,
-    restingMouse: getHeadline ? offCanvas : undefined,
     resizeWith: getHeadline,
     // The image's box is translated and can sit on a half pixel, where the
     // canvas would be resampled and the type softened.

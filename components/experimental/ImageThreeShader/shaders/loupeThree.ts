@@ -135,29 +135,33 @@ export const loupeShader = `
     float blurStrength = 0.8;
     vec4 outsideBlurred = mix(outsideColor, blurredColor, blurStrength);
 
-    // The headline goes through the same lens. The edge corrections and the
-    // blur outside it belong to the image: the type stays sharp at rest.
-    vec4 redType = sampleHeadline(redOffset);
-    vec4 greenType = sampleHeadline(distortedUV);
-    vec4 blueType = sampleHeadline(blueOffset);
+    // Direct color mixing without any additional effects
+    vec4 finalColor = mix(outsideBlurred, magnifiedColor, edge);
+
+    // Subtle inner shadow only
+    float innerShadow = smoothstep(radius - softness/2.0, radius, dist) * 0.2;
+    finalColor *= 1.0 - (innerShadow * edge);
+
+    // The headline goes through the same lens, as far as the hover reaches.
+    // The edge corrections and the blur outside it belong to the image: the
+    // type stays sharp outside the lens.
+    float typeEdge = edge * hover;
+    vec2 typeMagnified = textureUV + (textureUV - vec2(mouse.x / resolution.x, 1.0 - mouse.y / resolution.y)) * typeEdge * -0.2;
+    vec2 typeDistorted = typeMagnified + normalizedDir * ripple * refraction * edgeStrength;
+    vec4 redType = sampleHeadline(typeDistorted + normalizedDir * chromatic * edgeStrength);
+    vec4 greenType = sampleHeadline(typeDistorted);
+    vec4 blueType = sampleHeadline(typeDistorted - normalizedDir * chromatic * edgeStrength);
     vec4 chromaticType = vec4(
       redType.r,
       greenType.g,
       blueType.b,
       max(redType.a, max(greenType.a, blueType.a))
     );
-    vec4 magnifiedType = mix(sampleHeadline(magnifiedUv), chromaticType, edgeStrength);
+    vec4 magnifiedType = mix(sampleHeadline(typeMagnified), chromaticType, edgeStrength);
+    vec4 type = mix(sampleHeadline(textureUV), magnifiedType, typeEdge);
+    type *= 1.0 - (innerShadow * typeEdge);
 
-    // Direct color mixing without any additional effects
-    vec4 finalColor = mix(
-      over(sampleHeadline(textureUV), outsideBlurred * g_inFrame),
-      over(magnifiedType, magnifiedColor * g_inFrame),
-      edge
-    );
-
-    // Subtle inner shadow only
-    float innerShadow = smoothstep(radius - softness/2.0, radius, dist) * 0.2;
-    finalColor *= 1.0 - (innerShadow * edge);
+    finalColor = over(type, finalColor * g_inFrame);
 
     gl_FragColor = finalColor;
   }
