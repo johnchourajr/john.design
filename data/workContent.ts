@@ -121,13 +121,6 @@ const moonlightData: PageItem[] = [
     externalHref: 'https://thegrandlb.com/',
   },
   {
-    slug: 'the-cape',
-    title: 'thecape.agency',
-    date: '2023-11-1',
-    tags: ['Design', 'Dev', 'Art Direction'],
-    externalHref: 'https://thecape.agency/',
-  },
-  {
     slug: 'smile-gdp',
     title: 'smilegdp.com',
     date: '2022-5-1',
