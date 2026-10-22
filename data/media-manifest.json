@@ -1,8 +1,11 @@
 {
-  "/journal-images/font-file-separatornator/font-cover.mp4": {
+  "/journal-images/font-file-separatornator/font-cover-avc.mp4": {
     "width": 1964,
     "height": 848,
-    "bytes": 271192
+    "bytes": 883698
+  },
+  "/journal-images/font-file-separatornator/font-cover-avc.webm": {
+    "bytes": 368242
   },
   "/journal-images/font-file-separatornator/font-cover.svg": {
     "bytes": 10101
@@ -578,10 +581,13 @@
   "/journal-images/video/inthegarage-2.webm": {
     "bytes": 1470356
   },
-  "/journal-images/video/nav-cover.mp4": {
+  "/journal-images/video/nav-cover-avc.mp4": {
     "width": 1830,
     "height": 786,
-    "bytes": 100437
+    "bytes": 448798
+  },
+  "/journal-images/video/nav-cover-avc.webm": {
+    "bytes": 135868
   },
   "/journal-images/video/to-teach-3.mp4": {
     "width": 1000,
