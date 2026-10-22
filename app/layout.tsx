@@ -4,7 +4,6 @@ import { DrawingProvider } from '@/components/experimental/Drawing';
 import { GlobalLayout } from '@/components/globals/layout';
 import { SchemaJson } from '@/components/globals/SchemaJson';
 import { AppProvider } from '@/context/AppProvider';
-import { GtagProvider } from '@/context/GtagProvider';
 import { domain, metadataContent, viewportContent } from '@/data/metadata';
 import {
   DEFAULT_ROOT_BACKGROUND,
@@ -69,13 +68,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           enabled={domain.indexOf('localhost') === -1}
           trackLocalhost={domain.indexOf('localhost') !== -1}
         >
-          <GtagProvider>
-            <AppProvider>
-              <DrawingProvider>
-                <GlobalLayout>{children}</GlobalLayout>
-              </DrawingProvider>
-            </AppProvider>
-          </GtagProvider>
+          <AppProvider>
+            <DrawingProvider>
+              <GlobalLayout>{children}</GlobalLayout>
+            </DrawingProvider>
+          </AppProvider>
         </PlausibleProvider>
       </body>
     </html>
