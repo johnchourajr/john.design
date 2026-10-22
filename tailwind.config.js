@@ -10,15 +10,9 @@ function typePlugin({ addUtilities }) {
   buenTypeTailwind({ addUtilities }, customDefinitions);
 }
 
+// Loaded by `@config` in styles/globals.css. Sources are declared there with `@source`.
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './context/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
-    './app-pages/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
-    './lib/**/*.{js,jsx,ts,tsx}',
-  ],
   theme: {
     fontSize: {},
     extend: {
@@ -56,9 +50,6 @@ module.exports = {
         'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [typePlugin],
 };

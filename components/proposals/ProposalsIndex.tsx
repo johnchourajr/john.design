@@ -20,7 +20,7 @@ export function ProposalsIndex({
 
   return (
     <div className="p-4">
-      <h1 className="headline-display-xl !normal-case !font-pixel !font-normal text-pretty max-w-[10em] mb-10">
+      <h1 className="headline-display-xl normal-case! font-pixel! font-normal! text-pretty max-w-[10em] mb-10">
         Proposals
       </h1>
       <PasswordGate hasAccess={hasAccess}>
@@ -33,11 +33,11 @@ export function ProposalsIndex({
               showArrow={false}
               className="no-underline"
             >
-              <div className="border border-white/10 rounded p-6 hover:border-white/30 transition-colors duration-200 group">
+              <div className="border border-white/10 rounded-sm p-6 hover:border-white/30 transition-colors duration-200 group">
                 <p className="text-caption uppercase tracking-widest text-white/40 mb-2">
                   {proposal.frontmatter.client}
                 </p>
-                <p className="text-paragraph font-bold group-hover:text-root transition-colors duration-200">
+                <p className="text-paragraph group-hover:text-root transition-colors duration-200">
                   {proposal.frontmatter.title}
                 </p>
                 {proposal.frontmatter.description && (

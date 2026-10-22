@@ -89,13 +89,13 @@ function Item({ index, scrollYProgress, text }: any) {
 
   return (
     <m.div
-      className="absolute w-full h-[100vh] flex justify-center items-center"
+      className="absolute w-full h-screen flex justify-center items-center"
       style={{ zIndex }}
     >
       <m.figure
         className={clsx(
           'bg-black absolute border-shadow overflow-hidden',
-          "after:content-[''] after:absolute after:inset-0 after:bg-[var(--root-color)] after:opacity-20 ",
+          "after:content-[''] after:absolute after:inset-0 after:bg-(--root-color) after:opacity-20 ",
         )}
         style={{ width, height, right, bottom }}
       >
@@ -122,7 +122,7 @@ function Section() {
 
   return (
     <section ref={ref} className="relative flex h-[300vh] ">
-      <div className="sticky top-0 w-full h-[100vh]">
+      <div className="sticky top-0 w-full h-screen">
         {EXAMPLE_LIST.map((_, i) => (
           <Item key={i} index={i} scrollYProgress={scrollYProgress} {..._} />
         ))}
@@ -140,7 +140,7 @@ export default function ScrollGrow() {
         </h2>
       </InlineLink>
       <div className="relative w-full">
-        <section className="relative flex items-center justify-start just min-h-[50vh] mb-4 border-b-2 border-[var(--root-color)] ">
+        <section className="relative flex items-center justify-start just min-h-[50vh] mb-4 border-b-2 border-(--root-color) ">
           Start scrolling down ↓
         </section>
         <Section />

@@ -68,7 +68,7 @@ export const homepageContent: HomePageData = {
       {
         text: 'John Is',
         motionObject: headlineMotionVariants.johnIs,
-        className: 'z-[100] relative headline-display-xs',
+        className: 'z-100 relative headline-display-xs',
       },
       {
         text: 'Working On',

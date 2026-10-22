@@ -23,7 +23,7 @@ export const CoverMedia = ({
   if (template === 'shader') {
     return (
       <div className="relative w-full my-6">
-        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-[1200/600] inset-0" />
+        <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-1200/600 inset-0" />
         <ImageThreeShader
           src={cover!}
           shaderConfig={{
@@ -55,11 +55,13 @@ export const CoverMedia = ({
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : isSvg(cover) ? (
-        <img
+        // SVGs are already resolution independent; serve the file as-is.
+        <Image
           src={cover!}
           alt=""
           width={1200}
           height={600}
+          unoptimized
           className="w-full overflow-hidden rounded border-[0.5px] border-[#ffffff30] select-none pointer-events-none"
         />
       ) : (

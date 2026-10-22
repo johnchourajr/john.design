@@ -5,7 +5,7 @@ slug: "/journal/font-file-separatornator"
 date: "2024-5-25"
 title: "A Magical Font File Separating Script"
 cover: /journal-images/font-file-separatornator/font-cover.svg
-videoCover: /journal-images/font-file-separatornator/font-cover.mp4
+videoCover: /journal-images/font-file-separatornator/font-cover-avc.mp4
 thumb: /journal-images/font-file-separatornator/font-cover.svg
 tags:
   - Dev
