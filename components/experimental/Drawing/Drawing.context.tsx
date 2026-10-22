@@ -220,10 +220,6 @@ export function DrawingProvider({
       if (shouldUpdateSize(newSize)) {
         previousSizeRef.current = newSize;
         setDocSize(newSize);
-
-        if (process.env.NODE_ENV === 'development') {
-          console.log('Size updated:', newSize);
-        }
       }
     };
 
