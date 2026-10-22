@@ -1,0 +1,607 @@
+{
+  "/journal-images/font-file-separatornator/font-cover-avc.mp4": {
+    "width": 1964,
+    "height": 848,
+    "bytes": 883698
+  },
+  "/journal-images/font-file-separatornator/font-cover-avc.webm": {
+    "bytes": 368242
+  },
+  "/journal-images/font-file-separatornator/font-cover.svg": {
+    "bytes": 10101
+  },
+  "/journal-images/font-file-separatornator/git-cover.svg": {
+    "bytes": 102930
+  },
+  "/journal-images/font-file-separatornator/movesh.mp4": {
+    "width": 574,
+    "height": 368,
+    "bytes": 71322
+  },
+  "/journal-images/font-file-separatornator/movesh.webm": {
+    "bytes": 30915
+  },
+  "/journal-images/font-file-separatornator/openterminal.mp4": {
+    "width": 574,
+    "height": 368,
+    "bytes": 106424
+  },
+  "/journal-images/font-file-separatornator/openterminal.webm": {
+    "bytes": 74777
+  },
+  "/journal-images/font-file-separatornator/runsh.mp4": {
+    "width": 574,
+    "height": 368,
+    "bytes": 158474
+  },
+  "/journal-images/font-file-separatornator/runsh.webm": {
+    "bytes": 46397
+  },
+  "/journal-images/images/01-joy-rn-2.jpg": {
+    "width": 2726,
+    "height": 1500,
+    "bytes": 115817
+  },
+  "/journal-images/images/01-joy-rn-3.jpg": {
+    "width": 1648,
+    "height": 1764,
+    "bytes": 143640
+  },
+  "/journal-images/images/01-joy-rn-4.jpg": {
+    "width": 1647,
+    "height": 1764,
+    "bytes": 86794
+  },
+  "/journal-images/images/01-joy-rn-5.jpg": {
+    "width": 3122,
+    "height": 1660,
+    "bytes": 161030
+  },
+  "/journal-images/images/01-joy-rn-6.jpg": {
+    "width": 1646,
+    "height": 1288,
+    "bytes": 52883
+  },
+  "/journal-images/images/01-joy-rn.jpg": {
+    "width": 2780,
+    "height": 1616,
+    "bytes": 49056
+  },
+  "/journal-images/images/01-objsbj-poster.jpg": {
+    "width": 3282,
+    "height": 2430,
+    "bytes": 717535
+  },
+  "/journal-images/images/01-objsbj.jpg": {
+    "width": 2026,
+    "height": 1500,
+    "bytes": 296459
+  },
+  "/journal-images/images/02-01-Ferry.jpg": {
+    "width": 1200,
+    "height": 800,
+    "bytes": 71961
+  },
+  "/journal-images/images/02-02-Mission.jpg": {
+    "width": 1200,
+    "height": 800,
+    "bytes": 105302
+  },
+  "/journal-images/images/02-03-Walking.jpg": {
+    "width": 1200,
+    "height": 800,
+    "bytes": 93366
+  },
+  "/journal-images/images/02-04-Exodus.jpg": {
+    "width": 1200,
+    "height": 800,
+    "bytes": 45414
+  },
+  "/journal-images/images/02-SF-poster.jpg": {
+    "width": 3000,
+    "height": 2250,
+    "bytes": 564319
+  },
+  "/journal-images/images/04-peepr-banner.jpg": {
+    "width": 2000,
+    "height": 1091,
+    "bytes": 90523
+  },
+  "/journal-images/images/04-peepr.jpg": {
+    "width": 2000,
+    "height": 1500,
+    "bytes": 111302
+  },
+  "/journal-images/images/05-GP-poster.jpg": {
+    "width": 1200,
+    "height": 900,
+    "bytes": 106430
+  },
+  "/journal-images/images/06-new-poster-1.jpg": {
+    "width": 2000,
+    "height": 1500,
+    "bytes": 411900
+  },
+  "/journal-images/images/06-new-poster-art-01.jpg": {
+    "width": 1364,
+    "height": 1500,
+    "bytes": 136193
+  },
+  "/journal-images/images/08-cover.jpg": {
+    "width": 3500,
+    "height": 2503,
+    "bytes": 321445
+  },
+  "/journal-images/images/08-scribbble.jpg": {
+    "width": 1616,
+    "height": 610,
+    "bytes": 98679
+  },
+  "/journal-images/images/20160506-sf-10.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 222015
+  },
+  "/journal-images/images/20160506-sf-11.jpg": {
+    "width": 3282,
+    "height": 2430,
+    "bytes": 270894
+  },
+  "/journal-images/images/20160506-sf-12.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 907472
+  },
+  "/journal-images/images/20160506-sf-13.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 828705
+  },
+  "/journal-images/images/20160506-sf-14.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 679635
+  },
+  "/journal-images/images/20160506-sf-15.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 591031
+  },
+  "/journal-images/images/20160506-sf-16.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 182697
+  },
+  "/journal-images/images/20160506-sf-17.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 508910
+  },
+  "/journal-images/images/20160506-sf-18.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 553425
+  },
+  "/journal-images/images/20160506-sf-19.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 301939
+  },
+  "/journal-images/images/20160506-sf-2.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 405032
+  },
+  "/journal-images/images/20160506-sf-3.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 419619
+  },
+  "/journal-images/images/20160506-sf-4.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 179653
+  },
+  "/journal-images/images/20160506-sf-5.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 898944
+  },
+  "/journal-images/images/20160506-sf-6.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 596830
+  },
+  "/journal-images/images/20160506-sf-7.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 229248
+  },
+  "/journal-images/images/20160506-sf-8.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 272928
+  },
+  "/journal-images/images/20160506-sf-9.jpg": {
+    "width": 2500,
+    "height": 1667,
+    "bytes": 324424
+  },
+  "/journal-images/images/3bdc7846-b50d-47ed-a965-c76df9b6cdf3.jpg": {
+    "width": 1776,
+    "height": 1184,
+    "bytes": 223728
+  },
+  "/journal-images/images/97a80930-f631-485f-828f-5b48f20d7150.jpg": {
+    "width": 1094,
+    "height": 1647,
+    "bytes": 285128
+  },
+  "/journal-images/images/apollo-img.png": {
+    "width": 1358,
+    "height": 905,
+    "bytes": 704279
+  },
+  "/journal-images/images/design-leadership-cover.jpg": {
+    "width": 2448,
+    "height": 1392,
+    "bytes": 148338
+  },
+  "/journal-images/images/fpo.png": {
+    "width": 3662,
+    "height": 1582,
+    "bytes": 1173448
+  },
+  "/journal-images/images/godaddy_meta_cover.jpg": {
+    "width": 1140,
+    "height": 760,
+    "bytes": 49795
+  },
+  "/journal-images/images/hierarchy-1.png": {
+    "width": 2780,
+    "height": 1616,
+    "bytes": 398753
+  },
+  "/journal-images/images/home-after.jpg": {
+    "width": 2754,
+    "height": 1821,
+    "bytes": 670479
+  },
+  "/journal-images/images/home-before.jpg": {
+    "width": 3224,
+    "height": 1821,
+    "bytes": 755084
+  },
+  "/journal-images/images/home-chairs.jpg": {
+    "width": 2268,
+    "height": 3024,
+    "bytes": 988580
+  },
+  "/journal-images/images/home-deck.jpg": {
+    "width": 2268,
+    "height": 2275,
+    "bytes": 465063
+  },
+  "/journal-images/images/home-firepit.jpg": {
+    "width": 3024,
+    "height": 4032,
+    "bytes": 773287
+  },
+  "/journal-images/images/home-full.jpg": {
+    "width": 3024,
+    "height": 4032,
+    "bytes": 973844
+  },
+  "/journal-images/images/home-kitty.jpg": {
+    "width": 3024,
+    "height": 4032,
+    "bytes": 1454355
+  },
+  "/journal-images/images/home-puppy.jpg": {
+    "width": 2947,
+    "height": 3915,
+    "bytes": 1419719
+  },
+  "/journal-images/images/home-sailshade.JPG": {
+    "width": 2268,
+    "height": 3024,
+    "bytes": 1058830
+  },
+  "/journal-images/images/home-sketch-pre.png": {
+    "width": 3272,
+    "height": 1756,
+    "bytes": 645131
+  },
+  "/journal-images/images/home-sketchup-perspective.jpg": {
+    "width": 5000,
+    "height": 2765,
+    "bytes": 1555083
+  },
+  "/journal-images/images/home-yard-sq.jpg": {
+    "width": 1184,
+    "height": 1175,
+    "bytes": 206128
+  },
+  "/journal-images/images/home-yard.jpg": {
+    "width": 1184,
+    "height": 1776,
+    "bytes": 271310
+  },
+  "/journal-images/images/inthegarage-2.jpg": {
+    "width": 1000,
+    "height": 561,
+    "bytes": 122009
+  },
+  "/journal-images/images/JC_1.png": {
+    "width": 1918,
+    "height": 668,
+    "bytes": 19026
+  },
+  "/journal-images/images/JC_2.png": {
+    "width": 3124,
+    "height": 1470,
+    "bytes": 45140
+  },
+  "/journal-images/images/JC_3.png": {
+    "width": 2434,
+    "height": 1956,
+    "bytes": 46259
+  },
+  "/journal-images/images/Line-Series-01.png": {
+    "width": 470,
+    "height": 629,
+    "bytes": 75593
+  },
+  "/journal-images/images/nav-cover.png": {
+    "width": 3662,
+    "height": 1582,
+    "bytes": 1233158
+  },
+  "/journal-images/images/nav-cover.svg": {
+    "bytes": 2147
+  },
+  "/journal-images/images/nav-scroll.gif": {
+    "width": 1093,
+    "height": 301,
+    "bytes": 275446
+  },
+  "/journal-images/images/notebook.jpg": {
+    "width": 1200,
+    "height": 766,
+    "bytes": 97197
+  },
+  "/journal-images/images/pp-cover-lg.jpg": {
+    "width": 5493,
+    "height": 2373,
+    "bytes": 112007
+  },
+  "/journal-images/images/pp-cover.jpg": {
+    "width": 3662,
+    "height": 1582,
+    "bytes": 58972
+  },
+  "/journal-images/images/pp-cover.png": {
+    "width": 3662,
+    "height": 1582,
+    "bytes": 1888518
+  },
+  "/journal-images/images/pp-cover.svg": {
+    "bytes": 2463
+  },
+  "/journal-images/images/proj-lg.jpg": {
+    "width": 2358,
+    "height": 1198,
+    "bytes": 121718
+  },
+  "/journal-images/images/proj-sm.jpg": {
+    "width": 1179,
+    "height": 599,
+    "bytes": 302621
+  },
+  "/journal-images/images/Sedona-New-sm-1.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 202649
+  },
+  "/journal-images/images/Sedona-New-sm-10.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 437898
+  },
+  "/journal-images/images/Sedona-New-sm-2.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 361040
+  },
+  "/journal-images/images/Sedona-New-sm-3.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 308748
+  },
+  "/journal-images/images/Sedona-New-sm-4.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 429391
+  },
+  "/journal-images/images/Sedona-New-sm-5.jpg": {
+    "width": 1333,
+    "height": 2000,
+    "bytes": 536083
+  },
+  "/journal-images/images/Sedona-New-sm-6.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 501208
+  },
+  "/journal-images/images/Sedona-New-sm-7.jpg": {
+    "width": 2000,
+    "height": 1333,
+    "bytes": 339924
+  },
+  "/journal-images/images/Sedona-New-sm-8.jpg": {
+    "width": 1333,
+    "height": 2000,
+    "bytes": 165677
+  },
+  "/journal-images/images/Sedona-New-sm-9.jpg": {
+    "width": 1333,
+    "height": 2000,
+    "bytes": 386401
+  },
+  "/journal-images/images/stack-mirroring.png": {
+    "width": 1040,
+    "height": 944,
+    "bytes": 6696
+  },
+  "/journal-images/images/to-teach-2.gif": {
+    "width": 1000,
+    "height": 654,
+    "bytes": 1940130
+  },
+  "/journal-images/images/to-teach-3.jpg": {
+    "width": 1000,
+    "height": 654,
+    "bytes": 594147
+  },
+  "/journal-images/images/to-teach.gif": {
+    "width": 1000,
+    "height": 654,
+    "bytes": 1330073
+  },
+  "/journal-images/images/to-teach.jpg": {
+    "width": 2836,
+    "height": 1024,
+    "bytes": 54631
+  },
+  "/journal-images/images/ui-hierarchy-1.png": {
+    "width": 2780,
+    "height": 1454,
+    "bytes": 224788
+  },
+  "/journal-images/images/ui-hierarchy-2.png": {
+    "width": 2780,
+    "height": 1500,
+    "bytes": 336895
+  },
+  "/journal-images/images/ui-hierarchy-3.png": {
+    "width": 2126,
+    "height": 1500,
+    "bytes": 363132
+  },
+  "/journal-images/images/ui-hierarchy-4.png": {
+    "width": 2126,
+    "height": 1500,
+    "bytes": 153192
+  },
+  "/journal-images/video/01-joy-rn.mp4": {
+    "width": 1200,
+    "height": 674,
+    "bytes": 961118
+  },
+  "/journal-images/video/01-joy-rn.webm": {
+    "bytes": 558155
+  },
+  "/journal-images/video/97a80930-f631-485f-828f-5b48f20d7150-animation.mp4": {
+    "width": 566,
+    "height": 850,
+    "bytes": 359843
+  },
+  "/journal-images/video/97a80930-f631-485f-828f-5b48f20d7150-animation.webm": {
+    "bytes": 177910
+  },
+  "/journal-images/video/garage-01_0.mp4": {
+    "width": 480,
+    "height": 852,
+    "bytes": 5198912
+  },
+  "/journal-images/video/garage-01_0.webm": {
+    "bytes": 2653355
+  },
+  "/journal-images/video/garage-01_1.mp4": {
+    "width": 480,
+    "height": 852,
+    "bytes": 2559748
+  },
+  "/journal-images/video/garage-01_1.webm": {
+    "bytes": 1439350
+  },
+  "/journal-images/video/garage-02_0.mp4": {
+    "width": 480,
+    "height": 852,
+    "bytes": 5838746
+  },
+  "/journal-images/video/garage-02_0.webm": {
+    "bytes": 3333903
+  },
+  "/journal-images/video/garage-02_1.mp4": {
+    "width": 480,
+    "height": 852,
+    "bytes": 1523829
+  },
+  "/journal-images/video/garage-02_1.webm": {
+    "bytes": 873545
+  },
+  "/journal-images/video/godaddy_meta_cover.mp4": {
+    "width": 1140,
+    "height": 760,
+    "bytes": 402247
+  },
+  "/journal-images/video/godaddy_meta_cover.webm": {
+    "bytes": 91666
+  },
+  "/journal-images/video/home-timelapse-02.mp4": {
+    "width": 752,
+    "height": 1000,
+    "bytes": 2805259
+  },
+  "/journal-images/video/home-timelapse-02.webm": {
+    "bytes": 1552228
+  },
+  "/journal-images/video/home-timelapse.mp4": {
+    "width": 752,
+    "height": 1000,
+    "bytes": 661278
+  },
+  "/journal-images/video/home-timelapse.webm": {
+    "bytes": 499111
+  },
+  "/journal-images/video/home-vid.mp4": {
+    "width": 720,
+    "height": 882,
+    "bytes": 1095241
+  },
+  "/journal-images/video/home-vid.webm": {
+    "bytes": 560099
+  },
+  "/journal-images/video/inthegarage-2.mp4": {
+    "width": 1000,
+    "height": 560,
+    "bytes": 2033794
+  },
+  "/journal-images/video/inthegarage-2.webm": {
+    "bytes": 1470356
+  },
+  "/journal-images/video/nav-cover-avc.mp4": {
+    "width": 1830,
+    "height": 786,
+    "bytes": 448798
+  },
+  "/journal-images/video/nav-cover-avc.webm": {
+    "bytes": 135868
+  },
+  "/journal-images/video/to-teach-3.mp4": {
+    "width": 1000,
+    "height": 654,
+    "bytes": 2578071
+  },
+  "/journal-images/web-shaders/shader.jpg": {
+    "width": 1200,
+    "height": 600,
+    "bytes": 71232
+  },
+  "/journal-images/web-shaders/shaders-og.jpg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 61583
+  }
+}
