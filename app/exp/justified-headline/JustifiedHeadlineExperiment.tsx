@@ -1,43 +1,38 @@
 'use client';
 import { Suspense, useState } from 'react';
 
-import { SettingsGroup } from '@/components/experimental/SettingsComponents';
+import {
+  booleanSetting,
+  SettingsGroup,
+  sliderSetting,
+} from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
-import { JustifiedHeadlineInner } from '@/components/justified-headline';
+import {
+  JustifiedHeadlineInner,
+  type HeadlineSetting,
+} from '@/components/justified-headline';
+import type { TextStructure } from '@/types/content-types';
 
-const SETTINGS = [
-  {
-    name: 'Add Slant',
-    type: 'Boolean',
-    value: false,
-  },
-  {
-    name: 'Letters',
-    type: 'Boolean',
-    value: false,
-  },
-  {
-    name: 'Speed',
-    type: 'Slider',
+const SETTINGS: HeadlineSetting[] = [
+  booleanSetting({ key: 'slant', label: 'Add Slant', value: false }),
+  booleanSetting({ key: 'letters', label: 'Letters', value: false }),
+  sliderSetting({
+    key: 'speed',
+    label: 'Speed',
     value: 1000,
     min: 500,
     max: 3000,
-  },
+  }),
 ];
 
 type JustifiedHeadlineExperimentProps = {
-  headlineData: {
-    text: string;
-    motionObject: { parent: string; child: string }[];
-    className?: string;
-  }[];
+  headlineData: TextStructure[];
 };
 
 export function JustifiedHeadlineExperiment({
   headlineData,
 }: JustifiedHeadlineExperimentProps) {
   const [settings, setSettings] = useState(SETTINGS);
-
 
   return (
     <>

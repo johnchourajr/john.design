@@ -7,7 +7,9 @@ import {
   ShaderVariant,
 } from '@/components/experimental/ImageThreeShader/shaders';
 import {
+  booleanSetting,
   getSettingValue,
+  selectSetting,
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
@@ -20,37 +22,19 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
     (searchParams.get('shader') as ShaderVariant) || 'distortion';
   const defaultOverlay = searchParams.get('overlay') !== 'false';
 
-  const SETTINGS = [
-    {
-      name: 'Shader',
-      type: 'Select',
-      value: undefined,
-      options: Object.keys(fragmentThreeShaders),
-    },
-    {
-      name: 'Overlay',
-      type: 'Boolean',
-      value: true,
-    },
-  ];
+  const [settings, setSettings] = useState(() => [
+    selectSetting({
+      key: 'shader',
+      label: 'Shader',
+      value: defaultShader,
+      options: Object.keys(fragmentThreeShaders) as ShaderVariant[],
+    }),
+    booleanSetting({ key: 'overlay', label: 'Overlay', value: defaultOverlay }),
+  ]);
 
-  const [settings, setSettings] = useState(
-    SETTINGS.map((setting) =>
-      setting.name === 'Shader'
-        ? { ...setting, value: defaultShader }
-        : setting.name === 'Overlay'
-        ? { ...setting, value: defaultOverlay }
-        : setting,
-    ),
-  );
+  const currentShader = getSettingValue(settings, 'shader', 'distortion');
 
-  const currentShader = getSettingValue(
-    settings,
-    'Shader',
-    'distortion',
-  ) as ShaderVariant;
-
-  const hasOverlay = getSettingValue(settings, 'Overlay', true);
+  const hasOverlay = getSettingValue(settings, 'overlay', true);
 
   const shaderConfig = {
     fragmentShader: fragmentThreeShaders[currentShader],

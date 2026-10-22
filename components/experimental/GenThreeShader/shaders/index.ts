@@ -1,3 +1,4 @@
+import type { SliderSetting } from '@/components/experimental/SettingsComponents/settings';
 import {
   kaleidoscopeShader,
   kaleidoscopeShaderSettings,
@@ -20,7 +21,7 @@ export const genShaders: Record<ShaderVariant, string> = {
   spiralSphereShader,
 };
 
-export const shaderSettings: Record<ShaderVariant, any[]> = {
+export const shaderSettings: Record<ShaderVariant, readonly SliderSetting[]> = {
   kaleidoscopeShader: kaleidoscopeShaderSettings,
   spaceTimeShader: spaceTimeShaderSettings,
   pinwheelShader: pinwheelShaderSettings,

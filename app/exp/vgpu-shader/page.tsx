@@ -24,12 +24,12 @@ const RENDERER_LABEL: Record<Renderer, string> = {
 export default function Page() {
   useDisableDrawing();
 
-  const [settings, setSettings] = useState<any[]>(pinwheelShaderSettings);
+  const [settings, setSettings] = useState(pinwheelShaderSettings);
   const [renderer, setRenderer] = useState<Renderer>('pending');
 
-  const rotationSpeed = getSettingValue(settings, 'Rotation Speed', 1.0);
-  const vortexStrength = getSettingValue(settings, 'Vortex Strength', 5.0);
-  const colorIntensity = getSettingValue(settings, 'Color Intensity', 0.7);
+  const rotationSpeed = getSettingValue(settings, 'rotationSpeed', 1.0);
+  const vortexStrength = getSettingValue(settings, 'vortexStrength', 5.0);
+  const colorIntensity = getSettingValue(settings, 'colorIntensity', 0.7);
 
   const params = useMemo(
     () => ({ rotationSpeed, vortexStrength, colorIntensity }),
