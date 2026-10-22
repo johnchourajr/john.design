@@ -55,9 +55,10 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all pathnames except _next/static, _next/image, and favicon.
-     * Reduces noise from static asset requests.
+     * Match all pathnames except _next/static, _next/image, favicon, and
+     * static media. Next's image optimizer fetches public images internally
+     * with a short user agent, so those must not be blocked.
      */
-    '/((?!_next/static|_next/image|favicon.ico|api/blocked).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api/blocked|.*\\.(?:png|jpe?g|gif|webp|avif|svg|ico|mp4|webm|woff2?)$).*)',
   ],
 };

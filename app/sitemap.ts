@@ -1,7 +1,15 @@
+import { getAllPosts } from '@/lib/pages/posts';
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://john.design';
+
+  const posts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${baseUrl}/journal/${post.slug}`,
+    lastModified: new Date(post.frontmatter.date),
+    changeFrequency: 'yearly',
+    priority: 0.6,
+  }));
 
   return [
     {
@@ -88,5 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.4,
     },
+    ...posts,
   ];
 }
