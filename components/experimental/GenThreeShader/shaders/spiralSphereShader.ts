@@ -1,76 +1,78 @@
+import { sliderSetting } from '@/components/experimental/SettingsComponents/settings';
+
 export const spiralSphereShaderSettings = [
-  {
-    name: 'Speed',
-    type: 'Slider',
+  sliderSetting({
+    key: 'speed',
+    label: 'Speed',
     value: 0.3,
     min: 0,
     max: 2,
     step: 0.1,
     uniform: 'speed',
-  },
-  {
-    name: 'Density',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'density',
+    label: 'Density',
     value: 20,
     min: 1,
     max: 20,
     step: 1,
     uniform: 'density',
-  },
-  {
-    name: 'Width',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'width',
+    label: 'Width',
     value: 0.1,
     min: 0.01,
     max: 0.1,
     step: 0.01,
     uniform: 'width',
-  },
-  {
-    name: 'Rainbow Speed',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'randowSpeed',
+    label: 'Rainbow Speed',
     value: 0.5,
     min: 0,
     max: 5,
     step: 0.1,
     uniform: 'randowSpeed',
-  },
-  {
-    name: 'Rotation',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'rotation',
+    label: 'Rotation',
     value: 3.058,
     min: -Math.PI,
     max: Math.PI,
     step: 0.1,
     uniform: 'rotation',
-  },
-  {
-    name: 'X Rotation',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'rotationX',
+    label: 'X Rotation',
     value: -2.241,
     min: -Math.PI,
     max: Math.PI,
     step: 0.1,
     uniform: 'rotationX',
-  },
-  {
-    name: 'Y Rotation',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'rotationY',
+    label: 'Y Rotation',
     value: 1.0584,
     min: -Math.PI,
     max: Math.PI,
     step: 0.1,
     uniform: 'rotationY',
-  },
-  {
-    name: 'Depth',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'depth',
+    label: 'Depth',
     value: 0.5,
     min: 0,
     max: 2,
     step: 0.1,
     uniform: 'depth',
-  },
+  }),
 ];
 
 export const spiralSphereShader = `
