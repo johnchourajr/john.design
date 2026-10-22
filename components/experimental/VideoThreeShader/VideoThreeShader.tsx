@@ -52,8 +52,7 @@ const aspectClass: Record<AspectRatio, string> = {
   '1280:720': 'aspect-1280/720',
 };
 
-// No `resolution` here: this component has never set it, so shaders that
-// declare it read (0, 0). Kept that way so the video shaders look the same.
+// `resolution` comes from useShaderRenderer.
 const baseUniforms = () => ({
   image: { value: null },
   imageResolution: { value: new THREE.Vector2() },

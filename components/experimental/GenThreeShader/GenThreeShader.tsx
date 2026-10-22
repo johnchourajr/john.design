@@ -18,7 +18,6 @@ type GenThreeShaderProps = {
 };
 
 const baseUniforms = () => ({
-  resolution: { value: new THREE.Vector2() },
   mouse: { value: new THREE.Vector2() },
   time: { value: 0 },
   noiseScale: { value: 3.0 },

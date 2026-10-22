@@ -2,7 +2,7 @@ export const retroGlowShader = `
   uniform sampler2D image;
   uniform float time;
   uniform vec2 mouse;
-  uniform vec2 resolution;  // Add resolution uniform
+  uniform vec2 resolution;
   varying vec2 vUv;
 
   vec4 neon(vec4 color, float intensity) {
@@ -17,16 +17,23 @@ export const retroGlowShader = `
     // Increased pulse effect
     float pulse = (sin(time * 6.0) * 0.5 + 0.5) * 0.9; // Increased from 0.7 to 0.9
 
-    // Updated mouse interaction
+    // Glow around the pointer. The renderer gives the mouse in NDC (-1 to 1,
+    // y up), so it maps straight onto vUv. Distances are in canvas widths,
+    // with x scaled by the aspect ratio so the glow stays round.
     float screenAspect = resolution.x / resolution.y;
-    vec2 effectUV = vUv;
-    effectUV.x *= screenAspect;
-    vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
+    vec2 effectUV = vec2(vUv.x * screenAspect, vUv.y);
+    vec2 mouseUV = mouse * 0.5 + 0.5;
+    mouseUV.x *= screenAspect;
     float mouseDistance = distance(effectUV, mouseUV) / screenAspect;
     float mouseGlow = (1.0 - smoothstep(0.0, 0.2, mouseDistance)) * 0.7;
 
+    // Until #103, resolution read (0, 0), the distance came out NaN and the
+    // mouse glow was its full 0.7 across the whole frame. The look was tuned
+    // with that, so it stays as a base glow and the pointer adds to it.
+    float baseGlow = 0.7;
+
     // Combine effects with wash out
-    vec3 finalColor = mix(color.rgb, neonColor, intensity + pulse + mouseGlow);
+    vec3 finalColor = mix(color.rgb, neonColor, intensity + baseGlow + pulse + mouseGlow);
     finalColor = mix(finalColor, vec3(1.0), 0.05); // Add wash out effect
 
     // Add scanlines
