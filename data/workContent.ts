@@ -79,6 +79,13 @@ const daylightData: PageItem[] = [
 
 const moonlightData: PageItem[] = [
   {
+    slug: 'bueno-fund',
+    title: 'bueno.fund',
+    date: '2026-2-16',
+    tags: ['Design', 'Dev'],
+    externalHref: 'https://bueno.fund/',
+  },
+  {
     slug: 'processcreative',
     title: 'Process Creative',
     date: '2025-5-1',
