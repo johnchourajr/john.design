@@ -82,9 +82,10 @@ export const contentBoxSize = (container: HTMLElement): ShaderSize => {
  * sizing and pixel ratio, the frame loop, pausing while off-screen,
  * `prefers-reduced-motion` (one still frame, no loop) and cleanup.
  *
- * It drives the `time`, `mouse` and `resolution` uniforms when the material
- * has them. Everything else comes from `baseUniforms`, `shaderConfig` and the
- * `input`.
+ * Every material gets a `resolution` uniform: the canvas size in CSS pixels,
+ * kept current as the container resizes (#103). The core also drives `time`
+ * and `mouse` when the material has them. Everything else comes from
+ * `baseUniforms`, `shaderConfig` and the `input`.
  *
  * Returns `capture`, which renders a frame and reads it back as a PNG in the
  * same task. A WebGL drawing buffer is only guaranteed until the browser
@@ -134,7 +135,11 @@ export function useShaderRenderer(
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     const geometry = new THREE.PlaneGeometry(2, 2);
     const material = new THREE.ShaderMaterial({
-      uniforms: { ...baseUniforms(), ...shaderConfig.uniforms },
+      uniforms: {
+        resolution: { value: new THREE.Vector2() },
+        ...baseUniforms(),
+        ...shaderConfig.uniforms,
+      },
       vertexShader: shaderConfig.vertexShader || defaultVertexShader,
       fragmentShader: shaderConfig.fragmentShader,
     });
@@ -190,7 +195,7 @@ export function useShaderRenderer(
     const resize = () => {
       const { width, height } = getSize(container);
       renderer.setSize(width, height);
-      uniforms.resolution?.value.set(width, height);
+      uniforms.resolution.value.set(width, height);
       // setSize clears the canvas, so draw straight away.
       render();
     };

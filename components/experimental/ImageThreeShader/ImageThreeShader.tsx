@@ -77,7 +77,6 @@ const aspectClass: Record<AspectRatio, string> = {
 
 const baseUniforms = () => ({
   image: { value: null },
-  resolution: { value: new THREE.Vector2() },
   imageResolution: { value: new THREE.Vector2() },
   mouse: { value: new THREE.Vector2() },
   time: { value: 0 },
