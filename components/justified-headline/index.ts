@@ -1,1 +1,4 @@
-export { JustifiedHeadlineInner } from './JustifiedHeadlineInner';
+export {
+  JustifiedHeadlineInner,
+  type HeadlineSetting,
+} from './JustifiedHeadlineInner';

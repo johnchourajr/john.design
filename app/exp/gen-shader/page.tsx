@@ -9,33 +9,40 @@ import {
   ShaderVariant,
 } from '@/components/experimental/GenThreeShader/shaders';
 import {
+  buttonSetting,
   getSettingValue,
+  selectSetting,
   SettingsGroup,
+  settingsToUniforms,
+  type ButtonSetting,
+  type SelectSetting,
+  type SliderSetting,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
 
-const DEFAULT_SHADER = 'pinwheelShader';
+const DEFAULT_SHADER: ShaderVariant = 'pinwheelShader';
 
-const BASE_SETTINGS = [
-  {
-    name: 'Shader',
-    type: 'Select',
-    value: undefined as ShaderVariant | undefined,
-    options: Object.keys(genShaders),
-  },
-  {
-    name: 'Download',
-    type: 'Button',
-    label: 'Download PNG',
-  },
-];
+type GenSetting =
+  | SelectSetting<'shader', ShaderVariant>
+  | ButtonSetting<'download'>
+  | SliderSetting;
+
+const SHADER_OPTIONS = Object.keys(genShaders) as ShaderVariant[];
+
+const downloadSetting = buttonSetting({
+  key: 'download',
+  label: 'Download PNG',
+});
 
 // Keep the Shader select and Download button, and swap in the uniform
 // settings for the chosen shader.
-function withShaderSettings(settings: any[], shader: ShaderVariant) {
+function withShaderSettings(
+  settings: readonly GenSetting[],
+  shader: ShaderVariant,
+): GenSetting[] {
   const baseSettings = settings.filter(
-    (s) => s.name === 'Shader' || s.name === 'Download',
+    (s) => s.key === 'shader' || s.key === 'download',
   );
   return [...baseSettings, ...SHADER_SETTINGS[shader]];
 }
@@ -50,29 +57,25 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
 
   const downloadRef = useRef<(() => void) | null>(null);
 
-  const [settings, setSettings] = useState<any[]>(() =>
+  const [settings, setSettings] = useState<GenSetting[]>(() =>
     withShaderSettings(
-      BASE_SETTINGS.map((setting) =>
-        setting.name === 'Shader'
-          ? { ...setting, value: defaultShader }
-          : setting,
-      ),
+      [
+        selectSetting({
+          key: 'shader',
+          label: 'Shader',
+          value: defaultShader,
+          options: SHADER_OPTIONS,
+        }),
+        downloadSetting,
+      ],
       defaultShader,
     ),
   );
 
-  const currentShader = getSettingValue(
-    settings,
-    'Shader',
-    DEFAULT_SHADER,
-  ) as ShaderVariant;
+  const currentShader = getSettingValue(settings, 'shader', DEFAULT_SHADER);
 
-  const updateSettings = (next: any[]) => {
-    const nextShader = getSettingValue(
-      next,
-      'Shader',
-      DEFAULT_SHADER,
-    ) as ShaderVariant;
+  const updateSettings = (next: GenSetting[]) => {
+    const nextShader = getSettingValue(next, 'shader', DEFAULT_SHADER);
     setSettings(
       nextShader === currentShader
         ? next
@@ -81,18 +84,14 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   };
 
   const visibleSettings = settings.map((setting) =>
-    setting.name === 'Download'
+    setting.kind === 'button' && setting.key === 'download'
       ? { ...setting, onClick: () => downloadRef.current?.() }
       : setting,
   );
 
   const shaderConfig = {
     fragmentShader: genShaders[currentShader],
-    uniforms: Object.fromEntries(
-      settings
-        .filter((setting: any) => setting.uniform)
-        .map((setting: any) => [setting.uniform, { value: setting.value }]),
-    ),
+    uniforms: settingsToUniforms(settings),
   };
 
   return (
@@ -118,7 +117,6 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
           <SettingsGroup
             settings={visibleSettings}
             setSettings={updateSettings}
-            className="relative z-10"
           />
         )}
       </div>

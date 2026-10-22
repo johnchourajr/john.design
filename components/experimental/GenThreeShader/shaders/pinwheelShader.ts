@@ -1,31 +1,33 @@
+import { sliderSetting } from '@/components/experimental/SettingsComponents/settings';
+
 export const pinwheelShaderSettings = [
-  {
-    name: 'Rotation Speed',
-    type: 'Slider',
+  sliderSetting({
+    key: 'rotationSpeed',
+    label: 'Rotation Speed',
     value: 1.0,
     min: 0.1,
     max: 2.0,
     step: 0.1,
     uniform: 'rotationSpeed',
-  },
-  {
-    name: 'Vortex Strength',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'vortexStrength',
+    label: 'Vortex Strength',
     value: 5.0,
     min: 1.0,
     max: 10.0,
     step: 0.5,
     uniform: 'vortexStrength',
-  },
-  {
-    name: 'Color Intensity',
-    type: 'Slider',
+  }),
+  sliderSetting({
+    key: 'colorIntensity',
+    label: 'Color Intensity',
     value: 0.7,
     min: 0.1,
     max: 1.0,
     step: 0.05,
     uniform: 'colorIntensity',
-  },
+  }),
 ];
 
 export const pinwheelShader = `

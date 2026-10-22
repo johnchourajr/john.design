@@ -1,9 +1,14 @@
 'use client';
 
 import clsx from 'clsx';
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { useShaderUniforms } from '../useShaderUniforms';
+import {
+  useShaderRenderer,
+  type ShaderConfig,
+  type ShaderInput,
+  type ShaderSize,
+} from '../useShaderRenderer';
 import { defaultFragmentShader } from './shaders';
 
 type AspectRatio =
@@ -21,29 +26,108 @@ type AspectRatio =
   | '1680:1050'
   | '1280:720';
 
-type ShaderConfig = {
-  vertexShader?: string;
-  fragmentShader?: string;
-  uniforms?: Record<string, THREE.IUniform>;
-};
-
 type VideoThreeShaderProps = {
   className?: string;
   src: string;
   aspectRatio: AspectRatio;
-  shaderConfig?: ShaderConfig;
+  shaderConfig?: Partial<ShaderConfig>;
   autoplay?: boolean;
   muted?: boolean;
   loop?: boolean;
 };
 
-const defaultVertexShader = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
+const aspectClass: Record<AspectRatio, string> = {
+  '1:1': 'aspect-square',
+  '4:3': 'aspect-[4/3]',
+  '16:9': 'aspect-[16/9]',
+  '21:9': 'aspect-[21/9]',
+  '3:2': 'aspect-[3/2]',
+  '2:3': 'aspect-[2/3]',
+  '5:4': 'aspect-[5/4]',
+  '9:16': 'aspect-[9/16]',
+  '4:5': 'aspect-[4/5]',
+  '1200:600': 'aspect-[1200/600]',
+  '2000:1327': 'aspect-[2000/1327]',
+  '1680:1050': 'aspect-[1680/1050]',
+  '1280:720': 'aspect-[1280/720]',
+};
+
+// No `resolution` here: this component has never set it, so shaders that
+// declare it read (0, 0). Kept that way so the video shaders look the same.
+const baseUniforms = () => ({
+  image: { value: null },
+  imageResolution: { value: new THREE.Vector2() },
+  mouse: { value: new THREE.Vector2() },
+  time: { value: 0 },
+});
+
+const clientSize = (container: HTMLElement): ShaderSize => ({
+  width: container.clientWidth,
+  height: container.clientHeight,
+});
+
+type VideoOptions = {
+  src: string;
+  autoplay: boolean;
+  muted: boolean;
+  loop: boolean;
+};
+
+/**
+ * Plays `src` into the `image` texture. Animation frames only render while
+ * the video plays. With reduced motion it shows the first frame and doesn't
+ * play.
+ */
+const videoTexture =
+  ({ src, autoplay, muted, loop }: VideoOptions): ShaderInput =>
+  ({ material, ready, reducedMotion }) => {
+    const video = document.createElement('video');
+    video.crossOrigin = 'anonymous';
+    video.src = src;
+    video.autoplay = autoplay && !reducedMotion;
+    video.muted = muted;
+    video.loop = loop;
+    video.playsInline = true;
+
+    let texture: THREE.VideoTexture | null = null;
+
+    const handleLoadedData = () => {
+      if (texture) return;
+      texture = new THREE.VideoTexture(video);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.format = THREE.RGBAFormat;
+
+      material.uniforms.image.value = texture;
+      material.uniforms.imageResolution.value.set(
+        video.videoWidth,
+        video.videoHeight,
+      );
+
+      if (!reducedMotion) {
+        video.play().catch((error) => {
+          console.warn('Video autoplay failed:', error);
+        });
+      }
+      ready();
+    };
+    video.addEventListener('loadeddata', handleLoadedData);
+
+    return {
+      shouldAnimate: () => !video.paused,
+      beforeRender: () => {
+        if (texture) texture.needsUpdate = true;
+      },
+      dispose: () => {
+        video.removeEventListener('loadeddata', handleLoadedData);
+        // Stop the download as well as playback.
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+        texture?.dispose();
+      },
+    };
+  };
 
 export const VideoThreeShader = ({
   className,
@@ -55,181 +139,28 @@ export const VideoThreeShader = ({
   loop = true,
 }: VideoThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
-
-  const baseUniforms = useMemo(
-    () => ({
-      image: { value: null },
-      resolution: { value: new THREE.Vector2() },
-      imageResolution: { value: new THREE.Vector2() },
-      mouse: { value: new THREE.Vector2() },
-      time: { value: 0 },
-    }),
-    [],
+  const input = useMemo(
+    () => videoTexture({ src, autoplay, muted, loop }),
+    [src, autoplay, muted, loop],
   );
 
-  const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const container = containerRef.current;
-    sceneRef.current = scene;
-
-    // Initialize renderer
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    rendererRef.current = renderer;
-    container.appendChild(renderer.domElement);
-
-    // Create and load video
-    const video = document.createElement('video');
-    video.crossOrigin = 'anonymous';
-    video.src = src;
-    video.autoplay = autoplay;
-    video.muted = muted;
-    video.loop = loop;
-    video.playsInline = true;
-    videoRef.current = video;
-
-    let disposeMesh = () => {};
-
-    // Wait for video to be loaded before creating texture
-    const handleLoadedData = () => {
-      const videoTexture = new THREE.VideoTexture(video);
-      videoTexture.minFilter = THREE.LinearFilter;
-      videoTexture.magFilter = THREE.LinearFilter;
-      videoTexture.format = THREE.RGBAFormat;
-
-      const geometry = new THREE.PlaneGeometry(2, 2);
-      const material = new THREE.ShaderMaterial({
-        uniforms: {
-          ...baseUniforms,
-          ...shaderConfig.uniforms,
-        },
-        vertexShader: shaderConfig.vertexShader || defaultVertexShader,
-        fragmentShader: shaderConfig.fragmentShader || defaultFragmentShader,
-      });
-
-      material.uniforms.image.value = videoTexture;
-      material.uniforms.imageResolution.value.set(
-        video.videoWidth,
-        video.videoHeight,
-      );
-      materialRef.current = material;
-
-      const mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-      disposeMesh = () => {
-        videoTexture.dispose();
-        geometry.dispose();
-        material.dispose();
-      };
-
-      // Start playing the video
-      video.play().catch((error) => {
-        console.warn('Video autoplay failed:', error);
-      });
-
-      handleResize();
-    };
-    video.addEventListener('loadeddata', handleLoadedData);
-
-    const handleResize = () => {
-      if (!containerRef.current || !rendererRef.current) return;
-      const { clientWidth, clientHeight } = containerRef.current;
-      rendererRef.current.setSize(clientWidth, clientHeight);
-    };
-
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!containerRef.current) return;
-      const { clientX, clientY } = event;
-      const { left, top, width, height } =
-        containerRef.current.getBoundingClientRect();
-      mouseRef.current.x = ((clientX - left) / width) * 2 - 1;
-      mouseRef.current.y = -((clientY - top) / height) * 2 + 1;
-    };
-
-    window.addEventListener('resize', handleResize);
-    container.addEventListener('mousemove', handleMouseMove);
-
-    const startTime = performance.now();
-    let animationFrameId: number;
-
-    const animate = () => {
-      if (videoRef.current && !videoRef.current.paused) {
-        const mesh = scene.children[0] as THREE.Mesh;
-        if (mesh?.material instanceof THREE.ShaderMaterial) {
-          const uniforms = mesh.material.uniforms;
-          uniforms.time.value = (performance.now() - startTime) * 0.001;
-          uniforms.mouse.value.set(mouseRef.current.x, mouseRef.current.y);
-          if (uniforms.image.value) {
-            (uniforms.image.value as THREE.VideoTexture).needsUpdate = true;
-          }
-        }
-        renderer.render(scene, camera);
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      video.removeEventListener('loadeddata', handleLoadedData);
-      // Stop the download as well as playback.
-      video.pause();
-      video.removeAttribute('src');
-      video.load();
-      disposeMesh();
-      renderer.dispose();
-      scene.clear();
-      container.removeChild(renderer.domElement);
-      window.removeEventListener('resize', handleResize);
-      container.removeEventListener('mousemove', handleMouseMove);
-    };
-    // Rebuild only when the program itself changes. Uniform values reach the
-    // live material through useShaderUniforms instead.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    src,
-    aspectRatio,
-    shaderConfig.fragmentShader,
-    shaderConfig.vertexShader,
-    uniformKeys,
+  useShaderRenderer(containerRef, {
+    shaderConfig: {
+      ...shaderConfig,
+      fragmentShader: shaderConfig.fragmentShader || defaultFragmentShader,
+    },
     baseUniforms,
-    autoplay,
-    muted,
-    loop,
-  ]);
-
-  const aspect: Record<AspectRatio, string> = {
-    '1:1': 'aspect-square',
-    '4:3': 'aspect-[4/3]',
-    '16:9': 'aspect-[16/9]',
-    '21:9': 'aspect-[21/9]',
-    '3:2': 'aspect-[3/2]',
-    '2:3': 'aspect-[2/3]',
-    '5:4': 'aspect-[5/4]',
-    '9:16': 'aspect-[9/16]',
-    '4:5': 'aspect-[4/5]',
-    '1200:600': 'aspect-[1200/600]',
-    '2000:1327': 'aspect-[2000/1327]',
-    '1680:1050': 'aspect-[1680/1050]',
-    '1280:720': 'aspect-[1280/720]',
-  };
+    input,
+    getSize: clientSize,
+    mouseSpace: 'ndc',
+  });
 
   return (
     <div
       ref={containerRef}
       className={clsx(
         'relative inline-block w-full h-full',
-        aspect[aspectRatio],
+        aspectClass[aspectRatio],
         className,
       )}
     />
