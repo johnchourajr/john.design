@@ -61,7 +61,7 @@ export function NavColorDrawer() {
               className={clsx(
                 'group h-full flex-1 hover:flex-[1.25] flex flex-col items-start justify-between p-4',
                 'transition-[flex-grow] duration-500 ease-out-expo motion-reduce:transition-none',
-                'font-mono text-sm uppercase text-black',
+                'font-mono text-xs uppercase text-black',
                 className,
               )}
             >
