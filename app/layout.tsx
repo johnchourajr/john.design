@@ -44,6 +44,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           src="/scripts/root-color-cookie.js"
           strategy="beforeInteractive"
         />
+        <Script
+          id="iframe-flag"
+          src="/scripts/iframe-flag.js"
+          strategy="beforeInteractive"
+        />
         {/* Load Typekit fonts asynchronously to prevent render blocking */}
         <link
           rel="stylesheet"

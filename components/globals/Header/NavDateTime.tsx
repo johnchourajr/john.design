@@ -18,12 +18,11 @@ export function NavDateTime() {
         'lg:inline-flex hidden',
         'min-w-[165px]',
       )}
-      aria-live="polite"
     >
       <span
         className={clsx(
           'min-w-[100px]',
-          isLoading && 'bg-gray-200 animate-pulse rounded',
+          isLoading && 'bg-current opacity-20 animate-pulse rounded',
         )}
       >
         {dateStr || '\u00A0'}
@@ -31,7 +30,7 @@ export function NavDateTime() {
       <span
         className={clsx(
           'min-w-[65px]',
-          isLoading && 'bg-gray-200 animate-pulse rounded',
+          isLoading && 'bg-current opacity-20 animate-pulse rounded',
         )}
       >
         {!isLoading ? (

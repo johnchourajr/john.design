@@ -1,16 +1,15 @@
 'use client';
 
 import { FreehandCanvas } from '@/components/experimental/FreehandCanvas';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React, {
   createContext,
-  Suspense,
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
-  useMemo,
+  useSyncExternalStore,
 } from 'react';
 import {
   DocSizeType,
@@ -33,22 +32,24 @@ export const useDrawing = () => {
   return context;
 };
 
-export function DrawingProviderComponent({
+const subscribeNoop = () => () => {};
+const getIsIframe = () =>
+  new URLSearchParams(window.location.search).has('iframe');
+const getIsIframeServer = () => false;
+
+export function DrawingProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  // Derived from searchParams, but handle potential errors
-  const isIframe = useMemo(() => {
-    try {
-      return searchParams?.get('iframe') !== null;
-    } catch {
-      return false;
-    }
-  }, [searchParams]);
+  // Read from the URL directly rather than useSearchParams, which would force
+  // every page under this provider to render on the client only.
+  const isIframe = useSyncExternalStore(
+    subscribeNoop,
+    getIsIframe,
+    getIsIframeServer,
+  );
   const [enableDrawing, setEnableDrawing] = useState<boolean>(false);
   const [points, setPoints] = useState<StoredPoint>([]);
   const [storedPoints, setStoredPoints] = useState<StoredPointObj>({});
@@ -282,13 +283,5 @@ export function DrawingProviderComponent({
       {children}
       <FreehandCanvas />
     </DrawingContext.Provider>
-  );
-}
-
-export function DrawingProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={null}>
-      <DrawingProviderComponent>{children}</DrawingProviderComponent>
-    </Suspense>
   );
 }

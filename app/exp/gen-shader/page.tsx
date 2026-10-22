@@ -17,7 +17,7 @@ import InlineLink from '@/components/fragments/InlineLink';
 
 const DEFAULT_SHADER = 'pinwheelShader';
 
-export default function Page() {
+function PageContent() {
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
   const { setEnableDrawing } = useDrawing();
@@ -110,6 +110,16 @@ export default function Page() {
           />
         )}
       </div>
+    </Suspense>
+  );
+}
+
+// useSearchParams needs a Suspense boundary so the rest of the site can be
+// statically rendered.
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
     </Suspense>
   );
 }

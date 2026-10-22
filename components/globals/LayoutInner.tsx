@@ -21,7 +21,7 @@ export function LayoutInner({ children }: LayoutInnerProps) {
   }, [isIframe, setEnableDrawing]);
 
   return (
-    <main className={clsx('relative z-10', !isIframe && !isProposalDetail && 'min-h-[100vh] pt-14', isProposalDetail && 'min-h-[100vh]')}>
+    <main className={clsx('relative z-10', !isIframe && !isProposalDetail && 'min-h-[100vh] pt-14 [[data-iframe]_&]:min-h-0 [[data-iframe]_&]:pt-0', isProposalDetail && 'min-h-[100vh]')}>
       {children}
     </main>
   );
