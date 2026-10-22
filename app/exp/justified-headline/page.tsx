@@ -8,7 +8,7 @@ export default function Page() {
       text: 'John Is',
       motionObject: getRandomParentAndChildClassesArray(8),
       className:
-        'z-[100] relative !text-[1rem] lg:!text-[1vw] !tracking-wider uppercase',
+        'z-100 relative text-[1rem]! lg:text-[1vw]! tracking-wider! uppercase',
     },
     {
       text: 'Working On',

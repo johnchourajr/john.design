@@ -57,7 +57,7 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
           aspectRatio="1680:1050"
         />
         {!!hasOverlay && (
-          <div className="absolute bg-root z-10 inset-0 mix-blend-darken aspect-[1680/1050] pointer-events-none" />
+          <div className="absolute bg-root z-10 inset-0 mix-blend-darken aspect-1680/1050 pointer-events-none" />
         )}
       </div>
       {!hideSettings && (

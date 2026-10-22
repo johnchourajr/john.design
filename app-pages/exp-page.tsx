@@ -17,7 +17,7 @@ export default function ExpPage({ content: expData }: { content: PageItem[] }) {
         <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
           <JustifiedHeadlineInner
             className={clsx(
-              'leading-[1] w-full font-black pointer-events-none',
+              'leading-none w-full font-black pointer-events-none',
             )}
             headline={[
               {

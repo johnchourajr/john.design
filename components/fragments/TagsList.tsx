@@ -23,7 +23,7 @@ export function TagsList({ tags, size = 'sm' }: TagsListProps) {
             key={tag}
             className={clsx(
               getSize(),
-              'border-root border-[.5px] text-root px-1 rounded',
+              'border-root border-[.5px] text-root px-1 rounded-sm',
             )}
           >
             {tag}

@@ -68,7 +68,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center z-10 min-h-[100vh] overflow-hidden"
+      className="relative flex flex-col items-center z-10 min-h-screen overflow-hidden"
     >
       <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none">
         <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
@@ -84,7 +84,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       </div>
       <m.div
         className={clsx(
-          'flex items-start flex-col gap-6 p-4 justify-center relative z-[100] mb-[8vw]',
+          'flex items-start flex-col gap-6 p-4 justify-center relative z-100 mb-[8vw]',
           enableDrawing && 'select-none',
         )}
         variants={basicAnimateDelayVariants({ delay: 0.5 })}
@@ -106,7 +106,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       <div
         className={clsx(
           'absolute w-screen aspect-square flex items-center justify-center -z-10 ',
-          '-translate-y-[5%]',
+          'translate-y-[-5%]',
         )}
       >
         {shaderConfig && (
