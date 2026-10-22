@@ -59,20 +59,23 @@ export function NavColorDrawer() {
                 handleActive(false);
               }}
               className={clsx(
-                'group h-full flex-1 flex flex-col items-start justify-between p-4',
+                'group h-full flex-1 hover:flex-[1.25] flex flex-col items-start justify-between p-4',
+                'transition-[flex-grow] duration-500 ease-out-expo motion-reduce:transition-none',
                 'font-mono text-sm uppercase text-black',
                 className,
               )}
             >
               <span>{color}</span>
-              <span
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden
                 className={clsx(
-                  'transition-opacity duration-300',
+                  'h-6 w-6 fill-none stroke-current stroke-2 transition-opacity duration-300',
                   selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-50',
                 )}
               >
-                Selected
-              </span>
+                <path d="M4 12.5l5 5L20 6.5" />
+              </svg>
             </button>
           );
         })}
