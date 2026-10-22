@@ -86,6 +86,9 @@ const aspectClass: Record<AspectRatio, string> = {
   '1680:1050': 'aspect-1680/1050',
 };
 
+/** 3456 × 3456: the portrait's buffer at 2x on a 1728px-wide screen. */
+const HERO_MAX_PIXELS = 3456 * 3456;
+
 const baseUniforms = () => ({
   image: { value: null },
   imageResolution: { value: new THREE.Vector2() },
@@ -221,10 +224,14 @@ export const ImageThreeShader = ({
     input,
     getSize,
     getFrame,
-    antialias: true,
+    // Multisampling only smooths polygon edges, and this plane's edges are
+    // the canvas's. With the headline the canvas is larger, so skip it.
+    antialias: !getHeadline,
     // The type has to be as sharp as the DOM's, so render at the screen's
-    // full ratio when it's in here.
+    // full ratio when it's in here, within the buffer the hero has always
+    // drawn on a 1728px-wide screen at 2x.
     maxPixelRatio: getHeadline ? 3 : 2,
+    maxPixels: getHeadline ? HERO_MAX_PIXELS : undefined,
     mouseDamping: 0.08,
     resizeWith: getHeadline,
     // The image's box is translated and can sit on a half pixel, where the

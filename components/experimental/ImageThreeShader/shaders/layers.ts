@@ -19,8 +19,9 @@
  *   or smaller, for a headline on its own measured against the same
  *   viewport-wide square as the home hero. The core sets it; a material
  *   without it reads zeros, which mean the whole canvas.
- * - `headline` is the headline, premultiplied, at the canvas's own pixels.
- *   It is only read while `hasHeadline` is 1.
+ * - `headline` is the headline, premultiplied, at the canvas's own pixels,
+ *   covering the band of rows `headlineRect` gives in canvas UV. It is only
+ *   read while `hasHeadline` is 1.
  * - `hideImage` is 1 for a headline on its own: no image, and texture space
  *   is the frame itself.
  *
@@ -33,6 +34,7 @@ export const layers = `
   uniform float hasHeadline;
   uniform float hideImage;
   uniform float hover;
+  uniform vec4 headlineRect;
 
   vec4 g_layerRect;
   // 1 where this fragment shows the image: inside the frame, image on.
@@ -73,10 +75,13 @@ export const layers = `
     if (hasHeadline < 0.5) return vec4(0.0);
     vec2 uv = (textureUV - 0.5) / g_texScale + 0.5;
     vec2 canvasUv = g_layerRect.xy + uv * g_layerRect.zw;
-    if (canvasUv.x < 0.0 || canvasUv.x > 1.0 || canvasUv.y < 0.0 || canvasUv.y > 1.0) {
+    // The texture covers only the band of rows the letters reach.
+    vec4 band = headlineRect.w > 0.0 ? headlineRect : vec4(0.0, 0.0, 1.0, 1.0);
+    vec2 bandUv = (canvasUv - band.xy) / band.zw;
+    if (bandUv.x < 0.0 || bandUv.x > 1.0 || bandUv.y < 0.0 || bandUv.y > 1.0) {
       return vec4(0.0);
     }
-    return texture2D(headline, canvasUv);
+    return texture2D(headline, bandUv);
   }
 
   // Premultiplied \`top\` over \`bottom\`.

@@ -57,8 +57,11 @@ export default function HeadlineShaderLayer({
     shaderConfig,
     baseUniforms,
     input,
-    antialias: true,
+    // Multisampling only smooths polygon edges; this plane's are the canvas's.
+    antialias: false,
     maxPixelRatio: 3,
+    // A headline band is far smaller than the home portrait's square.
+    maxPixels: 3456 * 3456,
     mouseDamping: 0.08,
     getFrame: viewportSquare,
     restingMouse: offCanvas,

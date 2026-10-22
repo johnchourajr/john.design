@@ -56,9 +56,18 @@ export type ShaderRendererOptions = {
   antialias?: boolean;
   /** Upper bound on the device pixel ratio. 1 renders at CSS pixels. */
   maxPixelRatio?: number;
+  /**
+   * Upper bound on the drawing buffer's area in device pixels. The ratio
+   * drops below the screen's once the canvas would pass it, so a very wide
+   * window can't ask for an unbounded buffer.
+   */
+  maxPixels?: number;
   /** `pixels` from the container's top left, or `ndc` (-1 to 1, y up). */
   mouseSpace?: 'pixels' | 'ndc';
-  /** Fraction of the way the mouse uniform moves toward the pointer per frame. 1 is undamped. */
+  /**
+   * Fraction of the way the mouse uniform moves toward the pointer per 60th
+   * of a second, whatever the frame rate. 1 is undamped.
+   */
   mouseDamping?: number;
   /**
    * The part of the canvas the shader treats as its frame. `resolution` is
@@ -190,6 +199,7 @@ export function useShaderRenderer(
     getSize = contentBoxSize,
     antialias = false,
     maxPixelRatio = 1,
+    maxPixels = Infinity,
     mouseSpace = 'pixels',
     mouseDamping = 1,
     getFrame,
@@ -235,7 +245,12 @@ export function useShaderRenderer(
       onErrorRef.current?.();
       return;
     }
-    const pixelRatio = () => Math.min(window.devicePixelRatio, maxPixelRatio);
+    const pixelRatio = (width = 1, height = 1) =>
+      Math.min(
+        window.devicePixelRatio,
+        maxPixelRatio,
+        Math.sqrt(maxPixels / Math.max(1, width * height)),
+      );
     renderer.setPixelRatio(pixelRatio());
     const canvas = renderer.domElement;
     container.appendChild(canvas);
@@ -303,12 +318,15 @@ export function useShaderRenderer(
       }
       if (handle?.shouldAnimate && !handle.shouldAnimate()) return;
       const now = performance.now();
-      const elapsed = Math.min((now - lastTick) / 1000, 0.1);
+      const elapsed = Math.min((now - lastTick) / 1000, 0.25);
       lastTick = now;
+      // Both ease by elapsed time, so they move as fast at 30, 60 or 120
+      // frames a second. mouseDamping is the share per 60th of a second.
       hover += (hoverTarget - hover) * (1 - Math.exp(-elapsed / HOVER_EASE));
       if (Math.abs(hoverTarget - hover) < 0.001) hover = hoverTarget;
-      mouse.x += (pointer.x - mouse.x) * mouseDamping;
-      mouse.y += (pointer.y - mouse.y) * mouseDamping;
+      const follow = 1 - Math.pow(1 - mouseDamping, elapsed * 60);
+      mouse.x += (pointer.x - mouse.x) * follow;
+      mouse.y += (pointer.y - mouse.y) * follow;
       render();
     };
 
@@ -353,7 +371,7 @@ export function useShaderRenderer(
         height = Math.ceil(height + Math.abs(snap.y));
       }
       // Zoom and moving between screens change the ratio, and both resize.
-      renderer.setPixelRatio(pixelRatio());
+      renderer.setPixelRatio(pixelRatio(width, height));
       renderer.setSize(width, height);
       uniforms.resolution.value.set(frame.width, frame.height);
       uniforms.layerRect?.value.set(
@@ -421,7 +439,11 @@ export function useShaderRenderer(
       canvas.dataset.hover = String(next);
     };
 
-    const enter = (jump: boolean) => {
+    // The effect eases in the first time a pointer arrives, then stays:
+    // when the pointer leaves or a finger lifts, the lens holds its last
+    // place, like an object left on the page.
+    const arrive = (clientX: number, clientY: number, jump: boolean) => {
+      setPointer(clientX, clientY);
       // Arriving from rest: start where the pointer is, not where it was.
       if (jump && hover < 0.05) {
         mouse.x = pointer.x;
@@ -429,45 +451,40 @@ export function useShaderRenderer(
       }
       setHoverTarget(1);
     };
-    const leave = () => {
-      setHoverTarget(0);
-    };
 
-    // A mouse or pen. Touch has its own handlers below.
+    // A mouse or pen. Touch has its own handler below.
     const handlePointerMove = (event: PointerEvent) => {
       if (event.pointerType === 'touch') return;
-      setPointer(event.clientX, event.clientY);
-      if (pointerTarget === 'container' || isOverCanvas(event.clientX, event.clientY)) {
-        enter(jumpOnEnter);
-      } else {
-        leave();
+      // Heard on the container, the pointer is over it. Heard on the
+      // window, it only counts over the canvas.
+      if (
+        pointerTarget === 'container' ||
+        isOverCanvas(event.clientX, event.clientY)
+      ) {
+        arrive(event.clientX, event.clientY, jumpOnEnter);
       }
     };
 
     // A finger drives the effect while it's down on the canvas, scrolling
-    // included (touch events keep coming while the page scrolls), and lets
-    // go when it lifts: nothing stays stuck.
+    // included (touch events keep coming while the page scrolls). Listeners
+    // are passive, so scrolling is never held up.
     const handleTouch = (event: TouchEvent) => {
       const touch = event.touches[0];
-      if (!touch || !isOverCanvas(touch.clientX, touch.clientY)) {
-        leave();
-        return;
+      if (touch && isOverCanvas(touch.clientX, touch.clientY)) {
+        arrive(touch.clientX, touch.clientY, true);
       }
-      setPointer(touch.clientX, touch.clientY);
-      enter(true);
     };
 
     const pointerSource: HTMLElement | Window =
       pointerTarget === 'window' ? window : container;
     const listen = { passive: true };
-    pointerSource.addEventListener('pointermove', handlePointerMove as EventListener, listen);
-    if (pointerTarget === 'container') container.addEventListener('pointerleave', leave);
-    document.documentElement.addEventListener('pointerleave', leave);
-    window.addEventListener('blur', leave);
+    pointerSource.addEventListener(
+      'pointermove',
+      handlePointerMove as EventListener,
+      listen,
+    );
     window.addEventListener('touchstart', handleTouch, listen);
     window.addEventListener('touchmove', handleTouch, listen);
-    window.addEventListener('touchend', handleTouch, listen);
-    window.addEventListener('touchcancel', leave, listen);
 
     // A lost context draws nothing, so hand back to the fallback. Disposing
     // the input first lets it restore anything it hid.
@@ -506,13 +523,8 @@ export function useShaderRenderer(
         'pointermove',
         handlePointerMove as EventListener,
       );
-      container.removeEventListener('pointerleave', leave);
-      document.documentElement.removeEventListener('pointerleave', leave);
-      window.removeEventListener('blur', leave);
       window.removeEventListener('touchstart', handleTouch);
       window.removeEventListener('touchmove', handleTouch);
-      window.removeEventListener('touchend', handleTouch);
-      window.removeEventListener('touchcancel', leave);
       canvas.removeEventListener('webglcontextlost', handleContextLost);
       handle?.dispose();
       geometry.dispose();
@@ -536,6 +548,7 @@ export function useShaderRenderer(
     getSize,
     antialias,
     maxPixelRatio,
+    maxPixels,
     mouseSpace,
     mouseDamping,
     getFrame,

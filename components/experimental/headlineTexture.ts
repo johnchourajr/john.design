@@ -9,7 +9,12 @@ export const headlineUniforms = () => ({
   hideImage: { value: 0 },
   // Driven by the core: how far the effect reaches the type.
   hover: { value: 0 },
+  // The band of the canvas the headline texture covers, in canvas UV.
+  headlineRect: { value: new THREE.Vector4(0, 0, 1, 1) },
 });
+
+/** Room above and below the headline for letters motion moves past its box. */
+const BAND_PAD = 0.25;
 
 type Glyph = {
   text: string;
@@ -90,6 +95,46 @@ export const headlineTexture =
     let retries = 0;
     let retryId = 0;
     let disposed = false;
+    // The canvas's drawing buffer, and the band of it the texture covers:
+    // only the headline's rows, so a viewport-wide canvas doesn't upload
+    // a viewport-sized texture every time a letter moves.
+    let bufferWidth = 0;
+    let bufferHeight = 0;
+    let bandTop = 0;
+    let inkTop = 0;
+    let inkBottom = 0;
+
+    /**
+     * Fits the texture to the rows the letters reach, with room to spare so
+     * the layout animation doesn't reallocate it every frame. Grows when a
+     * letter leaves it, shrinks when it's over twice the size it needs.
+     */
+    const fitBand = () => {
+      if (!glyphCount) return;
+      const need = inkBottom - inkTop;
+      const pad = need * BAND_PAD;
+      const bandBottom = bandTop + surface.height;
+      const fits =
+        surface.width === bufferWidth &&
+        inkTop >= bandTop &&
+        inkBottom <= bandBottom &&
+        surface.height <= (need + 2 * pad) * 2;
+      if (fits) return;
+      const top = Math.max(0, Math.floor(inkTop - pad));
+      const bottom = Math.min(bufferHeight, Math.ceil(inkBottom + pad));
+      bandTop = top;
+      surface.width = bufferWidth;
+      surface.height = Math.max(1, bottom - top);
+      // The GPU copy has a fixed size; let three allocate a new one.
+      texture.dispose();
+      signature = NaN;
+      uniforms.headlineRect.value.set(
+        0,
+        1 - bottom / bufferHeight,
+        1,
+        surface.height / bufferHeight,
+      );
+    };
 
     const markDirty = () => {
       // fonts.ready can settle after unmount.
@@ -149,8 +194,10 @@ export const headlineTexture =
     const read = () => {
       const bounds = canvas.getBoundingClientRect();
       if (!bounds.width || !bounds.height) return false;
-      const sx = surface.width / bounds.width;
-      const sy = surface.height / bounds.height;
+      const sx = bufferWidth / bounds.width;
+      const sy = bufferHeight / bounds.height;
+
+
       // The browser composites the canvas at its box snapped to whole CSS
       // pixels, and puts each text baseline on a whole CSS pixel too.
       const originX = Math.round(bounds.left) * sx;
@@ -158,6 +205,8 @@ export const headlineTexture =
       let matches = true;
       glyphCount = 0;
       runCount = 0;
+      inkTop = Infinity;
+      inkBottom = -Infinity;
 
       const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
       for (let node = walker.nextNode(); node; node = walker.nextNode()) {
@@ -230,6 +279,8 @@ export const headlineTexture =
           // Where the browser paints this glyph, on the canvas's pixels.
           entry.x = box.left * sx - originX;
           entry.y = Math.round(box.top + ascent * runScaleY) * sy - originY;
+          inkTop = Math.min(inkTop, (box.top - bounds.top) * sy);
+          inkBottom = Math.max(inkBottom, (box.bottom - bounds.top) * sy);
           entry.scaleX = runScaleX * sx;
           entry.scaleY = runScaleY * sy;
           glyphCount += 1;
@@ -241,7 +292,7 @@ export const headlineTexture =
 
     // A number that changes when any drawn pixel would.
     const sign = () => {
-      let hash = glyphCount + surface.width * 7 + surface.height * 13;
+      let hash = glyphCount + surface.width * 7 + surface.height * 13 + bandTop;
       for (let i = 0; i < runCount; i++) {
         const run = runs[i];
         hash = hash * 31 + run.alpha * 997;
@@ -278,7 +329,14 @@ export const headlineTexture =
           context.fillStyle = run.color;
           context.globalAlpha = run.alpha;
         }
-        context.setTransform(glyph.scaleX, 0, 0, glyph.scaleY, glyph.x, glyph.y);
+        context.setTransform(
+          glyph.scaleX,
+          0,
+          0,
+          glyph.scaleY,
+          glyph.x,
+          glyph.y - bandTop,
+        );
         context.fillText(glyph.text, 0, 0);
       }
       texture.needsUpdate = true;
@@ -286,7 +344,7 @@ export const headlineTexture =
 
     const update = () => {
       dirty = false;
-      if (!surface.width || !surface.height) return;
+      if (!bufferWidth || !bufferHeight) return;
       const matches = read();
       if (!matches) {
         // A font is still loading. Font events usually say when; retry a
@@ -301,6 +359,7 @@ export const headlineTexture =
         }
         return;
       }
+      fitBand();
       const next = sign();
       if (next !== signature) {
         signature = next;
@@ -335,12 +394,10 @@ export const headlineTexture =
         if (dirty) update();
       },
       resize: ({ width, height }) => {
-        if (surface.width === width && surface.height === height) return;
-        surface.width = width;
-        surface.height = height;
-        // The GPU copy has a fixed size; let three allocate a new one.
-        texture.dispose();
-        signature = NaN;
+        bufferWidth = width;
+        bufferHeight = height;
+        // Refit the band to the new buffer.
+        surface.width = 0;
         dirty = true;
       },
       dispose: () => {
