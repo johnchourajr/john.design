@@ -12,7 +12,7 @@ import { useSearchParams } from 'next/navigation';
 
 type ShaderVariant = keyof typeof fragmentThreeVideoShaders;
 
-export default function Page() {
+function PageContent() {
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
   const hideSettings = searchParams.get('hideSettings') !== null;
@@ -71,6 +71,16 @@ export default function Page() {
       {!hideSettings && (
         <SettingsGroup settings={settings} setSettings={setSettings} />
       )}
+    </Suspense>
+  );
+}
+
+// useSearchParams needs a Suspense boundary so the rest of the site can be
+// statically rendered.
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
     </Suspense>
   );
 }

@@ -6,7 +6,7 @@ import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader
 import InlineLink from '@/components/fragments/InlineLink';
 import { useSearchParams } from 'next/navigation';
 
-export default function Page() {
+function PageContent() {
   const searchParams = useSearchParams();
   const isIframe = searchParams.get('iframe') !== null;
 
@@ -31,6 +31,16 @@ export default function Page() {
           aspectRatio="1680:1050"
         />
       </div>
+    </Suspense>
+  );
+}
+
+// useSearchParams needs a Suspense boundary so the rest of the site can be
+// statically rendered.
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PageContent />
     </Suspense>
   );
 }

@@ -1,20 +1,37 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const SEPARATOR = '|';
+
+function subscribe(onChange: () => void) {
+  const interval = setInterval(onChange, 1000);
+  return () => clearInterval(interval);
+}
+
+// Snapshots are strings so React can compare them by value between ticks.
+function getSnapshot() {
+  const { time, dateStr } = getTime();
+  return `${dateStr}${SEPARATOR}${time}`;
+}
+
+// The server (and static HTML) has no meaningful "now", so render empty and
+// let the client fill in the real time after hydration.
+function getServerSnapshot() {
+  return '';
+}
 
 export function useTime() {
-  // write as hook
-  const [time, setTime] = useState(getTime());
+  const snapshot = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
+  const [dateStr, time] = snapshot ? snapshot.split(SEPARATOR) : [];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(getTime());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return time;
+  return { time, dateStr };
 }
+
 function getTime() {
   const date = new Date();
 
