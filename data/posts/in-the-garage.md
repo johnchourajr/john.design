@@ -4,8 +4,9 @@ template: "post"
 slug: "/journal-images/in-the-garage"
 date: "2020-04-22"
 title: In The Garage
-cover: /journal-images/images/inthegarage-2.gif
-thumb: /journal-images/images/inthegarage-2.gif
+cover: /journal-images/images/inthegarage-2.jpg
+videoCover: /journal-images/video/inthegarage-2.mp4
+thumb: /journal-images/images/inthegarage-2.jpg
 tags:
   - Art
   - Life
@@ -63,8 +64,8 @@ Then the fear came.
 
 ## What if I just lean into it? (you mean, if I just don't care?)
 
-![xs](/journal-images/gif/garage-02_0.gif)
-![aside](/journal-images/gif/garage-02_1.gif)
+![xs](/journal-images/video/garage-02_0.mp4)
+![aside](/journal-images/video/garage-02_1.mp4)
 
 So much of the beginning was struggle. I wasn't really sure where I was going, or what I would make.
 
@@ -90,8 +91,8 @@ And then peace came (even if just a little bit).
 
 There is no brief, no plan, no edit > undo, no system; just your body, a tool, and a surface.
 
-![xs](/journal-images/gif/garage-01_0.gif)
-![aside](/journal-images/gif/garage-01_1.gif)
+![xs](/journal-images/video/garage-01_0.mp4)
+![aside](/journal-images/video/garage-01_1.mp4)
 
 ## Making art is about decision making.
 
