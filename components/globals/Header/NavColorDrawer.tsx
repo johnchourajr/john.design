@@ -2,7 +2,9 @@
 
 import { useAppContext } from '@/context/AppProvider';
 import clsx from 'clsx';
-import { useEffect } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
+
+export const COLOR_DRAWER_ID = 'color-drawer';
 
 // The drawer is 100px tall; must match COLOR_DRAWER_PUSH_CLASS.
 export const COLOR_DRAWER_PUSH_CLASS = 'translate-y-[100px]';
@@ -17,9 +19,42 @@ const COLOR_BARS = [
   { color: '#CCFF00', className: 'bg-[#CCFF00]' },
 ];
 
+const subscribeNoop = () => () => {};
+
 export function NavColorDrawer() {
   const { rootColor, setRootColor, toggleColorActive, handleActive } =
     useAppContext();
+  // The server always renders the default color, while the client starts from
+  // the saved cookie. Only mark a selection once hydrated so they agree.
+  const hydrated = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  // Move focus into the drawer on open, and hand it back to whatever opened
+  // it on close (unless the user has already moved focus elsewhere).
+  useEffect(() => {
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    if (toggleColorActive) {
+      openerRef.current = document.activeElement as HTMLElement | null;
+      const target =
+        drawer.querySelector<HTMLButtonElement>('[aria-pressed="true"]') ??
+        drawer.querySelector<HTMLButtonElement>('button');
+      target?.focus({ preventScroll: true });
+      return;
+    }
+
+    const active = document.activeElement;
+    if (!active || active === document.body || drawer.contains(active)) {
+      openerRef.current?.focus({ preventScroll: true });
+    }
+    openerRef.current = null;
+  }, [toggleColorActive]);
 
   useEffect(() => {
     if (!toggleColorActive) return;
@@ -35,6 +70,8 @@ export function NavColorDrawer() {
   return (
     <>
       <div
+        ref={drawerRef}
+        id={COLOR_DRAWER_ID}
         inert={!toggleColorActive}
         aria-hidden={!toggleColorActive}
         data-testid="color-drawer"
@@ -45,7 +82,8 @@ export function NavColorDrawer() {
         )}
       >
         {COLOR_BARS.map(({ color, className }) => {
-          const selected = color.toLowerCase() === rootColor.toLowerCase();
+          const selected =
+            hydrated && color.toLowerCase() === rootColor.toLowerCase();
 
           return (
             <button
@@ -59,7 +97,10 @@ export function NavColorDrawer() {
                 handleActive(false);
               }}
               className={clsx(
-                'group h-full flex-1 hover:flex-[1.25] flex flex-col items-start justify-between p-4',
+                'group h-full flex-1 flex flex-col items-start justify-between p-4',
+                // Only widen on devices that can hover, so taps don't leave a column stuck open.
+                '[@media(hover:hover)]:hover:flex-[1.25] focus-visible:flex-[1.25]',
+                'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-black',
                 'transition-[flex-grow] duration-500 ease-out-expo motion-reduce:transition-none',
                 'font-mono text-xs uppercase text-black',
                 className,
@@ -71,7 +112,9 @@ export function NavColorDrawer() {
                 aria-hidden
                 className={clsx(
                   'h-6 w-6 fill-none stroke-current stroke-2 transition-opacity duration-300',
-                  selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-50',
+                  selected
+                    ? 'opacity-100'
+                    : 'opacity-0 group-hover:opacity-50 group-focus-visible:opacity-50',
                 )}
               >
                 <path d="M4 12.5l5 5L20 6.5" />

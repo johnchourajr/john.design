@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { useShaderUniforms } from '../useShaderUniforms';
 import { defaultFragmentShader } from './shaders';
 
 type AspectRatio =
@@ -71,6 +72,8 @@ export const VideoThreeShader = ({
     [],
   );
 
+  const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -94,8 +97,10 @@ export const VideoThreeShader = ({
     video.playsInline = true;
     videoRef.current = video;
 
+    let disposeMesh = () => {};
+
     // Wait for video to be loaded before creating texture
-    video.addEventListener('loadeddata', () => {
+    const handleLoadedData = () => {
       const videoTexture = new THREE.VideoTexture(video);
       videoTexture.minFilter = THREE.LinearFilter;
       videoTexture.magFilter = THREE.LinearFilter;
@@ -120,6 +125,11 @@ export const VideoThreeShader = ({
 
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
+      disposeMesh = () => {
+        videoTexture.dispose();
+        geometry.dispose();
+        material.dispose();
+      };
 
       // Start playing the video
       video.play().catch((error) => {
@@ -127,7 +137,8 @@ export const VideoThreeShader = ({
       });
 
       handleResize();
-    });
+    };
+    video.addEventListener('loadeddata', handleLoadedData);
 
     const handleResize = () => {
       if (!containerRef.current || !rendererRef.current) return;
@@ -170,17 +181,32 @@ export const VideoThreeShader = ({
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      video.removeEventListener('loadeddata', handleLoadedData);
+      // Stop the download as well as playback.
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+      disposeMesh();
       renderer.dispose();
       scene.clear();
       container.removeChild(renderer.domElement);
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.remove();
-      }
     };
-  }, [src, aspectRatio, shaderConfig, baseUniforms, autoplay, muted, loop]);
+    // Rebuild only when the program itself changes. Uniform values reach the
+    // live material through useShaderUniforms instead.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    src,
+    aspectRatio,
+    shaderConfig.fragmentShader,
+    shaderConfig.vertexShader,
+    uniformKeys,
+    baseUniforms,
+    autoplay,
+    muted,
+    loop,
+  ]);
 
   const aspect: Record<AspectRatio, string> = {
     '1:1': 'aspect-square',

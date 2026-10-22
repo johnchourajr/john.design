@@ -1,23 +1,25 @@
+import clsx from 'clsx';
 import { m } from 'motion/react';
+import type { ComponentProps, SVGProps } from 'react';
 
-const Rect = ({ active, ...props }: any) => {
-  const sharedClasses =
-    'relative scale-1 group-hover:opacity-100 hover:!opacity-70 transition-all ease-out-expo duration-300';
+type RectProps = ComponentProps<typeof m.rect> & { active?: boolean };
 
-  const sharedInlineStyles = {
-    touchAction: 'none',
-    cursor: "url('/eyedrop.svg') 6 15, auto",
-  };
-
-  const sharedStyles = {
-    style: active ? sharedInlineStyles : {},
-    className: active ? sharedClasses : '',
-  };
-
-  return <m.rect {...sharedStyles} {...props} />;
+const Rect = ({ active, ...props }: RectProps) => {
+  return (
+    <m.rect
+      className={clsx(
+        active &&
+          'relative scale-1 group-hover:opacity-100 hover:!opacity-70 transition-all ease-out-expo duration-300',
+        active && "touch-none cursor-[url('/eyedrop.svg')_6_15,auto]",
+      )}
+      {...props}
+    />
+  );
 };
 
-const ColorWheelSvg = ({ active, ...rest }: any) => {
+type ColorWheelSvgProps = SVGProps<SVGSVGElement> & { active?: boolean };
+
+const ColorWheelSvg = ({ active, ...rest }: ColorWheelSvgProps) => {
   return (
     <svg
       width={'100%'}

@@ -43,6 +43,7 @@ export const CodeBlock = ({
         </m.div>
         {showButton && (
           <button
+            type="button"
             onClick={() => setIsExpanded(!isExpanded)}
             className={clsx(
               'absolute w-full bottom-0 left-0 right-0 text-root p-4 text-right text-string cursor-pointer border-none',

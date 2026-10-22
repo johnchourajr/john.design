@@ -8,12 +8,11 @@ import {
 import { VideoThreeShader } from '@/components/experimental/VideoThreeShader';
 import { fragmentThreeVideoShaders } from '@/components/experimental/VideoThreeShader/shaders';
 import InlineLink from '@/components/fragments/InlineLink';
-import { useSearchParams } from 'next/navigation';
+import { useLocationSearch } from '@/hooks/useLocationSearch';
 
 type ShaderVariant = keyof typeof fragmentThreeVideoShaders;
 
-export default function Page() {
-  const searchParams = useSearchParams();
+function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
   const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader = (searchParams.get('shader') as ShaderVariant) || 'vhs';
@@ -72,5 +71,15 @@ export default function Page() {
         <SettingsGroup settings={settings} setSettings={setSettings} />
       )}
     </Suspense>
+  );
+}
+
+// Query params are read after hydration so the page stays statically rendered.
+// Keying on them remounts with the right initial state once they're known.
+export default function Page() {
+  const search = useLocationSearch();
+
+  return (
+    <PageContent key={search} searchParams={new URLSearchParams(search)} />
   );
 }

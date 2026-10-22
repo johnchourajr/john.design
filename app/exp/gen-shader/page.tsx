@@ -1,8 +1,7 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
-import { useDrawing } from '@/components/experimental/Drawing';
+import { useDisableDrawing } from '@/components/experimental/Drawing';
 import { GenThreeShader } from '@/components/experimental/GenThreeShader';
 import {
   genShaders,
@@ -14,17 +13,13 @@ import {
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
 import InlineLink from '@/components/fragments/InlineLink';
+import { useLocationSearch } from '@/hooks/useLocationSearch';
 
 const DEFAULT_SHADER = 'pinwheelShader';
 
-export default function Page() {
-  const searchParams = useSearchParams();
+function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
-  const { setEnableDrawing } = useDrawing();
-
-  useEffect(() => {
-    setEnableDrawing(false);
-  }, [setEnableDrawing]);
+  useDisableDrawing();
 
   const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader =
@@ -111,5 +106,15 @@ export default function Page() {
         )}
       </div>
     </Suspense>
+  );
+}
+
+// Query params are read after hydration so the page stays statically rendered.
+// Keying on them remounts with the right initial state once they're known.
+export default function Page() {
+  const search = useLocationSearch();
+
+  return (
+    <PageContent key={search} searchParams={new URLSearchParams(search)} />
   );
 }

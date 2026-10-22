@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { useShaderUniforms } from '../useShaderUniforms';
 
 /**
  * Configuration object for defining shader properties
@@ -69,6 +70,8 @@ export const GenThreeShader = ({
     [],
   );
 
+  const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -124,6 +127,7 @@ export const GenThreeShader = ({
         y: event.clientY - bounds.top,
       };
     };
+    container.addEventListener('mousemove', handleMouseMove);
 
     // Animation frame management
     let animationFrameId: number;
@@ -141,10 +145,12 @@ export const GenThreeShader = ({
       renderer.render(scene, camera);
       renderer.domElement.toBlob((blob) => {
         if (blob) {
+          const url = URL.createObjectURL(blob);
           const link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
+          link.href = url;
           link.download = `shader-${Date.now()}.png`;
           link.click();
+          URL.revokeObjectURL(url);
         }
       });
     };
@@ -158,13 +164,23 @@ export const GenThreeShader = ({
     return () => {
       resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
+      container.removeEventListener('mousemove', handleMouseMove);
+      geometry.dispose();
+      material.dispose();
       renderer.dispose();
       scene.clear();
       container.removeChild(renderer.domElement);
-      container.removeEventListener('mousemove', handleMouseMove);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- Remove onDownload from deps
-  }, [shaderConfig, baseUniforms]);
+    // Rebuild only when the program itself changes: uniform values reach the
+    // live material through useShaderUniforms, and onDownload only receives
+    // our handler, so a new identity for either must not rebuild the renderer.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    shaderConfig.fragmentShader,
+    shaderConfig.vertexShader,
+    uniformKeys,
+    baseUniforms,
+  ]);
 
   return (
     <div

@@ -66,6 +66,7 @@ export function NavDrawingControls() {
   return (
     <>
       <m.button
+        type="button"
         key="draw-button"
         onClick={() => setEnableDrawing(!enableDrawing)}
         className={clsx('text-string relative', 'z-50')}
@@ -101,6 +102,7 @@ export function NavDrawingControls() {
         <SvgIconDraw />
       </m.button>
       <m.button
+        type="button"
         key="undo-button"
         onClick={undo}
         aria-label="Undo the last drawn line"
@@ -110,6 +112,7 @@ export function NavDrawingControls() {
         <SvgIconUndo />
       </m.button>
       <m.button
+        type="button"
         key="clear-button"
         onClick={clearStoredPoints}
         aria-label="Clear the drawing"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useDrawing } from '@/components/experimental/Drawing';
+import { useIsProposalDetail } from '@/hooks/useIsProposalDetail';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import InlineLink from '../../fragments/InlineLink';
@@ -10,7 +11,7 @@ export default function Footer() {
   const pathname = usePathname();
   const { isIframe } = useDrawing();
 
-  const isProposalDetail = pathname?.startsWith('/proposals/') && pathname !== '/proposals/';
+  const isProposalDetail = useIsProposalDetail();
 
   if (isIframe || isProposalDetail) return null;
 
@@ -18,7 +19,7 @@ export default function Footer() {
     <>
       <footer
         className={clsx(
-          'w-full flex flex-col gap-4 relative p-4 bg-black pt-10 mt-24 z-0',
+          'w-full flex flex-col gap-4 relative p-4 bg-black pt-10 mt-24 z-0 [[data-iframe]_&]:hidden',
           'border-t border-root',
         )}
       >
@@ -32,7 +33,7 @@ export default function Footer() {
         </p>
 
         <div className="inline-flex row gap-6 items-center pt-10">
-          <InlineLink href="/" className={clsx('z-50 relative')}>
+          <InlineLink href="/" aria-label="Home" className="z-50 relative">
             <Logo />
           </InlineLink>
 
