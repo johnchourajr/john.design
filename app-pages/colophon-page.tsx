@@ -36,7 +36,7 @@ export default function ColophonPage({
       <section className="mt-[8vw] px-4">
         <h2 className="text-string">{description}</h2>
       </section>
-      <section className="grid grid-cols-1 px-4 md:grid-cols-3 font-mono">
+      <section className="grid grid-cols-1 px-4 md:grid-cols-3 font-mono text-xs">
         {summary && (
           <div className="my-[4vw]">
             <h2 className="mb-6">{'//'} summary</h2>
