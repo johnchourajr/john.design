@@ -4,8 +4,8 @@ import { useAppContext } from '@/context/AppProvider';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 
-// Bars are 100px each; the drawer height must match COLOR_DRAWER_PUSH_CLASS.
-export const COLOR_DRAWER_PUSH_CLASS = 'translate-y-[400px]';
+// The drawer is 100px tall; must match COLOR_DRAWER_PUSH_CLASS.
+export const COLOR_DRAWER_PUSH_CLASS = 'translate-y-[100px]';
 export const COLOR_DRAWER_TRANSITION_CLASS =
   'transition-transform duration-700 ease-out-expo motion-reduce:transition-none';
 
@@ -39,7 +39,7 @@ export function NavColorDrawer() {
         aria-hidden={!toggleColorActive}
         data-testid="color-drawer"
         className={clsx(
-          'fixed inset-x-0 top-0 z-[60] flex flex-col',
+          'fixed inset-x-0 top-0 z-[60] flex h-[100px]',
           COLOR_DRAWER_TRANSITION_CLASS,
           !toggleColorActive && '-translate-y-full',
         )}
@@ -59,7 +59,7 @@ export function NavColorDrawer() {
                 handleActive(false);
               }}
               className={clsx(
-                'group h-[100px] w-full flex items-center justify-between px-4',
+                'group h-full flex-1 flex flex-col items-start justify-between p-4',
                 'font-mono text-sm uppercase text-black',
                 className,
               )}
@@ -83,7 +83,7 @@ export function NavColorDrawer() {
           aria-label="Close color picker"
           data-testid="color-drawer-dismiss"
           onClick={() => handleActive(false)}
-          className="fixed inset-x-0 top-[400px] bottom-0 z-[60] cursor-default"
+          className="fixed inset-x-0 top-[100px] bottom-0 z-[60] cursor-default"
         />
       )}
     </>
