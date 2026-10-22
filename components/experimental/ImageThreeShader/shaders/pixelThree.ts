@@ -1,3 +1,5 @@
+import { layers } from './layers';
+
 export const pixelShader = `
     precision highp float;
     uniform vec2 resolution;
@@ -7,21 +9,23 @@ export const pixelShader = `
     uniform vec2 imageResolution;
     varying vec2 vUv;
 
-    void main() {
-      vec2 uv = vUv;
+    ${layers}
 
-      float imageAspect = imageResolution.x / imageResolution.y;
+    // Snaps texture UV to square blocks of \`size\` (in frame heights).
+    vec2 pixelate(vec2 textureUV, float size, float screenAspect) {
+      vec2 normalizedUV = textureUV;
+      normalizedUV.x *= screenAspect;
+      normalizedUV = floor(normalizedUV / size) * size;
+      normalizedUV.x /= screenAspect;
+      return normalizedUV;
+    }
+
+    void main() {
+      vec2 uv = frameUv();
       float screenAspect = resolution.x / resolution.y;
 
       // Aspect-corrected UV for texture sampling
-      vec2 textureUV = uv;
-      if (screenAspect < imageAspect) {
-        float scale = screenAspect / imageAspect;
-        textureUV.x = (uv.x - 0.5) / scale + 0.5;
-      } else {
-        float scale = imageAspect / screenAspect;
-        textureUV.y = (uv.y - 0.5) / scale + 0.5;
-      }
+      vec2 textureUV = imageUv(uv);
 
       // Create normalized effect space
       vec2 effectUV = uv;
@@ -33,27 +37,30 @@ export const pixelShader = `
       float innerRadius = 0.07;
       float outerRadius = 0.14;
       float basePixelSize = 0.055;
-      float pixelSize = smoothstep(innerRadius, outerRadius, dist) * basePixelSize;
+      float reveal = smoothstep(innerRadius, outerRadius, dist);
+      float pixelSize = reveal * basePixelSize;
       pixelSize = pow(pixelSize, 1.5);
 
-      // Apply pixelation in normalized space
-      vec2 normalizedUV = textureUV;
-      normalizedUV.x *= screenAspect;
-
-      vec2 pixelated;
-      if (dist < innerRadius) {
-        pixelated = textureUV;
-      } else {
-        normalizedUV = floor(normalizedUV / pixelSize) * pixelSize;
-        pixelated = normalizedUV;
-        pixelated.x /= screenAspect;
-      }
+      // The image is pixelated everywhere but a clear window at the pointer.
+      vec2 pixelated = dist < innerRadius
+        ? textureUV
+        : pixelate(textureUV, pixelSize, screenAspect);
 
       float wobble = sin(time * 2.0 + dist * 10.0) * 0.002;
-      wobble *= smoothstep(innerRadius, outerRadius, dist);
-      pixelated += wobble;
-
+      pixelated += wobble * reveal;
       pixelated = clamp(pixelated, vec2(0.001), vec2(0.999));
-      gl_FragColor = texture2D(image, pixelated);
+
+      // The headline is the inverse: sharp at rest, pixelated in the window,
+      // so the pointer reads on the type as well as the portrait.
+      float typeSize = pow((1.0 - reveal) * basePixelSize, 1.5);
+      vec2 typeUV = typeSize > 0.0001
+        ? pixelate(textureUV, typeSize, screenAspect)
+        : textureUV;
+      typeUV += wobble * (1.0 - reveal);
+
+      gl_FragColor = over(
+        sampleHeadline(typeUV),
+        texture2D(image, pixelated) * g_inFrame
+      );
     }
 `;

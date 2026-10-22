@@ -2,7 +2,9 @@
 import clsx from 'clsx';
 import { useCallback, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { headlineTexture, headlineUniforms } from '../headlineTexture';
 import {
+  combineInputs,
   useShaderRenderer,
   type ShaderConfig,
   type ShaderInput,
@@ -40,6 +42,15 @@ type ImageThreeShaderProps = {
   aspectRatio: AspectRatio;
   /** Shader configuration object */
   shaderConfig: ShaderConfig;
+  /**
+   * Text to draw into the shader with the image, so the effects warp it too
+   * (#108). The canvas grows down past the image to cover it; the image
+   * keeps its place and size. The shader must sample the `headline` layer
+   * (see shaders/layers.ts).
+   */
+  getHeadline?: () => HTMLElement | null;
+  /** WebGL is unavailable or was lost. */
+  onError?: () => void;
 };
 
 const calculateDimensions = (
@@ -80,7 +91,11 @@ const baseUniforms = () => ({
   imageResolution: { value: new THREE.Vector2() },
   mouse: { value: new THREE.Vector2() },
   time: { value: 0 },
+  ...headlineUniforms(),
 });
+
+// Until the pointer moves, the effect waits off the canvas, clear of the type.
+const offCanvas = { x: -1e4, y: -1e4 };
 
 /** Loads `src` as the `image` texture. */
 const imageTexture =
@@ -168,13 +183,39 @@ export const ImageThreeShader = ({
   src,
   aspectRatio = '1:1',
   shaderConfig,
+  getHeadline,
+  onError,
 }: ImageThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const input = useMemo(() => imageTexture(src), [src]);
-  const getSize = useCallback(
-    (container: HTMLElement) =>
-      calculateDimensions(container.getBoundingClientRect(), aspectRatio),
+  const input = useMemo(
+    () =>
+      getHeadline
+        ? combineInputs(imageTexture(src), headlineTexture(getHeadline))
+        : imageTexture(src),
+    [src, getHeadline],
+  );
+  // The image's own box, from the canvas's top left.
+  const getFrame = useCallback(
+    (container: HTMLElement) => ({
+      x: 0,
+      y: 0,
+      ...calculateDimensions(container.getBoundingClientRect(), aspectRatio),
+    }),
     [aspectRatio],
+  );
+  const getSize = useCallback(
+    (container: HTMLElement) => {
+      const bounds = container.getBoundingClientRect();
+      const size = calculateDimensions(bounds, aspectRatio);
+      const headline = getHeadline?.()?.getBoundingClientRect();
+      if (!headline) return size;
+      // Grow down to the headline's bottom when it runs past the image.
+      return {
+        width: size.width,
+        height: Math.max(size.height, Math.ceil(headline.bottom - bounds.top)),
+      };
+    },
+    [aspectRatio, getHeadline],
   );
 
   useShaderRenderer(containerRef, {
@@ -182,9 +223,18 @@ export const ImageThreeShader = ({
     baseUniforms,
     input,
     getSize,
+    getFrame,
     antialias: true,
-    maxPixelRatio: 2,
+    // The type has to be as sharp as the DOM's, so render at the screen's
+    // full ratio when it's in here.
+    maxPixelRatio: getHeadline ? 3 : 2,
     mouseDamping: 0.08,
+    restingMouse: getHeadline ? offCanvas : undefined,
+    resizeWith: getHeadline,
+    // The image's box is translated and can sit on a half pixel, where the
+    // canvas would be resampled and the type softened.
+    snapToPixels: !!getHeadline,
+    onError,
   });
 
   return (

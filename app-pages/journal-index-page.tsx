@@ -1,6 +1,9 @@
 import JournalArchiveGridItem from '@/components/fragments/JournalArchiveGridItem';
 import JournalGridItem from '@/components/fragments/JournalGridItem';
-import { JustifiedHeadlineInner } from '@/components/justified-headline';
+import {
+  HeadlineShader,
+  JustifiedHeadlineInner,
+} from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { formatDate } from '@/lib/utils/formatDate';
 import { PostData } from '@/types/content-types';
@@ -23,21 +26,23 @@ export default function JournalPage({ posts }: JournalPageProps) {
     <>
       <h1 className="sr-only">Journal</h1>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
-          <JustifiedHeadlineInner
-            className={clsx(
-              'leading-none w-full font-black pointer-events-none',
-            )}
-            headline={[
-              {
-                text: 'Journal',
-                motionObject: getRandomParentAndChildClassesArray(8),
-              },
-            ]}
-            iterations={8}
-            letters={true}
-          />
-        </Suspense>
+        <HeadlineShader>
+          <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+            <JustifiedHeadlineInner
+              className={clsx(
+                'leading-none w-full font-black pointer-events-none',
+              )}
+              headline={[
+                {
+                  text: 'Journal',
+                  motionObject: getRandomParentAndChildClassesArray(8),
+                },
+              ]}
+              iterations={8}
+              letters={true}
+            />
+          </Suspense>
+        </HeadlineShader>
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-4 gap-8 my-[10vw] px-4">

@@ -25,4 +25,47 @@ export const fragmentThreeShaders: Record<ShaderVariant, string> = {
   prism: prismShader,
 };
 
+/** The home hero's set. Each one also samples the headline layer (#108). */
+export const heroShaderVariants: ShaderVariant[] = [
+  'pixel',
+  'distortion',
+  'vertical',
+  'loupe',
+  'sphere',
+  'prism',
+];
+
+/**
+ * The set for a headline without an image. The sphere and the prism's cube
+ * sit on the canvas even at rest, so on type alone they would bend the
+ * headline before anyone touched it. These four leave it untouched until
+ * the pointer comes near.
+ */
+export const headlineShaderVariants: ShaderVariant[] = [
+  'pixel',
+  'distortion',
+  'vertical',
+  'loupe',
+];
+
+/**
+ * A random variant from `variants`. `?shader=<variant>` pins any hero
+ * variant, for review and screenshots. Client only, after mount: it reads
+ * the URL and is random.
+ */
+export function pickShaderVariant(variants: ShaderVariant[]): ShaderVariant {
+  const pinned = new URLSearchParams(window.location.search).get('shader');
+  if (pinned && heroShaderVariants.includes(pinned as ShaderVariant)) {
+    return pinned as ShaderVariant;
+  }
+  return variants[Math.floor(Math.random() * variants.length)];
+}
+
+/** `?shader-text=off` leaves the headline in the DOM, to compare against. */
+export function isHeadlineInShader(): boolean {
+  return (
+    new URLSearchParams(window.location.search).get('shader-text') !== 'off'
+  );
+}
+
 export type { AspectRatio, ShaderVariant } from './types';

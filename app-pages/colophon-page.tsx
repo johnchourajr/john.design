@@ -1,4 +1,7 @@
-import { JustifiedHeadlineInner } from '@/components/justified-headline';
+import {
+  HeadlineShader,
+  JustifiedHeadlineInner,
+} from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { colophonData } from '@/data/colophonContent';
 import clsx from 'clsx';
@@ -16,21 +19,23 @@ export default function ColophonPage({
     <>
       <h1 className="sr-only">{title}</h1>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
-          <JustifiedHeadlineInner
-            className={clsx(
-              'leading-none w-full font-black pointer-events-none',
-            )}
-            headline={[
-              {
-                text: title,
-                motionObject: getRandomParentAndChildClassesArray(8),
-              },
-            ]}
-            iterations={8}
-            letters={true}
-          />
-        </Suspense>
+        <HeadlineShader>
+          <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+            <JustifiedHeadlineInner
+              className={clsx(
+                'leading-none w-full font-black pointer-events-none',
+              )}
+              headline={[
+                {
+                  text: title,
+                  motionObject: getRandomParentAndChildClassesArray(8),
+                },
+              ]}
+              iterations={8}
+              letters={true}
+            />
+          </Suspense>
+        </HeadlineShader>
       </section>
       <section className="mt-[8vw] px-4">
         <h2 className="text-string">{description}</h2>

@@ -1,3 +1,5 @@
+import { layers } from './layers';
+
 export const loupeShader = `
   precision highp float;
   uniform sampler2D image;
@@ -5,6 +7,8 @@ export const loupeShader = `
   uniform vec2 mouse;
   uniform vec2 imageResolution;
   varying vec2 vUv;
+
+  ${layers}
 
   // Pixelation function must be declared outside main
   vec4 getPixelated(vec2 uv) {
@@ -47,21 +51,11 @@ export const loupeShader = `
   }
 
   void main() {
-    vec2 uv = vUv;
-
-    // Apply aspect ratio correction
-    float imageAspect = imageResolution.x / imageResolution.y;
+    vec2 uv = frameUv();
     float screenAspect = resolution.x / resolution.y;
 
     // Aspect-corrected UV for texture sampling
-    vec2 textureUV = uv;
-    if (screenAspect < imageAspect) {
-      float scale = screenAspect / imageAspect;
-      textureUV.x = (uv.x - 0.5) / scale + 0.5;
-    } else {
-      float scale = imageAspect / screenAspect;
-      textureUV.y = (uv.y - 0.5) / scale + 0.5;
-    }
+    vec2 textureUV = imageUv(uv);
 
     // Effect calculations with proper cursor mapping
     vec2 effectUV = uv;
@@ -141,8 +135,25 @@ export const loupeShader = `
     float blurStrength = 0.8;
     vec4 outsideBlurred = mix(outsideColor, blurredColor, blurStrength);
 
+    // The headline goes through the same lens. The edge corrections and the
+    // blur outside it belong to the image: the type stays sharp at rest.
+    vec4 redType = sampleHeadline(redOffset);
+    vec4 greenType = sampleHeadline(distortedUV);
+    vec4 blueType = sampleHeadline(blueOffset);
+    vec4 chromaticType = vec4(
+      redType.r,
+      greenType.g,
+      blueType.b,
+      max(redType.a, max(greenType.a, blueType.a))
+    );
+    vec4 magnifiedType = mix(sampleHeadline(magnifiedUv), chromaticType, edgeStrength);
+
     // Direct color mixing without any additional effects
-    vec4 finalColor = mix(outsideBlurred, magnifiedColor, edge);
+    vec4 finalColor = mix(
+      over(sampleHeadline(textureUV), outsideBlurred * g_inFrame),
+      over(magnifiedType, magnifiedColor * g_inFrame),
+      edge
+    );
 
     // Subtle inner shadow only
     float innerShadow = smoothstep(radius - softness/2.0, radius, dist) * 0.2;

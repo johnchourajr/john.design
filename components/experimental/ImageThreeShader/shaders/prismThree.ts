@@ -1,3 +1,5 @@
+import { layers } from './layers';
+
 export const prismShader = `
   precision highp float;
   uniform vec2 resolution;
@@ -6,6 +8,8 @@ export const prismShader = `
   uniform sampler2D image;
   uniform vec2 imageResolution;
   varying vec2 vUv;
+
+  ${layers}
 
   #define IOR 1.5
   #define DISPERSION 0.05
@@ -51,8 +55,10 @@ export const prismShader = `
     // Sample from the current pixel's texture position with refraction offset
     vec2 offset = rd.xy * 0.2;
     vec2 uv = g_textureUV + offset;
+    // The headline is refracted too, unclamped: it can run past the image.
+    vec4 type = sampleHeadline(uv);
     uv = clamp(uv, 0.0, 1.0);
-    return texture2D(image, uv).rgb;
+    return type.rgb + texture2D(image, uv).rgb * (1.0 - type.a);
   }
 
   // Returns vec4: rgb = color, a = edge distance (0 = at edge, 1 = center)
@@ -102,19 +108,9 @@ export const prismShader = `
   }
 
   void main() {
-    vec2 uv = vUv;
+    vec2 uv = frameUv();
 
-    float imageAspect = imageResolution.x / imageResolution.y;
-    float screenAspect = resolution.x / resolution.y;
-
-    vec2 textureUV = uv;
-    if (screenAspect < imageAspect) {
-      float scale = screenAspect / imageAspect;
-      textureUV.x = (uv.x - 0.5) / scale + 0.5;
-    } else {
-      float scale = imageAspect / screenAspect;
-      textureUV.y = (uv.y - 0.5) / scale + 0.5;
-    }
+    vec2 textureUV = imageUv(uv);
 
     // Set global for image sampling
     g_textureUV = textureUV;
@@ -147,10 +143,11 @@ export const prismShader = `
     rd = rotateCube(rd, rotation);
 
     // Render with edge detection
-    vec4 bgColor = texture2D(image, textureUV);
+    vec4 bgColor = over(sampleHeadline(textureUV), texture2D(image, textureUV) * g_inFrame);
     float hitTest = intersectCube(ro, rd);
 
-    if (hitTest > 0.01) {
+    // The cube belongs to the image: past its frame, it stays cut off.
+    if (hitTest > 0.01 && g_inFrame > 0.5) {
       vec4 rResult = renderCubeWithEdge(ro, rd, 0.0);
       vec4 gResult = renderCubeWithEdge(ro, rd, 0.5);
       vec4 bResult = renderCubeWithEdge(ro, rd, 1.0);

@@ -1,3 +1,5 @@
+import { layers } from './layers';
+
 export const sphereShader = `
   precision highp float;
   uniform vec2 resolution;
@@ -7,20 +9,18 @@ export const sphereShader = `
   uniform vec2 imageResolution;
   varying vec2 vUv;
 
-  void main() {
-    vec2 uv = vUv;
+  ${layers}
 
-    float imageAspect = imageResolution.x / imageResolution.y;
+  // The headline over the image at one point.
+  vec4 sampleLayers(vec2 textureUV) {
+    return over(sampleHeadline(textureUV), texture2D(image, textureUV) * g_inFrame);
+  }
+
+  void main() {
+    vec2 uv = frameUv();
     float screenAspect = resolution.x / resolution.y;
 
-    vec2 textureUV = uv;
-    if (screenAspect < imageAspect) {
-      float scale = screenAspect / imageAspect;
-      textureUV.x = (uv.x - 0.5) / scale + 0.5;
-    } else {
-      float scale = imageAspect / screenAspect;
-      textureUV.y = (uv.y - 0.5) / scale + 0.5;
-    }
+    vec2 textureUV = imageUv(uv);
 
     vec2 effectUV = uv;
     effectUV.x *= screenAspect;
@@ -42,8 +42,9 @@ export const sphereShader = `
     float sphereMask = smoothstep(radius + edgeSoftness, radius - edgeSoftness, dist);
 
     // Outside the sphere - just show normal image
+    vec4 outsideColor = sampleLayers(textureUV);
     if (sphereMask < 0.01) {
-      gl_FragColor = texture2D(image, textureUV);
+      gl_FragColor = outsideColor;
       return;
     }
 
@@ -85,12 +86,13 @@ export const sphereShader = `
     vec2 redUV = sphereUV + normDir * chromatic;
     vec2 blueUV = sphereUV - normDir * chromatic;
 
-    vec4 redChannel = texture2D(image, redUV);
-    vec4 greenChannel = texture2D(image, sphereUV);
-    vec4 blueChannel = texture2D(image, blueUV);
-    vec4 outsideColor = texture2D(image, textureUV);
+    vec4 redChannel = sampleLayers(redUV);
+    vec4 greenChannel = sampleLayers(sphereUV);
+    vec4 blueChannel = sampleLayers(blueUV);
 
-    vec4 sphereColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
+    // Opaque over the image, as before; over the headline alone, as solid as the type.
+    float alpha = max(g_inFrame, max(redChannel.a, max(greenChannel.a, blueChannel.a)));
+    vec4 sphereColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, alpha);
 
     // Lighting - highlight moves based on cursor position, source from top-left
     vec2 cursorOffset = (mouseTextureUV - 0.5) * 0.4;
@@ -108,8 +110,8 @@ export const sphereShader = `
     float rim = fresnel * 0.2;
 
     // Apply lighting effects
-    sphereColor.rgb += specular;
-    sphereColor.rgb += rim * vec3(0.95, 0.97, 1.0);
+    sphereColor.rgb += specular * alpha;
+    sphereColor.rgb += rim * vec3(0.95, 0.97, 1.0) * alpha;
 
     // Slight darkening at edges (depth)
     sphereColor.rgb *= 0.9 + z * 0.1;

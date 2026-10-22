@@ -1,4 +1,4 @@
-import { useReducedMotion } from 'motion/react';
+import { cancelFrame, frame as frameLoop, useReducedMotion } from 'motion/react';
 import { useCallback, useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { useShaderUniforms } from './useShaderUniforms';
@@ -14,6 +14,9 @@ export type ShaderConfig = {
 
 export type ShaderSize = { width: number; height: number };
 
+/** A rectangle in CSS pixels, measured from the canvas's top left. */
+export type ShaderFrame = ShaderSize & { x: number; y: number };
+
 /** What a shader's input (an image, a video) gets when the renderer builds. */
 export type ShaderInputContext = {
   material: THREE.ShaderMaterial;
@@ -21,6 +24,10 @@ export type ShaderInputContext = {
   ready: () => void;
   /** The visitor prefers reduced motion: show a still, don't play. */
   reducedMotion: boolean;
+  /** The WebGL canvas, for inputs that line themselves up with the page. */
+  canvas: HTMLCanvasElement;
+  /** Asks for one frame when the loop isn't running, e.g. after new texture data. */
+  invalidate: () => void;
 };
 
 export type ShaderInputHandle = {
@@ -28,6 +35,8 @@ export type ShaderInputHandle = {
   shouldAnimate?: () => boolean;
   /** Runs before every render, e.g. to upload the next video frame. */
   beforeRender?: () => void;
+  /** Runs after the canvas resizes, with its drawing buffer in device pixels. */
+  resize?: (buffer: ShaderSize) => void;
   dispose: () => void;
 };
 
@@ -51,6 +60,36 @@ export type ShaderRendererOptions = {
   mouseSpace?: 'pixels' | 'ndc';
   /** Fraction of the way the mouse uniform moves toward the pointer per frame. 1 is undamped. */
   mouseDamping?: number;
+  /**
+   * The part of the canvas the shader treats as its frame. `resolution` is
+   * its size and `mouse` (in `pixels`) is measured from its top left, so a
+   * shader written for a canvas of that size keeps its look when the canvas
+   * grows past it. A material with a `layerRect` uniform gets the frame in
+   * UV space: offset (x, and y from the bottom), then size. Defaults to the
+   * whole canvas. Keep it stable.
+   */
+  getFrame?: (container: HTMLElement, size: ShaderSize) => ShaderFrame;
+  /** The `mouse` value until the pointer first moves, in `pixels` from the frame. */
+  restingMouse?: { x: number; y: number };
+  /**
+   * Where pointer moves are heard. `container` (the default) follows the
+   * pointer only while it is over the canvas's container. `window` follows
+   * it anywhere, for a canvas that sits under other content or ignores
+   * pointer events.
+   */
+  pointerTarget?: 'container' | 'window';
+  /** WebGL is unavailable, or the context was lost. Nothing draws; show a fallback. */
+  onError?: () => void;
+  /**
+   * Line the canvas up with whole CSS pixels: nudge it by under a pixel and
+   * draw the frame back where it was. The browser snaps an untransformed
+   * canvas itself, but one inside a transform can land on a half pixel and
+   * be resampled when composited, which softens text drawn into it. The
+   * frame keeps its exact place on the page.
+   */
+  snapToPixels?: boolean;
+  /** Another element whose size feeds `getSize`, e.g. content the canvas has to cover. */
+  resizeWith?: () => Element | null;
 };
 
 export const defaultVertexShader = `
@@ -77,14 +116,55 @@ export const contentBoxSize = (container: HTMLElement): ShaderSize => {
 };
 
 /**
+ * Runs several inputs on one material, e.g. an image and a headline. The
+ * plane joins the scene once every input has called `ready`.
+ */
+export const combineInputs =
+  (...inputs: ShaderInput[]): ShaderInput =>
+  (context) => {
+    let pending = inputs.length;
+    const handles = inputs.map((input) => {
+      let called = false;
+      return input({
+        ...context,
+        ready: () => {
+          if (called) return;
+          called = true;
+          pending -= 1;
+          if (pending === 0) context.ready();
+        },
+      });
+    });
+    // Plain loops: these run every frame and shouldn't allocate.
+    return {
+      shouldAnimate: () => {
+        for (const handle of handles) {
+          if (handle.shouldAnimate && !handle.shouldAnimate()) return false;
+        }
+        return true;
+      },
+      beforeRender: () => {
+        for (const handle of handles) handle.beforeRender?.();
+      },
+      resize: (buffer) => {
+        for (const handle of handles) handle.resize?.(buffer);
+      },
+      dispose: () => {
+        for (const handle of handles) handle.dispose();
+      },
+    };
+  };
+
+/**
  * The one WebGL renderer behind GenThreeShader, ImageThreeShader and
  * VideoThreeShader (#91). It owns the renderer, scene, camera and plane,
  * sizing and pixel ratio, the frame loop, pausing while off-screen,
  * `prefers-reduced-motion` (one still frame, no loop) and cleanup.
  *
- * Every material gets a `resolution` uniform: the canvas size in CSS pixels,
- * kept current as the container resizes (#103). The core also drives `time`
- * and `mouse` when the material has them. Everything else comes from
+ * Every material gets a `resolution` uniform: the frame's size in CSS
+ * pixels (the whole canvas unless `getFrame` says otherwise), kept current
+ * as the container resizes (#103). The core also drives `time`, `mouse` and
+ * `layerRect` when the material has them. Everything else comes from
  * `baseUniforms`, `shaderConfig` and the `input`.
  *
  * Returns `capture`, which renders a frame and reads it back as a PNG in the
@@ -103,6 +183,12 @@ export function useShaderRenderer(
     maxPixelRatio = 1,
     mouseSpace = 'pixels',
     mouseDamping = 1,
+    getFrame,
+    restingMouse,
+    pointerTarget = 'container',
+    onError,
+    snapToPixels = false,
+    resizeWith,
   }: ShaderRendererOptions,
 ) {
   // Fixed for the life of the component (motion reads it once).
@@ -112,12 +198,15 @@ export function useShaderRenderer(
   const captureRef = useRef<() => Promise<Blob | null>>(() =>
     Promise.resolve(null),
   );
+  // Read when it fires, so a new callback doesn't rebuild the renderer.
+  const onErrorRef = useRef(onError);
 
   const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
 
   // useShaderUniforms has just written new values. When nothing is animating,
   // draw them once so a settings change still shows.
   useEffect(() => {
+    onErrorRef.current = onError;
     invalidateRef.current();
   });
 
@@ -127,9 +216,19 @@ export function useShaderRenderer(
 
     const animate = !reducedMotion;
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
-    container.appendChild(renderer.domElement);
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias });
+    } catch {
+      // No WebGL: blocked, unsupported or out of contexts. Nothing mounts,
+      // so whatever the page renders without the shader stays.
+      onErrorRef.current?.();
+      return;
+    }
+    const pixelRatio = () => Math.min(window.devicePixelRatio, maxPixelRatio);
+    renderer.setPixelRatio(pixelRatio());
+    const canvas = renderer.domElement;
+    container.appendChild(canvas);
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -148,11 +247,17 @@ export function useShaderRenderer(
     const uniforms = material.uniforms;
 
     const startTime = performance.now();
-    const pointer = { x: 0, y: 0 };
-    const mouse = { x: 0, y: 0 };
+    const pointer = { x: restingMouse?.x ?? 0, y: restingMouse?.y ?? 0 };
+    const mouse = { ...pointer };
+    const frame: ShaderFrame = { x: 0, y: 0, width: 0, height: 0 };
+    // How far the canvas is nudged onto the pixel grid, in CSS pixels.
+    const snap = { x: 0, y: 0 };
+    const buffer = new THREE.Vector2();
     let visible = true;
-    let frameId = 0;
-    let stillId = 0;
+    let isReady = false;
+    let lost = false;
+    let looping = false;
+    let stillPending = false;
     let handle: ShaderInputHandle | null = null;
 
     const render = () => {
@@ -162,16 +267,25 @@ export function useShaderRenderer(
           : 0;
       }
       uniforms.mouse?.value.set(mouse.x, mouse.y);
-      handle?.beforeRender?.();
+      // Inputs prepare a frame only once the plane is drawn, so nothing
+      // swaps itself out for a canvas that is still empty.
+      if (isReady) handle?.beforeRender?.();
       renderer.render(scene, camera);
     };
 
+    // Frames run on motion's frame loop, after it has written this frame's
+    // styles (postRender), so an input that reads the page, such as the
+    // headline mid-animation, sees the same frame the page shows.
+    const stopLoop = () => {
+      looping = false;
+      cancelFrame(tick);
+    };
+
     const tick = () => {
-      if (!visible) {
-        frameId = 0;
+      if (!visible || lost) {
+        stopLoop();
         return;
       }
-      frameId = requestAnimationFrame(tick);
       if (handle?.shouldAnimate && !handle.shouldAnimate()) return;
       mouse.x += (pointer.x - mouse.x) * mouseDamping;
       mouse.y += (pointer.y - mouse.y) * mouseDamping;
@@ -179,34 +293,70 @@ export function useShaderRenderer(
     };
 
     const startLoop = () => {
-      if (animate && visible && !frameId) frameId = requestAnimationFrame(tick);
+      if (animate && visible && !lost && !looping) {
+        looping = true;
+        frameLoop.postRender(tick, true);
+      }
+    };
+
+    const still = () => {
+      stillPending = false;
+      if (!lost) render();
     };
 
     // One frame on request, for when the loop isn't running to draw it.
     const invalidate = () => {
-      const looping = frameId && handle?.shouldAnimate?.() !== false;
-      if (looping || stillId) return;
-      stillId = requestAnimationFrame(() => {
-        stillId = 0;
-        render();
-      });
+      const animating = looping && handle?.shouldAnimate?.() !== false;
+      if (animating || stillPending || lost) return;
+      stillPending = true;
+      frameLoop.postRender(still);
     };
 
     const resize = () => {
-      const { width, height } = getSize(container);
+      const size = getSize(container);
+      let { width, height } = size;
+      Object.assign(
+        frame,
+        getFrame ? getFrame(container, size) : { x: 0, y: 0, width, height },
+      );
+      if (snapToPixels) {
+        const bounds = container.getBoundingClientRect();
+        const left = bounds.left + window.scrollX;
+        const top = bounds.top + window.scrollY;
+        snap.x = Math.round(left) - left;
+        snap.y = Math.round(top) - top;
+        canvas.style.transform = `translate(${snap.x}px, ${snap.y}px)`;
+        frame.x -= snap.x;
+        frame.y -= snap.y;
+        width = Math.ceil(width + Math.abs(snap.x));
+        height = Math.ceil(height + Math.abs(snap.y));
+      }
+      // Zoom and moving between screens change the ratio, and both resize.
+      renderer.setPixelRatio(pixelRatio());
       renderer.setSize(width, height);
-      uniforms.resolution.value.set(width, height);
+      uniforms.resolution.value.set(frame.width, frame.height);
+      uniforms.layerRect?.value.set(
+        frame.x / width,
+        1 - (frame.y + frame.height) / height,
+        frame.width / width,
+        frame.height / height,
+      );
+      renderer.getDrawingBufferSize(buffer);
+      handle?.resize?.({ width: buffer.x, height: buffer.y });
       // setSize clears the canvas, so draw straight away.
       render();
     };
 
     const ready = () => {
+      isReady = true;
       scene.add(mesh);
       resize();
     };
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
+    const alsoResize = resizeWith?.();
+    if (alsoResize) resizeObserver.observe(alsoResize);
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
@@ -225,14 +375,27 @@ export function useShaderRenderer(
         pointer.x = (x / bounds.width) * 2 - 1;
         pointer.y = -(y / bounds.height) * 2 + 1;
       } else {
-        pointer.x = x;
-        pointer.y = y;
+        pointer.x = x - frame.x - snap.x;
+        pointer.y = y - frame.y - snap.y;
       }
     };
-    container.addEventListener('mousemove', handleMouseMove);
+    const pointerSource: HTMLElement | Window =
+      pointerTarget === 'window' ? window : container;
+    pointerSource.addEventListener('mousemove', handleMouseMove as EventListener);
+
+    // A lost context draws nothing, so hand back to the fallback. Disposing
+    // the input first lets it restore anything it hid.
+    const handleContextLost = () => {
+      lost = true;
+      stopLoop();
+      handle?.dispose();
+      handle = null;
+      onErrorRef.current?.();
+    };
+    canvas.addEventListener('webglcontextlost', handleContextLost);
 
     if (input) {
-      handle = input({ material, ready, reducedMotion });
+      handle = input({ material, ready, reducedMotion, canvas, invalidate });
       resize();
     } else {
       ready();
@@ -243,23 +406,27 @@ export function useShaderRenderer(
     captureRef.current = () =>
       new Promise((resolve) => {
         render();
-        renderer.domElement.toBlob(resolve, 'image/png');
+        canvas.toBlob(resolve, 'image/png');
       });
 
     return () => {
       invalidateRef.current = () => {};
       captureRef.current = () => Promise.resolve(null);
-      cancelAnimationFrame(frameId);
-      cancelAnimationFrame(stillId);
+      stopLoop();
+      cancelFrame(still);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
-      container.removeEventListener('mousemove', handleMouseMove);
+      pointerSource.removeEventListener(
+        'mousemove',
+        handleMouseMove as EventListener,
+      );
+      canvas.removeEventListener('webglcontextlost', handleContextLost);
       handle?.dispose();
       geometry.dispose();
       material.dispose();
       renderer.dispose();
       scene.clear();
-      container.removeChild(renderer.domElement);
+      container.removeChild(canvas);
       materialRef.current = null;
     };
     // Rebuild only when the program, the input or the renderer options
@@ -278,6 +445,11 @@ export function useShaderRenderer(
     maxPixelRatio,
     mouseSpace,
     mouseDamping,
+    getFrame,
+    restingMouse,
+    pointerTarget,
+    snapToPixels,
+    resizeWith,
     reducedMotion,
   ]);
 

@@ -3,12 +3,21 @@
 import clsx from 'clsx';
 import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import {
   fragmentThreeShaders,
-  type ShaderVariant,
+  heroShaderVariants,
+  isHeadlineInShader,
+  pickShaderVariant,
 } from '@/components/experimental/ImageThreeShader/shaders';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
@@ -36,6 +45,8 @@ export type HomepageHeroProps = {
 
 type ShaderConfig = {
   fragmentShader: string;
+  /** Draw the headline inside the shader, so the effects warp it too (#108). */
+  withHeadline: boolean;
 };
 
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
@@ -44,24 +55,20 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     return heroSection.headlineData;
   }, [heroSection]);
 
+  // The headline's box. The shader draws its text and hides it once it can.
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const getHeadline = useCallback(() => headlineRef.current, []);
+
   // Defer shader variant selection to client to avoid hydration mismatch
   const [shaderConfig, setShaderConfig] = useState<ShaderConfig | null>(null);
 
   useEffect(() => {
-    const variants: ShaderVariant[] = [
-      'pixel',
-      'distortion',
-      'vertical',
-      'loupe',
-      'sphere',
-      'prism',
-    ];
-    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
     // The variant is random, so choosing it during render would differ between server and
     // client and break hydration. Picking it once after mount is the intended pattern here.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setShaderConfig({
-      fragmentShader: fragmentThreeShaders[randomVariant],
+      fragmentShader: fragmentThreeShaders[pickShaderVariant(heroShaderVariants)],
+      withHeadline: isHeadlineInShader(),
     });
   }, []);
 
@@ -70,7 +77,10 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       id="hero"
       className="relative flex flex-col items-center z-10 min-h-screen overflow-hidden"
     >
-      <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none">
+      <div
+        ref={headlineRef}
+        className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none"
+      >
         <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
           <JustifiedHeadlineInner
             className={clsx(
@@ -115,6 +125,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             src="/me-alpha-moody.png"
             aspectRatio="1:1"
             shaderConfig={shaderConfig}
+            getHeadline={shaderConfig.withHeadline ? getHeadline : undefined}
           />
         )}
       </div>

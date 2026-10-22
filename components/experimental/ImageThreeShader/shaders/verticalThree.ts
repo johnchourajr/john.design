@@ -1,3 +1,5 @@
+import { layers } from './layers';
+
 export const verticalShader = `
   precision highp float;
   uniform vec2 resolution;
@@ -7,25 +9,18 @@ export const verticalShader = `
   uniform vec2 imageResolution;
   varying vec2 vUv;
 
+  ${layers}
+
   float sharpenWave(float x, float power) {
     return pow(0.5 + 0.5 * sin(x), power) * 2.0 - 1.0;
   }
 
   void main() {
-    vec2 uv = vUv;
-
-    float imageAspect = imageResolution.x / imageResolution.y;
+    vec2 uv = frameUv();
     float screenAspect = resolution.x / resolution.y;
 
     // Aspect-corrected UV for texture sampling
-    vec2 textureUV = uv;
-    if (screenAspect < imageAspect) {
-      float scale = screenAspect / imageAspect;
-      textureUV.x = (uv.x - 0.5) / scale + 0.5;
-    } else {
-      float scale = imageAspect / screenAspect;
-      textureUV.y = (uv.y - 0.5) / scale + 0.5;
-    }
+    vec2 textureUV = imageUv(uv);
 
     // Effect calculations with proper aspect ratio
     vec2 effectUV = uv;
@@ -54,13 +49,26 @@ export const verticalShader = `
     vec2 redOffset = distortedUV + vec2(wave * chromaticOffset, 0.0);
     vec2 blueOffset = distortedUV - vec2(wave * chromaticOffset, 0.0);
 
-    vec4 redChannel = texture2D(image, redOffset);
-    vec4 greenChannel = texture2D(image, distortedUV);
-    vec4 blueChannel = texture2D(image, blueOffset);
-    vec4 finalColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
+    // The image is opaque inside its bounds and clear outside them.
+    float imageAlpha = distortedUV.x < 0.0 || distortedUV.x > 1.0 || distortedUV.y < 0.0 || distortedUV.y > 1.0
+      ? 0.0
+      : g_inFrame;
+    vec3 imageColor = vec3(
+      texture2D(image, redOffset).r,
+      texture2D(image, distortedUV).g,
+      texture2D(image, blueOffset).b
+    ) * imageAlpha;
 
-    gl_FragColor = distortedUV.x < 0.0 || distortedUV.x > 1.0 || distortedUV.y < 0.0 || distortedUV.y > 1.0
-      ? vec4(0.0)
-      : finalColor;
+    // Each channel is its own layer stack, so the type splits too.
+    vec4 redType = sampleHeadline(redOffset);
+    vec4 greenType = sampleHeadline(distortedUV);
+    vec4 blueType = sampleHeadline(blueOffset);
+
+    gl_FragColor = vec4(
+      redType.r + imageColor.r * (1.0 - redType.a),
+      greenType.g + imageColor.g * (1.0 - greenType.a),
+      blueType.b + imageColor.b * (1.0 - blueType.a),
+      max(imageAlpha, max(redType.a, max(greenType.a, blueType.a)))
+    );
   }
 `;
