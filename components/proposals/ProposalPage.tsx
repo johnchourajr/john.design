@@ -22,9 +22,6 @@ export function ProposalPage({
 
   useEffect(() => {
     setEnableDrawing(false);
-    return () => {
-      setEnableDrawing(true);
-    };
   }, [setEnableDrawing]);
 
   if (!markdown) {
