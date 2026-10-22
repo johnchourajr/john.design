@@ -46,7 +46,7 @@ export default function ColophonPage({
             <div className="mt-[4vw] ">
               <h2 className="mb-6">{'//'} package.json</h2>
               <h3>dependencies: {'{'}</h3>
-              <ul className="flex flex-col pl-4 whitespace-pre overflow-scroll">
+              <ul className="flex flex-col pl-4 whitespace-pre overflow-auto">
                 {Object.keys(dependencies).map((item, i) => (
                   <li
                     key={i}
@@ -60,7 +60,7 @@ export default function ColophonPage({
             </div>
             <div className="mt-6 font-mono">
               <h3>devDependencies: {'{'}</h3>
-              <ul className="flex flex-col pl-4 whitespace-pre overflow-scroll">
+              <ul className="flex flex-col pl-4 whitespace-pre overflow-auto">
                 {Object.keys(devDependencies).map((item, i) => (
                   <li
                     key={i}
@@ -79,7 +79,7 @@ export default function ColophonPage({
             <h2>
               {'/*'} fonts.css {'*/'}
             </h2>
-            <pre className="overflow-scroll">{fontsCss}</pre>
+            <pre className="overflow-auto">{fontsCss}</pre>
           </div>
         )}
       </section>

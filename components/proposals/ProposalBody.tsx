@@ -174,6 +174,7 @@ function TableOfContents({ items }: { items: TocItem[] }) {
         {items.map(({ id, text, level }, key) => (
           <li key={id} className="!pl-0 !mb-0">
             <button
+              type="button"
               onClick={() => handleClick(id)}
               className={clsx(
                 'text-body transition-colors duration-200 leading-snug cursor-pointer line-clamp-1',

@@ -44,7 +44,7 @@
   }
 
   & pre {
-    @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 overflow-scroll font-mono text-[.85rem] rounded mb-4 border-[#ffffff2c] bg-[#ffffff0d] border-[0.5px] h-fit mt-2;
+    @apply col-start-1 col-span-full md:col-start-3 md:col-span-2 overflow-auto font-mono text-[.85rem] rounded mb-4 border-[#ffffff2c] bg-[#ffffff0d] border-[0.5px] h-fit mt-2;
 
     @media (min-width: 768px) {
       max-width: calc(100% - 1rem);
