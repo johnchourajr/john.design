@@ -125,7 +125,7 @@ const moonlightData: PageItem[] = [
     title: 'smilegdp.com',
     date: '2022-5-1',
     tags: ['Design', 'Dev', 'Art Direction'],
-    externalHref: 'https://smilegdp.com/',
+    externalHref: 'https://smilegdp.archive.john.design/',
   },
   {
     slug: 'petroleum-club',
