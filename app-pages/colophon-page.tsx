@@ -14,6 +14,7 @@ export default function ColophonPage({
 }: typeof colophonData) {
   return (
     <>
+      <h1 className="sr-only">{title}</h1>
       <section className="my-[4vw] max-w-[100vw] overflow-hidden">
         <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
           <JustifiedHeadlineInner

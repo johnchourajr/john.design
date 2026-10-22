@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 
 import { useDisableDrawing } from '@/components/experimental/Drawing';
 import { GenThreeShader } from '@/components/experimental/GenThreeShader';
@@ -17,6 +17,29 @@ import { useLocationSearch } from '@/hooks/useLocationSearch';
 
 const DEFAULT_SHADER = 'pinwheelShader';
 
+const BASE_SETTINGS = [
+  {
+    name: 'Shader',
+    type: 'Select',
+    value: undefined as ShaderVariant | undefined,
+    options: Object.keys(genShaders),
+  },
+  {
+    name: 'Download',
+    type: 'Button',
+    label: 'Download PNG',
+  },
+];
+
+// Keep the Shader select and Download button, and swap in the uniform
+// settings for the chosen shader.
+function withShaderSettings(settings: any[], shader: ShaderVariant) {
+  const baseSettings = settings.filter(
+    (s) => s.name === 'Shader' || s.name === 'Download',
+  );
+  return [...baseSettings, ...SHADER_SETTINGS[shader]];
+}
+
 function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
   useDisableDrawing();
@@ -27,33 +50,16 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
 
   const downloadRef = useRef<(() => void) | null>(null);
 
-  const SETTINGS = [
-    {
-      name: 'Shader',
-      type: 'Select',
-      value: undefined,
-      options: Object.keys(genShaders),
-    },
-    {
-      name: 'Download',
-      type: 'Button',
-      onClick: () => downloadRef.current?.(),
-      label: 'Download PNG',
-    },
-  ];
-
-  const [settings, setSettings] = useState(() => {
-    const baseSettings = SETTINGS.map((setting) =>
-      setting.name === 'Shader'
-        ? { ...setting, value: defaultShader }
-        : setting,
-    );
-
-    return [
-      ...baseSettings,
-      ...SHADER_SETTINGS[defaultShader as ShaderVariant],
-    ];
-  });
+  const [settings, setSettings] = useState<any[]>(() =>
+    withShaderSettings(
+      BASE_SETTINGS.map((setting) =>
+        setting.name === 'Shader'
+          ? { ...setting, value: defaultShader }
+          : setting,
+      ),
+      defaultShader,
+    ),
+  );
 
   const currentShader = getSettingValue(
     settings,
@@ -61,13 +67,24 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
     DEFAULT_SHADER,
   ) as ShaderVariant;
 
-  useEffect(() => {
-    const baseSettings = settings.filter(
-      (s) => s.name === 'Shader' || s.name === 'Download',
+  const updateSettings = (next: any[]) => {
+    const nextShader = getSettingValue(
+      next,
+      'Shader',
+      DEFAULT_SHADER,
+    ) as ShaderVariant;
+    setSettings(
+      nextShader === currentShader
+        ? next
+        : withShaderSettings(next, nextShader),
     );
-    setSettings([...baseSettings, ...SHADER_SETTINGS[currentShader]]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentShader]);
+  };
+
+  const visibleSettings = settings.map((setting) =>
+    setting.name === 'Download'
+      ? { ...setting, onClick: () => downloadRef.current?.() }
+      : setting,
+  );
 
   const shaderConfig = {
     fragmentShader: genShaders[currentShader],
@@ -99,8 +116,8 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
         {/* Add this to debug settings */}
         {!hideSettings && (
           <SettingsGroup
-            settings={settings}
-            setSettings={setSettings}
+            settings={visibleSettings}
+            setSettings={updateSettings}
             className="relative z-10"
           />
         )}
