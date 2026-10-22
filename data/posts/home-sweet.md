@@ -24,7 +24,7 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 
 ### Rendered Some Plans with SketchUps
 
-![lg](/journal-images/gif/home-vid.gif)
+![lg](/journal-images/video/home-vid.mp4)
 
 # 💪
 
@@ -32,8 +32,8 @@ Home is something that's hard to explain, but we've had the opportunity to make 
 
 After 4 months of working with a contractor, plumbers, builders, electricians, engineers, dry-wallers, we worked hard to make our dream home a reality.
 
-![xs](/journal-images/gif/home-timelapse.gif)
-![aside](/journal-images/gif/home-timelapse-02.gif)
+![xs](/journal-images/video/home-timelapse.mp4)
+![aside](/journal-images/video/home-timelapse-02.mp4)
 
 # 😍
 

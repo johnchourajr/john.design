@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The repo carries large media; LFS and full history aren't needed.
+          fetch-depth: 1
+
+      # Reads the pnpm version from package.json "packageManager".
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm build
+
+      - name: Smoke test routes
+        run: |
+          pnpm start --port 3000 > /tmp/next.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf -o /dev/null -A 'Mozilla/5.0 (Macintosh) Chrome/130 Safari/537.36' http://localhost:3000/ && break
+            sleep 1
+          done
+          BASE_URL=http://localhost:3000 pnpm smoke || { cat /tmp/next.log; exit 1; }

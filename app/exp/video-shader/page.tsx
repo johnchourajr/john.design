@@ -3,6 +3,7 @@ import { Suspense, useState } from 'react';
 
 import {
   getSettingValue,
+  selectSetting,
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
 import { VideoThreeShader } from '@/components/experimental/VideoThreeShader';
@@ -16,32 +17,17 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
   const hideSettings = searchParams.get('hideSettings') !== null;
   const defaultShader = (searchParams.get('shader') as ShaderVariant) || 'vhs';
-  const defaultOverlay = searchParams.get('overlay') !== 'false';
 
-  const SETTINGS = [
-    {
-      name: 'Shader',
-      type: 'Select',
-      value: undefined,
-      options: Object.keys(fragmentThreeVideoShaders),
-    },
-  ];
+  const [settings, setSettings] = useState(() => [
+    selectSetting({
+      key: 'shader',
+      label: 'Shader',
+      value: defaultShader,
+      options: Object.keys(fragmentThreeVideoShaders) as ShaderVariant[],
+    }),
+  ]);
 
-  const [settings, setSettings] = useState(
-    SETTINGS.map((setting) =>
-      setting.name === 'Shader'
-        ? { ...setting, value: defaultShader }
-        : setting.name === 'Overlay'
-        ? { ...setting, value: defaultOverlay }
-        : setting,
-    ),
-  );
-
-  const currentShader = getSettingValue(
-    settings,
-    'Shader',
-    'vhs',
-  ) as ShaderVariant;
+  const currentShader = getSettingValue(settings, 'shader', 'vhs');
 
   const shaderConfig = {
     fragmentShader: fragmentThreeVideoShaders[currentShader],

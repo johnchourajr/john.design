@@ -2,13 +2,18 @@
   "name": "john.design",
   "version": "0.1.5",
   "private": true,
+  "packageManager": "pnpm@10.29.2",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "NODE_OPTIONS='--no-deprecation' next dev --port 2424",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "precommit": "pnpm lint && pnpm typecheck"
+    "precommit": "pnpm lint && pnpm typecheck",
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "@muybuen/type": "^1.1.8",
