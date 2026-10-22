@@ -56,7 +56,7 @@ I looped through that array of transaction objects in my JSX code, and voila! it
 
 The basics (engineers skip this part) are that there are objects and arrays. Objects are wrapped in curly brackets{} and arrays are wrapped in square brackets [].
 
-![xs](/journal-images/gif/01-joy-rn-6.jpg)
+![xs](/journal-images/images/01-joy-rn-6.jpg)
 
 It’s important for designers to start thinking this way, because it can bridge the gap between designers and engineers when there is sample data to talk through. Knowing the difference between strings, bools, and functions respective to a JSON table is also important. Read up designers.
 
@@ -68,7 +68,7 @@ So, admittedly if it were not for Jason, his Egghead tutorials, his website, the
 
 Here are a few things I built using React Native’s Animated libraries.
 
-![lg](/journal-images/gif/01-joy-rn.gif)
+![lg](/journal-images/video/01-joy-rn.mp4)
 
 ## Wrapping it up
 
