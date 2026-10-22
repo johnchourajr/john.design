@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "precommit": "pnpm lint && pnpm typecheck"
+    "precommit": "pnpm lint && pnpm typecheck",
+    "media:manifest": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/media-manifest.mts",
+    "media:upload": "bash scripts/upload-media.sh",
+    "media:verify": "node scripts/verify-media.mjs"
   },
   "dependencies": {
     "@muybuen/type": "^1.1.8",
