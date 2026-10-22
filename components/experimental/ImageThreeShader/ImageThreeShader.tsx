@@ -1,8 +1,13 @@
 'use client';
 import clsx from 'clsx';
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { useShaderUniforms } from '../useShaderUniforms';
+import {
+  useShaderRenderer,
+  type ShaderConfig,
+  type ShaderInput,
+  type ShaderSize,
+} from '../useShaderRenderer';
 
 /**
  * Aspect ratio values supported by the ImageThreeShader component
@@ -23,19 +28,6 @@ type AspectRatio =
   | '1680:1050';
 
 /**
- * Configuration object for defining shader properties
- * @type ShaderConfig
- */
-type ShaderConfig = {
-  /** Optional vertex shader code. If not provided, a default vertex shader will be used */
-  vertexShader?: string;
-  /** Required fragment shader code */
-  fragmentShader: string;
-  /** Optional additional uniforms to pass to the shader */
-  uniforms?: Record<string, THREE.IUniform>;
-};
-
-/**
  * Props for the ImageThreeShader component
  * @type ImageThreeShaderProps
  */
@@ -50,15 +42,10 @@ type ImageThreeShaderProps = {
   shaderConfig: ShaderConfig;
 };
 
-const defaultVertexShader = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const calculateDimensions = (container: DOMRect, aspectRatio: string) => {
+const calculateDimensions = (
+  container: DOMRect,
+  aspectRatio: string,
+): ShaderSize => {
   const [numerator, denominator] = aspectRatio.split(':').map(Number);
   const targetRatio = numerator / denominator;
 
@@ -72,6 +59,59 @@ const calculateDimensions = (container: DOMRect, aspectRatio: string) => {
 
   return { width, height };
 };
+
+const aspectClass: Record<AspectRatio, string> = {
+  '1:1': 'aspect-square',
+  '4:3': 'aspect-[4/3]',
+  '16:9': 'aspect-[16/9]',
+  '21:9': 'aspect-[21/9]',
+  '3:2': 'aspect-[3/2]',
+  '2:3': 'aspect-[2/3]',
+  '5:4': 'aspect-[5/4]',
+  '9:16': 'aspect-[9/16]',
+  '4:5': 'aspect-[4/5]',
+  '1200:600': 'aspect-[1200/600]',
+  '2000:1327': 'aspect-[2000/1327]',
+  '1680:1050': 'aspect-[1680/1050]',
+};
+
+const baseUniforms = () => ({
+  image: { value: null },
+  resolution: { value: new THREE.Vector2() },
+  imageResolution: { value: new THREE.Vector2() },
+  mouse: { value: new THREE.Vector2() },
+  time: { value: 0 },
+});
+
+/** Loads `src` as the `image` texture. */
+const imageTexture =
+  (src: string): ShaderInput =>
+  ({ material, ready }) => {
+    let disposed = false;
+    let texture: THREE.Texture | null = null;
+
+    new THREE.TextureLoader().load(src, (loaded) => {
+      // The image can finish loading after unmount.
+      if (disposed) {
+        loaded.dispose();
+        return;
+      }
+      texture = loaded;
+      material.uniforms.image.value = loaded;
+      material.uniforms.imageResolution.value.set(
+        loaded.image.width,
+        loaded.image.height,
+      );
+      ready();
+    });
+
+    return {
+      dispose: () => {
+        disposed = true;
+        texture?.dispose();
+      },
+    };
+  };
 
 /**
  * A React component that applies WebGL shaders to images using Three.js
@@ -131,204 +171,29 @@ export const ImageThreeShader = ({
   shaderConfig,
 }: ImageThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
-  const isVisibleRef = useRef(true);
-
-  const baseUniforms = useMemo(
-    () => ({
-      image: { value: null },
-      resolution: { value: new THREE.Vector2() },
-      imageResolution: { value: new THREE.Vector2() },
-      mouse: { value: new THREE.Vector2() },
-      time: { value: 0 },
-    }),
-    [],
+  const input = useMemo(() => imageTexture(src), [src]);
+  const getSize = useCallback(
+    (container: HTMLElement) =>
+      calculateDimensions(container.getBoundingClientRect(), aspectRatio),
+    [aspectRatio],
   );
 
-  // Track visibility with Intersection Observer to pause animation when off-screen
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisibleRef.current = entry.isIntersecting;
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(containerRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
-  const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const container = containerRef.current;
-    sceneRef.current = scene;
-
-    // Initialize renderer with device pixel ratio for sharp rendering
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    rendererRef.current = renderer;
-    container.appendChild(renderer.domElement);
-
-    // Load texture and setup material
-    let disposed = false;
-    let disposeMesh = () => {};
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(src, (texture) => {
-      // The image can finish loading after unmount.
-      if (disposed) {
-        texture.dispose();
-        return;
-      }
-
-      const geometry = new THREE.PlaneGeometry(2, 2);
-      const material = new THREE.ShaderMaterial({
-        uniforms: {
-          ...baseUniforms,
-          ...shaderConfig.uniforms,
-          time: { value: 0 },
-        },
-        vertexShader: shaderConfig.vertexShader || defaultVertexShader,
-        fragmentShader: shaderConfig.fragmentShader,
-      });
-
-      material.uniforms.image.value = texture;
-      material.uniforms.imageResolution.value.set(
-        texture.image.width,
-        texture.image.height,
-      );
-
-      materialRef.current = material;
-
-      const mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-      disposeMesh = () => {
-        texture.dispose();
-        geometry.dispose();
-        material.dispose();
-      };
-
-      // Initial render
-      const { width, height } = calculateDimensions(
-        container.getBoundingClientRect(),
-        aspectRatio,
-      );
-      renderer.setSize(width, height);
-      material.uniforms.resolution.value.set(width, height);
-      renderer.render(scene, camera);
-    });
-
-    // Sizing
-    const handleResize = () => {
-      const bounds = container.getBoundingClientRect();
-      const { width, height } = calculateDimensions(bounds, aspectRatio);
-
-      if (renderer) {
-        renderer.setSize(width, height);
-        const mesh = scene.children[0] as THREE.Mesh;
-        if (mesh?.material instanceof THREE.ShaderMaterial) {
-          mesh.material.uniforms.resolution.value.set(width, height);
-        }
-
-        // Ensure we render after resize
-        renderer.render(scene, camera);
-      }
-    };
-
-    // Mouse handling with damping
-    const targetMouse = { x: 0, y: 0 };
-    const smoothMouse = { x: 0, y: 0 };
-    const dampingFactor = 0.08; // Lower = smoother/slower
-
-    const handleMouseMove = (event: MouseEvent) => {
-      const bounds = container.getBoundingClientRect();
-      targetMouse.x = event.clientX - bounds.left;
-      targetMouse.y = event.clientY - bounds.top;
-    };
-
-    // Animation frame management
-    let animationFrameId: number;
-    const startTime = performance.now();
-
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-
-      // Skip rendering when not visible to save GPU/CPU cycles
-      if (!isVisibleRef.current) return;
-
-      // Lerp mouse position for smooth damping
-      smoothMouse.x += (targetMouse.x - smoothMouse.x) * dampingFactor;
-      smoothMouse.y += (targetMouse.y - smoothMouse.y) * dampingFactor;
-      mouseRef.current = { x: smoothMouse.x, y: smoothMouse.y };
-
-      const mesh = scene.children[0] as THREE.Mesh;
-      if (mesh?.material instanceof THREE.ShaderMaterial) {
-        const uniforms = mesh.material.uniforms;
-        uniforms.time.value = (performance.now() - startTime) * 0.001;
-        uniforms.mouse.value.set(smoothMouse.x, smoothMouse.y);
-      }
-      renderer.render(scene, camera);
-    };
-
-    // Event listeners
-    window.addEventListener('resize', handleResize);
-    container.addEventListener('mousemove', handleMouseMove);
-    handleResize();
-    animate();
-
-    return () => {
-      disposed = true;
-      cancelAnimationFrame(animationFrameId);
-      disposeMesh();
-      renderer.dispose();
-      scene.clear();
-      container.removeChild(renderer.domElement);
-      window.removeEventListener('resize', handleResize);
-      container.removeEventListener('mousemove', handleMouseMove);
-    };
-    // Rebuild only when the program itself changes. Uniform values reach the
-    // live material through useShaderUniforms instead.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    src,
-    aspectRatio,
-    shaderConfig.fragmentShader,
-    shaderConfig.vertexShader,
-    uniformKeys,
+  useShaderRenderer(containerRef, {
+    shaderConfig,
     baseUniforms,
-  ]);
-
-  const aspect: Record<AspectRatio, string> = {
-    '1:1': 'aspect-square',
-    '4:3': 'aspect-[4/3]',
-    '16:9': 'aspect-[16/9]',
-    '21:9': 'aspect-[21/9]',
-    '3:2': 'aspect-[3/2]',
-    '2:3': 'aspect-[2/3]',
-    '5:4': 'aspect-[5/4]',
-    '9:16': 'aspect-[9/16]',
-    '4:5': 'aspect-[4/5]',
-    '1200:600': 'aspect-[1200/600]',
-    '2000:1327': 'aspect-[2000/1327]',
-    '1680:1050': 'aspect-[1680/1050]',
-  };
+    input,
+    getSize,
+    antialias: true,
+    maxPixelRatio: 2,
+    mouseDamping: 0.08,
+  });
 
   return (
     <div
       ref={containerRef}
       className={clsx(
         'relative inline-block w-full h-full',
-        aspect[aspectRatio],
+        aspectClass[aspectRatio],
         className,
       )}
     />
