@@ -12,9 +12,16 @@ export const sphereShader = `
   ${layers}
 
   // The type's depth-of-field blur inside the sphere: taps, and the disc's
-  // radius in frame heights.
-  #define BLUR_TAPS 16
-  #define BLUR_RADIUS 0.012
+  // radius as a share of the type's font size, so it looks the same at
+  // every size the type steps to.
+  #define BLUR_TAPS 64
+  #define BLUR_EM 0.19
+  // How much the ball enlarges the type at its centre, easing back to 1 at
+  // its rim so the type meets the type outside.
+  #define TYPE_MAGNIFY 1.6
+  // How far each colour channel of the portrait spreads around its own
+  // offset, as a share of the split: 0 is a hard edge, 1 a full smear.
+  #define SPLIT_SOFT 0.8
 
   void main() {
     vec2 uv = frameUv();
@@ -26,7 +33,7 @@ export const sphereShader = `
     effectUV.x *= screenAspect;
 
     // Glass sphere parameters
-    float radius = 0.15;
+    float radius = 0.165;
     float padding = radius + 0.02;
 
     // Clamp mouse position to keep sphere inside canvas. A headline on its
@@ -90,9 +97,23 @@ export const sphereShader = `
     vec2 redUV = sphereUV + normDir * chromatic;
     vec2 blueUV = sphereUV - normDir * chromatic;
 
-    vec4 redChannel = texture2D(image, redUV);
-    vec4 greenChannel = texture2D(image, sphereUV);
-    vec4 blueChannel = texture2D(image, blueUV);
+    // Each channel averages four samples spread along the split around its
+    // own offset, shifted a little per pixel, so the fringes soften into
+    // gradients instead of hard-edged copies.
+    float jitter = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715)))) - 0.5;
+    vec2 spread = normDir * chromatic * SPLIT_SOFT;
+    vec4 redChannel = vec4(0.0);
+    vec4 greenChannel = vec4(0.0);
+    vec4 blueChannel = vec4(0.0);
+    for (int i = 0; i < 4; i++) {
+      vec2 step = spread * ((float(i) + 0.5) / 4.0 - 0.5 + jitter * 0.25) * 2.0;
+      redChannel += texture2D(image, redUV + step);
+      greenChannel += texture2D(image, sphereUV + step);
+      blueChannel += texture2D(image, blueUV + step);
+    }
+    redChannel *= 0.25;
+    greenChannel *= 0.25;
+    blueChannel *= 0.25;
 
     vec4 sphereColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
 
@@ -125,16 +146,30 @@ export const sphereShader = `
     // refracted type, blurred, inside exactly the portrait's silhouette
     // (sphereMask), so the two share one edge. No rim or highlight of its
     // own, which would draw a second halo just inside the first.
+    // A golden-angle spiral fills the disc evenly; turning it a little per
+    // pixel (interleaved gradient noise) dissolves the taps' copies into
+    // fine grain, and weighting toward the centre gives a soft lens blur
+    // rather than a flat smear.
+    // The type through a ball lens of its own: enlarged at the centre and
+    // easing back to true size at the rim. The portrait's refraction (which
+    // shrinks the middle and pushes the edges out) would smear the type.
+    vec2 typeUV = sphereCenter + toPixel * mix(1.0 / TYPE_MAGNIFY, 1.0, edgeFactor * edgeFactor);
     vec4 blurredType = vec4(0.0);
+    float blurWeight = 0.0;
+    // In the type's own space, which the lens enlarges: divided back so the
+    // blur is as wide on screen as BLUR_EM says.
+    float blurRadius = BLUR_EM * headlineEm / resolution.y / TYPE_MAGNIFY;
+    float turn = 6.2831853 * fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
     for (int i = 0; i < BLUR_TAPS; i++) {
-      // A golden-angle spiral fills the disc evenly with few taps.
       float t = (float(i) + 0.5) / float(BLUR_TAPS);
-      float angle = float(i) * 2.39996;
-      vec2 offset = vec2(cos(angle), sin(angle)) * sqrt(t) * BLUR_RADIUS;
+      float angle = float(i) * 2.39996 + turn;
+      vec2 offset = vec2(cos(angle), sin(angle)) * sqrt(t) * blurRadius;
       offset.x /= screenAspect;
-      blurredType += sampleHeadline(sphereUV + offset);
+      float weight = exp(-2.0 * t);
+      blurredType += sampleHeadline(typeUV + offset) * weight;
+      blurWeight += weight;
     }
-    blurredType /= float(BLUR_TAPS);
+    blurredType /= blurWeight;
     blurredType.rgb *= 0.9 + z * 0.1;
     vec4 type = mix(restingType, blurredType, sphereMask * hover);
 
