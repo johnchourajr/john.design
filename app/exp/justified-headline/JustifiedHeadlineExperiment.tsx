@@ -6,7 +6,7 @@ import {
   SettingsGroup,
   sliderSetting,
 } from '@/components/experimental/SettingsComponents';
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import {
   JustifiedHeadlineInner,
   type HeadlineSetting,
@@ -36,11 +36,7 @@ export function JustifiedHeadlineExperiment({
 
   return (
     <>
-      <InlineLink href="/exp/" className="no-underline" underline={false}>
-        <h2 className="m-4 font-sans">
-          &larr; <span>Back</span>
-        </h2>
-      </InlineLink>
+      <ExpBackLink />
       <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
         <JustifiedHeadlineInner
           settings={settings}

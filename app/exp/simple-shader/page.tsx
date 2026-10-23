@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
 
 function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
@@ -16,11 +16,7 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   return (
     <Suspense fallback={<div />}>
       {!isIframe && (
-        <InlineLink href="/exp/" className="no-underline" underline={false}>
-          <h2 className="m-4">
-            &larr; <span>Back</span>
-          </h2>
-        </InlineLink>
+        <ExpBackLink />
       )}
 
       <div className="relative w-screen h-auto">

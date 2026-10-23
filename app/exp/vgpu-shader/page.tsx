@@ -11,7 +11,7 @@ import {
   type Renderer,
   VgpuPinwheel,
 } from '@/components/experimental/VgpuShader/VgpuPinwheel';
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 
 const RENDERER_LABEL: Record<Renderer, string> = {
   pending: 'Starting renderer…',
@@ -38,15 +38,7 @@ export default function Page() {
 
   return (
     <>
-      <InlineLink
-        href="/exp/"
-        className="no-underline in-data-iframe:hidden"
-        underline={false}
-      >
-        <h2 className="m-4">
-          &larr; <span>Back</span>
-        </h2>
-      </InlineLink>
+      <ExpBackLink />
 
       <p className="mx-4 mb-4 text-sm opacity-60">{RENDERER_LABEL[renderer]}</p>
 
