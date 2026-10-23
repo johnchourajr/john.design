@@ -24,7 +24,9 @@ export const distortionThreeShader = `
 
       vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
       float dist = distance(effectUV, mouseUV) / screenAspect; // Normalize distance
-      float strength = smoothstep(0.2, 0.0, dist);
+      // Sized with the other hero lenses: the falloff reaches 0.25 so the
+      // visible core spans ~0.165 of the frame's width.
+      float strength = smoothstep(0.25, 0.0, dist);
       vec2 displacement = normalize(effectUV - mouseUV) * strength * 0.1;
       displacement.x /= screenAspect; // Correct displacement
 

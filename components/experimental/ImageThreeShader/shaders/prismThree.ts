@@ -42,7 +42,11 @@ export const prismShader = `
   #define SPLIT 0.005
   // The cube's silhouette reaches about this far from its centre, in the
   // centred units below. The split grows over that distance.
-  #define REACH 0.42
+  #define REACH 0.35
+  // How far the camera sits from the cube. Further is smaller: at 2.2 the
+  // cube's silhouette spans ~0.15 to 0.2 of the frame's width as it turns,
+  // sized with the other hero lenses.
+  #define CUBE_DISTANCE 2.2
   // The type's grainy blur in the cube: each pixel averages a few samples
   // up to this far away (in frame heights), different per colour channel,
   // so letters soften and their edges break up like dithering. A share of
@@ -161,7 +165,7 @@ export const prismShader = `
   // How much glass the ray through \`local\` (centred on the cube) crosses:
   // ~1 through the middle, falling to 0 at the cube's outline.
   float glassThickness(vec2 local, vec3 rotation) {
-    vec3 ro = rotateCube(vec3(0.0, 0.0, -1.9), rotation);
+    vec3 ro = rotateCube(vec3(0.0, 0.0, -CUBE_DISTANCE), rotation);
     vec3 rd = rotateCube(normalize(vec3(local, 1.0)), rotation);
     float dfront = -interiorCubeReflection(-ro, rd);
     float dback = interiorCubeReflection(ro, rd);
@@ -186,7 +190,7 @@ export const prismShader = `
     vec2 localCoord = centered - mouseCentered;
 
     // Ray setup
-    vec3 ro = vec3(0.0, 0.0, -1.9);
+    vec3 ro = vec3(0.0, 0.0, -CUBE_DISTANCE);
     vec3 rd = normalize(vec3(localCoord, 1.0));
 
     // Mouse influence on rotation (centered at 0.5)
