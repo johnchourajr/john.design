@@ -108,6 +108,11 @@ export type ShaderRendererOptions = {
    * the canvas at rest. Touch always jumps.
    */
   jumpOnEnter?: boolean;
+  /**
+   * A click (or tap) on the canvas, not a drag and not on a link or control
+   * over it. The next program swap is revealed from where it landed.
+   */
+  onCanvasClick?: () => void;
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
 };
@@ -120,6 +125,28 @@ export const defaultVertexShader = `
   void main() {
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+/** How long a program swap takes to reveal, in ms. */
+const SWAP_MS = 700;
+
+/**
+ * A program swap: the new frame (\`to\`) revealed over the old (\`from\`)
+ * in a circle growing from \`origin\`, with a feathered edge. All in the
+ * drawing buffer's pixels.
+ */
+const revealShader = `
+  uniform sampler2D from;
+  uniform sampler2D to;
+  uniform vec2 origin;
+  uniform vec2 size;
+  uniform float radius;
+  uniform float feather;
+  varying vec2 vUv;
+  void main() {
+    float outside = smoothstep(radius - feather, radius, distance(vUv * size, origin));
+    gl_FragColor = mix(texture2D(to, vUv), texture2D(from, vUv), outside);
   }
 `;
 
@@ -215,6 +242,7 @@ export function useShaderRenderer(
     snapToPixels = false,
     resizeWith,
     jumpOnEnter = false,
+    onCanvasClick,
     debug,
   }: ShaderRendererOptions,
 ) {
@@ -227,6 +255,9 @@ export function useShaderRenderer(
   );
   // Read when it fires, so a new callback doesn't rebuild the renderer.
   const onErrorRef = useRef(onError);
+  const onCanvasClickRef = useRef(onCanvasClick);
+  // Swaps the live program; the renderer and its input stay.
+  const swapRef = useRef<(next: ShaderConfig) => void>(() => {});
 
   const uniformKeys = useShaderUniforms(materialRef, shaderConfig.uniforms);
 
@@ -234,8 +265,18 @@ export function useShaderRenderer(
   // draw them once so a settings change still shows.
   useEffect(() => {
     onErrorRef.current = onError;
+    onCanvasClickRef.current = onCanvasClick;
     invalidateRef.current();
   });
+
+  // A new program swaps in on the live renderer, revealed over the old one,
+  // instead of rebuilding it (a blank frame, and the headline handing back
+  // to the DOM and over again).
+  useEffect(() => {
+    swapRef.current(shaderConfig);
+    // shaderConfig as of this program; only the program's text triggers it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shaderConfig.fragmentShader, shaderConfig.vertexShader]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -265,7 +306,7 @@ export function useShaderRenderer(
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     const geometry = new THREE.PlaneGeometry(2, 2);
-    const material = new THREE.ShaderMaterial({
+    let material = new THREE.ShaderMaterial({
       uniforms: {
         resolution: { value: new THREE.Vector2() },
         ...baseUniforms(),
@@ -296,6 +337,59 @@ export function useShaderRenderer(
     let lastTick = performance.now();
     let handle: ShaderInputHandle | null = null;
 
+    // A program swap in progress: the outgoing program keeps drawing, and
+    // the new one is revealed over it from the last click. Both share the
+    // one set of uniforms, so they see the same pointer, time and type.
+    let outgoing: THREE.ShaderMaterial | null = null;
+    let swapStart = 0;
+    let lastClick: { x: number; y: number; time: number } | null = null;
+    const swapFrom = new THREE.WebGLRenderTarget(1, 1);
+    const swapTo = new THREE.WebGLRenderTarget(1, 1);
+    const reveal = new THREE.ShaderMaterial({
+      uniforms: {
+        from: { value: swapFrom.texture },
+        to: { value: swapTo.texture },
+        origin: { value: new THREE.Vector2() },
+        size: { value: buffer },
+        radius: { value: 0 },
+        feather: { value: 1 },
+      },
+      vertexShader: defaultVertexShader,
+      fragmentShader: revealShader,
+    });
+    const revealScene = new THREE.Scene();
+    revealScene.add(new THREE.Mesh(geometry, reveal));
+    let revealReach = 0;
+
+    const drawScene = () => {
+      if (!outgoing) {
+        renderer.render(scene, camera);
+        return;
+      }
+      const progress = Math.min((performance.now() - swapStart) / SWAP_MS, 1);
+      if (progress >= 1) {
+        outgoing.dispose();
+        outgoing = null;
+        renderer.render(scene, camera);
+        return;
+      }
+      mesh.material = outgoing;
+      renderer.setRenderTarget(swapFrom);
+      renderer.render(scene, camera);
+      mesh.material = material;
+      renderer.setRenderTarget(swapTo);
+      renderer.render(scene, camera);
+      renderer.setRenderTarget(null);
+      // Ease in and out.
+      const eased =
+        progress < 0.5
+          ? 4 * progress ** 3
+          : 1 - (-2 * progress + 2) ** 3 / 2;
+      reveal.uniforms.radius.value =
+        eased * (revealReach + reveal.uniforms.feather.value);
+      renderer.render(revealScene, camera);
+    };
+
     let renders = 0;
     const draw = () => {
       renders += 1;
@@ -309,7 +403,7 @@ export function useShaderRenderer(
       // Inputs prepare a frame only once the plane is drawn, so nothing
       // swaps itself out for a canvas that is still empty.
       if (isReady) handle?.beforeRender?.();
-      renderer.render(scene, camera);
+      drawScene();
     };
     // With the debug panel up, a failing frame is recorded, not thrown.
     let recordError: ((message: string) => void) | null = null;
@@ -401,6 +495,8 @@ export function useShaderRenderer(
         frame.height / height,
       );
       renderer.getDrawingBufferSize(buffer);
+      swapFrom.setSize(buffer.x, buffer.y);
+      swapTo.setSize(buffer.x, buffer.y);
       handle?.resize?.({ width: buffer.x, height: buffer.y });
       // setSize clears the canvas, so draw straight away.
       render();
@@ -497,7 +593,77 @@ export function useShaderRenderer(
 
     const pointerSource: HTMLElement | Window =
       pointerTarget === 'window' ? window : container;
+    // A click on the canvas: not a drag, not a link or control over it, and
+    // not the end of a text selection.
+    let downAt: { x: number; y: number } | null = null;
+    const handlePointerDown = (event: PointerEvent) => {
+      downAt = { x: event.clientX, y: event.clientY };
+    };
+    const handleClick = (event: MouseEvent) => {
+      if (!onCanvasClickRef.current) return;
+      if (!isOverCanvas(event.clientX, event.clientY)) return;
+      if (downAt && Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y) > 8) {
+        return;
+      }
+      const target = event.target as Element | null;
+      if (target?.closest?.('a, button, input, select, textarea, label, [role="button"]')) {
+        return;
+      }
+      if (window.getSelection()?.toString()) return;
+      lastClick = { x: event.clientX, y: event.clientY, time: performance.now() };
+      onCanvasClickRef.current();
+    };
+
+    swapRef.current = (next) => {
+      const vertexShader = next.vertexShader || defaultVertexShader;
+      if (
+        next.fragmentShader === material.fragmentShader &&
+        vertexShader === material.vertexShader
+      ) {
+        return;
+      }
+      Object.assign(uniforms, next.uniforms);
+      const incoming = new THREE.ShaderMaterial({
+        uniforms,
+        vertexShader,
+        fragmentShader: next.fragmentShader,
+      });
+      const previous = material;
+      material = incoming;
+      mesh.material = incoming;
+      materialRef.current = incoming;
+      // A swap mid-swap starts again from what was showing.
+      outgoing?.dispose();
+      outgoing = null;
+      if (!animate || !isReady || !buffer.x) {
+        previous.dispose();
+        invalidate();
+        return;
+      }
+      outgoing = previous;
+      swapStart = performance.now();
+      // From the click that asked for it, or the middle of the canvas.
+      const area = canvas.getBoundingClientRect();
+      const at =
+        lastClick && performance.now() - lastClick.time < 1000
+          ? lastClick
+          : { x: area.left + area.width / 2, y: area.top + area.height / 2 };
+      const ox = ((at.x - area.left) / area.width) * buffer.x;
+      const oy = ((area.bottom - at.y) / area.height) * buffer.y;
+      reveal.uniforms.origin.value.set(ox, oy);
+      revealReach = Math.max(
+        Math.hypot(ox, oy),
+        Math.hypot(buffer.x - ox, oy),
+        Math.hypot(ox, buffer.y - oy),
+        Math.hypot(buffer.x - ox, buffer.y - oy),
+      );
+      reveal.uniforms.feather.value = Math.hypot(buffer.x, buffer.y) * 0.08;
+      startLoop();
+    };
+
     const listen = { passive: true };
+    pointerSource.addEventListener('pointerdown', handlePointerDown as EventListener, listen);
+    pointerSource.addEventListener('click', handleClick as EventListener);
     pointerSource.addEventListener(
       'pointermove',
       handlePointerMove as EventListener,
@@ -582,7 +748,14 @@ export function useShaderRenderer(
       window.removeEventListener('touchstart', handleTouch);
       window.removeEventListener('touchmove', handleTouch);
       canvas.removeEventListener('webglcontextlost', handleContextLost);
+      pointerSource.removeEventListener('pointerdown', handlePointerDown as EventListener);
+      pointerSource.removeEventListener('click', handleClick as EventListener);
+      swapRef.current = () => {};
       handle?.dispose();
+      outgoing?.dispose();
+      reveal.dispose();
+      swapFrom.dispose();
+      swapTo.dispose();
       geometry.dispose();
       material.dispose();
       renderer.dispose();
@@ -590,14 +763,13 @@ export function useShaderRenderer(
       container.removeChild(canvas);
       materialRef.current = null;
     };
-    // Rebuild only when the program, the input or the renderer options
-    // change. Uniform values reach the live material through
-    // useShaderUniforms, so shaderConfig.uniforms is left out on purpose.
+    // Rebuild only when the input or the renderer options change. A new
+    // program swaps in on the live renderer (swapRef), and uniform values
+    // reach the live material through useShaderUniforms, so shaderConfig is
+    // left out on purpose.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     containerRef,
-    shaderConfig.fragmentShader,
-    shaderConfig.vertexShader,
     uniformKeys,
     baseUniforms,
     input,

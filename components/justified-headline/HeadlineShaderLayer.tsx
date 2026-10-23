@@ -39,6 +39,8 @@ type HeadlineShaderLayerProps = {
   onError: () => void;
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
+  /** A click on the headline (the canvas itself ignores the pointer). */
+  onCanvasClick?: () => void;
 };
 
 /**
@@ -51,6 +53,7 @@ export default function HeadlineShaderLayer({
   fragmentShader,
   onError,
   debug,
+  onCanvasClick,
 }: HeadlineShaderLayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(() => headlineTexture(getRoot), [getRoot]);
@@ -73,6 +76,7 @@ export default function HeadlineShaderLayer({
     pointerTarget: 'window',
     onError,
     debug,
+    onCanvasClick,
   });
 
   return (

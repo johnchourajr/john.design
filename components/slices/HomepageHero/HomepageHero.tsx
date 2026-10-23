@@ -17,7 +17,9 @@ import {
   fragmentThreeShaders,
   heroShaderVariants,
   isHeadlineInShader,
+  nextShaderVariant,
   pickShaderVariant,
+  type ShaderVariant,
 } from '@/components/experimental/ImageThreeShader/shaders';
 import { isShaderDebug } from '@/components/experimental/shaderDebug';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
@@ -44,11 +46,11 @@ export type HomepageHeroProps = {
   rolesSection: SectionStructure;
 };
 
-type ShaderConfig = {
-  fragmentShader: string;
+type HeroShader = {
+  variant: ShaderVariant;
   /** Draw the headline inside the shader, so the effects warp it too (#108). */
   withHeadline: boolean;
-  /** `?shader-debug`: the variant's name, to head the debug panel. */
+  /** `?shader-debug`: heads the debug panel. */
   debug?: string;
 };
 
@@ -63,17 +65,36 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
   const getHeadline = useCallback(() => headlineRef.current, []);
 
   // Defer shader variant selection to client to avoid hydration mismatch
-  const [shaderConfig, setShaderConfig] = useState<ShaderConfig | null>(null);
+  const [heroShader, setHeroShader] = useState<HeroShader | null>(null);
+  const shaderConfig = useMemo(
+    () =>
+      heroShader && { fragmentShader: fragmentThreeShaders[heroShader.variant] },
+    [heroShader],
+  );
+  // A click on the portrait moves on to the next effect, except while
+  // drawing, where a click is a mark.
+  const cycleShader = useCallback(
+    () =>
+      setHeroShader(
+        (current) =>
+          current && {
+            ...current,
+            variant: nextShaderVariant(current.variant, heroShaderVariants),
+          },
+      ),
+    [],
+  );
 
   useEffect(() => {
     // The variant is random, so choosing it during render would differ between server and
     // client and break hydration. Picking it once after mount is the intended pattern here.
     const variant = pickShaderVariant(heroShaderVariants);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setShaderConfig({
-      fragmentShader: fragmentThreeShaders[variant],
+    setHeroShader({
+      variant,
       withHeadline: isHeadlineInShader(),
-      debug: isShaderDebug() ? `home ${variant}` : undefined,
+      // Not the variant: a new label would rebuild the canvas on every click.
+      debug: isShaderDebug() ? 'home' : undefined,
     });
   }, []);
 
@@ -124,14 +145,15 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           'translate-y-[-5%]',
         )}
       >
-        {shaderConfig && (
+        {heroShader && shaderConfig && (
           <ImageThreeShader
             className={clsx('absolute', 'w-full h-full')}
             src="/me-alpha-moody.png"
             aspectRatio="1:1"
             shaderConfig={shaderConfig}
-            getHeadline={shaderConfig.withHeadline ? getHeadline : undefined}
-            debug={shaderConfig.debug}
+            getHeadline={heroShader.withHeadline ? getHeadline : undefined}
+            debug={heroShader.debug}
+            onCanvasClick={enableDrawing ? undefined : cycleShader}
           />
         )}
       </div>

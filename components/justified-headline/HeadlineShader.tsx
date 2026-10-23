@@ -14,7 +14,9 @@ import {
   fragmentThreeShaders,
   heroShaderVariants,
   isHeadlineInShader,
+  nextShaderVariant,
   pickShaderVariant,
+  type ShaderVariant,
 } from '../experimental/ImageThreeShader/shaders';
 import { isShaderDebug } from '../experimental/shaderDebug';
 
@@ -42,9 +44,21 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const getRoot = useCallback(() => rootRef.current, []);
   const [shader, setShader] = useState<{
-    fragmentShader: string;
+    variant: ShaderVariant;
     debug?: string;
   } | null>(null);
+  // A click on the headline moves on to the next effect.
+  const cycleShader = useCallback(
+    () =>
+      setShader(
+        (current) =>
+          current && {
+            ...current,
+            variant: nextShaderVariant(current.variant, heroShaderVariants),
+          },
+      ),
+    [],
+  );
 
   useEffect(() => {
     if (!isHeadlineInShader()) return;
@@ -52,8 +66,9 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
     // Random and URL-driven, so it's chosen after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setShader({
-      fragmentShader: fragmentThreeShaders[variant],
-      debug: isShaderDebug() ? `headline ${variant}` : undefined,
+      variant,
+      // Not the variant: a new label would rebuild the canvas on every click.
+      debug: isShaderDebug() ? 'headline' : undefined,
     });
   }, []);
 
@@ -63,9 +78,10 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
       {shader && (
         <HeadlineShaderLayer
           getRoot={getRoot}
-          fragmentShader={shader.fragmentShader}
+          fragmentShader={fragmentThreeShaders[shader.variant]}
           debug={shader.debug}
           onError={() => setShader(null)}
+          onCanvasClick={cycleShader}
         />
       )}
     </div>
