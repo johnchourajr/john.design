@@ -75,14 +75,15 @@ export const vortices: Poster = {
       float twist = (0.55 + 0.35 * sin(time * 0.3) + 0.5 * hover) * (0.12 + 0.88 * depth * depth) * 2.2;
       vec2 turned = eye + rotate(twist) * (p - eye);
       vec2 sampleUv = r < reach ? fromSquare(turned) : uv;
-      float a = ink(sampleUv);
+      // Black ink on uncoated stock: rough at the edge, a little patchy.
+      float a = inkLaid(ink(roughen(sampleUv, 0.8, 1.0)), 0.7, 1.0);
       // A hairline of paper where each ring is cut.
       float edge = abs(fract(r / RING) - 0.5) * 2.0;
       float cut = r < reach ? smoothstep(0.985, 0.995, edge) * step(0.5, ring) : 0.0;
       a *= 1.0 - cut;
       vec3 colour = mix(PAPER, INK_COLOUR, a);
-      colour = mix(colour, INK_COLOUR, print(uv));
-      gl_FragColor = vec4(paper(colour), 1.0);
+      colour = mix(colour, INK_COLOUR, inkLaid(print(roughen(uv, 0.4, 2.0)), 0.4, 2.0));
+      gl_FragColor = vec4(paperStock(colour, 0.8), 1.0);
     }
   `,
 };

@@ -80,4 +80,76 @@ export const prelude = `
   vec3 paper(vec3 colour) {
     return colour * (0.97 + 0.03 * hash(floor(gl_FragCoord.xy)));
   }
+
+  // ── Print: offset printing's flaws, for posters that want to look
+  // printed. All of it is measured in CSS px (\`sheetPx\`), so the texture
+  // is the same physical size whether the poster hangs small or opens big.
+
+  // How much of it shows, across every poster: each poster's own
+  // \`amount\` is scaled by this, so the whole set can be turned up or down
+  // in one place.
+  #define PRINT_TEXTURE 0.55
+
+  // This fragment in CSS px from the poster's bottom left.
+  vec2 sheetPx() { return vUv * resolution; }
+
+  float fbm(vec2 p) {
+    float sum = 0.0;
+    float amp = 0.5;
+    for (int i = 0; i < 4; i++) {
+      sum += noise(p) * amp;
+      p = rotate(0.6) * p * 2.03 + 11.7;
+      amp *= 0.5;
+    }
+    return sum;
+  }
+
+  // Uncoated stock: cloudy where the sheet took more or less size, faint
+  // fibres running with the grain, and a fine tooth. \`amount\` 1 is a
+  // sheet you can feel; 0 leaves the colour as it is.
+  vec3 paperStock(vec3 colour, float amount) {
+    amount *= PRINT_TEXTURE;
+    vec2 p = sheetPx();
+    float cloud = fbm(p * 0.011) - 0.5;
+    float fibres = smoothstep(0.72, 0.95, noise(rotate(0.35) * p * vec2(0.04, 1.1)));
+    float tooth = hash(floor(p * 1.6)) - 0.5;
+    vec3 sheet = colour * (1.0 + amount * (cloud * 0.06 - fibres * 0.015));
+    return sheet + amount * tooth * 0.022;
+  }
+
+  // Moves a sample point by a few tenths of a CSS px, at random but fixed:
+  // ink edges break up the way they do on uncoated paper instead of
+  // staying vector-sharp. \`seed\` gives each plate its own edge.
+  vec2 roughen(vec2 uv, float amount, float seed) {
+    amount *= PRINT_TEXTURE;
+    vec2 p = sheetPx() * 0.45 + seed * 31.7;
+    vec2 n = vec2(noise(p), noise(p + 17.3)) - 0.5;
+    vec2 m = vec2(noise(p * 3.1), noise(p * 3.1 + 5.9)) - 0.5;
+    return uv + (n * 0.9 + m * 0.35) * amount / resolution;
+  }
+
+  // Ink as it lays down: \`coverage\` (0 to 1, from the type) becomes how
+  // much ink is on the sheet. Solids thin out in patches (ink starvation),
+  // the paper's tooth shows through as pinholes, and the edge sits a
+  // little in or out with the mottle. \`amount\` 1 is a tired press.
+  float inkLaid(float coverage, float amount, float seed) {
+    amount *= PRINT_TEXTURE;
+    vec2 p = sheetPx() + seed * 53.1;
+    float mottle = fbm(p * 0.045);
+    float edge = 0.5 + (mottle - 0.5) * 0.35 * amount;
+    float laid = smoothstep(edge - 0.18, edge + 0.18, coverage);
+    float starve = 1.0 - amount * 0.22 * smoothstep(0.45, 0.8, fbm(p * 0.02 + 3.0));
+    // Pinholes: rare, soft specks a CSS px or two across, not single
+    // pixels.
+    float speck = noise(p * 0.55 + 41.0) * noise(p * 1.3 + 7.0);
+    float pinhole = smoothstep(0.7 - amount * 0.05, 0.76, speck) * 0.7 * amount;
+    return laid * starve * (1.0 - pinhole);
+  }
+
+  // How heavily the press ran across the sheet: a slow swell, ~1 on
+  // average, so one corner can print fuller than the other.
+  float pressDensity(float amount, float seed) {
+    amount *= PRINT_TEXTURE;
+    return 1.0 + amount * (fbm(vUv * 1.6 + seed * 7.3) - 0.5) * 0.3;
+  }
 `;

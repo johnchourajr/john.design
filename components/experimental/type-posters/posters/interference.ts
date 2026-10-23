@@ -73,13 +73,15 @@ export const interference: Poster = {
       float h = bevel(uv);
       vec2 q = rotate(0.62 + 0.15 * sin(time * 0.2)) * p;
       float stripes = step(0.0, sin(q.y * 150.0 + h * 9.0));
-      float inside = smoothstep(0.45, 0.55, ink(uv));
+      // The letters print with a rough edge, and their stripes lay down
+      // patchily, like a screen print pulled a little dry.
+      float inside = inkLaid(ink(roughen(uv, 0.7, 1.0)), 0.6, 1.0);
       // Where one is on and the other off, the paper shows.
       float crossed = abs(stripes - rings);
       vec3 colour = mix(ORANGE, WHITE, rings * 0.9);
-      colour = mix(colour, mix(WHITE, BLACK, crossed), inside);
+      colour = mix(colour, mix(WHITE, BLACK, crossed * inkLaid(1.0, 0.8, 4.0)), inside);
       colour = mix(colour, BLACK, print(uv));
-      gl_FragColor = vec4(paper(colour), 1.0);
+      gl_FragColor = vec4(paperStock(colour, 0.6), 1.0);
     }
   `,
 };

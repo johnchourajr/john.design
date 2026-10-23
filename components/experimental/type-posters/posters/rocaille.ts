@@ -76,7 +76,9 @@ export const rocaille: Poster = {
       vec2 uv = vUv;
       vec2 p = curl(toSquare(uv));
       vec2 warped = fromSquare(p);
-      float a = smoothstep(0.35, 0.65, ink(warped));
+      // Silver ink sits thin on the sheet: soft-edged, and patchy where
+      // the stock drinks it.
+      float a = inkLaid(ink(roughen(warped, 0.5, 1.0)), 0.45, 1.0);
       // Silver: bands of light and dark that follow the warp, so the
       // metal reads as bent along with the letters.
       float sheen = 0.5 + 0.5 * sin(p.y * 38.0 + p.x * 12.0 + noise(p * 6.0) * 3.0);
@@ -87,7 +89,8 @@ export const rocaille: Poster = {
       vec3 colour = mix(PAPER, vec3(1.0), stroke * 0.75);
       colour = mix(colour, silver, a);
       colour = mix(colour, vec3(0.25), print(uv));
-      gl_FragColor = vec4(paper(colour), 1.0);
+      // A heavy, cloudy rag sheet.
+      gl_FragColor = vec4(paperStock(colour, 1.0), 1.0);
     }
   `,
 };
