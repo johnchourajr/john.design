@@ -19,14 +19,18 @@ export type GpuShaderLoaders = Partial<
 >;
 
 /**
- * Whether to try WebGPU: unless the browser has none, or
- * `?shader-renderer=webgl` asks for the fallback (to compare the two).
+ * Whether to try WebGPU: only when `?shader-renderer=webgpu` asks for it,
+ * and the browser has it. WebGL is the default (#130): on this site's
+ * single full-screen passes WebGPU drew the same pixels but started
+ * slower (a first-visit pipeline compile WebGL's program cache avoids)
+ * and copied every video frame, which vgpu 0.6 can't avoid. The type
+ * posters choose their own renderer and stay on WebGPU.
  * Neither changes while the page is open. On the server, and while the
  * page hydrates, it's null: nothing is chosen until the client knows.
  */
 const wantsGpu = () =>
   'gpu' in navigator &&
-  new URLSearchParams(window.location.search).get('shader-renderer') !== 'webgl';
+  new URLSearchParams(window.location.search).get('shader-renderer') === 'webgpu';
 const unchanging = () => () => {};
 const notYet = () => null;
 
