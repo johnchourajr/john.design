@@ -1,5 +1,6 @@
-import { effect, frame, init, sampler, surface, texture, type Gpu, type Texture } from 'vgpu';
+import { effect, frame, sampler, surface, texture, type Gpu, type Texture } from 'vgpu';
 
+import { takeGpu } from '../sharedGpu';
 import { paintPoster, posterFontsReady, type ComposePoster } from './posterTexture';
 
 /**
@@ -30,30 +31,6 @@ type PosterGpuOptions = {
 const MOUSE_DAMPING = 0.06;
 /** Seconds for `hover` to cover most of the way to its target. */
 const HOVER_EASE = 0.18;
-
-/**
- * One WebGPU device for every poster on the page. Asking for a device is the
- * slow part of starting WebGPU, and eight posters each asking for their own
- * was most of the wait. Each poster takes its own surface on the shared
- * device; the device closes when the last poster lets go, or is replaced if
- * it's lost.
- */
-let shared: { gpu: Promise<Gpu>; users: number } | null = null;
-
-const takeGpu = () => {
-  shared ??= { gpu: init(), users: 0 };
-  shared.users += 1;
-  const current = shared;
-  return {
-    gpu: current.gpu,
-    release: () => {
-      current.users -= 1;
-      if (current.users > 0) return;
-      if (shared === current) shared = null;
-      current.gpu.then((gpu) => gpu.dispose()).catch(() => {});
-    },
-  };
-};
 
 /** The site's accent colour (--root-color) as 0 to 1 RGB. */
 const accentColour = (): [number, number, number] => {
@@ -203,7 +180,7 @@ export async function startPosterGpu(
     let disposed = false;
     gpu.lost.then(() => {
       // A lost device can't be shared any more: the next poster asks anew.
-      if (shared && shared.gpu === device.gpu) shared = null;
+      device.forget();
       if (!disposed) onLost();
     });
 
