@@ -90,14 +90,42 @@ function useCursorPan(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // A cursor steers the wall by where it is across the screen. A finger
+  // has no resting position, so it drags the wall instead, one to one.
+  const dragged = useRef(false);
   useEffect(() => {
     if (paused) return;
-    const move = (event: PointerEvent) => {
-      const share = Math.min(1, Math.max(0, event.clientX / window.innerWidth));
-      target.set(-overflow() * share);
+    const clamp = (x: number) => Math.min(0, Math.max(-overflow(), x));
+    let touch: { x: number; from: number } | null = null;
+    const down = (event: PointerEvent) => {
+      if (event.pointerType === 'mouse') return;
+      touch = { x: event.clientX, from: target.get() };
+      dragged.current = false;
     };
+    const move = (event: PointerEvent) => {
+      if (event.pointerType === 'mouse') {
+        const share = Math.min(1, Math.max(0, event.clientX / window.innerWidth));
+        target.set(-overflow() * share);
+        return;
+      }
+      if (!touch) return;
+      const dx = event.clientX - touch.x;
+      if (Math.abs(dx) > 6) dragged.current = true;
+      target.set(clamp(touch.from + dx));
+    };
+    const up = () => {
+      touch = null;
+    };
+    window.addEventListener('pointerdown', down);
     window.addEventListener('pointermove', move);
-    return () => window.removeEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+    return () => {
+      window.removeEventListener('pointerdown', down);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+    };
     // Only the pause re-arms it; the motion values and refs are stable.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paused]);
@@ -109,7 +137,7 @@ function useCursorPan(
     target.set(Math.min(0, Math.max(-overflow(), middle - x)));
   };
 
-  return { left, panTo };
+  return { left, panTo, dragged };
 }
 
 /**
@@ -206,7 +234,12 @@ function WallPoster({
               initial="hidden"
               animate="shown"
               exit={{ opacity: 0, transition: { duration: duration.micro } }}
-              className="absolute right-full bottom-0 mr-6 flex flex-col gap-1 w-[22em] max-w-[calc((100vw-100%)/2-2.5rem)] text-left text-string text-root pointer-events-none"
+              className={clsx(
+                'absolute flex flex-col gap-1 text-left text-string text-root pointer-events-none',
+                // Beside the poster where there's room; under it on a phone.
+                'right-full bottom-0 mr-6 w-[22em] max-w-[calc((100vw-100%)/2-2.5rem)]',
+                'max-md:right-auto max-md:left-0 max-md:bottom-auto max-md:top-full max-md:mr-0 max-md:mt-4 max-md:w-full max-md:max-w-none',
+              )}
             >
               <motion.span variants={reducedMotion ? undefined : captionLine}>
                 {String(index + 1).padStart(2, '0')} {poster.title}
@@ -241,7 +274,7 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
   const active = posters.find((poster) => poster.slug === open);
   const viewRef = useRef<HTMLElement>(null);
   const wallRef = useRef<HTMLDivElement>(null);
-  const { left, panTo } = useCursorPan(viewRef, wallRef, !!open);
+  const { left, panTo, dragged } = useCursorPan(viewRef, wallRef, !!open);
   // The poster the arrow keys are on, while none is open.
   const focused = useRef(-1);
 
@@ -294,7 +327,8 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
   }, [open, posters]);
 
   const select = (slug: string) => {
-    if (open) return;
+    // The end of a drag across the wall isn't a tap on a poster.
+    if (open || dragged.current) return;
     setSettling(slug);
     setOpen(slug);
   };
@@ -304,7 +338,8 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
       ref={viewRef}
       data-testid="type-poster-wall"
       // Above the back link while a poster is open, so the backdrop covers it.
-      className={clsx('fixed inset-0 overflow-hidden pt-20 pb-14', open && 'z-61')}
+      // A finger drags the wall, so the browser mustn't take the gesture.
+      className={clsx('fixed inset-0 overflow-hidden pt-20 pb-14 touch-none', open && 'z-61')}
     >
       <motion.div
         ref={wallRef}
