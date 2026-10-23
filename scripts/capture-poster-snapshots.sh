@@ -32,7 +32,11 @@ for i in "${!SLUGS[@]}"; do
   sleep 2
   opened="$(ab eval "document.querySelector('[aria-expanded=true]')?.dataset.testid" | tr -d '"')"
   if [ "$opened" != "type-poster-open-$slug" ]; then echo "$slug: opened '$opened' instead" >&2; exit 1; fi
-  rect="$(ab eval "(() => { const r = document.querySelector('[data-testid=type-poster-open-$slug] [role=img]').getBoundingClientRect(); return [r.left, r.top, r.width, r.height].map((v) => Math.round(v * 2)).join(' '); })()" | tr -d '"')"
+  # Drop focus, or the button's focus outline is in the shot, and crop
+  # inward to whole device pixels so the poster's ring-1 edge isn't either.
+  ab eval "document.activeElement.blur()" >/dev/null
+  sleep 0.5
+  rect="$(ab eval "(() => { const r = document.querySelector('[data-testid=type-poster-open-$slug] [role=img]').getBoundingClientRect(); const x = Math.ceil(r.left * 2) + 1, y = Math.ceil(r.top * 2) + 1; return [x, y, Math.floor(r.right * 2) - 1 - x, Math.floor(r.bottom * 2) - 1 - y].join(' '); })()" | tr -d '"')"
   read -r x y w h <<<"$rect"
   ab screenshot "$TMP/$slug.png" >/dev/null
   sips -c "$h" "$w" --cropOffset "$y" "$x" "$TMP/$slug.png" --out "$TMP/$slug-crop.png" >/dev/null

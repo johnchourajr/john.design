@@ -171,6 +171,7 @@ type WallPosterProps = {
   isSettling: boolean;
   /** Its shader runs, rather than its snapshot alone. */
   isLive: boolean;
+  onLoaded: () => void;
   onOpen: () => void;
   onSettled: () => void;
 };
@@ -188,6 +189,7 @@ function WallPoster({
   isOpen,
   isSettling,
   isLive,
+  onLoaded,
   onOpen,
   onSettled,
 }: WallPosterProps) {
@@ -235,6 +237,8 @@ function WallPoster({
           words={poster.words}
           paper={poster.paper}
           live={isLive}
+          shimmer={isOpen}
+          onLoaded={onLoaded}
           // A hairline edge, so dark posters stand off the black wall.
           className={clsx(
             'h-full ring-1 ring-white/20 transition-[box-shadow,scale] duration-(--duration-fast) ease-(--ease-smooth-out) motion-reduce:transition-none',
@@ -288,14 +292,34 @@ function WallPoster({
  */
 export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
   const [open, setOpenSlug] = useState<string | null>(null);
-  // Posters that have been opened. The wall shows each poster's snapshot,
-  // and its shader only loads once it's opened; it then stays, so closing
-  // doesn't jump from the live frame back to the still.
+  // The wall shows each poster's snapshot, and loads their shaders one at
+  // a time once the page is idle, so they don't all land on it at once.
+  // Opening a poster loads its shader straight away, and the queue waits
+  // for it. A shader stays once loaded, so closing doesn't jump from the
+  // live frame back to the still.
   const [opened, setOpened] = useState<ReadonlySet<string>>(() => new Set());
+  const [loaded, setLoaded] = useState<ReadonlySet<string>>(() => new Set());
+  const [queueing, setQueueing] = useState(false);
   const setOpen = (slug: string | null) => {
     setOpenSlug(slug);
     if (slug) setOpened((current) => (current.has(slug) ? current : new Set(current).add(slug)));
   };
+  const markLoaded = (slug: string) =>
+    setLoaded((current) => (current.has(slug) ? current : new Set(current).add(slug)));
+  const openLoading = [...opened].some((slug) => !loaded.has(slug));
+  const queued =
+    queueing && !openLoading
+      ? posters.find((poster) => !loaded.has(poster.slug) && !opened.has(poster.slug))?.slug
+      : undefined;
+
+  useEffect(() => {
+    if (!('requestIdleCallback' in window)) {
+      const timeout = setTimeout(() => setQueueing(true), 1000);
+      return () => clearTimeout(timeout);
+    }
+    const idle = requestIdleCallback(() => setQueueing(true), { timeout: 2000 });
+    return () => cancelIdleCallback(idle);
+  }, []);
   // Kept above the others until it has settled back into its slot.
   const [settling, setSettling] = useState<string | null>(null);
   const active = posters.find((poster) => poster.slug === open);
@@ -390,7 +414,10 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
             wallLeft={left}
             isOpen={poster.slug === open}
             isSettling={poster.slug === settling}
-            isLive={opened.has(poster.slug)}
+            isLive={
+              opened.has(poster.slug) || loaded.has(poster.slug) || poster.slug === queued
+            }
+            onLoaded={() => markLoaded(poster.slug)}
             onOpen={() => select(poster.slug)}
             onSettled={() =>
               setSettling((current) => (current === poster.slug ? null : current))
