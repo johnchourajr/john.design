@@ -18,7 +18,7 @@ import {
   type SelectSetting,
   type SliderSetting,
 } from '@/components/experimental/SettingsComponents';
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
 
 const DEFAULT_SHADER: ShaderVariant = 'pinwheelShader';
@@ -97,11 +97,7 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   return (
     <Suspense fallback={<div />}>
       {!isIframe && (
-        <InlineLink href="/exp/" className="no-underline" underline={false}>
-          <h2 className="m-4">
-            &larr; <span>Back</span>
-          </h2>
-        </InlineLink>
+        <ExpBackLink />
       )}
 
       <div className="relative w-screen h-auto">

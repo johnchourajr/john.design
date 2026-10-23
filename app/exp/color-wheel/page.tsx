@@ -1,6 +1,6 @@
 'use client';
 
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 
 import { ColorWheel } from '@/components/experimental/ColorWheel';
 import { useAppContext } from '@/context/AppProvider';
@@ -10,11 +10,7 @@ export default function Page() {
 
   return (
     <>
-      <InlineLink href="/exp/" className="no-underline" underline={false}>
-        <h2 className="m-4">
-          &larr; <span>Back</span>
-        </h2>
-      </InlineLink>
+      <ExpBackLink />
       <div className="flex h-[80vh] flex-col items-start justify-center">
         <ColorWheel
           handleColorChange={handleColorChange}

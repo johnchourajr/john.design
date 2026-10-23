@@ -2,6 +2,12 @@ import { PageItem } from '@/types/content-types';
 
 export const expData: PageItem[] = [
   {
+    href: '/exp/type-posters',
+    title: 'Type Posters',
+    description: 'Posters where the words name a concept and the shader acts it out.',
+    status: 'NEW',
+  },
+  {
     href: '/exp/video-shader',
     title: 'Video Shader',
     description: 'WebGL with video what could go wrong?',

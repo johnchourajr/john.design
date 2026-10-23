@@ -8,7 +8,7 @@ import {
 } from '@/components/experimental/SettingsComponents';
 import { VideoThreeShader } from '@/components/experimental/VideoThreeShader';
 import { fragmentThreeVideoShaders } from '@/components/experimental/VideoThreeShader/shaders';
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
 
 type ShaderVariant = keyof typeof fragmentThreeVideoShaders;
@@ -36,11 +36,7 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   return (
     <Suspense fallback={<div />}>
       {!isIframe && (
-        <InlineLink href="/exp/" className="no-underline" underline={false}>
-          <h2 className="m-4">
-            &larr; <span>Back</span>
-          </h2>
-        </InlineLink>
+        <ExpBackLink />
       )}
 
       <div className="relative w-screen h-auto">

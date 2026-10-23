@@ -1,6 +1,6 @@
 'use client';
 
-import InlineLink from '@/components/fragments/InlineLink';
+import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import clsx from 'clsx';
 import { m, useScroll, useTransform } from 'motion/react';
 import React from 'react';
@@ -134,11 +134,7 @@ function Section() {
 export default function ScrollGrow() {
   return (
     <>
-      <InlineLink href="/exp/" className="no-underline" underline={false}>
-        <h2 className="m-4">
-          &larr; <span>Back</span>
-        </h2>
-      </InlineLink>
+      <ExpBackLink />
       <div className="relative w-full">
         <section className="relative flex items-center justify-start just min-h-[50vh] mb-4 border-b-2 border-(--root-color) ">
           Start scrolling down ↓
