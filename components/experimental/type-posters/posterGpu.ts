@@ -25,6 +25,8 @@ type PosterGpuOptions = {
   reducedMotion: boolean;
   /** WebGPU stopped (device loss) after starting: fall back. */
   onLost: () => void;
+  /** The first frame is on screen. */
+  onFirstFrame?: () => void;
 };
 
 /** Fraction of the way the pointer value moves per 60th of a second. */
@@ -45,7 +47,7 @@ const accentColour = (): [number, number, number] => {
 
 export async function startPosterGpu(
   container: HTMLElement,
-  { shader, compose, reducedMotion, onLost }: PosterGpuOptions,
+  { shader, compose, reducedMotion, onLost, onFirstFrame }: PosterGpuOptions,
 ): Promise<PosterGpu> {
   if (!('gpu' in navigator)) throw new Error('navigator.gpu is missing');
   const device = takeGpu();
@@ -146,7 +148,10 @@ export async function startPosterGpu(
       frame(gpu, (current) => {
         current.pass(canvasSurface, poster);
       });
-      canvas.classList.remove('opacity-0');
+      if (canvas.classList.contains('opacity-0')) {
+        canvas.classList.remove('opacity-0');
+        onFirstFrame?.();
+      }
     };
 
     // Draw every frame while the poster is on screen; with reduced motion,

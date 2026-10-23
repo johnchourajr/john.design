@@ -14,30 +14,38 @@ const TypePosterWebgl = dynamic(() => import('./TypePosterWebgl'), { ssr: false 
 type Renderer = 'webgpu' | 'webgl';
 
 /**
- * WebGPU unless the browser has none, or `?poster-renderer=webgl` asks for
- * the fallback (to compare the two). Client only: this component never
- * renders on the server.
+ * WebGL, unless `?poster-renderer=webgpu` asks for the WebGPU port and the
+ * browser has it (#131): WebGPU drew the same posters but started slower.
+ * Client only: this component never renders on the server.
  */
 const preferredRenderer = (slug: string): Renderer => {
   const forced = new URLSearchParams(window.location.search).get('poster-renderer');
-  if (forced === 'webgl' || !('gpu' in navigator) || !posterShaders[slug]) return 'webgl';
+  if (forced !== 'webgpu' || !('gpu' in navigator) || !posterShaders[slug]) return 'webgl';
   return 'webgpu';
 };
 
 type TypePosterCanvasProps = {
   slug: string;
   onError: () => void;
+  /** The first frame is on screen, on whichever renderer drew it. */
+  onFirstFrame?: () => void;
 };
 
 /**
- * One poster's canvas (#123): on WebGPU with vgpu, falling back to WebGL
- * when WebGPU is missing, doesn't start, or is lost. The canvas mirrors
- * which one is drawing as `data-renderer`.
+ * One poster's canvas: on WebGL (#131), or on the WebGPU port with vgpu
+ * (#123) when asked, falling back to WebGL when WebGPU is missing, doesn't
+ * start, or is lost. The canvas mirrors which one is drawing as
+ * `data-renderer`.
  */
-export default function TypePosterCanvas({ slug, onError }: TypePosterCanvasProps) {
+export default function TypePosterCanvas({ slug, onError, onFirstFrame }: TypePosterCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const reducedMotion = !!useReducedMotion();
   const [renderer, setRenderer] = useState<Renderer>(() => preferredRenderer(slug));
+  // Read when the frame lands, so a new callback doesn't restart WebGPU.
+  const onFirstFrameRef = useRef(onFirstFrame);
+  useEffect(() => {
+    onFirstFrameRef.current = onFirstFrame;
+  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -58,6 +66,7 @@ export default function TypePosterCanvas({ slug, onError }: TypePosterCanvasProp
           compose: poster.compose,
           reducedMotion,
           onLost: fallBack,
+          onFirstFrame: () => onFirstFrameRef.current?.(),
         }),
       )
       .then((started) => {
@@ -71,7 +80,9 @@ export default function TypePosterCanvas({ slug, onError }: TypePosterCanvasProp
     };
   }, [renderer, slug, reducedMotion]);
 
-  if (renderer === 'webgl') return <TypePosterWebgl slug={slug} onError={onError} />;
+  if (renderer === 'webgl') {
+    return <TypePosterWebgl slug={slug} onError={onError} onFirstFrame={onFirstFrame} />;
+  }
   return (
     <div ref={containerRef} aria-hidden data-renderer="webgpu" className="absolute inset-0" />
   );
