@@ -1,27 +1,28 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
-import * as THREE from 'three';
+import { useReducedMotion } from 'motion/react';
+import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
 
-import { useShaderRenderer } from '../useShaderRenderer';
-import { posterTexture } from './posterTexture';
+import type { PosterGpu, PosterShader } from './posterGpu';
 import { posters } from './posters';
+import { posterShaders } from './wgsl';
 
-/** The site's accent colour, as the shader's `accent`. */
-const accentColour = () => {
-  const value = getComputedStyle(document.documentElement)
-    .getPropertyValue('--root-color')
-    .trim();
-  return new THREE.Color(value || '#ff0000');
+// three.js, and the GLSL shaders, load only for the fallback.
+const TypePosterWebgl = dynamic(() => import('./TypePosterWebgl'), { ssr: false });
+
+type Renderer = 'webgpu' | 'webgl';
+
+/**
+ * WebGPU unless the browser has none, or `?poster-renderer=webgl` asks for
+ * the fallback (to compare the two). Client only: this component never
+ * renders on the server.
+ */
+const preferredRenderer = (slug: string): Renderer => {
+  const forced = new URLSearchParams(window.location.search).get('poster-renderer');
+  if (forced === 'webgl' || !('gpu' in navigator) || !posterShaders[slug]) return 'webgl';
+  return 'webgpu';
 };
-
-const baseUniforms = () => ({
-  type: { value: null },
-  mouse: { value: new THREE.Vector2() },
-  time: { value: 0 },
-  hover: { value: 0 },
-  accent: { value: accentColour() },
-});
 
 type TypePosterCanvasProps = {
   slug: string;
@@ -29,26 +30,49 @@ type TypePosterCanvasProps = {
 };
 
 /**
- * One poster's canvas: its composition drawn into a texture, through its
- * shader. Split out so three.js loads with it, after the page.
+ * One poster's canvas (#123): on WebGPU with vgpu, falling back to WebGL
+ * when WebGPU is missing, doesn't start, or is lost. The canvas mirrors
+ * which one is drawing as `data-renderer`.
  */
 export default function TypePosterCanvas({ slug, onError }: TypePosterCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const poster = posters.find((item) => item.slug === slug);
-  const compose = poster?.compose;
-  const fragmentShader = poster?.fragment ?? '';
-  const input = useMemo(() => (compose ? posterTexture(compose) : undefined), [compose]);
-  const shaderConfig = useMemo(() => ({ fragmentShader }), [fragmentShader]);
+  const reducedMotion = !!useReducedMotion();
+  const [renderer, setRenderer] = useState<Renderer>(() => preferredRenderer(slug));
 
-  useShaderRenderer(containerRef, {
-    shaderConfig,
-    baseUniforms,
-    input,
-    antialias: false,
-    maxPixelRatio: 2,
-    mouseDamping: 0.06,
-    onError,
-  });
+  useEffect(() => {
+    const container = containerRef.current;
+    const poster = posters.find((item) => item.slug === slug);
+    const loadShader = posterShaders[slug];
+    if (renderer !== 'webgpu' || !container || !poster || !loadShader) return;
+    let cancelled = false;
+    let handle: PosterGpu | null = null;
+    const fallBack = () => {
+      handle?.dispose();
+      handle = null;
+      if (!cancelled) setRenderer('webgl');
+    };
+    Promise.all([import('./posterGpu'), loadShader()])
+      .then(([{ startPosterGpu }, shader]) =>
+        startPosterGpu(container, {
+          shader: shader.default as PosterShader,
+          compose: poster.compose,
+          reducedMotion,
+          onLost: fallBack,
+        }),
+      )
+      .then((started) => {
+        if (cancelled) started.dispose();
+        else handle = started;
+      })
+      .catch(fallBack);
+    return () => {
+      cancelled = true;
+      handle?.dispose();
+    };
+  }, [renderer, slug, reducedMotion]);
 
-  return <div ref={containerRef} aria-hidden className="absolute inset-0" />;
+  if (renderer === 'webgl') return <TypePosterWebgl slug={slug} onError={onError} />;
+  return (
+    <div ref={containerRef} aria-hidden data-renderer="webgpu" className="absolute inset-0" />
+  );
 }

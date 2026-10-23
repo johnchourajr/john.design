@@ -35,16 +35,47 @@ const FONTS = [
 /** A system monospace, for the technical small print. */
 export const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 
+/** Resolves once every face the posters draw with has loaded (or failed). */
+export const posterFontsReady = () =>
+  Promise.all(FONTS.map((face) => document.fonts.load(face)))
+    .catch(() => [])
+    .then(() => undefined);
+
 /**
- * Draws `compose` into a texture at the canvas's own pixels and hands it to
- * the material as `type`. It redraws on resize, once the fonts have loaded.
+ * Paints a poster's composition onto `source` at `buffer` (device pixels),
+ * laid out in CSS pixels (`size`). Shared by the WebGPU path and the WebGL
+ * fallback, so both draw exactly the same layers.
+ */
+export const paintPoster = (
+  source: HTMLCanvasElement,
+  compose: ComposePoster,
+  buffer: PosterSize,
+  size: PosterSize,
+) => {
+  source.width = buffer.width;
+  source.height = buffer.height;
+  const ctx = source.getContext('2d');
+  if (!ctx) return false;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, source.width, source.height);
+  ctx.scale(buffer.width / size.width, buffer.height / size.height);
+  ctx.textBaseline = 'alphabetic';
+  ctx.globalCompositeOperation = 'lighter';
+  compose(ctx, size);
+  return true;
+};
+
+/**
+ * The WebGL fallback's input: draws `compose` into a texture at the
+ * canvas's own pixels and hands it to the material as `type`. It redraws on
+ * resize, once the fonts have loaded.
  */
 export const posterTexture =
   (compose: ComposePoster): ShaderInput =>
   ({ material, ready, canvas, invalidate }) => {
     const source = document.createElement('canvas');
     let texture: THREE.CanvasTexture | null = null;
-    let buffer: { width: number; height: number } | null = null;
+    let buffer: PosterSize | null = null;
     let fontsReady = false;
     let disposed = false;
 
@@ -52,16 +83,7 @@ export const posterTexture =
       if (!buffer || !fontsReady) return;
       const { width, height } = canvas.getBoundingClientRect();
       if (!width || !height) return;
-      source.width = buffer.width;
-      source.height = buffer.height;
-      const ctx = source.getContext('2d');
-      if (!ctx) return;
-      ctx.fillStyle = '#000';
-      ctx.fillRect(0, 0, source.width, source.height);
-      ctx.scale(buffer.width / width, buffer.height / height);
-      ctx.textBaseline = 'alphabetic';
-      ctx.globalCompositeOperation = 'lighter';
-      compose(ctx, { width, height });
+      if (!paintPoster(source, compose, buffer, { width, height })) return;
       // A canvas that changes size needs a new texture: the old one keeps
       // its first upload's dimensions.
       texture?.dispose();
@@ -72,14 +94,12 @@ export const posterTexture =
       invalidate();
     };
 
-    Promise.all(FONTS.map((font) => document.fonts.load(font)))
-      .catch(() => [])
-      .then(() => {
-        if (disposed) return;
-        fontsReady = true;
-        draw();
-        ready();
-      });
+    posterFontsReady().then(() => {
+      if (disposed) return;
+      fontsReady = true;
+      draw();
+      ready();
+    });
 
     return {
       resize: (next) => {
