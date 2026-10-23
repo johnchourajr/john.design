@@ -12,8 +12,10 @@ export default function Footer() {
   const { isIframe } = useDrawing();
 
   const isProposalDetail = useIsProposalDetail();
+  // The type posters' wall is the whole screen, with no page under it.
+  const isFullscreen = pathname === '/exp/type-posters';
 
-  if (isIframe || isProposalDetail) return null;
+  if (isIframe || isProposalDetail || isFullscreen) return null;
 
   return (
     <>
