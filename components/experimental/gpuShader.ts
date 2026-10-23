@@ -29,11 +29,14 @@ import type { ShaderFrame, ShaderSize } from './useShaderRenderer';
 export type GpuShaderProgram = Parameters<typeof effect>[1];
 
 /**
- * The hero variants on WebGPU (#125), with vgpu: what useShaderRenderer
- * does for them on WebGL, so the two look and behave the same. The image
- * and the headline (#108) are the `image` and `headline` textures, sized
- * and placed by the same layout, pointer and swap reveal (shaderLayout,
- * shaderPointer); see wgsl/layers.wgsl for the uniforms.
+ * The site's shaders on WebGPU (#125, #129), with vgpu: what
+ * useShaderRenderer does for them on WebGL, so the two look and behave the
+ * same. An image or video and the headline (#108) are the `image` and
+ * `headline` textures, sized and placed by the same layout, pointer and
+ * swap reveal (shaderLayout, shaderPointer). The uniforms go to `params`;
+ * see ImageThreeShader/wgsl/layers.wgsl and GenThreeShader/wgsl/gen.wgsl.
+ * Each program is sent only the bindings and `params` fields it declares,
+ * so one core serves every struct.
  *
  * Browser-only, and rejects when WebGPU is missing or the shader doesn't
  * compile, so the caller can fall back to WebGL. Import it dynamically.
@@ -42,6 +45,10 @@ export type GpuShaderOptions = {
   program: GpuShaderProgram;
   /** The image under the headline. Without one the frame is the image. */
   image?: string;
+  /** A video played into `image` instead, a new frame every frame. */
+  video?: { src: string; autoplay: boolean; muted: boolean; loop: boolean };
+  /** Extra `params` fields, e.g. a settings panel's uniforms. */
+  uniforms?: Record<string, number>;
   /** The headline whose text is drawn into the shader. */
   getHeadline?: () => HTMLElement | null;
   reducedMotion: boolean;
@@ -51,6 +58,8 @@ export type GpuShaderOptions = {
   maxPixelRatio: number;
   maxPixels: number;
   mouseDamping: number;
+  /** `pixels` from the frame's top left (the default), or `ndc`. */
+  mouseSpace?: 'pixels' | 'ndc';
   restingMouse?: { x: number; y: number };
   pointerTarget?: 'container' | 'window';
   jumpOnEnter?: boolean;
@@ -61,17 +70,23 @@ export type GpuShaderOptions = {
   onCanvasClick: () => (() => void) | undefined;
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
-  /** WebGPU stopped (device loss) after starting: fall back. */
-  onLost: () => void;
+  /** The first frame is on screen: hide whatever stood in for it. */
+  onFirstFrame?: () => void;
+  /** WebGPU stopped (device loss, or the image failed) after starting: fall back. */
+  onLost: (reason: unknown) => void;
 };
 
 export type GpuShader = {
   /** Swaps in another program, revealed over this one from the last click. */
   swap: (program: GpuShaderProgram) => Promise<void>;
+  /** Sets `params` fields (a settings panel's uniforms) and redraws. */
+  setUniforms: (values: Record<string, number>) => void;
+  /** Renders a frame and reads it back as a PNG, in the same task. */
+  capture: () => Promise<Blob | null>;
   dispose: () => void;
 };
 
-type Params = {
+type Params = Record<string, number | number[]> & {
   resolution: [number, number];
   mouse: [number, number];
   imageResolution: [number, number];
@@ -84,8 +99,62 @@ type Params = {
   headlineEm: number;
 };
 
+/** GenThreeShader's baseUniforms: knobs a generative shader starts with. */
+const GEN_DEFAULTS = {
+  noiseScale: 3,
+  colorSpeed: 1,
+  kaleidoSegments: 6,
+  patternScale: 1,
+  colorIntensity: 0.7,
+  motionSpeed: 1,
+  warpIntensity: 0.5,
+};
+
+type Reflected = {
+  reflection: {
+    bindings: readonly { name: string; layout?: { members?: readonly { name: string }[] } }[];
+  };
+};
+
+/**
+ * What a program declares: its bindings, and the fields of its `params`.
+ * vgpu throws on a binding or member a shader doesn't have.
+ */
+const shapeOf = (program: GpuShaderProgram) => {
+  const bindings = (program as unknown as Reflected).reflection.bindings;
+  const params = bindings.find((binding) => binding.name === 'params');
+  return {
+    bindings: new Set(bindings.map((binding) => binding.name)),
+    fields: params?.layout?.members?.map((member) => member.name) ?? [],
+  };
+};
+
+const createVideo = (
+  { src, autoplay, muted, loop }: NonNullable<GpuShaderOptions['video']>,
+  reducedMotion: boolean,
+) => {
+  const element = document.createElement('video');
+  element.crossOrigin = 'anonymous';
+  element.src = src;
+  element.autoplay = autoplay && !reducedMotion;
+  element.muted = muted;
+  element.loop = loop;
+  element.playsInline = true;
+  return element;
+};
+
+/** Stops the download as well as playback. */
+const stopVideo = (element: HTMLVideoElement) => {
+  element.pause();
+  element.removeAttribute('src');
+  element.load();
+};
+
 const loadImage = async (src: string) => {
   const image = new Image();
+  // As three.js's loader: hosted media (media.john.design, #88) is another
+  // origin, and an image loaded without CORS can't be uploaded.
+  image.crossOrigin = 'anonymous';
   image.src = src;
   await image.decode();
   return image;
@@ -97,17 +166,22 @@ export async function startGpuShader(
 ): Promise<GpuShader> {
   const { reducedMotion, debug } = options;
   if (!('gpu' in navigator)) throw new Error('navigator.gpu is missing');
+  // Fetched while the device starts and the shader compiles, not after:
+  // the compile is most of the wait on a first visit.
+  const imageLoad = options.image ? loadImage(options.image) : null;
+  imageLoad?.catch(() => {});
+  const revealLoad = import('./ImageThreeShader/wgsl/reveal.wgsl');
+  const videoElement = options.video ? createVideo(options.video, reducedMotion) : null;
   const device = takeGpu();
-  let gpu: Gpu;
-  try {
-    gpu = await device.gpu;
-  } catch (error) {
-    device.release();
-    throw error;
-  }
+  const gpu = await device.gpu;
 
   const canvas = document.createElement('canvas');
-  canvas.className = 'block';
+  // Hidden until its first frame, then faded in over the loader. With a
+  // headline it appears at once instead: the DOM text hides on that same
+  // frame, and a fading canvas would dim the type.
+  canvas.className = options.getHeadline
+    ? 'block opacity-0'
+    : 'block opacity-0 transition-opacity duration-(--duration-slow) ease-(--ease-smooth-out) motion-reduce:transition-none';
   canvas.dataset.renderer = 'webgpu';
   const owned: { destroy?: () => void; dispose?: () => void }[] = [];
   let headline: HeadlineLayer | null = null;
@@ -119,7 +193,7 @@ export async function startGpuShader(
       // The page shows through wherever the shader draws nothing.
       alphaMode: 'premultiplied',
       clearColor: [0, 0, 0, 0],
-      label: 'hero-shader',
+      label: 'site-shader',
     });
     owned.push(canvasSurface);
     const format = canvasSurface.format;
@@ -141,6 +215,8 @@ export async function startGpuShader(
       headline: blank(),
     };
     const params: Params = {
+      ...GEN_DEFAULTS,
+      ...options.uniforms,
       resolution: [1, 1],
       mouse: [0, 0],
       imageResolution: [1, 1],
@@ -149,35 +225,56 @@ export async function startGpuShader(
       layerRect: [0, 0, 1, 1],
       headlineRect: [0, 0, 1, 1],
       hasHeadline: 0,
-      hideImage: options.image ? 0 : 1,
+      hideImage: options.image || options.video ? 0 : 1,
       headlineEm: 0,
     };
     // Every program shares these bindings, so a swap starts where the last
-    // one is.
+    // one is. Each gets only what it declares.
+    const shapes = new Map<Effect, ReturnType<typeof shapeOf>>();
+    const paramsFor = (program: Effect) => {
+      const fields = shapes.get(program)?.fields ?? [];
+      const values: Record<string, number | number[]> = {};
+      for (const field of fields) values[field] = params[field] ?? 0;
+      return values;
+    };
+    const setOn = (program: Effect, values: Record<string, unknown>) => {
+      const declared = shapes.get(program)?.bindings;
+      const bag: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(values)) {
+        if (declared?.has(key)) bag[key] = key === 'params' ? paramsFor(program) : value;
+      }
+      if (Object.keys(bag).length) program.set(bag as Parameters<Effect['set']>[0]);
+    };
     const bind = (program: Effect) =>
-      program.set({ params, image: textures.image, headline: textures.headline, samp });
+      setOn(program, { params, image: textures.image, headline: textures.headline, samp });
+    const make = (program: GpuShaderProgram) => {
+      const made = effect(gpu, program, { label: 'site-shader' });
+      shapes.set(made, shapeOf(program));
+      bind(made);
+      return made;
+    };
 
-    let current = effect(gpu, options.program, { label: 'hero-shader' });
-    bind(current);
+    let current = make(options.program);
     // Fails here, not on the first frame, if the shader doesn't compile.
     await current.compile(canvasSurface);
-    const revealer = effect(gpu, (await import('./ImageThreeShader/wgsl/reveal.wgsl')).default as GpuShaderProgram, {
+    const revealer = effect(gpu, (await revealLoad).default as GpuShaderProgram, {
       label: 'hero-shader-reveal',
       set: { from_tex: swapFrom, to_tex: swapTo, samp },
     });
     let outgoing: Effect | null = null;
     let swap: Reveal | null = null;
 
-    // An upload: premultiplied, as the canvas composites.
+    // An upload: premultiplied, as the canvas composites. A video is
+    // opaque, so it skips the conversion, as three.js's VideoTexture does.
     const upload = (
-      source: HTMLImageElement | HTMLCanvasElement,
+      source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
       width: number,
       height: number,
       into: Texture,
     ) =>
       gpu.gpu.queue.copyExternalImageToTexture(
         { source },
-        { texture: into.gpu, premultipliedAlpha: true },
+        { texture: into.gpu, premultipliedAlpha: !(source instanceof HTMLVideoElement) },
         [width, height],
       );
     const replace = (key: keyof typeof textures, width: number, height: number) => {
@@ -189,8 +286,8 @@ export async function startGpuShader(
         usage: ['texture_binding', 'copy_dst', 'render_attachment'],
         label: `hero-shader-${key}`,
       });
-      current.set({ [key]: textures[key] });
-      outgoing?.set({ [key]: textures[key] });
+      setOn(current, { [key]: textures[key] });
+      if (outgoing) setOn(outgoing, { [key]: textures[key] });
       return textures[key];
     };
 
@@ -204,6 +301,7 @@ export async function startGpuShader(
       jumpOnEnter: options.jumpOnEnter,
       restingMouse: options.restingMouse,
       mouseDamping: options.mouseDamping,
+      mouseSpace: options.mouseSpace,
       offset: () => ({ x: frameBox.x + snap.x, y: frameBox.y + snap.y }),
       onClick: options.onCanvasClick,
     });
@@ -217,23 +315,32 @@ export async function startGpuShader(
     let stillPending = false;
     let lost = false;
     let renders = 0;
-    // Nothing draws until the image is in: an empty frame would flash the
-    // headline without its portrait.
-    let isReady = !options.image;
+    // Nothing draws until the image or video is in: an empty frame would
+    // flash the headline without its portrait.
+    let isReady = !options.image && !options.video;
+    let video: { beforeRender: () => void; playing: () => boolean; dispose: () => void } | null = null;
 
     const draw = () => {
+      if (renders === 0) {
+        // After this frame is submitted, so the fade starts on a drawn canvas.
+        requestAnimationFrame(() => {
+          canvas.classList.remove('opacity-0');
+          options.onFirstFrame?.();
+        });
+      }
       renders += 1;
       params.time = animate ? (performance.now() - startTime) * 0.001 : 0;
       params.mouse = [cursor.mouse.x, cursor.mouse.y];
       params.hover = cursor.hover();
       headline?.beforeRender();
-      current.set({ params });
+      video?.beforeRender();
+      setOn(current, { params });
       const radius = outgoing && swap ? revealRadius(swap) : null;
       if (outgoing && radius === null) {
         outgoing.dispose();
         outgoing = null;
       }
-      if (outgoing) outgoing.set({ params });
+      if (outgoing) setOn(outgoing, { params });
       frame(gpu, (f) => {
         if (!outgoing || radius === null || !swap) {
           f.pass(canvasSurface, current);
@@ -254,8 +361,11 @@ export async function startGpuShader(
     };
     // With the debug panel up, a failing frame is recorded, not thrown.
     let recordError: ((message: string) => void) | null = null;
+    // Set once the shader is torn down: an observer or frame already queued
+    // must not touch its freed targets.
+    let disposed = false;
     const render = () => {
-      if (!isReady || lost || !buffer.width) return;
+      if (!isReady || lost || disposed || !buffer.width) return;
       try {
         draw();
       } catch (error) {
@@ -276,6 +386,8 @@ export async function startGpuShader(
         stopLoop();
         return;
       }
+      // A paused video has no new frame to draw.
+      if (video && !video.playing()) return;
       const now = performance.now();
       const elapsed = Math.min((now - lastTick) / 1000, 0.25);
       lastTick = now;
@@ -295,12 +407,14 @@ export async function startGpuShader(
     };
     // One frame on request, for when the loop isn't running to draw it.
     const invalidate = () => {
-      if (looping || stillPending || lost || !visible) return;
+      const animating = looping && (!video || video.playing());
+      if (animating || stillPending || lost || !visible) return;
       stillPending = true;
       frameLoop.postRender(still);
     };
 
     const resize = () => {
+      if (disposed) return;
       const size = layoutShader(
         container,
         canvas,
@@ -314,8 +428,12 @@ export async function startGpuShader(
       );
       const ratio = shaderPixelRatio(size.width, size.height, options.maxPixelRatio, options.maxPixels);
       // As three.js sizes its drawing buffer.
-      buffer.width = Math.max(1, Math.floor(size.width * ratio));
-      buffer.height = Math.max(1, Math.floor(size.height * ratio));
+      // A box with no size yet (or NaN, mid-layout) waits for the next resize.
+      const width = Math.floor(size.width * ratio);
+      const height = Math.floor(size.height * ratio);
+      if (!(width > 0 && height > 0)) return;
+      buffer.width = width;
+      buffer.height = height;
       canvas.style.width = `${size.width}px`;
       canvas.style.height = `${size.height}px`;
       canvasSurface.resize([buffer.width, buffer.height]);
@@ -367,9 +485,62 @@ export async function startGpuShader(
     );
     intersectionObserver.observe(container);
 
-    let disposed = false;
-    if (options.image) {
-      loadImage(options.image)
+    /**
+     * Plays the video into `image`. Frames only render while it plays.
+     * With reduced motion it shows the first frame and doesn't play.
+     *
+     * Each video frame is copied into the texture once, when it arrives
+     * (requestVideoFrameCallback), not on every rendered frame: vgpu can't
+     * bind a zero-copy external texture yet, and a 720p copy costs ~2.4ms
+     * of GPU time, four times over for a 30fps video on a 120Hz screen.
+     */
+    function playVideo(element: HTMLVideoElement) {
+      let frameTexture: Texture | null = null;
+      // A new frame is waiting to be copied.
+      let fresh = true;
+      let frameRequest = 0;
+      const supportsFrames = 'requestVideoFrameCallback' in element;
+      const onVideoFrame = () => {
+        fresh = true;
+        frameRequest = element.requestVideoFrameCallback(onVideoFrame);
+      };
+      if (supportsFrames) frameRequest = element.requestVideoFrameCallback(onVideoFrame);
+      const handleLoadedData = () => {
+        if (frameTexture || disposed) return;
+        const { videoWidth: width, videoHeight: height } = element;
+        params.imageResolution = [width, height];
+        frameTexture = replace('image', width, height);
+        if (!reducedMotion) {
+          element.play().catch((error) => {
+            console.warn('Video autoplay failed:', error);
+          });
+        }
+        element.addEventListener('play', startLoop);
+        isReady = true;
+        resize();
+      };
+      element.addEventListener('loadeddata', handleLoadedData);
+      // It may have loaded while the shader compiled.
+      if (element.readyState >= 2) handleLoadedData();
+      return {
+        beforeRender: () => {
+          if (!frameTexture || element.readyState < 2) return;
+          if (supportsFrames && !fresh) return;
+          fresh = false;
+          upload(element, element.videoWidth, element.videoHeight, frameTexture);
+        },
+        playing: () => !element.paused,
+        dispose: () => {
+          element.removeEventListener('loadeddata', handleLoadedData);
+          element.removeEventListener('play', startLoop);
+          if (supportsFrames) element.cancelVideoFrameCallback(frameRequest);
+          stopVideo(element);
+        },
+      };
+    }
+
+    if (imageLoad) {
+      imageLoad
         .then((image) => {
           if (disposed) return;
           params.imageResolution = [image.naturalWidth, image.naturalHeight];
@@ -377,12 +548,12 @@ export async function startGpuShader(
           isReady = true;
           resize();
         })
-        .catch(() => {
-          // An image that won't load leaves the type on its own, as WebGL
-          // would show nothing at all: hand back.
-          if (!disposed) options.onLost();
+        .catch((error) => {
+          // An image that won't load or upload: hand back to WebGL.
+          if (!disposed) options.onLost(error);
         });
     }
+    if (videoElement) video = playVideo(videoElement);
     resize();
     startLoop();
 
@@ -390,7 +561,7 @@ export async function startGpuShader(
       lost = true;
       // A lost device can't be shared any more: the next shader asks anew.
       device.forget();
-      if (!disposed) options.onLost();
+      if (!disposed) options.onLost('device lost');
     });
 
     let panel: ReturnType<typeof mountShaderDebug> | null = null;
@@ -422,8 +593,7 @@ export async function startGpuShader(
 
     return {
       swap: async (program) => {
-        const next = effect(gpu, program, { label: 'hero-shader' });
-        bind(next);
+        const next = make(program);
         await next.compile(canvasSurface);
         if (disposed) {
           next.dispose();
@@ -443,8 +613,24 @@ export async function startGpuShader(
         swap = startReveal(canvas, buffer, cursor.lastClick());
         startLoop();
       },
+      setUniforms: (values) => {
+        Object.assign(params, values);
+        invalidate();
+      },
+      capture: () =>
+        new Promise((resolve) => {
+          // A WebGPU canvas keeps its frame only until the next present, so
+          // read it back in the task that drew it.
+          if (!buffer.width) {
+            resolve(null);
+            return;
+          }
+          draw();
+          canvas.toBlob(resolve, 'image/png');
+        }),
       dispose: () => {
         disposed = true;
+        video?.dispose();
         panel?.dispose();
         stopLoop();
         cancelFrame(still);
@@ -464,14 +650,13 @@ export async function startGpuShader(
         }
         for (const item of owned) item.dispose?.();
         canvas.remove();
-        device.release();
       },
     };
   } catch (error) {
+    if (videoElement) stopVideo(videoElement);
     headline?.dispose();
     for (const item of owned) item.dispose?.();
     canvas.remove();
-    device.release();
     throw error;
   }
 }

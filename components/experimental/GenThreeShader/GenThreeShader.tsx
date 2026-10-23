@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { savePng } from '../savePng';
 import { useShaderRenderer, type ShaderConfig } from '../useShaderRenderer';
 
 /**
@@ -15,6 +16,8 @@ type GenThreeShaderProps = {
   shaderConfig: ShaderConfig;
   /** Optional download action */
   onDownload: (ref: () => void) => void;
+  /** The first frame is on screen. */
+  onFirstFrame?: () => void;
 };
 
 const baseUniforms = () => ({
@@ -33,23 +36,16 @@ export const GenThreeShader = ({
   className,
   shaderConfig,
   onDownload,
+  onFirstFrame,
 }: GenThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { capture } = useShaderRenderer(containerRef, {
     shaderConfig,
     baseUniforms,
+    onFirstFrame,
   });
 
-  const download = useCallback(async () => {
-    const blob = await capture();
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `shader-${Date.now()}.png`;
-    link.click();
-    URL.revokeObjectURL(url);
-  }, [capture]);
+  const download = useCallback(() => savePng(capture), [capture]);
 
   useEffect(() => {
     onDownload(download);

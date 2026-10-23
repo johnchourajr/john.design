@@ -4,9 +4,14 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
-import { HeroShaderCanvas, type HeroShaderGpuOptions } from './HeroShaderCanvas';
-import { aspectClass, type AspectRatio } from './ImageThreeShader';
-import { HERO_MAX_PIXELS, imageShaderLayout } from './imageLayout';
+import { GpuShaderCanvas, type GpuShaderCanvasOptions } from '../GpuShaderCanvas';
+import { imageGpuShaders } from './wgsl';
+import {
+  aspectClass,
+  HERO_MAX_PIXELS,
+  imageShaderLayout,
+  type AspectRatio,
+} from './imageLayout';
 import { fragmentThreeShaders } from './shaders';
 import type { ShaderVariant } from './shaders/types';
 
@@ -26,6 +31,10 @@ type ImageShaderProps = {
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
   onCanvasClick?: () => void;
+  /** Cover the canvas with ShaderLoader until it draws (default true). */
+  loader?: boolean;
+  /** The first frame is on screen. */
+  onFirstFrame?: () => void;
 };
 
 /**
@@ -41,8 +50,10 @@ export function ImageShader({
   getHeadline,
   debug,
   onCanvasClick,
+  loader,
+  onFirstFrame,
 }: ImageShaderProps) {
-  const options = useMemo<HeroShaderGpuOptions>(
+  const options = useMemo<GpuShaderCanvasOptions>(
     () => ({
       ...imageShaderLayout(aspectRatio, getHeadline),
       image: src,
@@ -63,17 +74,20 @@ export function ImageShader({
   );
 
   return (
-    <HeroShaderCanvas
+    <GpuShaderCanvas
+      shaders={imageGpuShaders}
       variant={variant}
       options={options}
       onCanvasClick={onCanvasClick}
+      loader={loader}
+      onFirstFrame={onFirstFrame}
       className={clsx(
         onCanvasClick && 'cursor-pointer',
         'relative inline-block w-full h-full',
         aspectClass[aspectRatio],
         className,
       )}
-      fallback={
+      fallback={(onFirstFrame) => (
         <ImageThreeShader
           className={className}
           src={src}
@@ -82,8 +96,9 @@ export function ImageShader({
           getHeadline={getHeadline}
           debug={debug}
           onCanvasClick={onCanvasClick}
+          onFirstFrame={onFirstFrame}
         />
-      }
+      )}
     />
   );
 }

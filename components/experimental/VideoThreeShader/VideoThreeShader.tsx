@@ -10,21 +10,7 @@ import {
   type ShaderSize,
 } from '../useShaderRenderer';
 import { defaultFragmentShader } from './shaders';
-
-type AspectRatio =
-  | '1:1'
-  | '4:3'
-  | '16:9'
-  | '21:9'
-  | '3:2'
-  | '2:3'
-  | '5:4'
-  | '9:16'
-  | '4:5'
-  | '1200:600'
-  | '2000:1327'
-  | '1680:1050'
-  | '1280:720';
+import { aspectClass, type AspectRatio } from './videoAspect';
 
 type VideoThreeShaderProps = {
   className?: string;
@@ -34,22 +20,8 @@ type VideoThreeShaderProps = {
   autoplay?: boolean;
   muted?: boolean;
   loop?: boolean;
-};
-
-const aspectClass: Record<AspectRatio, string> = {
-  '1:1': 'aspect-square',
-  '4:3': 'aspect-4/3',
-  '16:9': 'aspect-video',
-  '21:9': 'aspect-21/9',
-  '3:2': 'aspect-3/2',
-  '2:3': 'aspect-2/3',
-  '5:4': 'aspect-5/4',
-  '9:16': 'aspect-9/16',
-  '4:5': 'aspect-4/5',
-  '1200:600': 'aspect-1200/600',
-  '2000:1327': 'aspect-2000/1327',
-  '1680:1050': 'aspect-1680/1050',
-  '1280:720': 'aspect-1280/720',
+  /** The first frame with the video in is on screen. */
+  onFirstFrame?: () => void;
 };
 
 // `resolution` comes from useShaderRenderer.
@@ -136,6 +108,7 @@ export const VideoThreeShader = ({
   autoplay = true,
   muted = true,
   loop = true,
+  onFirstFrame,
 }: VideoThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(
@@ -152,6 +125,7 @@ export const VideoThreeShader = ({
     input,
     getSize: clientSize,
     mouseSpace: 'ndc',
+    onFirstFrame,
   });
 
   return (

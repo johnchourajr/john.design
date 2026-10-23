@@ -5,6 +5,21 @@ import type { ShaderFrame, ShaderSize } from './useShaderRenderer';
  * useShaderRenderer on WebGL and gpuShader on WebGPU.
  */
 
+/** The container's content box. */
+export const contentBoxSize = (container: HTMLElement): ShaderSize => {
+  const style = getComputedStyle(container);
+  return {
+    width:
+      container.clientWidth -
+      parseFloat(style.paddingLeft) -
+      parseFloat(style.paddingRight),
+    height:
+      container.clientHeight -
+      parseFloat(style.paddingTop) -
+      parseFloat(style.paddingBottom),
+  };
+};
+
 /**
  * The screen's pixel ratio, capped at `maxPixelRatio`, and lower once a
  * canvas of `width` × `height` CSS px would pass `maxPixels` device pixels.

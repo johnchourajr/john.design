@@ -26,6 +26,8 @@ type HeadlineShaderWebglProps = {
   debug?: string;
   /** A click on the headline (the canvas itself ignores the pointer). */
   onCanvasClick?: () => void;
+  /** The first frame is on screen. */
+  onFirstFrame?: () => void;
 };
 
 /**
@@ -39,6 +41,7 @@ export default function HeadlineShaderWebgl({
   onError,
   debug,
   onCanvasClick,
+  onFirstFrame,
 }: HeadlineShaderWebglProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(() => headlineTexture(getRoot), [getRoot]);
@@ -56,6 +59,7 @@ export default function HeadlineShaderWebgl({
     onError,
     debug,
     onCanvasClick,
+    onFirstFrame,
   });
 
   return (

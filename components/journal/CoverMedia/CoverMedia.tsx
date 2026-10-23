@@ -1,5 +1,4 @@
-import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
-import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
+import { ImageShader } from '@/components/experimental/ImageThreeShader/ImageShader';
 import { LoopingVideo } from '@/components/journal/LoopingVideo';
 import { getMediaSize, getVideoSources } from '@/lib/pages/journal-media';
 import Image from 'next/image';
@@ -24,11 +23,9 @@ export const CoverMedia = ({
     return (
       <div className="relative w-full my-6">
         <div className="absolute bg-root z-10 mix-blend-darken pointer-events-none rounded overflow-clip aspect-1200/600 inset-0" />
-        <ImageThreeShader
+        <ImageShader
           src={cover!}
-          shaderConfig={{
-            fragmentShader: fragmentThreeShaders['distortion'],
-          }}
+          variant="distortion"
           aspectRatio="1200:600"
           className="overflow-clip rounded"
         />

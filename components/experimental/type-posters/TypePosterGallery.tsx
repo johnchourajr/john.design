@@ -154,6 +154,8 @@ type WallPosterProps = {
   wallLeft: MotionValue<number>;
   isOpen: boolean;
   isSettling: boolean;
+  /** Its shader runs, rather than its snapshot alone. */
+  isLive: boolean;
   onOpen: () => void;
   onSettled: () => void;
 };
@@ -170,6 +172,7 @@ function WallPoster({
   wallLeft,
   isOpen,
   isSettling,
+  isLive,
   onOpen,
   onSettled,
 }: WallPosterProps) {
@@ -216,6 +219,7 @@ function WallPoster({
           title={poster.title}
           words={poster.words}
           paper={poster.paper}
+          live={isLive}
           // A hairline edge, so dark posters stand off the black wall.
           className={clsx(
             'h-full ring-1 ring-white/20 transition-[box-shadow,scale] duration-(--duration-fast) ease-(--ease-smooth-out) motion-reduce:transition-none',
@@ -268,7 +272,15 @@ function WallPoster({
  * become the open poster's containing block and pin it inside the wall.
  */
 export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
-  const [open, setOpen] = useState<string | null>(null);
+  const [open, setOpenSlug] = useState<string | null>(null);
+  // Posters that have been opened. The wall shows each poster's snapshot,
+  // and its shader only loads once it's opened; it then stays, so closing
+  // doesn't jump from the live frame back to the still.
+  const [opened, setOpened] = useState<ReadonlySet<string>>(() => new Set());
+  const setOpen = (slug: string | null) => {
+    setOpenSlug(slug);
+    if (slug) setOpened((current) => (current.has(slug) ? current : new Set(current).add(slug)));
+  };
   // Kept above the others until it has settled back into its slot.
   const [settling, setSettling] = useState<string | null>(null);
   const active = posters.find((poster) => poster.slug === open);
@@ -358,6 +370,7 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
             wallLeft={left}
             isOpen={poster.slug === open}
             isSettling={poster.slug === settling}
+            isLive={opened.has(poster.slug)}
             onOpen={() => select(poster.slug)}
             onSettled={() =>
               setSettling((current) => (current === poster.slug ? null : current))

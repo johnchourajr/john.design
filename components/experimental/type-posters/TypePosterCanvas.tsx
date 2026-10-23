@@ -14,13 +14,13 @@ const TypePosterWebgl = dynamic(() => import('./TypePosterWebgl'), { ssr: false 
 type Renderer = 'webgpu' | 'webgl';
 
 /**
- * WebGPU unless the browser has none, or `?poster-renderer=webgl` asks for
- * the fallback (to compare the two). Client only: this component never
- * renders on the server.
+ * WebGL, unless `?poster-renderer=webgpu` asks for the WebGPU port and the
+ * browser has it (#131): WebGPU drew the same posters but started slower.
+ * Client only: this component never renders on the server.
  */
 const preferredRenderer = (slug: string): Renderer => {
   const forced = new URLSearchParams(window.location.search).get('poster-renderer');
-  if (forced === 'webgl' || !('gpu' in navigator) || !posterShaders[slug]) return 'webgl';
+  if (forced !== 'webgpu' || !('gpu' in navigator) || !posterShaders[slug]) return 'webgl';
   return 'webgpu';
 };
 
@@ -30,9 +30,10 @@ type TypePosterCanvasProps = {
 };
 
 /**
- * One poster's canvas (#123): on WebGPU with vgpu, falling back to WebGL
- * when WebGPU is missing, doesn't start, or is lost. The canvas mirrors
- * which one is drawing as `data-renderer`.
+ * One poster's canvas: on WebGL (#131), or on the WebGPU port with vgpu
+ * (#123) when asked, falling back to WebGL when WebGPU is missing, doesn't
+ * start, or is lost. The canvas mirrors which one is drawing as
+ * `data-renderer`.
  */
 export default function TypePosterCanvas({ slug, onError }: TypePosterCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);

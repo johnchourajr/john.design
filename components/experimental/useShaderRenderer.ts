@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { debugNumber as n, mountShaderDebug } from './shaderDebug';
 import {
+  contentBoxSize,
   layerRectOf,
   layoutShader,
   revealRadius,
@@ -23,6 +24,8 @@ export type ShaderConfig = {
 };
 
 export type ShaderSize = { width: number; height: number };
+
+export { contentBoxSize };
 
 /** A rectangle in CSS pixels, measured from the canvas's top left. */
 export type ShaderFrame = ShaderSize & { x: number; y: number };
@@ -124,6 +127,8 @@ export type ShaderRendererOptions = {
   onCanvasClick?: () => void;
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
+  /** The first frame with the input in is on screen. */
+  onFirstFrame?: () => void;
 };
 
 export const defaultVertexShader = `
@@ -152,21 +157,6 @@ const revealShader = `
     gl_FragColor = mix(texture2D(to, vUv), texture2D(from, vUv), outside);
   }
 `;
-
-/** The container's content box. */
-export const contentBoxSize = (container: HTMLElement): ShaderSize => {
-  const style = getComputedStyle(container);
-  return {
-    width:
-      container.clientWidth -
-      parseFloat(style.paddingLeft) -
-      parseFloat(style.paddingRight),
-    height:
-      container.clientHeight -
-      parseFloat(style.paddingTop) -
-      parseFloat(style.paddingBottom),
-  };
-};
 
 /**
  * Runs several inputs on one material, e.g. an image and a headline. The
@@ -247,6 +237,7 @@ export function useShaderRenderer(
     jumpOnEnter = false,
     onCanvasClick,
     debug,
+    onFirstFrame,
   }: ShaderRendererOptions,
 ) {
   // Fixed for the life of the component (motion reads it once).
@@ -259,6 +250,7 @@ export function useShaderRenderer(
   // Read when it fires, so a new callback doesn't rebuild the renderer.
   const onErrorRef = useRef(onError);
   const onCanvasClickRef = useRef(onCanvasClick);
+  const onFirstFrameRef = useRef(onFirstFrame);
   // Swaps the live program; the renderer and its input stay.
   const swapRef = useRef<(next: ShaderConfig) => void>(() => {});
 
@@ -269,6 +261,7 @@ export function useShaderRenderer(
   useEffect(() => {
     onErrorRef.current = onError;
     onCanvasClickRef.current = onCanvasClick;
+    onFirstFrameRef.current = onFirstFrame;
     invalidateRef.current();
   });
 
@@ -389,6 +382,7 @@ export function useShaderRenderer(
     };
 
     let renders = 0;
+    let drewReady = false;
     const draw = () => {
       renders += 1;
       if (uniforms.time) {
@@ -402,6 +396,10 @@ export function useShaderRenderer(
       // swaps itself out for a canvas that is still empty.
       if (isReady) handle?.beforeRender?.();
       drawScene();
+      if (isReady && !drewReady) {
+        drewReady = true;
+        onFirstFrameRef.current?.();
+      }
     };
     // With the debug panel up, a failing frame is recorded, not thrown.
     let recordError: ((message: string) => void) | null = null;
