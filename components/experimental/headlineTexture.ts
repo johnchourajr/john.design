@@ -75,6 +75,10 @@ export const headlineTexture =
       return { dispose: () => {} };
     }
 
+    // A blank 1px texture until the first band is fitted: an empty canvas
+    // can't be uploaded.
+    surface.width = 1;
+    surface.height = 1;
     const texture = new THREE.CanvasTexture(surface);
     // The type is composited premultiplied, like the browser does.
     texture.premultiplyAlpha = true;
@@ -106,6 +110,7 @@ export const headlineTexture =
     let bandTop = 0;
     let inkTop = 0;
     let inkBottom = 0;
+    let bandStale = true;
 
     /**
      * Fits the texture to the rows the letters reach, with room to spare so
@@ -118,6 +123,7 @@ export const headlineTexture =
       const pad = need * BAND_PAD;
       const bandBottom = bandTop + surface.height;
       const fits =
+        !bandStale &&
         surface.width === bufferWidth &&
         inkTop >= bandTop &&
         inkBottom <= bandBottom &&
@@ -126,6 +132,7 @@ export const headlineTexture =
       const top = Math.max(0, Math.floor(inkTop - pad));
       const bottom = Math.min(bufferHeight, Math.ceil(inkBottom + pad));
       bandTop = top;
+      bandStale = false;
       surface.width = bufferWidth;
       surface.height = Math.max(1, bottom - top);
       // The GPU copy has a fixed size; let three allocate a new one.
@@ -402,7 +409,7 @@ export const headlineTexture =
         bufferWidth = width;
         bufferHeight = height;
         // Refit the band to the new buffer.
-        surface.width = 0;
+        bandStale = true;
         dirty = true;
       },
       debug: () => {
