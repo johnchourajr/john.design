@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
+import clsx from 'clsx';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 import { useShaderRenderer } from '../useShaderRenderer';
@@ -35,6 +36,8 @@ type TypePosterWebglProps = {
  */
 export default function TypePosterWebgl({ slug, onError }: TypePosterWebglProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [drawn, setDrawn] = useState(false);
+  const showCanvas = useCallback(() => setDrawn(true), []);
   const poster = posters.find((item) => item.slug === slug);
   const compose = poster?.compose;
   const fragmentShader = poster?.fragment ?? '';
@@ -49,7 +52,19 @@ export default function TypePosterWebgl({ slug, onError }: TypePosterWebglProps)
     maxPixelRatio: 2,
     mouseDamping: 0.06,
     onError,
+    onFirstFrame: showCanvas,
   });
 
-  return <div ref={containerRef} aria-hidden data-renderer="webgl" className="absolute inset-0" />;
+  // Hidden until its first frame, then faded in over the snapshot.
+  return (
+    <div
+      ref={containerRef}
+      aria-hidden
+      data-renderer="webgl"
+      className={clsx(
+        'absolute inset-0 transition-opacity duration-(--duration-slow) ease-(--ease-smooth-out) motion-reduce:transition-none',
+        !drawn && 'opacity-0',
+      )}
+    />
+  );
 }
