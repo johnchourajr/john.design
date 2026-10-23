@@ -18,37 +18,36 @@ export const loupeShader = `
   }
 
   // Higher quality blur using separable Gaussian
-  vec4 getBlurredColor(vec2 uv) {
-    float sigma = 3.0; // Blur spread
-    float blurSize = 0.003; // Overall blur size
 
-    // Gaussian weights
-    float weights[5];
-    weights[0] = 0.2270270270;
-    weights[1] = 0.1945945946;
-    weights[2] = 0.1216216216;
-    weights[3] = 0.0540540541;
-    weights[4] = 0.0162162162;
+  // How far the portrait inside the lens blurs (in texture UV), behind the
+  // type, which stays sharp in front of it.
+  #define LENS_BLUR 0.006
 
-    vec4 color = texture2D(image, uv) * weights[0];
-
-    // Horizontal pass
-    for (int i = 1; i < 5; i++) {
-      vec2 offset = vec2(float(i) * blurSize, 0.0);
-      color += texture2D(image, uv + offset) * weights[i];
-      color += texture2D(image, uv - offset) * weights[i];
+  // A disc blur of \`radius\` (texture UV): a golden-angle spiral of taps
+  // turned a little per pixel so they dissolve into grain instead of
+  // showing as copies, weighted toward the middle for a soft lens blur.
+  vec4 discBlur(vec2 uv, float radius) {
+    float turn = 6.2831853 * fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
+    vec4 color = vec4(0.0);
+    float total = 0.0;
+    for (int i = 0; i < 32; i++) {
+      float t = (float(i) + 0.5) / 32.0;
+      float angle = float(i) * 2.39996 + turn;
+      float weight = exp(-2.0 * t);
+      color += texture2D(image, uv + vec2(cos(angle), sin(angle)) * sqrt(t) * radius) * weight;
+      total += weight;
     }
-
-    // Vertical pass
-    vec4 finalColor = color * weights[0];
-    for (int i = 1; i < 5; i++) {
-      vec2 offset = vec2(0.0, float(i) * blurSize);
-      finalColor += texture2D(image, uv + offset) * weights[i];
-      finalColor += texture2D(image, uv - offset) * weights[i];
-    }
-
-    return finalColor;
+    return color / total;
   }
+
+  // How much the lens scales the portrait at its centre, easing back to 1
+  // at the rim: under 1 shrinks it, like a concave lens. The type takes its
+  // own scale, enlarged, so the two play off each other.
+  #define LENS_MAGNIFY 0.7
+  #define TYPE_MAGNIFY 1.45
+  // How far each colour channel spreads around its own offset at the rim,
+  // as a share of the split: 0 is a hard edge, 1 a full smear.
+  #define SPLIT_SOFT 0.9
 
   void main() {
     vec2 uv = frameUv();
@@ -64,7 +63,8 @@ export const loupeShader = `
     vec2 mouseUV = vec2(mouse.x / resolution.x * screenAspect, 1.0 - mouse.y / resolution.y);
     float dist = distance(effectUV, mouseUV) / screenAspect;
 
-    float radius = 0.15;
+    // Sized with the other hero lenses (~0.165 of the frame's width).
+    float radius = 0.165;
     float softness = 0.01; // Reduced softness for sharper edge
 
     // Create loupe magnification with corrected coordinates
@@ -73,7 +73,15 @@ export const loupeShader = `
 
     // Sharper edge transition
     float edge = smoothstep(radius + softness/2.0, radius - softness/2.0, dist);
-    vec2 magnifiedUv = textureUV + (textureUV - vec2(mouse.x / resolution.x, 1.0 - mouse.y / resolution.y)) * edge * -0.2;
+    // Lens curvature: a convex profile, strongest at the centre and easing
+    // back to true size at the rim, where the image compresses as it would
+    // through curved glass.
+    vec2 lensCentre = imageUv(vec2(mouseUV.x / screenAspect, mouseUV.y));
+    float lensR = clamp(dist / radius, 0.0, 1.0);
+    float lensZ = sqrt(max(0.0, 1.0 - lensR * lensR));
+    float lensScale = mix(1.0, 1.0 / LENS_MAGNIFY, lensZ);
+    float typeLensScale = mix(1.0, 1.0 / TYPE_MAGNIFY, lensZ);
+    vec2 magnifiedUv = mix(textureUV, lensCentre + (textureUV - lensCentre) * lensScale, edge);
 
     // Enhanced glass-like refraction
     float refraction = 0.3; // Adjust for stronger/weaker effect
@@ -114,29 +122,39 @@ export const loupeShader = `
     vec2 redOffsetCorrected = redOffset + edgeOffset;
     vec2 blueOffsetCorrected = blueOffset + edgeOffset;
 
-    // Sample colors with edge correction
-    vec4 redChannel = texture2D(image, redOffsetCorrected);
-    vec4 greenChannel = texture2D(image, correctedUV);
-    vec4 blueChannel = texture2D(image, blueOffsetCorrected);
+    // Sample colors with edge correction. Each channel averages four
+    // samples spread along the split, shifted a little per pixel, so the
+    // fringes are soft gradients rather than hard-edged copies.
+    float jitter = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715)))) - 0.5;
+    vec2 spread = normalizedDir * chromatic * edgeStrength * SPLIT_SOFT;
+    vec4 redChannel = vec4(0.0);
+    vec4 greenChannel = vec4(0.0);
+    vec4 blueChannel = vec4(0.0);
+    for (int i = 0; i < 4; i++) {
+      vec2 step = spread * ((float(i) + 0.5) / 4.0 - 0.5 + jitter * 0.25) * 2.0;
+      redChannel += texture2D(image, redOffsetCorrected + step);
+      greenChannel += texture2D(image, correctedUV + step);
+      blueChannel += texture2D(image, blueOffsetCorrected + step);
+    }
+    redChannel *= 0.25;
+    greenChannel *= 0.25;
+    blueChannel *= 0.25;
 
     // Fade out near edges
     float edgeFade = 1.0 - smoothstep(0.0, 0.1, length(edgeOffset));
 
     // Enhanced clarity in center with edge fade
-    vec4 clearColor = texture2D(image, magnifiedUv + edgeOffset);
+    // The blur comes with the hover: the portrait is sharp until the
+    // pointer arrives.
+    vec4 clearColor = discBlur(magnifiedUv + edgeOffset, LENS_BLUR * hover);
     vec4 chromaticColor = vec4(redChannel.r, greenChannel.g, blueChannel.b, 1.0);
     vec4 magnifiedColor = mix(clearColor, chromaticColor, edgeStrength) * edgeFade;
 
-    // Remove all fresnel and light effects
+    // Outside the lens the portrait stays as it is: the blur is only the
+    // lens's.
     vec4 outsideColor = texture2D(image, textureUV);
-    vec4 blurredColor = getBlurredColor(textureUV);
 
-    // Clean transition between blurred and magnified
-    float blurStrength = 0.8;
-    vec4 outsideBlurred = mix(outsideColor, blurredColor, blurStrength);
-
-    // Direct color mixing without any additional effects
-    vec4 finalColor = mix(outsideBlurred, magnifiedColor, edge);
+    vec4 finalColor = mix(outsideColor, magnifiedColor, edge);
 
     // Subtle inner shadow only
     float innerShadow = smoothstep(radius - softness/2.0, radius, dist) * 0.2;
@@ -146,11 +164,20 @@ export const loupeShader = `
     // The edge corrections and the blur outside it belong to the image: the
     // type stays sharp outside the lens.
     float typeEdge = edge * hover;
-    vec2 typeMagnified = textureUV + (textureUV - vec2(mouse.x / resolution.x, 1.0 - mouse.y / resolution.y)) * typeEdge * -0.2;
+    vec2 typeMagnified = mix(textureUV, lensCentre + (textureUV - lensCentre) * typeLensScale, typeEdge);
     vec2 typeDistorted = typeMagnified + normalizedDir * ripple * refraction * edgeStrength;
-    vec4 redType = sampleHeadline(typeDistorted + normalizedDir * chromatic * edgeStrength);
-    vec4 greenType = sampleHeadline(typeDistorted);
-    vec4 blueType = sampleHeadline(typeDistorted - normalizedDir * chromatic * edgeStrength);
+    vec4 redType = vec4(0.0);
+    vec4 greenType = vec4(0.0);
+    vec4 blueType = vec4(0.0);
+    for (int i = 0; i < 4; i++) {
+      vec2 step = spread * ((float(i) + 0.5) / 4.0 - 0.5 + jitter * 0.25) * 2.0;
+      redType += sampleHeadline(typeDistorted + normalizedDir * chromatic * edgeStrength + step);
+      greenType += sampleHeadline(typeDistorted + step);
+      blueType += sampleHeadline(typeDistorted - normalizedDir * chromatic * edgeStrength + step);
+    }
+    redType *= 0.25;
+    greenType *= 0.25;
+    blueType *= 0.25;
     vec4 chromaticType = vec4(
       redType.r,
       greenType.g,
