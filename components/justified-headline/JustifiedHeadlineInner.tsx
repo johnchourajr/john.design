@@ -10,6 +10,7 @@ import {
   type BooleanSetting,
   type SliderSetting,
 } from '../experimental/SettingsComponents';
+import { phoneFit } from './fit';
 import { TextContainer } from './TextContainer';
 
 /** The settings /exp/justified-headline passes in. */
@@ -61,7 +62,12 @@ export function JustifiedHeadlineInner({
         return (
           <span
             key={text}
-            className={clsx('uppercase headline-display-xl', className)}
+            className={clsx(
+              'uppercase headline-display-xl',
+              // A line that sets its own size keeps it.
+              !/headline-|text-\[/.test(className ?? '') && phoneFit(text),
+              className,
+            )}
           >
             <TextContainer
               key={text}

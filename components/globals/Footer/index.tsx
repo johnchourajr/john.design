@@ -34,7 +34,8 @@ export default function Footer() {
           The internet is a wild place, stay safe out here.
         </p>
 
-        <div className="inline-flex row gap-6 items-center pt-10">
+        {/* Wraps on a narrow phone rather than running off the side. */}
+        <div className="inline-flex flex-wrap row gap-x-6 gap-y-3 items-center pt-10">
           <InlineLink href="/" aria-label="Home" className="z-50 relative">
             <Logo />
           </InlineLink>
@@ -53,7 +54,7 @@ export default function Footer() {
           <InlineLink href="/contact">Contact</InlineLink>
           <InlineLink href="/colophon">Colophon</InlineLink>
 
-          <div className="inline-flex row gap-4 items-center">
+          <div className="inline-flex flex-wrap row gap-x-4 gap-y-2 items-center">
             <p>Previous Versions:</p>
             <InlineLink href="https://v4.archive.john.design/?ref=v5" target="_blank">
               v4
