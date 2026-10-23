@@ -4,9 +4,10 @@ import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
 import {
-  HeroShaderCanvas,
-  type HeroShaderGpuOptions,
-} from '../experimental/ImageThreeShader/HeroShaderCanvas';
+  GpuShaderCanvas,
+  type GpuShaderCanvasOptions,
+} from '../experimental/GpuShaderCanvas';
+import { imageGpuShaders } from '../experimental/ImageThreeShader/wgsl';
 import { fragmentThreeShaders, type ShaderVariant } from '../experimental/ImageThreeShader/shaders';
 import { contentBoxSize } from '../experimental/useShaderRenderer';
 import { HEADLINE_SHADER, offCanvas, viewportSquare } from './headlineShaderOptions';
@@ -39,7 +40,7 @@ export default function HeadlineShaderLayer({
   debug,
   onCanvasClick,
 }: HeadlineShaderLayerProps) {
-  const options = useMemo<HeroShaderGpuOptions>(
+  const options = useMemo<GpuShaderCanvasOptions>(
     () => ({
       ...HEADLINE_SHADER,
       getHeadline: getRoot,
@@ -52,7 +53,8 @@ export default function HeadlineShaderLayer({
   );
 
   return (
-    <HeroShaderCanvas
+    <GpuShaderCanvas
+      shaders={imageGpuShaders}
       variant={variant}
       options={options}
       onCanvasClick={onCanvasClick}

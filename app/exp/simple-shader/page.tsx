@@ -1,7 +1,7 @@
 'use client';
 import { Suspense } from 'react';
 
-import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
+import { ImageShader } from '@/components/experimental/ImageThreeShader/ImageShader';
 import { fragmentThreeShaders } from '@/components/experimental/ImageThreeShader/shaders';
 import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
@@ -9,9 +9,7 @@ import { useLocationSearch } from '@/hooks/useLocationSearch';
 function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
   const isIframe = searchParams.get('iframe') !== null;
 
-  const shaderConfig = {
-    fragmentShader: fragmentThreeShaders['distortion'],
-  };
+  const variant = 'distortion';
 
   return (
     <Suspense fallback={<div />}>
@@ -20,9 +18,9 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
       )}
 
       <div className="relative w-screen h-auto">
-        <ImageThreeShader
+        <ImageShader
           src="/film/clouds.jpg"
-          shaderConfig={shaderConfig}
+          variant={variant}
           aspectRatio="1680:1050"
         />
       </div>

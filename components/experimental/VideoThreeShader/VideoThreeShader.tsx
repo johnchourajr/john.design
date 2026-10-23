@@ -11,7 +11,7 @@ import {
 } from '../useShaderRenderer';
 import { defaultFragmentShader } from './shaders';
 
-type AspectRatio =
+export type AspectRatio =
   | '1:1'
   | '4:3'
   | '16:9'
@@ -36,7 +36,7 @@ type VideoThreeShaderProps = {
   loop?: boolean;
 };
 
-const aspectClass: Record<AspectRatio, string> = {
+export const aspectClass: Record<AspectRatio, string> = {
   '1:1': 'aspect-square',
   '4:3': 'aspect-4/3',
   '16:9': 'aspect-video',

@@ -1,7 +1,7 @@
 'use client';
 import { Suspense, useState } from 'react';
 
-import { ImageThreeShader } from '@/components/experimental/ImageThreeShader';
+import { ImageShader } from '@/components/experimental/ImageThreeShader/ImageShader';
 import {
   fragmentThreeShaders,
   ShaderVariant,
@@ -36,9 +36,7 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
 
   const hasOverlay = getSettingValue(settings, 'overlay', true);
 
-  const shaderConfig = {
-    fragmentShader: fragmentThreeShaders[currentShader],
-  };
+  const variant = currentShader;
 
   return (
     <Suspense fallback={<div />}>
@@ -47,9 +45,9 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
       )}
 
       <div className="relative w-screen h-auto">
-        <ImageThreeShader
+        <ImageShader
           src="/film/clouds.jpg"
-          shaderConfig={shaderConfig}
+          variant={variant}
           aspectRatio="1680:1050"
         />
         {!!hasOverlay && (

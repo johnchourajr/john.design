@@ -17,6 +17,18 @@ type GenThreeShaderProps = {
   onDownload: (ref: () => void) => void;
 };
 
+/** Saves what `capture` reads back as a PNG download. */
+export const savePng = async (capture: () => Promise<Blob | null>) => {
+  const blob = await capture();
+  if (!blob) return;
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `shader-${Date.now()}.png`;
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
 const baseUniforms = () => ({
   mouse: { value: new THREE.Vector2() },
   time: { value: 0 },
@@ -40,16 +52,7 @@ export const GenThreeShader = ({
     baseUniforms,
   });
 
-  const download = useCallback(async () => {
-    const blob = await capture();
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `shader-${Date.now()}.png`;
-    link.click();
-    URL.revokeObjectURL(url);
-  }, [capture]);
+  const download = useCallback(() => savePng(capture), [capture]);
 
   useEffect(() => {
     onDownload(download);

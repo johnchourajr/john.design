@@ -6,7 +6,7 @@ import {
   selectSetting,
   SettingsGroup,
 } from '@/components/experimental/SettingsComponents';
-import { VideoThreeShader } from '@/components/experimental/VideoThreeShader';
+import { VideoShader } from '@/components/experimental/VideoThreeShader/VideoShader';
 import { fragmentThreeVideoShaders } from '@/components/experimental/VideoThreeShader/shaders';
 import { ExpBackLink } from '@/components/experimental/ExpBackLink';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
@@ -29,10 +29,6 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
 
   const currentShader = getSettingValue(settings, 'shader', 'vhs');
 
-  const shaderConfig = {
-    fragmentShader: fragmentThreeVideoShaders[currentShader],
-  };
-
   return (
     <Suspense fallback={<div />}>
       {!isIframe && (
@@ -40,9 +36,9 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
       )}
 
       <div className="relative w-screen h-auto">
-        <VideoThreeShader
+        <VideoShader
           src="/meme.mp4"
-          shaderConfig={shaderConfig}
+          variant={currentShader}
           aspectRatio="1280:720"
           autoplay
           muted

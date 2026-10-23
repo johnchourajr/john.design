@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
-import { HeroShaderCanvas, type HeroShaderGpuOptions } from './HeroShaderCanvas';
+import { GpuShaderCanvas, type GpuShaderCanvasOptions } from '../GpuShaderCanvas';
+import { imageGpuShaders } from './wgsl';
 import { aspectClass, type AspectRatio } from './ImageThreeShader';
 import { HERO_MAX_PIXELS, imageShaderLayout } from './imageLayout';
 import { fragmentThreeShaders } from './shaders';
@@ -42,7 +43,7 @@ export function ImageShader({
   debug,
   onCanvasClick,
 }: ImageShaderProps) {
-  const options = useMemo<HeroShaderGpuOptions>(
+  const options = useMemo<GpuShaderCanvasOptions>(
     () => ({
       ...imageShaderLayout(aspectRatio, getHeadline),
       image: src,
@@ -63,7 +64,8 @@ export function ImageShader({
   );
 
   return (
-    <HeroShaderCanvas
+    <GpuShaderCanvas
+      shaders={imageGpuShaders}
       variant={variant}
       options={options}
       onCanvasClick={onCanvasClick}

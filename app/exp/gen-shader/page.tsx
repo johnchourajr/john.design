@@ -2,7 +2,7 @@
 import { Suspense, useRef, useState } from 'react';
 
 import { useDisableDrawing } from '@/components/experimental/Drawing';
-import { GenThreeShader } from '@/components/experimental/GenThreeShader';
+import { GenShader } from '@/components/experimental/GenThreeShader/GenShader';
 import {
   genShaders,
   shaderSettings as SHADER_SETTINGS,
@@ -89,10 +89,7 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
       : setting,
   );
 
-  const shaderConfig = {
-    fragmentShader: genShaders[currentShader],
-    uniforms: settingsToUniforms(settings),
-  };
+  const uniforms = settingsToUniforms(settings);
 
   return (
     <Suspense fallback={<div />}>
@@ -101,8 +98,9 @@ function PageContent({ searchParams }: { searchParams: URLSearchParams }) {
       )}
 
       <div className="relative w-screen h-auto">
-        <GenThreeShader
-          shaderConfig={shaderConfig}
+        <GenShader
+          variant={currentShader}
+          uniforms={uniforms}
           className="aspect-square"
           onDownload={(fn) => {
             downloadRef.current = fn;
