@@ -36,6 +36,9 @@ export const prismShader = `
   // outline (in frame heights).
   #define RIM 0.45
   #define RIM_BEND 0.035
+  // The glass thickness over which the refracted portrait fades in from
+  // the outline, hiding the bright grazing-angle rim.
+  #define OUTLINE_FADE 0.06
   #define SPLIT 0.005
   // The cube's silhouette reaches about this far from its centre, in the
   // centred units below. The split grows over that distance.
@@ -51,6 +54,9 @@ export const prismShader = `
   #define DISPERSION 0.05
   #define ABSORPTION vec3(0.04)
   #define INTERNAL_REFLECTIONS 4
+  // How far each channel's paths spread around its own dispersion, as a
+  // share of the red-to-blue range: 0 is the hard split, ~0.5 a smear.
+  #define DISPERSION_SOFT 0.45
 
   mat2 rot2(float a) {
     float c = cos(a), s = sin(a);
@@ -206,15 +212,24 @@ export const prismShader = `
       // always has; past its frame the cube stays cut off.
       if (g_inFrame > 0.5) {
         g_textureUV = textureUV;
-        vec3 col = vec3(
-          renderCube(ro, rd, 0.0).r,
-          renderCube(ro, rd, 0.5).g,
-          renderCube(ro, rd, 1.0).b
+        // Each channel averages two paths spread around its own index of
+        // refraction, jittered per pixel, so the fringes soften into
+        // gradients instead of hard-edged copies.
+        float jitter = (hash(gl_FragCoord.xy, 5.0) - 0.5) * DISPERSION_SOFT;
+        float spread = DISPERSION_SOFT * 0.5;
+        vec3 col = 0.5 * vec3(
+          renderCube(ro, rd, 0.0 - spread + jitter).r + renderCube(ro, rd, 0.0 + spread - jitter).r,
+          renderCube(ro, rd, 0.5 - spread + jitter).g + renderCube(ro, rd, 0.5 + spread - jitter).g,
+          renderCube(ro, rd, 1.0 - spread + jitter).b + renderCube(ro, rd, 1.0 + spread - jitter).b
         );
         if (col.r >= 0.0 && col.g >= 0.0 && col.b >= 0.0) {
           col = smoothstep(0.0, 1.0, col);
           col = pow(col, vec3(0.4545));
-          imageColor = vec4(col * 0.7, 1.0);
+          // At the outline the ray only grazes the glass and is almost all
+          // reflection, which reads as a bright rim. Fade from the plain
+          // portrait over the last sliver of thin glass instead.
+          float solid = smoothstep(0.0, OUTLINE_FADE, glassThickness(localCoord, rotation));
+          imageColor = mix(imageColor, vec4(col * 0.7, 1.0), solid);
         }
       }
 
