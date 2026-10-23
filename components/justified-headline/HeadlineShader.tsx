@@ -72,8 +72,11 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
     });
   }, []);
 
+  // The padding is room for the effects (the sphere and loupe are a third
+  // of the viewport across) so the canvas, which covers it, doesn't clip
+  // them to the line of type. Pages pull it back with a negative margin.
   return (
-    <div className={clsx('relative', className)}>
+    <div className={clsx('relative py-[12vw]', className)}>
       <div ref={rootRef}>{children}</div>
       {shader && (
         <HeadlineShaderLayer

@@ -16,7 +16,7 @@ export default function ContactPage({
   return (
     <>
       <h1 className="sr-only">Contact</h1>
-      <section className="my-[4vw] max-w-[100vw] overflow-hidden">
+      <section className="-mt-[8vw] -mb-[12vw] max-w-[100vw] overflow-hidden">
         <HeadlineShader>
           <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
             {title.map((item, i) => (
