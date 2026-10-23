@@ -63,13 +63,14 @@ export function GenShader({ className, variant, uniforms, onDownload }: GenShade
       uniforms={values}
       onCapture={onCapture}
       className={clsx('relative w-full h-full', className)}
-      fallback={
+      fallback={(onFirstFrame) => (
         <GenThreeShader
           className={className}
           shaderConfig={shaderConfig}
           onDownload={onDownload}
+          onFirstFrame={onFirstFrame}
         />
-      }
+      )}
     />
   );
 }

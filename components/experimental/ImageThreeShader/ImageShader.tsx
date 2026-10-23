@@ -27,6 +27,10 @@ type ImageShaderProps = {
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
   onCanvasClick?: () => void;
+  /** Cover the canvas with ShaderLoader until it draws (default true). */
+  loader?: boolean;
+  /** The first frame is on screen. */
+  onFirstFrame?: () => void;
 };
 
 /**
@@ -42,6 +46,8 @@ export function ImageShader({
   getHeadline,
   debug,
   onCanvasClick,
+  loader,
+  onFirstFrame,
 }: ImageShaderProps) {
   const options = useMemo<GpuShaderCanvasOptions>(
     () => ({
@@ -69,13 +75,15 @@ export function ImageShader({
       variant={variant}
       options={options}
       onCanvasClick={onCanvasClick}
+      loader={loader}
+      onFirstFrame={onFirstFrame}
       className={clsx(
         onCanvasClick && 'cursor-pointer',
         'relative inline-block w-full h-full',
         aspectClass[aspectRatio],
         className,
       )}
-      fallback={
+      fallback={(onFirstFrame) => (
         <ImageThreeShader
           className={className}
           src={src}
@@ -84,8 +92,9 @@ export function ImageShader({
           getHeadline={getHeadline}
           debug={debug}
           onCanvasClick={onCanvasClick}
+          onFirstFrame={onFirstFrame}
         />
-      }
+      )}
     />
   );
 }

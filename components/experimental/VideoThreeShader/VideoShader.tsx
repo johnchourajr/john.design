@@ -69,7 +69,7 @@ export function VideoShader({
       variant={variant}
       options={options}
       className={clsx('relative inline-block w-full h-full', aspectClass[aspectRatio], className)}
-      fallback={
+      fallback={(onFirstFrame) => (
         <VideoThreeShader
           className={className}
           src={src}
@@ -78,8 +78,9 @@ export function VideoShader({
           autoplay={autoplay}
           muted={muted}
           loop={loop}
+          onFirstFrame={onFirstFrame}
         />
-      }
+      )}
     />
   );
 }

@@ -15,6 +15,8 @@ type GenThreeShaderProps = {
   shaderConfig: ShaderConfig;
   /** Optional download action */
   onDownload: (ref: () => void) => void;
+  /** The first frame is on screen. */
+  onFirstFrame?: () => void;
 };
 
 /** Saves what `capture` reads back as a PNG download. */
@@ -45,11 +47,13 @@ export const GenThreeShader = ({
   className,
   shaderConfig,
   onDownload,
+  onFirstFrame,
 }: GenThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { capture } = useShaderRenderer(containerRef, {
     shaderConfig,
     baseUniforms,
+    onFirstFrame,
   });
 
   const download = useCallback(() => savePng(capture), [capture]);

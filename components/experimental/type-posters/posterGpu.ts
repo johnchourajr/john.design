@@ -49,13 +49,7 @@ export async function startPosterGpu(
 ): Promise<PosterGpu> {
   if (!('gpu' in navigator)) throw new Error('navigator.gpu is missing');
   const device = takeGpu();
-  let gpu: Gpu;
-  try {
-    gpu = await device.gpu;
-  } catch (error) {
-    device.release();
-    throw error;
-  }
+  const gpu = await device.gpu;
   const canvas = document.createElement('canvas');
   // Hidden until its first frame, then faded in over the poster's snapshot.
   canvas.className =
@@ -197,12 +191,10 @@ export async function startPosterGpu(
         poster.dispose();
         layers?.destroy();
         canvasSurface.dispose();
-        device.release();
         canvas.remove();
       },
     };
   } catch (error) {
-    device.release();
     canvas.remove();
     throw error;
   }

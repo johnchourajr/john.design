@@ -70,6 +70,8 @@ export type GpuShaderOptions = {
   onCanvasClick: () => (() => void) | undefined;
   /** Shows the `?shader-debug` panel, headed with this label. */
   debug?: string;
+  /** The first frame is on screen: hide whatever stood in for it. */
+  onFirstFrame?: () => void;
   /** WebGPU stopped (device loss, or the image failed) after starting: fall back. */
   onLost: (reason: unknown) => void;
 };
@@ -144,16 +146,15 @@ export async function startGpuShader(
   const { reducedMotion, debug } = options;
   if (!('gpu' in navigator)) throw new Error('navigator.gpu is missing');
   const device = takeGpu();
-  let gpu: Gpu;
-  try {
-    gpu = await device.gpu;
-  } catch (error) {
-    device.release();
-    throw error;
-  }
+  const gpu = await device.gpu;
 
   const canvas = document.createElement('canvas');
-  canvas.className = 'block';
+  // Hidden until its first frame, then faded in over the loader. With a
+  // headline it appears at once instead: the DOM text hides on that same
+  // frame, and a fading canvas would dim the type.
+  canvas.className = options.getHeadline
+    ? 'block opacity-0'
+    : 'block opacity-0 transition-opacity duration-(--duration-slow) ease-(--ease-smooth-out) motion-reduce:transition-none';
   canvas.dataset.renderer = 'webgpu';
   const owned: { destroy?: () => void; dispose?: () => void }[] = [];
   let headline: HeadlineLayer | null = null;
@@ -292,6 +293,13 @@ export async function startGpuShader(
     let video: { beforeRender: () => void; playing: () => boolean; dispose: () => void } | null = null;
 
     const draw = () => {
+      if (renders === 0) {
+        // After this frame is submitted, so the fade starts on a drawn canvas.
+        requestAnimationFrame(() => {
+          canvas.classList.remove('opacity-0');
+          options.onFirstFrame?.();
+        });
+      }
       renders += 1;
       params.time = animate ? (performance.now() - startTime) * 0.001 : 0;
       params.mouse = [cursor.mouse.x, cursor.mouse.y];
@@ -325,8 +333,11 @@ export async function startGpuShader(
     };
     // With the debug panel up, a failing frame is recorded, not thrown.
     let recordError: ((message: string) => void) | null = null;
+    // Set once the shader is torn down: an observer or frame already queued
+    // must not touch its freed targets.
+    let disposed = false;
     const render = () => {
-      if (!isReady || lost || !buffer.width) return;
+      if (!isReady || lost || disposed || !buffer.width) return;
       try {
         draw();
       } catch (error) {
@@ -375,6 +386,7 @@ export async function startGpuShader(
     };
 
     const resize = () => {
+      if (disposed) return;
       const size = layoutShader(
         container,
         canvas,
@@ -388,8 +400,12 @@ export async function startGpuShader(
       );
       const ratio = shaderPixelRatio(size.width, size.height, options.maxPixelRatio, options.maxPixels);
       // As three.js sizes its drawing buffer.
-      buffer.width = Math.max(1, Math.floor(size.width * ratio));
-      buffer.height = Math.max(1, Math.floor(size.height * ratio));
+      // A box with no size yet (or NaN, mid-layout) waits for the next resize.
+      const width = Math.floor(size.width * ratio);
+      const height = Math.floor(size.height * ratio);
+      if (!(width > 0 && height > 0)) return;
+      buffer.width = width;
+      buffer.height = height;
       canvas.style.width = `${size.width}px`;
       canvas.style.height = `${size.height}px`;
       canvasSurface.resize([buffer.width, buffer.height]);
@@ -441,7 +457,6 @@ export async function startGpuShader(
     );
     intersectionObserver.observe(container);
 
-    let disposed = false;
     /**
      * Plays the video into `image`. Frames only render while it plays.
      * With reduced motion it shows the first frame and doesn't play.
@@ -599,14 +614,12 @@ export async function startGpuShader(
         }
         for (const item of owned) item.dispose?.();
         canvas.remove();
-        device.release();
       },
     };
   } catch (error) {
     headline?.dispose();
     for (const item of owned) item.dispose?.();
     canvas.remove();
-    device.release();
     throw error;
   }
 }

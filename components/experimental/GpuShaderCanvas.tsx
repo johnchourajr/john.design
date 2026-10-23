@@ -2,6 +2,7 @@
 
 import { useReducedMotion } from 'motion/react';
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -10,6 +11,7 @@ import {
 } from 'react';
 
 import type { GpuShader, GpuShaderOptions, GpuShaderProgram } from './gpuShader';
+import { ShaderLoader } from './ShaderLoader';
 
 /** Each variant's WGSL, loaded when it runs on WebGPU. */
 export type GpuShaderLoaders = Partial<
@@ -36,7 +38,7 @@ const loadProgram = async (shaders: GpuShaderLoaders, variant: string) => {
 
 export type GpuShaderCanvasOptions = Omit<
   GpuShaderOptions,
-  'program' | 'reducedMotion' | 'onLost' | 'onCanvasClick' | 'uniforms'
+  'program' | 'reducedMotion' | 'onLost' | 'onCanvasClick' | 'uniforms' | 'onFirstFrame'
 >;
 
 type GpuShaderCanvasProps = {
@@ -51,8 +53,20 @@ type GpuShaderCanvasProps = {
   /** Gets the canvas's PNG capture once it's running. */
   onCapture?: (capture: () => Promise<Blob | null>) => void;
   className?: string;
-  /** The WebGL canvas, for when WebGPU is missing, fails or is lost. */
-  fallback: ReactNode;
+  /**
+   * Covers the canvas's place with ShaderLoader until the first frame
+   * (default). Off where something else already stands in, like the DOM
+   * headline or the home portrait's poster. It sits at `absolute inset-0`
+   * in the nearest positioned ancestor, which should be the canvas's box.
+   */
+  loader?: boolean;
+  /** The first frame is on screen, on whichever renderer drew it. */
+  onFirstFrame?: () => void;
+  /**
+   * The WebGL canvas, for when WebGPU is missing, fails or is lost. It's
+   * handed the first-frame callback to pass to its renderer.
+   */
+  fallback: (onFirstFrame: () => void) => ReactNode;
 };
 
 /**
@@ -68,6 +82,8 @@ export function GpuShaderCanvas({
   onCanvasClick,
   onCapture,
   className,
+  loader = true,
+  onFirstFrame,
   fallback,
 }: GpuShaderCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,12 +98,16 @@ export function GpuShaderCanvas({
   const onClickRef = useRef(onCanvasClick);
   const uniformsRef = useRef(uniforms);
   const onCaptureRef = useRef(onCapture);
+  const onFirstFrameRef = useRef(onFirstFrame);
+  const [drawn, setDrawn] = useState(false);
+  const handleFirstFrame = useCallback(() => setDrawn(true), []);
 
   useEffect(() => {
     variantRef.current = variant;
     onClickRef.current = onCanvasClick;
     uniformsRef.current = uniforms;
     onCaptureRef.current = onCapture;
+    onFirstFrameRef.current = onFirstFrame;
   });
 
   // A variant without WGSL shows the fallback until one with it comes back.
@@ -113,6 +133,7 @@ export function GpuShaderCanvas({
           uniforms: uniformsRef.current,
           reducedMotion,
           onLost: fallBack,
+          onFirstFrame: handleFirstFrame,
           onCanvasClick: () => onClickRef.current,
         }),
       )
@@ -137,7 +158,7 @@ export function GpuShaderCanvas({
       handleRef.current = null;
       shownRef.current = null;
     };
-  }, [onGpu, shaders, options, reducedMotion]);
+  }, [onGpu, shaders, options, reducedMotion, handleFirstFrame]);
 
   // A new variant swaps in on the live canvas.
   useEffect(() => {
@@ -149,13 +170,25 @@ export function GpuShaderCanvas({
       .catch(() => setFailed(true));
   }, [shaders, variant]);
 
+  useEffect(() => {
+    if (drawn) onFirstFrameRef.current?.();
+  }, [drawn]);
+
   // Settings reach the live canvas without rebuilding it.
   useEffect(() => {
     if (uniforms) handleRef.current?.setUniforms(uniforms);
   }, [uniforms]);
 
   // Until the client has chosen, hold the canvas's place.
-  if (wants === null) return <div className={className} />;
-  if (!onGpu) return <>{fallback}</>;
-  return <div ref={containerRef} className={className} />;
+  let body: ReactNode;
+  if (wants === null) body = <div className={className} />;
+  else if (!onGpu) body = fallback(handleFirstFrame);
+  else body = <div ref={containerRef} className={className} />;
+
+  return (
+    <>
+      {body}
+      {loader && <ShaderLoader visible={!drawn} />}
+    </>
+  );
 }

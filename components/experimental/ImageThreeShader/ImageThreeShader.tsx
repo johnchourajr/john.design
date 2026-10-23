@@ -58,6 +58,8 @@ type ImageThreeShaderProps = {
    * canvas, revealed from where the click landed.
    */
   onCanvasClick?: () => void;
+  /** The first frame with the image in is on screen. */
+  onFirstFrame?: () => void;
 };
 
 export const aspectClass: Record<AspectRatio, string> = {
@@ -177,6 +179,7 @@ export const ImageThreeShader = ({
   onError,
   debug,
   onCanvasClick,
+  onFirstFrame,
 }: ImageThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(
@@ -213,6 +216,7 @@ export const ImageThreeShader = ({
     onError,
     debug,
     onCanvasClick,
+    onFirstFrame,
   });
 
   return (

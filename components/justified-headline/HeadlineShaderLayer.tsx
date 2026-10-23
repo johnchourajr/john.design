@@ -59,15 +59,18 @@ export default function HeadlineShaderLayer({
       options={options}
       onCanvasClick={onCanvasClick}
       className="absolute inset-0 pointer-events-none"
-      fallback={
+      // The DOM headline stands in until the canvas draws it.
+      loader={false}
+      fallback={(onFirstFrame) => (
         <HeadlineShaderWebgl
           getRoot={getRoot}
           fragmentShader={fragmentThreeShaders[variant]}
           onError={onError}
           debug={debug}
           onCanvasClick={onCanvasClick}
+          onFirstFrame={onFirstFrame}
         />
-      }
+      )}
     />
   );
 }

@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import {
   Suspense,
   useCallback,
@@ -36,7 +37,6 @@ const ImageShader = dynamic(
     ),
   {
     ssr: false,
-    loading: () => <div className="w-full h-full bg-black" />,
   },
 );
 
@@ -65,6 +65,9 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
 
   // Defer shader variant selection to client to avoid hydration mismatch
   const [heroShader, setHeroShader] = useState<HeroShader | null>(null);
+  // The portrait's poster shows until the shader's first frame covers it.
+  const [shaderDrawn, setShaderDrawn] = useState(false);
+  const showShader = useCallback(() => setShaderDrawn(true), []);
   // A click on the portrait moves on to the next effect, except while
   // drawing, where a click is a mark.
   const cycleShader = useCallback(
@@ -139,6 +142,25 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           'translate-y-[-5%]',
         )}
       >
+        {/*
+          The portrait as a still, in the prerendered page, so it shows at
+          once while the shader loads (WebGPU takes a moment to start). Its
+          bottom fades out over the same 15% the shader feathers. It fades
+          out as the canvas fades in over it.
+        */}
+        <Image
+          src="/me-alpha-moody.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          data-testid="hero-poster"
+          className={clsx(
+            'object-cover pointer-events-none select-none mask-b-from-85% mask-b-to-100%',
+            'transition-opacity duration-(--duration-slow) ease-(--ease-smooth-out) motion-reduce:transition-none',
+            shaderDrawn && 'opacity-0',
+          )}
+        />
         {heroShader && (
           <ImageShader
             className={clsx('absolute', 'w-full h-full')}
@@ -148,6 +170,8 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             getHeadline={heroShader.withHeadline ? getHeadline : undefined}
             debug={heroShader.debug}
             onCanvasClick={enableDrawing ? undefined : cycleShader}
+            loader={false}
+            onFirstFrame={showShader}
           />
         )}
       </div>

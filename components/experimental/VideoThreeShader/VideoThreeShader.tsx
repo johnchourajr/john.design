@@ -34,6 +34,8 @@ type VideoThreeShaderProps = {
   autoplay?: boolean;
   muted?: boolean;
   loop?: boolean;
+  /** The first frame with the video in is on screen. */
+  onFirstFrame?: () => void;
 };
 
 export const aspectClass: Record<AspectRatio, string> = {
@@ -136,6 +138,7 @@ export const VideoThreeShader = ({
   autoplay = true,
   muted = true,
   loop = true,
+  onFirstFrame,
 }: VideoThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const input = useMemo(
@@ -152,6 +155,7 @@ export const VideoThreeShader = ({
     input,
     getSize: clientSize,
     mouseSpace: 'ndc',
+    onFirstFrame,
   });
 
   return (
