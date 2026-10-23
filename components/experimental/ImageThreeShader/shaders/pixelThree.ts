@@ -53,15 +53,22 @@ export const pixelShader = `
 
       // The headline is the inverse: sharp at rest, pixelated in the window,
       // so the pointer reads on the type as well as the portrait. Its blocks
-      // keep one size (the portrait's) and fade in across the window's edge;
-      // a size that shrank with distance would smear thin type into streaks.
+      // keep one size (the portrait's); a size that shrank with distance
+      // would smear thin type into streaks. The window's edge on the type is
+      // a hard line (antialiased over ~1.5px) on the portrait's visible ring.
+      // The portrait's small blocks blend into a smooth image across most of
+      // its ramp, so its ring reads near the outer radius. A soft band would
+      // show the sharp and blocky type at once.
       // Each block shows its centre, so the blocky type sits where the sharp
       // type does (a corner would shift it up and left by half a block).
+      float typeEdge = mix(innerRadius, outerRadius, 0.9);
+      float typeAa = 1.5 / resolution.x;
+      float inWindow = 1.0 - smoothstep(typeEdge - typeAa, typeEdge + typeAa, dist);
       vec2 typeBlocks = pixelate(textureUV, pow(basePixelSize, 1.5), screenAspect, 0.5);
       vec4 type = mix(
         sampleHeadline(textureUV),
-        sampleHeadline(typeBlocks + wobble),
-        (1.0 - reveal) * hover
+        sampleHeadline(typeBlocks + wobble * reveal),
+        inWindow * hover
       );
 
       gl_FragColor = over(type, texture2D(image, pixelated) * g_inFrame);
