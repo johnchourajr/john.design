@@ -35,6 +35,8 @@ export const layers = `
   uniform float hideImage;
   uniform float hover;
   uniform vec4 headlineRect;
+  // The headline's largest font size, in CSS px (0 without a headline).
+  uniform float headlineEm;
 
   vec4 g_layerRect;
   // 1 where this fragment shows the image: inside the frame, image on.

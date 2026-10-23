@@ -11,6 +11,9 @@ export const headlineUniforms = () => ({
   hover: { value: 0 },
   // The band of the canvas the headline texture covers, in canvas UV.
   headlineRect: { value: new THREE.Vector4(0, 0, 1, 1) },
+  // The headline's largest font size, in CSS px, so effects can size
+  // themselves to the type rather than the frame.
+  headlineEm: { value: 0 },
 });
 
 /** Room above and below the headline for letters motion moves past its box. */
@@ -213,6 +216,7 @@ export const headlineTexture =
       const originX = Math.round(bounds.left) * sx;
       const originY = Math.round(bounds.top) * sy;
       let matches = true;
+      let em = 0;
       glyphCount = 0;
       runCount = 0;
       inkTop = Infinity;
@@ -229,6 +233,7 @@ export const headlineTexture =
         if (alpha <= 0 || style.visibility === 'hidden') continue;
 
         const font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+        em = Math.max(em, parseFloat(style.fontSize) || 0);
         if (!document.fonts.check(font, text.data)) matches = false;
         const upper = style.textTransform === 'uppercase';
         const spacing = parseFloat(style.letterSpacing) || 0;
@@ -302,6 +307,7 @@ export const headlineTexture =
         }
         runCount += 1;
       }
+      uniforms.headlineEm.value = em;
       return matches;
     };
 
