@@ -108,14 +108,16 @@ export const dotGain: Poster = {
       float gain = 1.0 + 0.12 * sin(time * 0.6) + 0.9 * near * (0.35 + 0.65 * hover);
       // A dot's area is the tone, so its radius goes with the square root.
       float radius = sqrt(tone) * CELL * 0.62 * gain;
-      float d = distance(p, centre);
+      // Each dot's edge wavers a little, as real halftone dots do.
+      float d = distance(p, centre) + (noise(sheetPx() * 0.6) - 0.5) * CELL * 0.08;
       float aa = CELL * 0.06;
       float dotInk = 1.0 - smoothstep(radius - aa, radius + aa, d);
       dotInk *= step(0.02, tone);
+      dotInk = inkLaid(dotInk, 0.5, 1.0);
       vec3 colour = mix(PAPER, INK_COLOUR, dotInk);
       colour = mix(colour, RED, grid(uv));
       colour = mix(colour, INK_COLOUR, print(uv));
-      gl_FragColor = vec4(paper(colour), 1.0);
+      gl_FragColor = vec4(paperStock(colour, 0.8), 1.0);
     }
   `,
 };

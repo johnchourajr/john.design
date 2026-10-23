@@ -72,18 +72,19 @@ export const outOfRegister: Poster = {
       vec2 drift = vec2(0.006, -0.004) + pull * 0.05;
       // Each plate wobbles on its own, like paper stretching in the press.
       vec2 wobble = vec2(noise(uv * 3.0 + time * 0.2), noise(uv * 3.0 - time * 0.2)) - 0.5;
-      float orange = ink(uv + drift + wobble * 0.004);
-      float blue = ink(uv - drift * 0.7 + vec2(-drift.y, drift.x) * 0.4 - wobble * 0.004);
-      // Ink spreads a touch into the paper's fibres.
-      float fibre = noise(gl_FragCoord.xy * 0.35) * 0.12;
-      orange = smoothstep(0.1 + fibre, 0.7, orange);
-      blue = smoothstep(0.1 + fibre, 0.7, blue);
+      // Each plate prints from its own spot, through its own rough edge,
+      // with its own patchy laydown and density across the sheet.
+      vec2 orangeAt = roughen(uv + drift + wobble * 0.004, 1.0, 1.0);
+      vec2 blueAt = roughen(uv - drift * 0.7 + vec2(-drift.y, drift.x) * 0.4 - wobble * 0.004, 1.0, 2.0);
+      float orange = inkLaid(ink(orangeAt), 1.0, 1.0) * pressDensity(1.0, 1.0);
+      float blue = inkLaid(ink(blueAt), 1.0, 2.0) * pressDensity(1.0, 2.0);
 
       vec3 colour = PAPER;
-      colour *= mix(vec3(1.0), ORANGE / PAPER, orange * 0.95);
-      colour *= mix(vec3(1.0), BLUE / PAPER, blue * 0.92);
-      colour = mix(colour, PRINT_INK, print(uv));
-      gl_FragColor = vec4(paper(colour), 1.0);
+      colour *= mix(vec3(1.0), ORANGE / PAPER, clamp(orange * 0.95, 0.0, 1.0));
+      colour *= mix(vec3(1.0), BLUE / PAPER, clamp(blue * 0.92, 0.0, 1.0));
+      // The small print is a third, cleaner pass, still on the same stock.
+      colour = mix(colour, PRINT_INK, inkLaid(print(roughen(uv, 0.5, 3.0)), 0.5, 3.0));
+      gl_FragColor = vec4(paperStock(colour, 1.0), 1.0);
     }
   `,
 };
