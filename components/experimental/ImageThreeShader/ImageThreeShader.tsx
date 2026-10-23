@@ -2,7 +2,9 @@
 import clsx from 'clsx';
 import { useCallback, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { headlineTexture, headlineUniforms } from '../headlineTexture';
 import {
+  combineInputs,
   useShaderRenderer,
   type ShaderConfig,
   type ShaderInput,
@@ -40,6 +42,22 @@ type ImageThreeShaderProps = {
   aspectRatio: AspectRatio;
   /** Shader configuration object */
   shaderConfig: ShaderConfig;
+  /**
+   * Text to draw into the shader with the image, so the effects warp it too
+   * (#108). The canvas grows down past the image to cover it; the image
+   * keeps its place and size. The shader must sample the `headline` layer
+   * (see shaders/layers.ts).
+   */
+  getHeadline?: () => HTMLElement | null;
+  /** WebGL is unavailable or was lost. */
+  onError?: () => void;
+  /** Shows the `?shader-debug` panel, headed with this label. */
+  debug?: string;
+  /**
+   * A click on the canvas. A new shaderConfig then swaps in on the live
+   * canvas, revealed from where the click landed.
+   */
+  onCanvasClick?: () => void;
 };
 
 const calculateDimensions = (
@@ -75,11 +93,15 @@ const aspectClass: Record<AspectRatio, string> = {
   '1680:1050': 'aspect-1680/1050',
 };
 
+/** 3456 × 3456: the portrait's buffer at 2x on a 1728px-wide screen. */
+const HERO_MAX_PIXELS = 3456 * 3456;
+
 const baseUniforms = () => ({
   image: { value: null },
   imageResolution: { value: new THREE.Vector2() },
   mouse: { value: new THREE.Vector2() },
   time: { value: 0 },
+  ...headlineUniforms(),
 });
 
 /** Loads `src` as the `image` texture. */
@@ -95,6 +117,10 @@ const imageTexture =
         loaded.dispose();
         return;
       }
+      // The canvas composites premultiplied, so the image has to be too:
+      // straight, the portrait's feathered bottom shows at full strength and
+      // ends on a hard line where its alpha reaches zero.
+      loaded.premultiplyAlpha = true;
       texture = loaded;
       material.uniforms.image.value = loaded;
       material.uniforms.imageResolution.value.set(
@@ -168,13 +194,41 @@ export const ImageThreeShader = ({
   src,
   aspectRatio = '1:1',
   shaderConfig,
+  getHeadline,
+  onError,
+  debug,
+  onCanvasClick,
 }: ImageThreeShaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const input = useMemo(() => imageTexture(src), [src]);
-  const getSize = useCallback(
-    (container: HTMLElement) =>
-      calculateDimensions(container.getBoundingClientRect(), aspectRatio),
+  const input = useMemo(
+    () =>
+      getHeadline
+        ? combineInputs(imageTexture(src), headlineTexture(getHeadline))
+        : imageTexture(src),
+    [src, getHeadline],
+  );
+  // The image's own box, from the canvas's top left.
+  const getFrame = useCallback(
+    (container: HTMLElement) => ({
+      x: 0,
+      y: 0,
+      ...calculateDimensions(container.getBoundingClientRect(), aspectRatio),
+    }),
     [aspectRatio],
+  );
+  const getSize = useCallback(
+    (container: HTMLElement) => {
+      const bounds = container.getBoundingClientRect();
+      const size = calculateDimensions(bounds, aspectRatio);
+      const headline = getHeadline?.()?.getBoundingClientRect();
+      if (!headline) return size;
+      // Grow down to the headline's bottom when it runs past the image.
+      return {
+        width: size.width,
+        height: Math.max(size.height, Math.ceil(headline.bottom - bounds.top)),
+      };
+    },
+    [aspectRatio, getHeadline],
   );
 
   useShaderRenderer(containerRef, {
@@ -182,15 +236,30 @@ export const ImageThreeShader = ({
     baseUniforms,
     input,
     getSize,
-    antialias: true,
-    maxPixelRatio: 2,
+    getFrame,
+    // Multisampling only smooths polygon edges, and this plane's edges are
+    // the canvas's. With the headline the canvas is larger, so skip it.
+    antialias: !getHeadline,
+    // The type has to be as sharp as the DOM's, so render at the screen's
+    // full ratio when it's in here, within the buffer the hero has always
+    // drawn on a 1728px-wide screen at 2x.
+    maxPixelRatio: getHeadline ? 3 : 2,
+    maxPixels: getHeadline ? HERO_MAX_PIXELS : undefined,
     mouseDamping: 0.08,
+    resizeWith: getHeadline,
+    // The image's box is translated and can sit on a half pixel, where the
+    // canvas would be resampled and the type softened.
+    snapToPixels: !!getHeadline,
+    onError,
+    debug,
+    onCanvasClick,
   });
 
   return (
     <div
       ref={containerRef}
       className={clsx(
+        onCanvasClick && 'cursor-pointer',
         'relative inline-block w-full h-full',
         aspectClass[aspectRatio],
         className,

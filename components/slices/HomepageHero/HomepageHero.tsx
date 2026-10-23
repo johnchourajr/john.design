@@ -3,13 +3,25 @@
 import clsx from 'clsx';
 import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import {
   fragmentThreeShaders,
+  heroShaderVariants,
+  isHeadlineInShader,
+  nextShaderVariant,
+  pickShaderVariant,
   type ShaderVariant,
 } from '@/components/experimental/ImageThreeShader/shaders';
+import { isShaderDebug } from '@/components/experimental/shaderDebug';
 import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { RolesSection } from '@/components/slices/RolesSection';
@@ -34,8 +46,12 @@ export type HomepageHeroProps = {
   rolesSection: SectionStructure;
 };
 
-type ShaderConfig = {
-  fragmentShader: string;
+type HeroShader = {
+  variant: ShaderVariant;
+  /** Draw the headline inside the shader, so the effects warp it too (#108). */
+  withHeadline: boolean;
+  /** `?shader-debug`: heads the debug panel. */
+  debug?: string;
 };
 
 export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
@@ -44,24 +60,41 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     return heroSection.headlineData;
   }, [heroSection]);
 
+  // The headline's box. The shader draws its text and hides it once it can.
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const getHeadline = useCallback(() => headlineRef.current, []);
+
   // Defer shader variant selection to client to avoid hydration mismatch
-  const [shaderConfig, setShaderConfig] = useState<ShaderConfig | null>(null);
+  const [heroShader, setHeroShader] = useState<HeroShader | null>(null);
+  const shaderConfig = useMemo(
+    () =>
+      heroShader && { fragmentShader: fragmentThreeShaders[heroShader.variant] },
+    [heroShader],
+  );
+  // A click on the portrait moves on to the next effect, except while
+  // drawing, where a click is a mark.
+  const cycleShader = useCallback(
+    () =>
+      setHeroShader(
+        (current) =>
+          current && {
+            ...current,
+            variant: nextShaderVariant(current.variant, heroShaderVariants),
+          },
+      ),
+    [],
+  );
 
   useEffect(() => {
-    const variants: ShaderVariant[] = [
-      'pixel',
-      'distortion',
-      'vertical',
-      'loupe',
-      'sphere',
-      'prism',
-    ];
-    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
     // The variant is random, so choosing it during render would differ between server and
     // client and break hydration. Picking it once after mount is the intended pattern here.
+    const variant = pickShaderVariant(heroShaderVariants);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setShaderConfig({
-      fragmentShader: fragmentThreeShaders[randomVariant],
+    setHeroShader({
+      variant,
+      withHeadline: isHeadlineInShader(),
+      // Not the variant: a new label would rebuild the canvas on every click.
+      debug: isShaderDebug() ? 'home' : undefined,
     });
   }, []);
 
@@ -70,7 +103,10 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       id="hero"
       className="relative flex flex-col items-center z-10 min-h-screen overflow-hidden"
     >
-      <div className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none">
+      <div
+        ref={headlineRef}
+        className="flex self-start w-full py-[20vw] md:py-0 min-h-[60vw] pointer-events-none"
+      >
         <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
           <JustifiedHeadlineInner
             className={clsx(
@@ -109,12 +145,15 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           'translate-y-[-5%]',
         )}
       >
-        {shaderConfig && (
+        {heroShader && shaderConfig && (
           <ImageThreeShader
             className={clsx('absolute', 'w-full h-full')}
             src="/me-alpha-moody.png"
             aspectRatio="1:1"
             shaderConfig={shaderConfig}
+            getHeadline={heroShader.withHeadline ? getHeadline : undefined}
+            debug={heroShader.debug}
+            onCanvasClick={enableDrawing ? undefined : cycleShader}
           />
         )}
       </div>

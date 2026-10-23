@@ -25,4 +25,47 @@ export const fragmentThreeShaders: Record<ShaderVariant, string> = {
   prism: prismShader,
 };
 
+/**
+ * The heroes' set, on home and on every justified headline, in the order a
+ * click cycles through them: the two round lenses (loupe, sphere) are kept
+ * apart. Each one also draws the headline layer, and warps it while the
+ * pointer is over it (#108).
+ */
+export const heroShaderVariants: ShaderVariant[] = [
+  'pixel',
+  'distortion',
+  'loupe',
+  'vertical',
+  'sphere',
+  'prism',
+];
+
+/**
+ * A random variant from `variants`. `?shader=<variant>` pins any hero
+ * variant, for review and screenshots. Client only, after mount: it reads
+ * the URL and is random.
+ */
+export function pickShaderVariant(variants: ShaderVariant[]): ShaderVariant {
+  const pinned = new URLSearchParams(window.location.search).get('shader');
+  if (pinned && heroShaderVariants.includes(pinned as ShaderVariant)) {
+    return pinned as ShaderVariant;
+  }
+  return variants[Math.floor(Math.random() * variants.length)];
+}
+
+/** The variant after `current` in `variants`, wrapping round. */
+export function nextShaderVariant(
+  current: ShaderVariant,
+  variants: ShaderVariant[],
+): ShaderVariant {
+  return variants[(variants.indexOf(current) + 1) % variants.length];
+}
+
+/** `?shader-text=off` leaves the headline in the DOM, to compare against. */
+export function isHeadlineInShader(): boolean {
+  return (
+    new URLSearchParams(window.location.search).get('shader-text') !== 'off'
+  );
+}
+
 export type { AspectRatio, ShaderVariant } from './types';

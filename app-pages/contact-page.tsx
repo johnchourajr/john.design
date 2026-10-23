@@ -1,4 +1,7 @@
-import { JustifiedHeadlineInner } from '@/components/justified-headline';
+import {
+  HeadlineShader,
+  JustifiedHeadlineInner,
+} from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
 import { contactData } from '@/data/contactContent';
 import clsx from 'clsx';
@@ -13,25 +16,27 @@ export default function ContactPage({
   return (
     <>
       <h1 className="sr-only">Contact</h1>
-      <section className="my-[4vw] max-w-[100vw] overflow-hidden">
-        <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
-          {title.map((item, i) => (
-            <JustifiedHeadlineInner
-              key={i}
-              className={clsx(
-                'leading-none w-full font-black pointer-events-none',
-              )}
-              headline={[
-                {
-                  text: item,
-                  motionObject: getRandomParentAndChildClassesArray(8),
-                },
-              ]}
-              iterations={8}
-              letters={true}
-            />
-          ))}
-        </Suspense>
+      <section className="-mt-[8vw] -mb-[12vw] max-w-[100vw] overflow-hidden">
+        <HeadlineShader>
+          <Suspense fallback={<div className="bg-black aspect-square w-full" />}>
+            {title.map((item, i) => (
+              <JustifiedHeadlineInner
+                key={i}
+                className={clsx(
+                  'leading-none w-full font-black pointer-events-none',
+                )}
+                headline={[
+                  {
+                    text: item,
+                    motionObject: getRandomParentAndChildClassesArray(8),
+                  },
+                ]}
+                iterations={8}
+                letters={true}
+              />
+            ))}
+          </Suspense>
+        </HeadlineShader>
       </section>
       <section className="my-[8vw] px-4">
         <h2 className="text-string">Social</h2>
