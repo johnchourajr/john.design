@@ -14,7 +14,6 @@ import {
 
 import { useDrawing } from '@/components/experimental/Drawing/Drawing.context';
 import {
-  fragmentThreeShaders,
   heroShaderVariants,
   isHeadlineInShader,
   nextShaderVariant,
@@ -29,11 +28,11 @@ import type { HomePageData } from '@/data/homepageContent';
 import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import type { SectionStructure } from '@/types/content-types';
 
-// Lazy load Three.js shader component to reduce initial bundle size
-const ImageThreeShader = dynamic(
+// The shader (vgpu, or three.js for the fallback) loads after the page.
+const ImageShader = dynamic(
   () =>
-    import('@/components/experimental/ImageThreeShader').then(
-      (mod) => mod.ImageThreeShader,
+    import('@/components/experimental/ImageThreeShader/ImageShader').then(
+      (mod) => mod.ImageShader,
     ),
   {
     ssr: false,
@@ -66,11 +65,6 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
 
   // Defer shader variant selection to client to avoid hydration mismatch
   const [heroShader, setHeroShader] = useState<HeroShader | null>(null);
-  const shaderConfig = useMemo(
-    () =>
-      heroShader && { fragmentShader: fragmentThreeShaders[heroShader.variant] },
-    [heroShader],
-  );
   // A click on the portrait moves on to the next effect, except while
   // drawing, where a click is a mark.
   const cycleShader = useCallback(
@@ -145,12 +139,12 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           'translate-y-[-5%]',
         )}
       >
-        {heroShader && shaderConfig && (
-          <ImageThreeShader
+        {heroShader && (
+          <ImageShader
             className={clsx('absolute', 'w-full h-full')}
             src="/me-alpha-moody.png"
             aspectRatio="1:1"
-            shaderConfig={shaderConfig}
+            variant={heroShader.variant}
             getHeadline={heroShader.withHeadline ? getHeadline : undefined}
             debug={heroShader.debug}
             onCanvasClick={enableDrawing ? undefined : cycleShader}

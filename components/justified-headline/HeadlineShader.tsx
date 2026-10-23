@@ -11,7 +11,6 @@ import {
 } from 'react';
 
 import {
-  fragmentThreeShaders,
   heroShaderVariants,
   isHeadlineInShader,
   nextShaderVariant,
@@ -20,7 +19,7 @@ import {
 } from '../experimental/ImageThreeShader/shaders';
 import { isShaderDebug } from '../experimental/shaderDebug';
 
-// three.js loads after the page, like the home hero's shader.
+// The shader (vgpu, or three.js for the fallback) loads after the page.
 const HeadlineShaderLayer = dynamic(() => import('./HeadlineShaderLayer'), {
   ssr: false,
 });
@@ -81,7 +80,7 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
       {shader && (
         <HeadlineShaderLayer
           getRoot={getRoot}
-          fragmentShader={fragmentThreeShaders[shader.variant]}
+          variant={shader.variant}
           debug={shader.debug}
           onError={() => setShader(null)}
           onCanvasClick={cycleShader}
