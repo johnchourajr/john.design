@@ -12,6 +12,8 @@ import {
 } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
+import { blur, distance, duration, ease } from '@/lib/config/motion-tokens';
+
 import type { Poster } from './posters';
 import { TypePoster } from './TypePoster';
 
@@ -21,7 +23,26 @@ type TypePosterGalleryProps = {
   posters: GalleryPoster[];
 };
 
-const spring = { type: 'spring', stiffness: 260, damping: 32 } as const;
+// A poster opens like a panel and closes on the next step down, so leaving
+// is quicker than arriving (the transitions.dev scale).
+const opening = { duration: duration.slow, ease: ease.smoothOut };
+const closing = { duration: duration.medium, ease: ease.smoothOut };
+
+// The caption's lines rise in one after another through a soft blur once
+// the poster has landed, and leave with a fade that barely registers.
+const captionLines = {
+  hidden: {},
+  shown: { transition: { delayChildren: duration.fast, staggerChildren: duration.stagger } },
+};
+const captionLine = {
+  hidden: { opacity: 0, y: distance.medium, filter: `blur(${blur.medium}px)` },
+  shown: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: duration.verySlow, ease: ease.inOut },
+  },
+};
 
 /**
  * Where each poster hangs on the wall, in order: left and top as shares of
@@ -141,7 +162,7 @@ function WallPoster({
       <motion.button
         type="button"
         layout
-        transition={spring}
+        transition={reducedMotion ? { duration: 0 } : isOpen ? opening : closing}
         // Motion values: the trail follows the wall frame by frame.
         style={{ x, rotate }}
         onClick={onOpen}
@@ -169,7 +190,7 @@ function WallPoster({
           paper={poster.paper}
           // A hairline edge, so dark posters stand off the black wall.
           className={clsx(
-            'h-full ring-1 ring-white/20 transition-[box-shadow,scale] duration-300 ease-out',
+            'h-full ring-1 ring-white/20 transition-[box-shadow,scale] duration-(--duration-fast) ease-(--ease-smooth-out) motion-reduce:transition-none',
             !isOpen &&
               'group-hover:ring-root group-hover:scale-[1.02] group-focus-visible:ring-root group-focus-visible:scale-[1.02]',
           )}
@@ -178,18 +199,21 @@ function WallPoster({
         <AnimatePresence>
           {isOpen && (
             <motion.span
-              // Counter-scaled while the poster's box animates, and gone the
-              // moment it closes, so it never stretches with the box.
+              // Counter-scaled while the poster's box animates, so it never
+              // stretches with the box.
               layout
-              initial={{ opacity: 0, x: 4 }}
-              animate={{ opacity: 1, x: 0, transition: { delay: 0.25 } }}
-              exit={{ opacity: 0, transition: { duration: 0 } }}
+              variants={reducedMotion ? undefined : captionLines}
+              initial="hidden"
+              animate="shown"
+              exit={{ opacity: 0, transition: { duration: duration.micro } }}
               className="absolute right-full bottom-0 mr-6 flex flex-col gap-1 w-[22em] max-w-[calc((100vw-100%)/2-2.5rem)] text-left text-string text-root pointer-events-none"
             >
-              <span>
+              <motion.span variants={reducedMotion ? undefined : captionLine}>
                 {String(index + 1).padStart(2, '0')} {poster.title}
-              </span>
-              <span className="opacity-60">{poster.concept}</span>
+              </motion.span>
+              <motion.span variants={reducedMotion ? undefined : captionLine}>
+                <span className="opacity-60">{poster.concept}</span>
+              </motion.span>
             </motion.span>
           )}
         </AnimatePresence>
@@ -316,9 +340,8 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            animate={{ opacity: 1, transition: { duration: duration.fast, ease: ease.smoothOut } }}
+            exit={{ opacity: 0, transition: { duration: duration.quick, ease: ease.smoothOut } }}
             onClick={() => setOpen(null)}
             data-testid="type-poster-backdrop"
             className="fixed inset-0 z-65 bg-black/85 cursor-zoom-out"

@@ -34,6 +34,34 @@
     border-color: var(--color-gray-200, currentcolor);
   }
 
+  /*
+    The motion scale, from transitions.dev: pick a token by what the motion
+    does, not by its number (a modal's close is --duration-quick however long
+    it was). lib/config/motion-tokens.ts carries the same scale for motion's
+    JS props; keep the two in step.
+  */
+  :root {
+    --duration-stagger: 40ms;
+    --duration-micro: 80ms;
+    --duration-quick: 150ms;
+    --duration-fast: 250ms;
+    --duration-medium: 350ms;
+    --duration-slow: 400ms;
+    --duration-very-slow: 500ms;
+    --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: ease-in-out;
+    --ease-bounce: cubic-bezier(0.34, 1.36, 0.64, 1);
+    --distance-micro: 4px;
+    --distance-base: 8px;
+    --distance-medium: 12px;
+    --scale-large: 0.96;
+    --scale-medium: 0.97;
+    --scale-small: 0.98;
+    --scale-tiny: 0.99;
+    --blur-small: 2px;
+    --blur-medium: 3px;
+  }
+
   /* Tailwind v4's preflight leaves buttons on the default cursor; v3 used a pointer. */
   button:not(:disabled),
   [role='button']:not(:disabled) {
