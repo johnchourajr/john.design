@@ -34,3 +34,13 @@ Tickets are GitHub Issues, via `gh issue`. How to title, write, label and link t
 - ESLint 9 uses the flat config in `eslint.config.mjs`, which imports `eslint-config-next/core-web-vitals`. There are no import-order or Prettier lint rules; `.prettierrc` only serves editor formatting. ESLint 10 waits on `eslint-plugin-react`, `eslint-plugin-import` and `eslint-plugin-jsx-a11y` (pulled in by `eslint-config-next`) supporting it, see #93.
 - Hero headlines (home and every `JustifiedHeadlineInner` hero) are drawn inside the shader so its effects warp the type (#108): `components/experimental/headlineTexture.ts` rasterises the DOM letters into a texture, and the DOM headline goes to `opacity: 0` once the canvas shows it. The DOM text stays visible with reduced motion, without WebGL and until fonts load. `?shader=<variant>` pins a hero variant, `?shader-text=off` keeps the headline in the DOM for side-by-side review, and `?shader-debug` shows a live readout of the shader's state (sizes, loop, hover, headline). The hero canvas mirrors whether the pointer has arrived as `data-hover`.
 - Proposal detail pages (`/proposals/[slug]`) hide the site Header, Footer, and top padding via the `useIsProposalDetail` hook (`NavLeft`, `NavRight`, `Footer`, `LayoutInner`).
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
