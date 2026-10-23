@@ -17,6 +17,10 @@ type TypePosterProps = Pick<Poster, 'slug' | 'title' | 'words' | 'paper'> & {
   className?: string;
   /** Run the shader over the snapshot. Off, the poster is its snapshot alone. */
   live?: boolean;
+  /** Shimmer while the shader loads, for a poster someone is waiting on. */
+  shimmer?: boolean;
+  /** Its shader has drawn its first frame, or can't run. */
+  onLoaded?: () => void;
 };
 
 /**
@@ -25,11 +29,21 @@ type TypePosterProps = Pick<Poster, 'slug' | 'title' | 'words' | 'paper'> & {
  *
  * The poster is its snapshot, its first frame captured by
  * `scripts/capture-poster-snapshots.sh`, in the prerendered page. Only when
- * it's `live` (on the wall, once it's been opened) does the shader load
+ * it's `live` (on the wall, once it's been opened or its turn to load in
+ * the background has come) does the shader load
  * and fade in over it; the snapshot stays if the shader can't run. The
  * first live frame is the snapshot's, so the hand-over doesn't show.
  */
-export function TypePoster({ slug, title, words, paper, className, live = false }: TypePosterProps) {
+export function TypePoster({
+  slug,
+  title,
+  words,
+  paper,
+  className,
+  live = false,
+  shimmer = false,
+  onLoaded,
+}: TypePosterProps) {
   const [failed, setFailed] = useState(false);
   const [drawn, setDrawn] = useState(false);
 
@@ -52,12 +66,18 @@ export function TypePoster({ slug, title, words, paper, className, live = false 
       {live && !failed && (
         <TypePosterCanvas
           slug={slug}
-          onError={() => setFailed(true)}
-          onFirstFrame={() => setDrawn(true)}
+          onError={() => {
+            setFailed(true);
+            onLoaded?.();
+          }}
+          onFirstFrame={() => {
+            setDrawn(true);
+            onLoaded?.();
+          }}
         />
       )}
       {/* A shimmer over the snapshot from opening until the shader draws. */}
-      {live && <ShaderLoader visible={!drawn && !failed} variant="sheen" />}
+      {live && <ShaderLoader visible={shimmer && !drawn && !failed} variant="sheen" />}
     </div>
   );
 }
