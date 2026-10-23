@@ -62,13 +62,13 @@ const HANG = [
 ];
 
 /**
- * The wall's left edge, in CSS px, following the pointer across the
- * screen: at the screen's left edge the wall shows its own left end, at the
- * right its right end. It starts in the middle, so the wall runs off both
- * sides, and holds still while `paused`. `panTo` slides it to a poster,
- * for the keyboard.
+ * The wall's left edge, in CSS px, moved by the scroll wheel or trackpad
+ * (either axis) and by dragging, with a mouse, pen or finger. It starts in
+ * the middle, so the wall runs off both sides, and holds still while
+ * `paused`. `panTo` slides it to a poster, for the keyboard. `dragging`
+ * is mirrored on the view as `data-dragging`, for the cursor.
  */
-function useCursorPan(
+function useWallPan(
   view: React.RefObject<HTMLElement | null>,
   wall: React.RefObject<HTMLElement | null>,
   paused: boolean,
@@ -90,41 +90,56 @@ function useCursorPan(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // A cursor steers the wall by where it is across the screen. A finger
-  // has no resting position, so it drags the wall instead, one to one.
+  // A drag moves the wall one to one. One that travels counts as a drag,
+  // not a tap, so it doesn't open the poster it ends on.
   const dragged = useRef(false);
   useEffect(() => {
-    if (paused) return;
+    const element = view.current;
+    if (paused || !element) return;
     const clamp = (x: number) => Math.min(0, Math.max(-overflow(), x));
-    let touch: { x: number; from: number } | null = null;
+    let grab: { id: number; x: number; from: number } | null = null;
     const down = (event: PointerEvent) => {
-      if (event.pointerType === 'mouse') return;
-      touch = { x: event.clientX, from: target.get() };
+      if (event.button !== 0) return;
+      grab = { id: event.pointerId, x: event.clientX, from: target.get() };
       dragged.current = false;
     };
     const move = (event: PointerEvent) => {
-      if (event.pointerType === 'mouse') {
-        const share = Math.min(1, Math.max(0, event.clientX / window.innerWidth));
-        target.set(-overflow() * share);
-        return;
+      if (!grab || event.pointerId !== grab.id) return;
+      const dx = event.clientX - grab.x;
+      if (!dragged.current && Math.abs(dx) > 6) {
+        dragged.current = true;
+        element.dataset.dragging = '';
       }
-      if (!touch) return;
-      const dx = event.clientX - touch.x;
-      if (Math.abs(dx) > 6) dragged.current = true;
-      target.set(clamp(touch.from + dx));
+      if (dragged.current) target.set(clamp(grab.from + dx));
     };
     const up = () => {
-      touch = null;
+      grab = null;
+      delete element.dataset.dragging;
+      // Only the click this drag ends on is ignored: after it, a key or a
+      // tap opens posters again.
+      if (dragged.current) window.setTimeout(() => (dragged.current = false));
     };
-    window.addEventListener('pointerdown', down);
+    // Wheels and trackpads scroll either way; both move the wall sideways.
+    // Heard anywhere on the page, over the nav too, since nothing else here
+    // scrolls; not passive, so the page doesn't take it.
+    const wheel = (event: WheelEvent) => {
+      event.preventDefault();
+      const scale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? element.clientWidth : 1;
+      const delta = (Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY) * scale;
+      target.set(clamp(target.get() - delta));
+    };
+    element.addEventListener('pointerdown', down);
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
     window.addEventListener('pointercancel', up);
+    window.addEventListener('wheel', wheel, { passive: false });
     return () => {
-      window.removeEventListener('pointerdown', down);
+      up();
+      element.removeEventListener('pointerdown', down);
       window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerup', up);
       window.removeEventListener('pointercancel', up);
+      window.removeEventListener('wheel', wheel);
     };
     // Only the pause re-arms it; the motion values and refs are stable.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,6 +169,8 @@ type WallPosterProps = {
   wallLeft: MotionValue<number>;
   isOpen: boolean;
   isSettling: boolean;
+  /** Its shader runs, rather than its snapshot alone. */
+  isLive: boolean;
   onOpen: () => void;
   onSettled: () => void;
 };
@@ -170,6 +187,7 @@ function WallPoster({
   wallLeft,
   isOpen,
   isSettling,
+  isLive,
   onOpen,
   onSettled,
 }: WallPosterProps) {
@@ -204,7 +222,7 @@ function WallPoster({
           'block text-left',
           isOpen
             ? 'fixed inset-0 m-auto z-70 h-[min(86vh,120vw)] aspect-3/4 cursor-auto'
-            : 'absolute inset-0 w-full h-full cursor-zoom-in',
+            : 'absolute inset-0 w-full h-full cursor-zoom-in in-data-dragging:cursor-grabbing',
           // Before it opens, a poster answers the pointer: it lifts a
           // little and its edge takes the page's colour.
           !isOpen && 'group',
@@ -216,6 +234,7 @@ function WallPoster({
           title={poster.title}
           words={poster.words}
           paper={poster.paper}
+          live={isLive}
           // A hairline edge, so dark posters stand off the black wall.
           className={clsx(
             'h-full ring-1 ring-white/20 transition-[box-shadow,scale] duration-(--duration-fast) ease-(--ease-smooth-out) motion-reduce:transition-none',
@@ -268,13 +287,21 @@ function WallPoster({
  * become the open poster's containing block and pin it inside the wall.
  */
 export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
-  const [open, setOpen] = useState<string | null>(null);
+  const [open, setOpenSlug] = useState<string | null>(null);
+  // Posters that have been opened. The wall shows each poster's snapshot,
+  // and its shader only loads once it's opened; it then stays, so closing
+  // doesn't jump from the live frame back to the still.
+  const [opened, setOpened] = useState<ReadonlySet<string>>(() => new Set());
+  const setOpen = (slug: string | null) => {
+    setOpenSlug(slug);
+    if (slug) setOpened((current) => (current.has(slug) ? current : new Set(current).add(slug)));
+  };
   // Kept above the others until it has settled back into its slot.
   const [settling, setSettling] = useState<string | null>(null);
   const active = posters.find((poster) => poster.slug === open);
   const viewRef = useRef<HTMLElement>(null);
   const wallRef = useRef<HTMLDivElement>(null);
-  const { left, panTo, dragged } = useCursorPan(viewRef, wallRef, !!open);
+  const { left, panTo, dragged } = useWallPan(viewRef, wallRef, !!open);
   // The poster the arrow keys are on, while none is open.
   const focused = useRef(-1);
 
@@ -338,8 +365,13 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
       ref={viewRef}
       data-testid="type-poster-wall"
       // Above the back link while a poster is open, so the backdrop covers it.
-      // A finger drags the wall, so the browser mustn't take the gesture.
-      className={clsx('fixed inset-0 overflow-hidden pt-20 pb-14 touch-none', open && 'z-61')}
+      // The wall is dragged, so the browser mustn't take the gesture, and
+      // the cursor says so.
+      className={clsx(
+        'fixed inset-0 overflow-hidden pt-20 pb-14 touch-none select-none',
+        !open && 'cursor-grab data-dragging:cursor-grabbing',
+        open && 'z-61',
+      )}
     >
       <motion.div
         ref={wallRef}
@@ -358,6 +390,7 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
             wallLeft={left}
             isOpen={poster.slug === open}
             isSettling={poster.slug === settling}
+            isLive={opened.has(poster.slug)}
             onOpen={() => select(poster.slug)}
             onSettled={() =>
               setSettling((current) => (current === poster.slug ? null : current))
