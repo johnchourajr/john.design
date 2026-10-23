@@ -73,7 +73,9 @@ export default function ContactPage({
             )}
           >
             <span className="no-underline group-hover:underline underline-offset-4 decoration-2">
-              {item.email}
+              {/* A long address may wrap after the @ on a narrow screen. */}
+              {item.email.split('@')[0]}@<wbr />
+              {item.email.split('@')[1]}
             </span>
           </Link>
         </section>
