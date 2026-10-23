@@ -30,8 +30,8 @@ type TypePosterWebglProps = {
 
 /**
  * One poster on WebGL: its composition drawn into a texture, through its
- * GLSL shader. The fallback for browsers without WebGPU (#123); split out
- * so three.js only loads when it's needed.
+ * GLSL shader. The default renderer (#131), and the fallback for the
+ * WebGPU port (#123); split out so three.js loads after the page.
  */
 export default function TypePosterWebgl({ slug, onError }: TypePosterWebglProps) {
   const containerRef = useRef<HTMLDivElement>(null);

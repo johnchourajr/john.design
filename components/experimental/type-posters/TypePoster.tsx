@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 import type { Poster } from './posters';
 
-// The renderer (vgpu, or three.js for the fallback) loads after the page.
+// The renderer (three.js, or vgpu for the WebGPU port) loads after the page.
 const TypePosterCanvas = dynamic(() => import('./TypePosterCanvas'), {
   ssr: false,
 });
