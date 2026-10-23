@@ -2,6 +2,15 @@ import { cancelFrame, frame as frameLoop, useReducedMotion } from 'motion/react'
 import { useCallback, useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { debugNumber as n, mountShaderDebug } from './shaderDebug';
+import {
+  layerRectOf,
+  layoutShader,
+  revealRadius,
+  shaderPixelRatio,
+  startReveal,
+  type Reveal,
+} from './shaderLayout';
+import { trackShaderPointer } from './shaderPointer';
 import { useShaderUniforms } from './useShaderUniforms';
 
 /** A fullscreen-plane shader: the program plus any extra uniforms. */
@@ -117,9 +126,6 @@ export type ShaderRendererOptions = {
   debug?: string;
 };
 
-/** Seconds for `hover` to cover most of the way to its target. */
-const HOVER_EASE = 0.18;
-
 export const defaultVertexShader = `
   varying vec2 vUv;
   void main() {
@@ -127,9 +133,6 @@ export const defaultVertexShader = `
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
 `;
-
-/** How long a program swap takes to reveal, in ms. */
-const SWAP_MS = 700;
 
 /**
  * A program swap: the new frame (\`to\`) revealed over the old (\`from\`)
@@ -294,11 +297,7 @@ export function useShaderRenderer(
       return;
     }
     const pixelRatio = (width = 1, height = 1) =>
-      Math.min(
-        window.devicePixelRatio,
-        maxPixelRatio,
-        Math.sqrt(maxPixels / Math.max(1, width * height)),
-      );
+      shaderPixelRatio(width, height, maxPixelRatio, maxPixels);
     renderer.setPixelRatio(pixelRatio());
     const canvas = renderer.domElement;
     container.appendChild(canvas);
@@ -320,20 +319,27 @@ export function useShaderRenderer(
     const uniforms = material.uniforms;
 
     const startTime = performance.now();
-    const pointer = { x: restingMouse?.x ?? 0, y: restingMouse?.y ?? 0 };
-    const mouse = { ...pointer };
     const frame: ShaderFrame = { x: 0, y: 0, width: 0, height: 0 };
     // How far the canvas is nudged onto the pixel grid, in CSS pixels.
     const snap = { x: 0, y: 0 };
     const buffer = new THREE.Vector2();
+    const cursor = trackShaderPointer({
+      container,
+      canvas,
+      mouseSpace,
+      pointerTarget,
+      jumpOnEnter,
+      restingMouse,
+      mouseDamping,
+      offset: () => ({ x: frame.x + snap.x, y: frame.y + snap.y }),
+      onClick: () => onCanvasClickRef.current,
+    });
+    const { mouse } = cursor;
     let visible = true;
     let isReady = false;
     let lost = false;
     let looping = false;
     let stillPending = false;
-    // `hover`: 1 while a pointer or finger is over the canvas, eased.
-    let hover = 0;
-    let hoverTarget = 0;
     let lastTick = performance.now();
     let handle: ShaderInputHandle | null = null;
 
@@ -341,8 +347,7 @@ export function useShaderRenderer(
     // the new one is revealed over it from the last click. Both share the
     // one set of uniforms, so they see the same pointer, time and type.
     let outgoing: THREE.ShaderMaterial | null = null;
-    let swapStart = 0;
-    let lastClick: { x: number; y: number; time: number } | null = null;
+    let swap: Reveal | null = null;
     const swapFrom = new THREE.WebGLRenderTarget(1, 1);
     const swapTo = new THREE.WebGLRenderTarget(1, 1);
     const reveal = new THREE.ShaderMaterial({
@@ -359,15 +364,14 @@ export function useShaderRenderer(
     });
     const revealScene = new THREE.Scene();
     revealScene.add(new THREE.Mesh(geometry, reveal));
-    let revealReach = 0;
 
     const drawScene = () => {
       if (!outgoing) {
         renderer.render(scene, camera);
         return;
       }
-      const progress = Math.min((performance.now() - swapStart) / SWAP_MS, 1);
-      if (progress >= 1) {
+      const radius = swap && revealRadius(swap);
+      if (radius === null) {
         outgoing.dispose();
         outgoing = null;
         renderer.render(scene, camera);
@@ -380,13 +384,7 @@ export function useShaderRenderer(
       renderer.setRenderTarget(swapTo);
       renderer.render(scene, camera);
       renderer.setRenderTarget(null);
-      // Ease in and out.
-      const eased =
-        progress < 0.5
-          ? 4 * progress ** 3
-          : 1 - (-2 * progress + 2) ** 3 / 2;
-      reveal.uniforms.radius.value =
-        eased * (revealReach + reveal.uniforms.feather.value);
+      reveal.uniforms.radius.value = radius;
       renderer.render(revealScene, camera);
     };
 
@@ -399,7 +397,7 @@ export function useShaderRenderer(
           : 0;
       }
       uniforms.mouse?.value.set(mouse.x, mouse.y);
-      if (uniforms.hover) uniforms.hover.value = hover;
+      if (uniforms.hover) uniforms.hover.value = cursor.hover();
       // Inputs prepare a frame only once the plane is drawn, so nothing
       // swaps itself out for a canvas that is still empty.
       if (isReady) handle?.beforeRender?.();
@@ -434,13 +432,7 @@ export function useShaderRenderer(
       const now = performance.now();
       const elapsed = Math.min((now - lastTick) / 1000, 0.25);
       lastTick = now;
-      // Both ease by elapsed time, so they move as fast at 30, 60 or 120
-      // frames a second. mouseDamping is the share per 60th of a second.
-      hover += (hoverTarget - hover) * (1 - Math.exp(-elapsed / HOVER_EASE));
-      if (Math.abs(hoverTarget - hover) < 0.001) hover = hoverTarget;
-      const follow = 1 - Math.pow(1 - mouseDamping, elapsed * 60);
-      mouse.x += (pointer.x - mouse.x) * follow;
-      mouse.y += (pointer.y - mouse.y) * follow;
+      cursor.step(elapsed);
       render();
     };
 
@@ -466,34 +458,18 @@ export function useShaderRenderer(
     };
 
     const resize = () => {
-      const size = getSize(container);
-      let { width, height } = size;
-      Object.assign(
+      const { width, height } = layoutShader(
+        container,
+        canvas,
+        { getSize, getFrame, snapToPixels },
         frame,
-        getFrame ? getFrame(container, size) : { x: 0, y: 0, width, height },
+        snap,
       );
-      if (snapToPixels) {
-        const bounds = container.getBoundingClientRect();
-        const left = bounds.left + window.scrollX;
-        const top = bounds.top + window.scrollY;
-        snap.x = Math.round(left) - left;
-        snap.y = Math.round(top) - top;
-        canvas.style.transform = `translate(${snap.x}px, ${snap.y}px)`;
-        frame.x -= snap.x;
-        frame.y -= snap.y;
-        width = Math.ceil(width + Math.abs(snap.x));
-        height = Math.ceil(height + Math.abs(snap.y));
-      }
       // Zoom and moving between screens change the ratio, and both resize.
       renderer.setPixelRatio(pixelRatio(width, height));
       renderer.setSize(width, height);
       uniforms.resolution.value.set(frame.width, frame.height);
-      uniforms.layerRect?.value.set(
-        frame.x / width,
-        1 - (frame.y + frame.height) / height,
-        frame.width / width,
-        frame.height / height,
-      );
+      uniforms.layerRect?.value.set(...layerRectOf(frame, { width, height }));
       renderer.getDrawingBufferSize(buffer);
       swapFrom.setSize(buffer.x, buffer.y);
       swapTo.setSize(buffer.x, buffer.y);
@@ -524,96 +500,6 @@ export function useShaderRenderer(
     );
     intersectionObserver.observe(container);
 
-    const setPointer = (clientX: number, clientY: number) => {
-      const bounds = container.getBoundingClientRect();
-      const x = clientX - bounds.left;
-      const y = clientY - bounds.top;
-      if (mouseSpace === 'ndc') {
-        pointer.x = (x / bounds.width) * 2 - 1;
-        pointer.y = -(y / bounds.height) * 2 + 1;
-      } else {
-        pointer.x = x - frame.x - snap.x;
-        pointer.y = y - frame.y - snap.y;
-      }
-    };
-
-    const isOverCanvas = (clientX: number, clientY: number) => {
-      const area = canvas.getBoundingClientRect();
-      return (
-        clientX >= area.left &&
-        clientX <= area.right &&
-        clientY >= area.top &&
-        clientY <= area.bottom
-      );
-    };
-
-    // Mirrored on the canvas as data-hover, for tests and devtools. Only
-    // written when it changes.
-    const setHoverTarget = (next: number) => {
-      if (hoverTarget === next) return;
-      hoverTarget = next;
-      canvas.dataset.hover = String(next);
-    };
-
-    // The effect eases in the first time a pointer arrives, then stays:
-    // when the pointer leaves or a finger lifts, the lens holds its last
-    // place, like an object left on the page.
-    const arrive = (clientX: number, clientY: number, jump: boolean) => {
-      setPointer(clientX, clientY);
-      // Arriving from rest: start where the pointer is, not where it was.
-      if (jump && hover < 0.05) {
-        mouse.x = pointer.x;
-        mouse.y = pointer.y;
-      }
-      setHoverTarget(1);
-    };
-
-    // A mouse or pen. Touch has its own handler below.
-    const handlePointerMove = (event: PointerEvent) => {
-      if (event.pointerType === 'touch') return;
-      // Heard on the container, the pointer is over it. Heard on the
-      // window, it only counts over the canvas.
-      if (
-        pointerTarget === 'container' ||
-        isOverCanvas(event.clientX, event.clientY)
-      ) {
-        arrive(event.clientX, event.clientY, jumpOnEnter);
-      }
-    };
-
-    // A finger drives the effect while it's down on the canvas, scrolling
-    // included (touch events keep coming while the page scrolls). Listeners
-    // are passive, so scrolling is never held up.
-    const handleTouch = (event: TouchEvent) => {
-      const touch = event.touches[0];
-      if (touch && isOverCanvas(touch.clientX, touch.clientY)) {
-        arrive(touch.clientX, touch.clientY, true);
-      }
-    };
-
-    const pointerSource: HTMLElement | Window =
-      pointerTarget === 'window' ? window : container;
-    // A click on the canvas: not a drag, not a link or control over it, and
-    // not the end of a text selection.
-    let downAt: { x: number; y: number } | null = null;
-    const handlePointerDown = (event: PointerEvent) => {
-      downAt = { x: event.clientX, y: event.clientY };
-    };
-    const handleClick = (event: MouseEvent) => {
-      if (!onCanvasClickRef.current) return;
-      if (!isOverCanvas(event.clientX, event.clientY)) return;
-      if (downAt && Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y) > 8) {
-        return;
-      }
-      const target = event.target as Element | null;
-      if (target?.closest?.('a, button, input, select, textarea, label, [role="button"]')) {
-        return;
-      }
-      if (window.getSelection()?.toString()) return;
-      lastClick = { x: event.clientX, y: event.clientY, time: performance.now() };
-      onCanvasClickRef.current();
-    };
-
     swapRef.current = (next) => {
       const vertexShader = next.vertexShader || defaultVertexShader;
       if (
@@ -641,36 +527,15 @@ export function useShaderRenderer(
         return;
       }
       outgoing = previous;
-      swapStart = performance.now();
-      // From the click that asked for it, or the middle of the canvas.
-      const area = canvas.getBoundingClientRect();
-      const at =
-        lastClick && performance.now() - lastClick.time < 1000
-          ? lastClick
-          : { x: area.left + area.width / 2, y: area.top + area.height / 2 };
-      const ox = ((at.x - area.left) / area.width) * buffer.x;
-      const oy = ((area.bottom - at.y) / area.height) * buffer.y;
-      reveal.uniforms.origin.value.set(ox, oy);
-      revealReach = Math.max(
-        Math.hypot(ox, oy),
-        Math.hypot(buffer.x - ox, oy),
-        Math.hypot(ox, buffer.y - oy),
-        Math.hypot(buffer.x - ox, buffer.y - oy),
+      swap = startReveal(
+        canvas,
+        { width: buffer.x, height: buffer.y },
+        cursor.lastClick(),
       );
-      reveal.uniforms.feather.value = Math.hypot(buffer.x, buffer.y) * 0.08;
+      reveal.uniforms.origin.value.set(...swap.origin);
+      reveal.uniforms.feather.value = swap.feather;
       startLoop();
     };
-
-    const listen = { passive: true };
-    pointerSource.addEventListener('pointerdown', handlePointerDown as EventListener, listen);
-    pointerSource.addEventListener('click', handleClick as EventListener);
-    pointerSource.addEventListener(
-      'pointermove',
-      handlePointerMove as EventListener,
-      listen,
-    );
-    window.addEventListener('touchstart', handleTouch, listen);
-    window.addEventListener('touchmove', handleTouch, listen);
 
     // A lost context draws nothing, so hand back to the fallback. Disposing
     // the input first lets it restore anything it hid.
@@ -716,8 +581,8 @@ export function useShaderRenderer(
           `max renderbuffer ${maxRenderbuffer}, viewport ${maxViewport?.[0]}x${maxViewport?.[1]}`,
           `lost ${lost || gl.isContextLost()} looping ${looping} visible ${visible} ready ${isReady}`,
           `fps ${n(fps)} (renders ${renders})`,
-          `hover ${n(hover, 2)} -> ${hoverTarget}`,
-          `pointer ${n(pointer.x)},${n(pointer.y)} mouse ${n(mouse.x)},${n(mouse.y)}`,
+          `hover ${n(cursor.hover(), 2)} -> ${cursor.hoverTarget()}`,
+          `pointer ${n(cursor.pointer.x)},${n(cursor.pointer.y)} mouse ${n(mouse.x)},${n(mouse.y)}`,
           `frame ${n(frame.x)},${n(frame.y)} ${n(frame.width)}x${n(frame.height)} snap ${n(snap.x, 2)},${n(snap.y, 2)}`,
           ...(handle?.debug?.() ?? []),
           agent,
@@ -741,15 +606,8 @@ export function useShaderRenderer(
       cancelFrame(still);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
-      pointerSource.removeEventListener(
-        'pointermove',
-        handlePointerMove as EventListener,
-      );
-      window.removeEventListener('touchstart', handleTouch);
-      window.removeEventListener('touchmove', handleTouch);
+      cursor.dispose();
       canvas.removeEventListener('webglcontextlost', handleContextLost);
-      pointerSource.removeEventListener('pointerdown', handlePointerDown as EventListener);
-      pointerSource.removeEventListener('click', handleClick as EventListener);
       swapRef.current = () => {};
       handle?.dispose();
       outgoing?.dispose();
