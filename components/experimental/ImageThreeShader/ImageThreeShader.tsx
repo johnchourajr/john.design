@@ -112,6 +112,10 @@ const imageTexture =
         loaded.dispose();
         return;
       }
+      // The canvas composites premultiplied, so the image has to be too:
+      // straight, the portrait's feathered bottom shows at full strength and
+      // ends on a hard line where its alpha reaches zero.
+      loaded.premultiplyAlpha = true;
       texture = loaded;
       material.uniforms.image.value = loaded;
       material.uniforms.imageResolution.value.set(

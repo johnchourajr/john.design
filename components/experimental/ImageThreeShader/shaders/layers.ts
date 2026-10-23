@@ -38,6 +38,9 @@ export const layers = `
   // The headline's largest font size, in CSS px (0 without a headline).
   uniform float headlineEm;
 
+  // How much of the frame's height, from the bottom, the image fades out over.
+  #define IMAGE_BOTTOM_FADE 0.15
+
   vec4 g_layerRect;
   // 1 where this fragment shows the image: inside the frame, image on.
   float g_inFrame;
@@ -50,6 +53,10 @@ export const layers = `
     vec2 uv = (vUv - g_layerRect.xy) / g_layerRect.zw;
     vec2 inside = step(vec2(0.0), uv) * step(uv, vec2(1.0));
     g_inFrame = inside.x * inside.y * (1.0 - hideImage);
+    // The portrait is cut off at the frame's bottom edge; feather it out
+    // instead of ending on a hard line. Every variant draws the image times
+    // g_inFrame, so they all fade the same way.
+    g_inFrame *= smoothstep(0.0, IMAGE_BOTTOM_FADE, uv.y);
     return uv;
   }
 
