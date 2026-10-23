@@ -254,9 +254,14 @@ export const headlineTexture =
           measure(font, runText) + spacing * content.length;
         let runScaleY = runBox.height / height;
         let runScaleX = runBox.width / runAdvance;
-        // Layout rounds boxes to 1/64px; that isn't a transform.
-        if (Math.abs(runScaleY - 1) < 0.002) runScaleY = 1;
-        if (Math.abs(runScaleX - 1) < 0.002) runScaleX = 1;
+        // Layout rounds boxes to 1/64px, and a line box that lands on a half
+        // device pixel grows by up to one CSS pixel; neither is a transform.
+        if (Math.abs(runScaleY - 1) < 0.002 || Math.abs(runBox.height - height) <= 1) {
+          runScaleY = 1;
+        }
+        if (Math.abs(runScaleX - 1) < 0.002 || Math.abs(runBox.width - runAdvance) <= 1) {
+          runScaleX = 1;
+        }
         // Before the swap, the canvas font has to measure as the DOM's
         // does. After it, a mismatch is a transform mid-animation (motion
         // can stretch one axis), and only an unloaded font swaps back.
