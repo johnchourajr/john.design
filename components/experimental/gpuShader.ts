@@ -129,6 +129,27 @@ const shapeOf = (program: GpuShaderProgram) => {
   };
 };
 
+const createVideo = (
+  { src, autoplay, muted, loop }: NonNullable<GpuShaderOptions['video']>,
+  reducedMotion: boolean,
+) => {
+  const element = document.createElement('video');
+  element.crossOrigin = 'anonymous';
+  element.src = src;
+  element.autoplay = autoplay && !reducedMotion;
+  element.muted = muted;
+  element.loop = loop;
+  element.playsInline = true;
+  return element;
+};
+
+/** Stops the download as well as playback. */
+const stopVideo = (element: HTMLVideoElement) => {
+  element.pause();
+  element.removeAttribute('src');
+  element.load();
+};
+
 const loadImage = async (src: string) => {
   const image = new Image();
   // As three.js's loader: hosted media (media.john.design, #88) is another
@@ -145,6 +166,12 @@ export async function startGpuShader(
 ): Promise<GpuShader> {
   const { reducedMotion, debug } = options;
   if (!('gpu' in navigator)) throw new Error('navigator.gpu is missing');
+  // Fetched while the device starts and the shader compiles, not after:
+  // the compile is most of the wait on a first visit.
+  const imageLoad = options.image ? loadImage(options.image) : null;
+  imageLoad?.catch(() => {});
+  const revealLoad = import('./ImageThreeShader/wgsl/reveal.wgsl');
+  const videoElement = options.video ? createVideo(options.video, reducedMotion) : null;
   const device = takeGpu();
   const gpu = await device.gpu;
 
@@ -230,14 +257,15 @@ export async function startGpuShader(
     let current = make(options.program);
     // Fails here, not on the first frame, if the shader doesn't compile.
     await current.compile(canvasSurface);
-    const revealer = effect(gpu, (await import('./ImageThreeShader/wgsl/reveal.wgsl')).default as GpuShaderProgram, {
+    const revealer = effect(gpu, (await revealLoad).default as GpuShaderProgram, {
       label: 'hero-shader-reveal',
       set: { from_tex: swapFrom, to_tex: swapTo, samp },
     });
     let outgoing: Effect | null = null;
     let swap: Reveal | null = null;
 
-    // An upload: premultiplied, as the canvas composites.
+    // An upload: premultiplied, as the canvas composites. A video is
+    // opaque, so it skips the conversion, as three.js's VideoTexture does.
     const upload = (
       source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
       width: number,
@@ -246,7 +274,7 @@ export async function startGpuShader(
     ) =>
       gpu.gpu.queue.copyExternalImageToTexture(
         { source },
-        { texture: into.gpu, premultipliedAlpha: true },
+        { texture: into.gpu, premultipliedAlpha: !(source instanceof HTMLVideoElement) },
         [width, height],
       );
     const replace = (key: keyof typeof textures, width: number, height: number) => {
@@ -460,16 +488,23 @@ export async function startGpuShader(
     /**
      * Plays the video into `image`. Frames only render while it plays.
      * With reduced motion it shows the first frame and doesn't play.
+     *
+     * Each video frame is copied into the texture once, when it arrives
+     * (requestVideoFrameCallback), not on every rendered frame: vgpu can't
+     * bind a zero-copy external texture yet, and a 720p copy costs ~2.4ms
+     * of GPU time, four times over for a 30fps video on a 120Hz screen.
      */
-    function playVideo({ src, autoplay, muted, loop }: NonNullable<GpuShaderOptions['video']>) {
-      const element = document.createElement('video');
-      element.crossOrigin = 'anonymous';
-      element.src = src;
-      element.autoplay = autoplay && !reducedMotion;
-      element.muted = muted;
-      element.loop = loop;
-      element.playsInline = true;
+    function playVideo(element: HTMLVideoElement) {
       let frameTexture: Texture | null = null;
+      // A new frame is waiting to be copied.
+      let fresh = true;
+      let frameRequest = 0;
+      const supportsFrames = 'requestVideoFrameCallback' in element;
+      const onVideoFrame = () => {
+        fresh = true;
+        frameRequest = element.requestVideoFrameCallback(onVideoFrame);
+      };
+      if (supportsFrames) frameRequest = element.requestVideoFrameCallback(onVideoFrame);
       const handleLoadedData = () => {
         if (frameTexture || disposed) return;
         const { videoWidth: width, videoHeight: height } = element;
@@ -485,26 +520,27 @@ export async function startGpuShader(
         resize();
       };
       element.addEventListener('loadeddata', handleLoadedData);
+      // It may have loaded while the shader compiled.
+      if (element.readyState >= 2) handleLoadedData();
       return {
         beforeRender: () => {
-          if (frameTexture && element.readyState >= 2) {
-            upload(element, element.videoWidth, element.videoHeight, frameTexture);
-          }
+          if (!frameTexture || element.readyState < 2) return;
+          if (supportsFrames && !fresh) return;
+          fresh = false;
+          upload(element, element.videoWidth, element.videoHeight, frameTexture);
         },
         playing: () => !element.paused,
         dispose: () => {
           element.removeEventListener('loadeddata', handleLoadedData);
           element.removeEventListener('play', startLoop);
-          // Stop the download as well as playback.
-          element.pause();
-          element.removeAttribute('src');
-          element.load();
+          if (supportsFrames) element.cancelVideoFrameCallback(frameRequest);
+          stopVideo(element);
         },
       };
     }
 
-    if (options.image) {
-      loadImage(options.image)
+    if (imageLoad) {
+      imageLoad
         .then((image) => {
           if (disposed) return;
           params.imageResolution = [image.naturalWidth, image.naturalHeight];
@@ -517,7 +553,7 @@ export async function startGpuShader(
           if (!disposed) options.onLost(error);
         });
     }
-    if (options.video) video = playVideo(options.video);
+    if (videoElement) video = playVideo(videoElement);
     resize();
     startLoop();
 
@@ -617,6 +653,7 @@ export async function startGpuShader(
       },
     };
   } catch (error) {
+    if (videoElement) stopVideo(videoElement);
     headline?.dispose();
     for (const item of owned) item.dispose?.();
     canvas.remove();

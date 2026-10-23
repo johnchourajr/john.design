@@ -6,8 +6,12 @@ import { useMemo } from 'react';
 
 import { GpuShaderCanvas, type GpuShaderCanvasOptions } from '../GpuShaderCanvas';
 import { imageGpuShaders } from './wgsl';
-import { aspectClass, type AspectRatio } from './ImageThreeShader';
-import { HERO_MAX_PIXELS, imageShaderLayout } from './imageLayout';
+import {
+  aspectClass,
+  HERO_MAX_PIXELS,
+  imageShaderLayout,
+  type AspectRatio,
+} from './imageLayout';
 import { fragmentThreeShaders } from './shaders';
 import type { ShaderVariant } from './shaders/types';
 

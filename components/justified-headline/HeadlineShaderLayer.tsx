@@ -9,7 +9,7 @@ import {
 } from '../experimental/GpuShaderCanvas';
 import { imageGpuShaders } from '../experimental/ImageThreeShader/wgsl';
 import { fragmentThreeShaders, type ShaderVariant } from '../experimental/ImageThreeShader/shaders';
-import { contentBoxSize } from '../experimental/useShaderRenderer';
+import { contentBoxSize } from '../experimental/shaderLayout';
 import { HEADLINE_SHADER, offCanvas, viewportSquare } from './headlineShaderOptions';
 
 // three.js loads only for the fallback.

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { debugNumber as n, mountShaderDebug } from './shaderDebug';
 import {
+  contentBoxSize,
   layerRectOf,
   layoutShader,
   revealRadius,
@@ -23,6 +24,8 @@ export type ShaderConfig = {
 };
 
 export type ShaderSize = { width: number; height: number };
+
+export { contentBoxSize };
 
 /** A rectangle in CSS pixels, measured from the canvas's top left. */
 export type ShaderFrame = ShaderSize & { x: number; y: number };
@@ -154,21 +157,6 @@ const revealShader = `
     gl_FragColor = mix(texture2D(to, vUv), texture2D(from, vUv), outside);
   }
 `;
-
-/** The container's content box. */
-export const contentBoxSize = (container: HTMLElement): ShaderSize => {
-  const style = getComputedStyle(container);
-  return {
-    width:
-      container.clientWidth -
-      parseFloat(style.paddingLeft) -
-      parseFloat(style.paddingRight),
-    height:
-      container.clientHeight -
-      parseFloat(style.paddingTop) -
-      parseFloat(style.paddingBottom),
-  };
-};
 
 /**
  * Runs several inputs on one material, e.g. an image and a headline. The

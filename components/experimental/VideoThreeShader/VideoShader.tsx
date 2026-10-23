@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 
 import { GpuShaderCanvas, type GpuShaderCanvasOptions } from '../GpuShaderCanvas';
 import type { ShaderSize } from '../useShaderRenderer';
-import { aspectClass, type AspectRatio } from './VideoThreeShader';
+import { aspectClass, type AspectRatio } from './videoAspect';
 import { fragmentThreeVideoShaders } from './shaders';
 import { videoGpuShaders } from './wgsl';
 

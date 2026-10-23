@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic';
 import { useCallback, useMemo } from 'react';
 
 import { GpuShaderCanvas, type GpuShaderCanvasOptions } from '../GpuShaderCanvas';
-import { contentBoxSize } from '../useShaderRenderer';
-import { savePng } from './GenThreeShader';
+import { contentBoxSize } from '../shaderLayout';
+import { savePng } from '../savePng';
 import { genShaders, type ShaderVariant } from './shaders';
 import { genGpuShaders } from './wgsl';
 

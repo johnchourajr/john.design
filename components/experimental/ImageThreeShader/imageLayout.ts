@@ -1,5 +1,43 @@
 import type { ShaderFrame, ShaderSize } from '../useShaderRenderer';
 
+/**
+ * Kept apart from ImageThreeShader so the WebGPU path (ImageShader) can
+ * use them without loading three.js.
+ */
+
+/**
+ * Aspect ratio values supported by the ImageThreeShader component
+ * @type AspectRatio
+ */
+export type AspectRatio =
+  | '1:1'
+  | '4:3'
+  | '16:9'
+  | '21:9'
+  | '3:2'
+  | '2:3'
+  | '5:4'
+  | '9:16'
+  | '4:5'
+  | '1200:600'
+  | '2000:1327'
+  | '1680:1050';
+
+export const aspectClass: Record<AspectRatio, string> = {
+  '1:1': 'aspect-square',
+  '4:3': 'aspect-4/3',
+  '16:9': 'aspect-video',
+  '21:9': 'aspect-21/9',
+  '3:2': 'aspect-3/2',
+  '2:3': 'aspect-2/3',
+  '5:4': 'aspect-5/4',
+  '9:16': 'aspect-9/16',
+  '4:5': 'aspect-4/5',
+  '1200:600': 'aspect-1200/600',
+  '2000:1327': 'aspect-2000/1327',
+  '1680:1050': 'aspect-1680/1050',
+};
+
 /** 3456 × 3456: the portrait's buffer at 2x on a 1728px-wide screen. */
 export const HERO_MAX_PIXELS = 3456 * 3456;
 
