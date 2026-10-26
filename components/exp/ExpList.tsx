@@ -34,16 +34,17 @@ export function ExpList({ sections }: { sections: ExpSection[] }) {
               key={item.href}
               href={item.href ?? ''}
               {...previewHandlers(item, setHovered)}
-              className="group/row flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-current/15 px-4 py-5 transition-colors duration-(--duration-fast) ease-(--ease-smooth-out) hover:bg-root/10 focus-visible:bg-root/10 focus-visible:outline-none motion-reduce:transition-none"
+              className="group/row flex flex-wrap items-baseline justify-between md:flex-nowrap gap-x-6 gap-y-2 border-t border-current/15 px-4 py-5 transition-colors duration-(--duration-fast) ease-(--ease-smooth-out) hover:bg-root/10 focus-visible:bg-root/10 focus-visible:outline-none motion-reduce:transition-none"
               data-testid={`exp-row-${item.href?.split('/').pop()}`}
             >
-              <div className="flex min-w-0 items-baseline gap-4">
+              <div className="flex shrink-0 items-baseline gap-4">
                 <h3 className="headline-display-xs">{item.title}</h3>
                 {item.status === 'NEW' && <span className="text-caption opacity-60">New</span>}
               </div>
-              <div className="flex items-baseline gap-4">
+              <div className="flex min-w-0 items-baseline justify-end gap-4">
                 {item.description && (
-                  <p className="text-caption max-w-[36em] opacity-60">{item.description}</p>
+                  // One line; an ellipsis if the row is too narrow for it.
+                  <p className="text-caption truncate opacity-60">{item.description}</p>
                 )}
                 <span
                   aria-hidden
