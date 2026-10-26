@@ -24,6 +24,7 @@ SITES=(
   "buen-coffee https://muybuen.coffee/ https://muybuen.coffee/recipes"
   "the-grand https://thegrandlb.com/"
   "smile-gdp https://smilegdp.archive.john.design/"
+  "arcade https://www.arcadecoffeeroasters.com/ https://www.arcadecoffeeroasters.com/collections/shop/coffee https://www.arcadecoffeeroasters.com/pages/coffee-subscriptions https://www.arcadecoffeeroasters.com/pages/our-story"
   # The live domain now redirects to The Grand, so this is the last archived
   # copy of the site. Its photos still load from Prismic, and `#reveal` shows
   # the sections its scripts would have faded in (see REVEAL_JS).
@@ -65,6 +66,19 @@ REVEAL_JS="document.querySelectorAll('body *').forEach((el) => {
     el.style.transform = 'none';
   }
 })"
+# Clicks away a cookie or consent banner, which would otherwise sit over
+# every frame, and hides one that stays: banners often appear a few seconds
+# after load, so this runs once the page has settled.
+DISMISS_JS="(() => {
+  [...document.querySelectorAll('button, a')]
+    .find((el) => /^(got it!?|accept( all)?( cookies)?|i agree|agree|ok)$/i.test(el.textContent.trim()))
+    ?.click();
+  for (const el of document.querySelectorAll('body *')) {
+    if (getComputedStyle(el).position === 'fixed' && /cookies/i.test(el.textContent)) {
+      el.style.display = 'none';
+    }
+  }
+})()"
 # Opens a URL and lets intro animations and lazy media settle.
 visit() {
   ab open "$1" >/dev/null
@@ -74,6 +88,8 @@ visit() {
   fi
   if [[ "$1" == *#reveal ]]; then ab eval "$REVEAL_JS" >/dev/null; fi
   sleep 8
+  ab eval "$DISMISS_JS" >/dev/null
+  sleep 1
 }
 TMP="$(mktemp -d)"
 ab() { agent-browser --session "$SESSION" "$@"; }
@@ -100,8 +116,10 @@ for site in "${SITES[@]}"; do
   read -ra urls <<<"$urls"
   if [ $# -gt 0 ] && [[ ! " $* " =~ " $slug " ]]; then continue; fi
   out="$ROOT/work-images/$slug"
-  rm -rf "$out"
   mkdir -p "$out"
+  # Replace only this script's own frames; the folder also holds media
+  # gathered by hand.
+  rm -f "$out/$slug"-desktop-*.jpg "$out/$slug"-mobile-*.jpg
 
   ab set viewport 1440 900 2 >/dev/null
   prev=""

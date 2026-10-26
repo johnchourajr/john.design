@@ -18,7 +18,21 @@ SITES=(
   "the-grand https://thegrandlb.com/"
   "processcreative https://processcreative.co/"
   "bueno-fund https://bueno.fund/"
+  "arcade https://www.arcadecoffeeroasters.com/"
 )
+# Clicks away a cookie or consent banner, which would otherwise sit over
+# every frame, and hides one that stays: banners often appear a few seconds
+# after load, so this runs once the page has settled.
+DISMISS_JS="(() => {
+  [...document.querySelectorAll('button, a')]
+    .find((el) => /^(got it!?|accept( all)?( cookies)?|i agree|agree|ok)$/i.test(el.textContent.trim()))
+    ?.click();
+  for (const el of document.querySelectorAll('body *')) {
+    if (getComputedStyle(el).position === 'fixed' && /cookies/i.test(el.textContent)) {
+      el.style.display = 'none';
+    }
+  }
+})()"
 ab() { agent-browser --session "$SESSION" "$@"; }
 
 for site in "${SITES[@]}"; do
@@ -31,6 +45,8 @@ for site in "${SITES[@]}"; do
   ab open "$url" >/dev/null
   # Intro animations and lazy media settle.
   sleep 8
+  ab eval "$DISMISS_JS" >/dev/null
+  sleep 1
   node scripts/record-scroll.mjs "$(ab get cdp-url)" "$out/$slug-scroll-1.mp4" 3 24
 
   webm="$out/$slug-scroll-1.webm"
