@@ -1,9 +1,0 @@
-{
-  "url": "https://svggen.retool.design/",
-  "viewport": [1440, 900],
-  "steps": [
-    { "upload": "text=Drop a screenshot", "input": "input[type=file]", "file": "svggen-sample.jpg", "after": 2000 },
-    { "click": "button:has-text('Generate Prompt')", "after": 12000 },
-    { "click": "button:has-text('Generate HTML')", "after": 15000 }
-  ]
-}

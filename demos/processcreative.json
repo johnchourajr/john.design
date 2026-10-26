@@ -1,12 +1,32 @@
 {
   "url": "https://processcreative.co/",
-  "viewport": [1440, 900],
+  "viewport": [
+    1440,
+    900
+  ],
+  "waitUntil": "load",
   "settle": 3000,
   "steps": [
-    { "wait": 1500 },
-    { "scroll": "section:has(a[href^='/projects/'])", "after": 4000 },
-    { "click": "header a[href='/projects']", "zoom": false, "after": 2500 },
-    { "scroll": "main a[href^='/projects/']", "after": 800 },
-    { "click": "main a[href^='/projects/']", "zoom": false, "after": 4500 }
+    {
+      "wait": 1500
+    },
+    {
+      "scroll": "section:has(a[href^='/projects/'])",
+      "after": 4000
+    },
+    {
+      "click": "header a[href='/projects']",
+      "zoom": false,
+      "after": 2500
+    },
+    {
+      "scroll": "main a[href^='/projects/']",
+      "after": 800
+    },
+    {
+      "click": "main a[href^='/projects/']",
+      "zoom": false,
+      "after": 4500
+    }
   ]
 }
