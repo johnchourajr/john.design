@@ -13,7 +13,7 @@ import { useId, useState } from 'react';
 export type WorkItem = PageItem & WorkMedia;
 
 /** The strip's height, in vh; image `sizes` are worked out from it. */
-const STRIP_HEIGHT = 78;
+const STRIP_HEIGHT = 40;
 
 function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
   const media = 'h-full w-auto max-w-none select-none';
@@ -125,7 +125,7 @@ export function WorkRow({
               role="region"
               aria-label={`${title}, frames`}
               tabIndex={open ? 0 : -1}
-              className="flex h-[60vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pb-5 scroll-px-4 snap-x snap-proximity md:h-[78vh]"
+              className="flex h-[30vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pb-5 scroll-px-4 snap-x snap-proximity md:h-[40vh]"
             >
               {opened &&
                 frames.map((frame) => (
