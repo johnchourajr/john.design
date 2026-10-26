@@ -44,23 +44,42 @@ function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
   );
 }
 
+/** `https://www.example.com/path/` as `example.com/path`. */
+const displayUrl = (href: string) =>
+  href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
 function Overview({
+  slug,
   overview,
   deliverables,
-}: Pick<PageItem, 'overview' | 'deliverables'>) {
+  externalHref,
+}: Pick<PageItem, 'slug' | 'overview' | 'deliverables' | 'externalHref'>) {
   return (
     <div className="flex h-full w-[min(30rem,85vw)] shrink-0 flex-col justify-between gap-4 overflow-y-auto rounded-sm border border-current/15 p-5">
       {overview && <p className="text-paragraph max-md:text-base">{overview}</p>}
-      {deliverables && deliverables.length > 0 && (
-        <div>
-          <h4 className="text-caption mb-2 opacity-60">Deliverables</h4>
-          <ul className="text-caption grid grid-cols-2 gap-x-4 gap-y-1">
-            {deliverables.map((deliverable) => (
-              <li key={deliverable}>{deliverable}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="flex flex-col gap-4">
+        {deliverables && deliverables.length > 0 && (
+          <div>
+            <h4 className="text-caption mb-2 opacity-60">Deliverables</h4>
+            <ul className="text-caption grid grid-cols-2 gap-x-4 gap-y-1">
+              {deliverables.map((deliverable) => (
+                <li key={deliverable}>{deliverable}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {externalHref && (
+          <Link
+            href={externalHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-caption cursor-ne-resize self-start normal-case underline-offset-2 hover:underline"
+            data-testid={`work-overview-visit-${slug}`}
+          >
+            {displayUrl(externalHref)} ↗
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
@@ -178,7 +197,14 @@ export function WorkRow({
               tabIndex={open ? 0 : -1}
               className="flex h-[30vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pt-4 pb-5 md:h-[40vh]"
             >
-              {hasOverview && <Overview overview={overview} deliverables={deliverables} />}
+              {hasOverview && (
+                <Overview
+                  slug={slug}
+                  overview={overview}
+                  deliverables={deliverables}
+                  externalHref={externalHref}
+                />
+              )}
               {opened &&
                 frames.map((frame) => (
                   <Frame key={frame.src} frame={frame} title={title} />
