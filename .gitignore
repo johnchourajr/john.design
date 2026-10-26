@@ -42,3 +42,6 @@ next-env.d.ts
 .pnpm-store
 # agent worktrees
 /.claude/worktrees/
+
+# hosted media staged for upload (#88, #128)
+/.media/
