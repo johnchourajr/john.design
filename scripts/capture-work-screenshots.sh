@@ -31,7 +31,12 @@ SITES=(
   "petroleum-club https://web.archive.org/web/20250416011518if_/https://lbpetroleum.club/#reveal"
   "chris-rushing https://chrisrushing.com/"
   "kelsey-dake https://kelseydake.com/"
-  "retool-dot-com https://retool.com/"
+  # The site's pages: the Reclaw agents waitlist, pricing, customers, use cases.
+  "retool-dot-com https://retool.com/agents-waitlist https://retool.com/pricing https://retool.com/customers https://retool.com/use-cases"
+  # The live homepage, then its versions over time from the Wayback Machine.
+  "retool-homepage https://retool.com/ https://web.archive.org/web/20240801021347if_/https://retool.com/ https://web.archive.org/web/20241103150837if_/https://retool.com/ https://web.archive.org/web/20250405112912if_/https://retool.com/ https://web.archive.org/web/20250608043459if_/https://retool.com/ https://web.archive.org/web/20251004005928if_/https://retool.com/ https://web.archive.org/web/20260401104648if_/https://retool.com/"
+  # Internal tools: SVGGen (AppGen), Snapi, Sky Studio, Remagatchi.
+  "retool-internal https://svggen.retool.design/ https://snapi.retool.design/ https://sky.retool.design/?shader=sky https://remagatchi.retool.design/"
   # The blog as of May 2026, still your design.
   "retool-blog https://web.archive.org/web/20260521140205if_/https://retool.com/blog"
   "retool-pipes https://retool.com/pipes/"

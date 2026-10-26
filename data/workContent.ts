@@ -9,6 +9,23 @@ const daylightData: PageItem[] = [
     externalHref: 'https://retool.com/',
   },
   {
+    slug: 'retool-homepage',
+    title: 'Retool Homepage',
+    date: '2026-4-1',
+    externalHref: 'https://retool.com/',
+  },
+  {
+    // Internal tools, shown as demos only: no links out.
+    slug: 'retool-internal',
+    title: 'Retool Internal',
+    date: '2026-4-1',
+  },
+  {
+    slug: 'retool-brand',
+    title: 'Retool Brand',
+    date: '2024-8-1',
+  },
+  {
     slug: 'retool-blog',
     title: 'Retool Blog',
     date: '2024-5-1',
