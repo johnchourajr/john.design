@@ -84,7 +84,7 @@ importers:
         version: 8.72.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       bueno-demo:
         specifier: github:johnchourajr/bueno-demo
-        version: https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/2d3f4857e54a3af5b2dcbb385b7b7528f717620d(@swc/helpers@0.5.23)(postcss@8.5.31)
+        version: https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/07357516c83f73a640b952aa77ae886a7927766f(@swc/helpers@0.5.23)(postcss@8.5.31)
       eslint:
         specifier: ^9.39.5
         version: 9.39.5(jiti@2.7.0)
@@ -1508,8 +1508,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
-  bueno-demo@https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/2d3f4857e54a3af5b2dcbb385b7b7528f717620d:
-    resolution: {tarball: https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/2d3f4857e54a3af5b2dcbb385b7b7528f717620d}
+  bueno-demo@https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/07357516c83f73a640b952aa77ae886a7927766f:
+    resolution: {tarball: https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/07357516c83f73a640b952aa77ae886a7927766f}
     version: 0.1.0
     engines: {node: '>=20'}
     hasBin: true
@@ -3995,13 +3995,13 @@ snapshots:
       '@remotion/timeline-utils': 4.0.535(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@rspack/core': 1.7.11(@swc/helpers@0.5.23)
       '@rspack/plugin-react-refresh': 1.6.1(react-refresh@0.18.0)
-      css-loader: 7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.23))(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.31))
+      css-loader: 7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.23))(webpack@5.105.0(postcss@8.5.31))
       esbuild: 0.28.1
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       react-refresh: 0.18.0
       remotion: 4.0.535(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      style-loader: 4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.31))
+      style-loader: 4.0.0(webpack@5.105.0(postcss@8.5.31))
       webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.31)
     transitivePeerDependencies:
       - '@minify-html/node'
@@ -4857,7 +4857,7 @@ snapshots:
       node-releases: 2.0.60
       update-browserslist-db: 1.3.4(browserslist@4.29.4)
 
-  bueno-demo@https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/2d3f4857e54a3af5b2dcbb385b7b7528f717620d(@swc/helpers@0.5.23)(postcss@8.5.31):
+  bueno-demo@https://codeload.github.com/johnchourajr/bueno-demo/tar.gz/07357516c83f73a640b952aa77ae886a7927766f(@swc/helpers@0.5.23)(postcss@8.5.31):
     dependencies:
       '@remotion/bundler': 4.0.535(@swc/helpers@0.5.23)(postcss@8.5.31)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@remotion/renderer': 4.0.535(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -4957,7 +4957,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  css-loader@7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.23))(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.31)):
+  css-loader@7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.23))(webpack@5.105.0(postcss@8.5.31)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.31)
       postcss: 8.5.31
@@ -6920,7 +6920,7 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  style-loader@4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.31)):
+  style-loader@4.0.0(webpack@5.105.0(postcss@8.5.31)):
     dependencies:
       webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.31)
 

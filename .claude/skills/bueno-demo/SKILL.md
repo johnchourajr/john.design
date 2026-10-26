@@ -59,6 +59,7 @@ brew install ffmpeg            # required; add imagemagick for WebP posters
 - **Privacy:** `keep` is JS run before recording and every 250ms during it, to swap real names and emails for stand-ins so a re-render never brings them back. `hide` adds CSS selectors to hide (dev overlays from Next.js and Vercel are hidden already; `"hide": false` shows them).
 - **Off camera:** `setup` is JS run once before recording (closing a banner, say).
 - **Feel:** `travelMs` (cursor travel, default 700), `settle` (wait after load, default 1500), `tail` (hold at the end, default 1200), `cursorStart` (`[x, y]`), `reducedMotion: true`.
+- **Loading:** `waitUntil` (default `networkidle`). A page that streams video or polls never goes idle, so the capture times out; set `"load"` and let `settle` cover the rest.
 - **Another server:** `--base http://localhost:3001` on capture records the same path elsewhere.
 
 **Selectors:** prefer `data-testid` or structure (`#title`, `input[name=amount]`) over visible text, so copy changes don't break the script.
