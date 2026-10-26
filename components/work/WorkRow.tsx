@@ -44,6 +44,27 @@ function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
   );
 }
 
+function Overview({
+  overview,
+  deliverables,
+}: Pick<PageItem, 'overview' | 'deliverables'>) {
+  return (
+    <div className="flex h-full w-[min(30rem,85vw)] shrink-0 flex-col justify-between gap-4 overflow-y-auto rounded-sm border border-current/15 p-5">
+      {overview && <p className="text-paragraph max-md:text-base">{overview}</p>}
+      {deliverables && deliverables.length > 0 && (
+        <div>
+          <h4 className="text-caption mb-2 opacity-60">Deliverables</h4>
+          <ul className="text-caption grid grid-cols-2 gap-x-4 gap-y-1">
+            {deliverables.map((deliverable) => (
+              <li key={deliverable}>{deliverable}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export type WorkRowProps = WorkItem & {
   open: boolean;
   onToggle: () => void;
@@ -61,6 +82,8 @@ export function WorkRow({
   tags,
   status,
   externalHref,
+  overview,
+  deliverables,
   frames,
   open,
   onToggle,
@@ -70,12 +93,24 @@ export function WorkRow({
   const [opened, setOpened] = useState(open);
   if (open && !opened) setOpened(true);
 
-  const hasFrames = frames.length > 0;
+  const hasOverview = Boolean(overview || deliverables?.length);
+  const hasFrames = frames.length > 0 || hasOverview;
   const name = <h3 className="headline-display-xs text-left">{title}</h3>;
 
   return (
-    <article className="border-t border-current/15" data-testid={`work-row-${slug}`}>
-      <header className="group/row relative flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-4 py-5">
+    <article
+      className="border-t border-current/15"
+      data-work-row={slug ?? title}
+      data-testid={`work-row-${slug}`}
+    >
+      <header
+        className={clsx(
+          'group/row relative flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-4 py-5',
+          // A dim wash of the accent while the row is hovered or focused.
+          hasFrames &&
+            'transition-colors duration-(--duration-fast) ease-(--ease-smooth-out) hover:bg-root/10 focus-within:bg-root/10 motion-reduce:transition-none',
+        )}
+      >
         {hasFrames ? (
           <button
             type="button"
@@ -84,7 +119,10 @@ export function WorkRow({
             onClick={onToggle}
             // Stretched over the whole row, so anywhere on it opens the
             // project; the Visit link sits above it.
-            className="flex min-w-0 grow items-baseline gap-4 underline-offset-4 group-hover/row:underline after:absolute after:inset-0"
+            className={clsx(
+              'flex min-w-0 grow items-baseline gap-4 outline-none after:absolute after:inset-0',
+              open ? 'minus-cursor' : 'plus-cursor',
+            )}
             data-testid={`work-row-toggle-${slug}`}
           >
             {name}
@@ -98,6 +136,15 @@ export function WorkRow({
           </div>
         )}
         <div className="flex flex-wrap items-center gap-4">
+          {hasFrames && (
+            // The button already announces its state; this is for the eye.
+            <span
+              aria-hidden
+              className="text-caption opacity-0 transition-opacity duration-(--duration-fast) group-focus-within/row:opacity-100 group-hover/row:opacity-100 motion-reduce:transition-none"
+            >
+              {open ? 'Close' : 'Open'}
+            </span>
+          )}
           {tags && <TagsList tags={tags} />}
           {externalHref && (
             <Link
@@ -127,10 +174,11 @@ export function WorkRow({
           <div className="overflow-hidden">
             <div
               role="region"
-              aria-label={`${title}, frames`}
+              aria-label={`${title}, overview and frames`}
               tabIndex={open ? 0 : -1}
               className="flex h-[30vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pb-5 md:h-[40vh]"
             >
+              {hasOverview && <Overview overview={overview} deliverables={deliverables} />}
               {opened &&
                 frames.map((frame) => (
                   <Frame key={frame.src} frame={frame} title={title} />

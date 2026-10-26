@@ -83,6 +83,17 @@ const moonlightData: PageItem[] = [
     title: 'bueno.fund',
     date: '2026-2-16',
     tags: ['Design', 'Dev'],
+    overview:
+      'A funding platform for local businesses and creators to rally their community around what they are building. Designed and built end to end, from campaign pages, backer tiers and checkout to the creator dashboard, with a hand-drawn brand of stickers and illustrations.',
+    deliverables: [
+      'Product design',
+      'Brand and illustration',
+      'Campaign pages',
+      'Backer tiers and checkout',
+      'Creator dashboard',
+      'Marketing site',
+      'Guides and release notes',
+    ],
     externalHref: 'https://bueno.fund/',
   },
   {
@@ -90,6 +101,9 @@ const moonlightData: PageItem[] = [
     title: 'Process Creative',
     date: '2025-5-1',
     tags: ['Design', 'Dev'],
+    overview:
+      'A new website for Process Creative, a film production company and creative studio in Orange County, built to put their films first.',
+    deliverables: ['Website design', 'Development on Prismic', 'Selected work showcase'],
     externalHref: 'https://processcreative.co/',
   },
   {
@@ -125,6 +139,15 @@ const moonlightData: PageItem[] = [
     title: 'thegrandlb.com',
     date: '2022-9-1',
     tags: ['Design', 'Dev', 'Art Direction'],
+    overview:
+      "Website, signage and social for The Grand, an event venue in Long Beach, carried through a 2023 refresh. Earlier work for the venue's catering side, Grand Food & Beverage, set its identity.",
+    deliverables: [
+      'Website design and build',
+      'Signage and wayfinding',
+      'Outdoor banners',
+      '2023 site and social refresh',
+      'Grand Food & Beverage identity',
+    ],
     externalHref: 'https://thegrandlb.com/',
   },
   {
@@ -139,6 +162,16 @@ const moonlightData: PageItem[] = [
     title: 'lbpetroleum.club',
     date: '2022-8-1',
     tags: ['Design', 'Dev', 'Art Direction'],
+    overview:
+      "Brand, website and a photo and video shoot for the Petroleum Club, a mid-century event venue in Long Beach relaunched around one idea: stay classy.",
+    deliverables: [
+      'Brand identity',
+      'Website design and build',
+      'Photo and video art direction',
+      'Social campaign',
+      'Red Room signage',
+      'Ballroom mural',
+    ],
     externalHref: 'https://lbpetroleum.club/',
   },
   {
@@ -167,6 +200,17 @@ const moonlightData: PageItem[] = [
     title: 'Arcade Coffee',
     date: '2018-2-1',
     tags: ['Design', 'Dev', 'Art Direction'],
+    overview:
+      "A rebrand for a specialty coffee roaster, carried from the mark and type system through packaging to the shop's website. The diagonal ARCADE lockup became the 12oz bag, and the same system still runs the storefront.",
+    deliverables: [
+      'Brand identity',
+      'Logo and monogram system',
+      'Brand guidelines',
+      '12oz bag and labels',
+      'Subscription box',
+      'Stationery',
+      'Website design and build',
+    ],
     status: 'Coming Soon',
   },
   {
@@ -174,6 +218,18 @@ const moonlightData: PageItem[] = [
     title: 'Fermensch Kombucha',
     date: '2018-1-1',
     tags: ['Brand Design'],
+    overview:
+      'A rebrand for a kombucha brewery in Orange, California, built on hand-drawn lettering, lightning bolts and a motto to live by: be a mensch.',
+    deliverables: [
+      'Brand identity',
+      'Hand lettering',
+      'Brand manual',
+      'Growler art and keg collars',
+      'Business cards and postcards',
+      'Now Serving sign',
+      'Social kit',
+      'Delivery van lettering',
+    ],
     status: 'Coming Soon',
   },
 ];

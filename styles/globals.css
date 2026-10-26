@@ -124,6 +124,15 @@
   .drawing-cursor {
     cursor: url('/pencil.svg') 6 18, auto;
   }
+
+  /* The work page's rows: open a project, or collapse the open one (#128). */
+  .plus-cursor {
+    cursor: url('/cursor-plus.svg') 13 13, pointer;
+  }
+
+  .minus-cursor {
+    cursor: url('/cursor-minus.svg') 13 13, pointer;
+  }
 }
 
 @layer components {

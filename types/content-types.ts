@@ -28,6 +28,10 @@ export type PageItem = {
   className?: string;
   status?: 'NEW' | 'Coming Soon';
   date?: string;
+  /** The work page's opening paragraph for an open project (#128). */
+  overview?: string;
+  /** What the project delivered, listed under the overview. */
+  deliverables?: string[];
 };
 
 export type PostFrontMatter = {
