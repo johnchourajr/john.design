@@ -52,7 +52,9 @@ const daylightData: PageItem[] = [
     slug: 'happy-money-office',
     title: 'Happy Money Office',
     date: '2020-2-1',
-    status: 'Coming Soon',
+    overview:
+      "Happy Money's headquarters in Orange County, made in collaboration with Rapt Studio, who designed the space. Working with Rapt, we carried Happy Money's refreshed brand into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photography by Rapt Studio.",
+    deliverables: ['Environmental graphics', 'Murals', 'Manifesto lettering', 'Wayfinding'],
   },
   {
     // href: "/work/happy-money",
