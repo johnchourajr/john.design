@@ -145,7 +145,7 @@ export function WorkRow({
               {open ? 'Close' : 'Open'}
             </span>
           )}
-          {tags && <TagsList tags={tags} />}
+          {tags && <TagsList tags={tags} className="" />}
           {externalHref && (
             <Link
               href={externalHref}
@@ -176,7 +176,7 @@ export function WorkRow({
               role="region"
               aria-label={`${title}, overview and frames`}
               tabIndex={open ? 0 : -1}
-              className="flex h-[30vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pb-5 md:h-[40vh]"
+              className="flex h-[30vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pt-4 pb-5 md:h-[40vh]"
             >
               {hasOverview && <Overview overview={overview} deliverables={deliverables} />}
               {opened &&
