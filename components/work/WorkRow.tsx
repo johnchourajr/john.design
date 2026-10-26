@@ -53,7 +53,8 @@ function Overview({
   overview,
   deliverables,
   externalHref,
-}: Pick<PageItem, 'slug' | 'overview' | 'deliverables' | 'externalHref'>) {
+  siteNote,
+}: Pick<PageItem, 'slug' | 'overview' | 'deliverables' | 'externalHref' | 'siteNote'>) {
   return (
     <div className="flex h-full w-[min(30rem,85vw)] shrink-0 flex-col justify-between gap-4 overflow-y-auto rounded-sm border border-current/15 p-5">
       {overview && <p className="text-paragraph max-md:text-base">{overview}</p>}
@@ -79,6 +80,7 @@ function Overview({
             {displayUrl(externalHref)} ↗
           </Link>
         )}
+        {!externalHref && siteNote && <p className="text-caption opacity-60">{siteNote}</p>}
       </div>
     </div>
   );
@@ -103,6 +105,7 @@ export function WorkRow({
   externalHref,
   overview,
   deliverables,
+  siteNote,
   frames,
   open,
   onToggle,
@@ -203,6 +206,7 @@ export function WorkRow({
                   overview={overview}
                   deliverables={deliverables}
                   externalHref={externalHref}
+                  siteNote={siteNote}
                 />
               )}
               {opened &&

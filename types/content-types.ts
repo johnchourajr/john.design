@@ -32,6 +32,8 @@ export type PageItem = {
   overview?: string;
   /** What the project delivered, listed under the overview. */
   deliverables?: string[];
+  /** Shown in place of the site link when the site is no longer live. */
+  siteNote?: string;
 };
 
 export type PostFrontMatter = {

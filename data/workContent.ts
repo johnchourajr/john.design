@@ -172,7 +172,7 @@ const moonlightData: PageItem[] = [
       'Red Room signage',
       'Ballroom mural',
     ],
-    externalHref: 'https://lbpetroleum.club/',
+    siteNote: 'lbpetroleum.club is no longer online; the address now points to The Grand.',
   },
   {
     slug: 'chris-rushing',
