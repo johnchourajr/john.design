@@ -1,6 +1,6 @@
-import { LinkGridItemProps } from '@/components/fragments/LinkGridItem';
+import type { PageItem } from '@/types/content-types';
 
-const navData: LinkGridItemProps[] = [
+const navData: PageItem[] = [
   {
     href: '/journal',
     title: 'Journal',
