@@ -41,14 +41,16 @@ export function ExpList({ sections }: { sections: ExpSection[] }) {
                 <h3 className="headline-display-xs">{item.title}</h3>
                 {item.status === 'NEW' && <span className="text-caption opacity-60">New</span>}
               </div>
-              <div className="flex min-w-0 items-baseline justify-end gap-4">
+              <div className="flex min-w-0 items-baseline justify-end">
                 {item.description && (
                   // One line; an ellipsis if the row is too narrow for it.
                   <p className="text-caption truncate opacity-60">{item.description}</p>
                 )}
+                {/* Takes no room until the row is hovered, then pushes the
+                    description over as it grows in. */}
                 <span
                   aria-hidden
-                  className="text-caption opacity-0 transition-opacity duration-(--duration-fast) group-hover/row:opacity-100 group-focus-visible/row:opacity-100 motion-reduce:transition-none"
+                  className="text-caption max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-[max-width,margin,opacity] duration-(--duration-fast) ease-(--ease-smooth-out) group-hover/row:ml-4 group-hover/row:max-w-24 group-hover/row:opacity-100 group-focus-visible/row:ml-4 group-focus-visible/row:max-w-24 group-focus-visible/row:opacity-100 motion-reduce:transition-none"
                 >
                   View →
                 </span>
