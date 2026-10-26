@@ -73,14 +73,16 @@ export function WorkRow({
 
   return (
     <article className="border-t border-current/15" data-testid={`work-row-${slug}`}>
-      <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-4 py-5">
+      <header className="group/row relative flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-4 py-5">
         {hasFrames ? (
           <button
             type="button"
             aria-expanded={open}
             aria-controls={stripId}
             onClick={onToggle}
-            className="group flex min-w-0 grow items-baseline gap-4 hover:underline underline-offset-4"
+            // Stretched over the whole row, so anywhere on it opens the
+            // project; the Visit link sits above it.
+            className="flex min-w-0 grow items-baseline gap-4 underline-offset-4 group-hover/row:underline after:absolute after:inset-0"
             data-testid={`work-row-toggle-${slug}`}
           >
             {name}
@@ -100,7 +102,7 @@ export function WorkRow({
               href={externalHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-caption cursor-ne-resize underline-offset-2 hover:underline"
+              className="text-caption relative z-10 cursor-ne-resize underline-offset-2 hover:underline"
               data-testid={`work-row-visit-${slug}`}
             >
               Visit ↗
