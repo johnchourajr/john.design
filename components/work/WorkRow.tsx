@@ -2,7 +2,7 @@
 
 import { TagsList } from '@/components/fragments/TagsList';
 import { LoopingVideo } from '@/components/journal/LoopingVideo';
-import type { WorkFrame } from '@/lib/pages/work-media';
+import type { WorkFrame, WorkMedia } from '@/lib/pages/work-media';
 import { formatDateYear } from '@/lib/utils/formatDate';
 import type { PageItem } from '@/types/content-types';
 import clsx from 'clsx';
@@ -10,10 +10,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useId, useState } from 'react';
 
-export type WorkItem = PageItem & { frames: WorkFrame[] };
+export type WorkItem = PageItem & WorkMedia;
 
-/** The strip's open height, in vh; image `sizes` are worked out from it. */
-const OPEN_HEIGHT = 78;
+/** The strip's height, in vh; image `sizes` are worked out from it. */
+const STRIP_HEIGHT = 78;
 
 function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
   const media = 'h-full w-auto max-w-none select-none';
@@ -32,8 +32,8 @@ function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
           alt={title}
           width={frame.width}
           height={frame.height}
-          // A frame is as wide as its aspect ratio at the strip's open height.
-          sizes={`${Math.ceil((OPEN_HEIGHT * frame.width) / frame.height)}vh`}
+          // A frame is as wide as its aspect ratio at the strip's height.
+          sizes={`${Math.ceil((STRIP_HEIGHT * frame.width) / frame.height)}vh`}
           className={media}
           draggable={false}
         />
@@ -42,9 +42,15 @@ function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
   );
 }
 
+export type WorkRowProps = WorkItem & {
+  open: boolean;
+  onToggle: () => void;
+};
+
 /**
- * One project on the work page: its name and details, then a strip of its
- * frames that scrolls sideways and opens in place to show them larger (#128).
+ * One project on the work page: its name and details, then its frames in a
+ * strip that opens in place and scrolls sideways (#128). The list keeps one
+ * row open at a time.
  */
 export function WorkRow({
   slug,
@@ -54,18 +60,39 @@ export function WorkRow({
   status,
   externalHref,
   frames,
-}: WorkItem) {
-  const [open, setOpen] = useState(false);
+  open,
+  onToggle,
+}: WorkRowProps) {
   const stripId = useId();
+  // Frames load the first time the row opens, then stay for closing.
+  const [opened, setOpened] = useState(open);
+  if (open && !opened) setOpened(true);
+
+  const hasFrames = frames.length > 0;
+  const name = <h3 className="headline-display-xs text-left">{title}</h3>;
 
   return (
-    <article className="border-t border-current/15 py-5" data-testid={`work-row-${slug}`}>
-      <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-4">
-        <div className="flex min-w-0 items-baseline gap-4">
-          <h3 className="headline-display-xs">{title}</h3>
-          {date && <p className="text-caption opacity-60">{formatDateYear(date)}</p>}
-          {status && <p className="text-caption opacity-60">{status}</p>}
-        </div>
+    <article className="border-t border-current/15" data-testid={`work-row-${slug}`}>
+      <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-4 py-5">
+        {hasFrames ? (
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls={stripId}
+            onClick={onToggle}
+            className="group flex min-w-0 grow items-baseline gap-4 hover:underline underline-offset-4"
+            data-testid={`work-row-toggle-${slug}`}
+          >
+            {name}
+            {date && <span className="text-caption opacity-60">{formatDateYear(date)}</span>}
+          </button>
+        ) : (
+          <div className="flex min-w-0 grow items-baseline gap-4">
+            {name}
+            {date && <span className="text-caption opacity-60">{formatDateYear(date)}</span>}
+            {status && <span className="text-caption opacity-60">{status}</span>}
+          </div>
+        )}
         <div className="flex flex-wrap items-center gap-4">
           {tags && <TagsList tags={tags} />}
           {externalHref && (
@@ -79,38 +106,33 @@ export function WorkRow({
               Visit ↗
             </Link>
           )}
-          {frames.length > 0 && (
-            <button
-              type="button"
-              aria-expanded={open}
-              aria-controls={stripId}
-              onClick={() => setOpen((value) => !value)}
-              className="text-caption underline-offset-2 hover:underline"
-              data-testid={`work-row-toggle-${slug}`}
-            >
-              {open ? 'Close' : 'Open'}
-            </button>
-          )}
         </div>
       </header>
-      {frames.length > 0 && (
+      {hasFrames && (
         <div
           id={stripId}
-          role="region"
-          aria-label={`${title}, frames`}
-          tabIndex={0}
+          inert={!open}
           className={clsx(
-            'mt-4 flex gap-2 overflow-x-auto overscroll-x-contain px-4 scroll-px-4 snap-x snap-proximity',
+            'grid ease-(--ease-smooth-out) transition-[grid-template-rows] motion-reduce:transition-none',
             // Opening grows on the slower step; closing is quicker.
-            'transition-[height] ease-(--ease-smooth-out) motion-reduce:transition-none',
             open
-              ? 'h-[60vh] duration-(--duration-slow) md:h-[78vh]'
-              : 'h-[28vh] duration-(--duration-medium) md:h-[36vh]',
+              ? 'grid-rows-[1fr] duration-(--duration-slow)'
+              : 'grid-rows-[0fr] duration-(--duration-medium)',
           )}
         >
-          {frames.map((frame) => (
-            <Frame key={frame.src} frame={frame} title={title} />
-          ))}
+          <div className="overflow-hidden">
+            <div
+              role="region"
+              aria-label={`${title}, frames`}
+              tabIndex={open ? 0 : -1}
+              className="flex h-[60vh] gap-2 overflow-x-auto overscroll-x-contain px-4 pb-5 scroll-px-4 snap-x snap-proximity md:h-[78vh]"
+            >
+              {opened &&
+                frames.map((frame) => (
+                  <Frame key={frame.src} frame={frame} title={title} />
+                ))}
+            </div>
+          </div>
         </div>
       )}
     </article>

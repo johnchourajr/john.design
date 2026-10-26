@@ -14,7 +14,15 @@ export type WorkFrame = {
   src: string;
   width: number;
   height: number;
+  /** What the frame shows, from its name: `scroll`, `desktop`, `brand`… */
+  group: string;
 } & ({ kind: 'image' } | { kind: 'video'; sources: VideoSource[] });
+
+export type WorkMedia = {
+  frames: WorkFrame[];
+  /** The still shown beside the cursor while a closed row is hovered. */
+  cover: WorkFrame | null;
+};
 
 const directory = join(process.cwd(), 'public', 'work-images');
 
@@ -22,7 +30,7 @@ const FRAME_PATTERN = /\.(jpe?g|png|webp|gif|mp4|webm|mov)$/i;
 
 // The site comes first (its recording, then its pages), then the brand work
 // and photography around it.
-const KIND_ORDER = [
+const GROUP_ORDER = [
   'scroll',
   'desktop',
   'mobile',
@@ -37,32 +45,55 @@ const KIND_ORDER = [
   'archive',
 ];
 
-function rank(slug: string, file: string): number {
-  const kind = file.slice(slug.length + 1).split('-')[0];
-  const index = KIND_ORDER.indexOf(kind);
-  return index === -1 ? KIND_ORDER.length : index;
+// A scroll recording already shows the site's pages, so its desktop
+// screenshots would repeat it.
+const COVERED_BY_SCROLL = ['desktop', 'slice'];
+
+// The cover is the first still that shows the work rather than a page of the
+// site, when there is one.
+const COVER_ORDER = ['brand', 'bag', 'photo', 'art', 'gfb', 'archive', 'desktop', 'mobile', 'slice'];
+
+const groupOf = (slug: string, file: string) => file.slice(slug.length + 1).split('-')[0];
+
+function rank(order: string[], group: string): number {
+  const index = order.indexOf(group);
+  return index === -1 ? order.length : index;
 }
 
-export function getWorkFrames(slug: string): WorkFrame[] {
+export function getWorkMedia(slug: string): WorkMedia {
   let files: string[];
   try {
     // Only runs while prerendering; don't trace public/ into the server bundle.
     files = fs.readdirSync(/*turbopackIgnore: true*/ join(directory, slug));
   } catch {
-    return [];
+    return { frames: [], cover: null };
   }
 
   const names = new Set(files);
-  return files
+  const hasScroll = files.some((file) => groupOf(slug, file) === 'scroll');
+  const frames = files
     .filter((file) => FRAME_PATTERN.test(file))
     .filter((file) => !(/\.webm$/i.test(file) && names.has(file.replace(/\.webm$/i, '.mp4'))))
-    .sort((a, b) => rank(slug, a) - rank(slug, b) || a.localeCompare(b, 'en', { numeric: true }))
+    .filter((file) => !(hasScroll && COVERED_BY_SCROLL.includes(groupOf(slug, file))))
+    .sort(
+      (a, b) =>
+        rank(GROUP_ORDER, groupOf(slug, a)) - rank(GROUP_ORDER, groupOf(slug, b)) ||
+        a.localeCompare(b, 'en', { numeric: true }),
+    )
     .flatMap((file): WorkFrame[] => {
       const src = `/work-images/${slug}/${file}`;
       const size = getMediaSize(src);
       if (!size) return [];
+      const group = groupOf(slug, file);
       return isVideoSrc(src)
-        ? [{ kind: 'video', src, ...size, sources: getVideoSources(src) }]
-        : [{ kind: 'image', src, ...size }];
+        ? [{ kind: 'video', src, group, ...size, sources: getVideoSources(src) }]
+        : [{ kind: 'image', src, group, ...size }];
     });
+
+  const stills = frames.filter((frame) => frame.kind === 'image');
+  const cover =
+    [...stills].sort((a, b) => rank(COVER_ORDER, a.group) - rank(COVER_ORDER, b.group))[0] ??
+    null;
+
+  return { frames, cover };
 }

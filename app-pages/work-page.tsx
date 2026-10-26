@@ -3,11 +3,9 @@ import {
   JustifiedHeadlineInner,
 } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-import { type WorkItem, WorkRow } from '@/components/work/WorkRow';
+import { WorkList, type WorkSection } from '@/components/work/WorkList';
 import clsx from 'clsx';
 import { Suspense } from 'react';
-
-type WorkSection = { title: string; list: WorkItem[] };
 
 export default function WorkPage({
   moonlight,
@@ -38,14 +36,7 @@ export default function WorkPage({
           </Suspense>
         </HeadlineShader>
       </section>
-      {[moonlight, daylight].map((section) => (
-        <section key={section.title} className="my-[10vw]">
-          <h2 className="text-string mb-6 px-4">{section.title}</h2>
-          {section.list.map((item) => (
-            <WorkRow key={item.slug ?? item.title} {...item} />
-          ))}
-        </section>
-      ))}
+      <WorkList sections={[moonlight, daylight]} />
     </>
   );
 }
