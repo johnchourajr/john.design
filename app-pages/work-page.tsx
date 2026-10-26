@@ -1,19 +1,20 @@
-import LinkGridItem from '@/components/fragments/LinkGridItem';
 import {
   HeadlineShader,
   JustifiedHeadlineInner,
 } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-import { workContent } from '@/data/workContent';
+import { type WorkItem, WorkRow } from '@/components/work/WorkRow';
 import clsx from 'clsx';
 import { Suspense } from 'react';
 
+type WorkSection = { title: string; list: WorkItem[] };
+
 export default function WorkPage({
-  daylightData,
-  moonlightData,
+  moonlight,
+  daylight,
 }: {
-  daylightData: typeof workContent.daylightData;
-  moonlightData: typeof workContent.moonlightData;
+  moonlight: WorkSection;
+  daylight: WorkSection;
 }) {
   return (
     <>
@@ -37,22 +38,14 @@ export default function WorkPage({
           </Suspense>
         </HeadlineShader>
       </section>
-      <section className="my-[10vw] px-4">
-        <h2 className="text-string">Moonlight Work</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
-          {moonlightData.list.map((item, i) => (
-            <LinkGridItem key={i} {...item} />
+      {[moonlight, daylight].map((section) => (
+        <section key={section.title} className="my-[10vw]">
+          <h2 className="text-string mb-6 px-4">{section.title}</h2>
+          {section.list.map((item) => (
+            <WorkRow key={item.slug ?? item.title} {...item} />
           ))}
-        </div>
-      </section>
-      <section className="my-[10vw] px-4">
-        <h2 className="text-string">Daylight Work</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 my-8 gap-8">
-          {daylightData.list.map((item, i) => (
-            <LinkGridItem key={i} {...item} />
-          ))}
-        </div>
-      </section>
+        </section>
+      ))}
     </>
   );
 }
