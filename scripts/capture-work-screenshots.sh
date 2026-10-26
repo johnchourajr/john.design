@@ -25,13 +25,14 @@ SITES=(
   "the-grand https://thegrandlb.com/"
   "smile-gdp https://smilegdp.archive.john.design/"
   # The live domain now redirects to The Grand, so this is the last archived
-  # copy of the site; its photos still load from Prismic (see UNARCHIVE_JS).
-  "petroleum-club https://web.archive.org/web/20250416011518if_/https://lbpetroleum.club/"
+  # copy of the site. Its photos still load from Prismic, and `#reveal` shows
+  # the sections its scripts would have faded in (see REVEAL_JS).
+  "petroleum-club https://web.archive.org/web/20250416011518if_/https://lbpetroleum.club/#reveal"
   "chris-rushing https://chrisrushing.com/"
   "kelsey-dake https://kelseydake.com/"
   "retool-dot-com https://retool.com/"
-  # Your version of the blog, before Retool replaced it in 2025.
-  "retool-blog https://web.archive.org/web/20240903023929if_/https://retool.com/blog"
+  # The blog as of May 2026, still your design.
+  "retool-blog https://web.archive.org/web/20260521140205if_/https://retool.com/blog"
   "retool-pipes https://retool.com/pipes/"
   "retool-state-of-ai-2023 https://retool.com/reports/state-of-ai-2023/"
 )
@@ -49,27 +50,21 @@ SCROLL_JS="(() => {
   }
   if (target) target.scrollBy(0, innerHeight * 1.2);
 })()"
-# The Wayback Machine never archived some images at the sizes a page asks for,
-# so on an archived page point every image back at its live URL. Next's image
-# optimizer (`/_next/image?url=…`) doesn't exist on the archive, so those go
-# straight to the source, and images a framework would have faded in once
-# hydrated (Gatsby leaves them at opacity 0) are shown.
-UNARCHIVE_JS="(() => {
-  const live = (u) => u.replace(/https?:\\/\\/web\\.archive\\.org\\/web\\/[0-9]+[a-z_]*\\//g, '');
-  const source = (u) => {
-    const next = u.match(/\\/_next\\/image\\?url=([^&\\s]+)/);
-    return live(next ? decodeURIComponent(next[1]) : u);
-  };
-  for (const el of document.querySelectorAll('img, source')) {
-    const src = el.getAttribute('src');
-    const srcset = el.getAttribute('srcset') || '';
-    if (srcset.includes('/_next/image')) el.removeAttribute('srcset');
-    else if (srcset) el.srcset = live(srcset);
-    if (src) el.src = source(src);
-    el.loading = 'eager';
-    if (el.tagName === 'IMG') el.style.opacity = '1';
+# On an archived page, scripts/unarchive-images.mjs loads the images from
+# their live CDNs, and this loads lazy ones up front.
+UNARCHIVE_JS="document.querySelectorAll('img').forEach((img) => {
+  img.loading = 'eager';
+})"
+# A URL ending in `#reveal` is an archived page whose scripts never run there,
+# so this shows everything its scroll and hydration animations would have
+# faded in. Opt-in, because on a page that does run (the blog) the hidden
+# elements are hover states and tooltips that should stay hidden.
+REVEAL_JS="document.querySelectorAll('body *').forEach((el) => {
+  if (getComputedStyle(el).opacity === '0' && el.getBoundingClientRect().height > 0) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
   }
-})()"
+})"
 # Opens a URL and lets intro animations and lazy media settle.
 visit() {
   ab open "$1" >/dev/null
@@ -77,10 +72,16 @@ visit() {
     sleep 4
     ab eval "$UNARCHIVE_JS" >/dev/null
   fi
+  if [[ "$1" == *#reveal ]]; then ab eval "$REVEAL_JS" >/dev/null; fi
   sleep 8
 }
 TMP="$(mktemp -d)"
 ab() { agent-browser --session "$SESSION" "$@"; }
+
+ab set viewport 1440 900 2 >/dev/null
+node scripts/unarchive-images.mjs "$(ab get cdp-url)" &
+UNARCHIVE_PID=$!
+trap 'kill "$UNARCHIVE_PID" 2>/dev/null || true' EXIT
 
 # PNG to a JPEG frame at the full 2x resolution, unless it repeats the frame
 # before it (a short page that ran out of scroll).
