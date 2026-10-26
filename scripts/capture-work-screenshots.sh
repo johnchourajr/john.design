@@ -25,12 +25,13 @@ SITES=(
   "the-grand https://thegrandlb.com/"
   "smile-gdp https://smilegdp.archive.john.design/"
   # The live domain now redirects to The Grand, so this is the last archived
-  # copy of the site.
+  # copy of the site; its photos still load from Prismic (see UNARCHIVE_JS).
   "petroleum-club https://web.archive.org/web/20250416011518if_/https://lbpetroleum.club/"
   "chris-rushing https://chrisrushing.com/"
   "kelsey-dake https://kelseydake.com/"
   "retool-dot-com https://retool.com/"
-  "retool-blog https://retool.com/blog/"
+  # Your version of the blog, before Retool replaced it in 2025.
+  "retool-blog https://web.archive.org/web/20240903023929if_/https://retool.com/blog"
   "retool-pipes https://retool.com/pipes/"
   "retool-state-of-ai-2023 https://retool.com/reports/state-of-ai-2023/"
 )
@@ -48,6 +49,36 @@ SCROLL_JS="(() => {
   }
   if (target) target.scrollBy(0, innerHeight * 1.2);
 })()"
+# The Wayback Machine never archived some images at the sizes a page asks for,
+# so on an archived page point every image back at its live URL. Next's image
+# optimizer (`/_next/image?url=…`) doesn't exist on the archive, so those go
+# straight to the source, and images a framework would have faded in once
+# hydrated (Gatsby leaves them at opacity 0) are shown.
+UNARCHIVE_JS="(() => {
+  const live = (u) => u.replace(/https?:\\/\\/web\\.archive\\.org\\/web\\/[0-9]+[a-z_]*\\//g, '');
+  const source = (u) => {
+    const next = u.match(/\\/_next\\/image\\?url=([^&\\s]+)/);
+    return live(next ? decodeURIComponent(next[1]) : u);
+  };
+  for (const el of document.querySelectorAll('img, source')) {
+    const src = el.getAttribute('src');
+    const srcset = el.getAttribute('srcset') || '';
+    if (srcset.includes('/_next/image')) el.removeAttribute('srcset');
+    else if (srcset) el.srcset = live(srcset);
+    if (src) el.src = source(src);
+    el.loading = 'eager';
+    if (el.tagName === 'IMG') el.style.opacity = '1';
+  }
+})()"
+# Opens a URL and lets intro animations and lazy media settle.
+visit() {
+  ab open "$1" >/dev/null
+  if [[ "$1" == *web.archive.org* ]]; then
+    sleep 4
+    ab eval "$UNARCHIVE_JS" >/dev/null
+  fi
+  sleep 8
+}
 TMP="$(mktemp -d)"
 ab() { agent-browser --session "$SESSION" "$@"; }
 
@@ -76,16 +107,13 @@ for site in "${SITES[@]}"; do
   n=0
   if [ "${#urls[@]}" -gt 1 ]; then
     for url in "${urls[@]}"; do
-      ab open "$url" >/dev/null
-      sleep 8
+      visit "$url"
       n=$((n + 1))
       ab screenshot "$TMP/$slug-$n.png" >/dev/null
       frame "$TMP/$slug-$n.png" "$out/$slug-desktop-$n.jpg"
     done
   else
-    ab open "${urls[0]}" >/dev/null
-    # Intro animations and lazy media settle.
-    sleep 8
+    visit "${urls[0]}"
     for i in 1 2 3; do
       ab screenshot "$TMP/$slug-$i.png" >/dev/null
       if frame "$TMP/$slug-$i.png" "$out/$slug-desktop-$((n + 1)).jpg" "$prev"; then
@@ -98,8 +126,7 @@ for site in "${SITES[@]}"; do
   fi
 
   ab set viewport 390 844 2 >/dev/null
-  ab open "${urls[0]}" >/dev/null
-  sleep 8
+  visit "${urls[0]}"
   ab screenshot "$TMP/$slug-m.png" >/dev/null
   frame "$TMP/$slug-m.png" "$out/$slug-mobile-1.jpg"
   echo "$slug: $n desktop, 1 mobile"
