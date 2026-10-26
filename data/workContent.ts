@@ -111,18 +111,17 @@ const moonlightData: PageItem[] = [
     title: 'bueno.fund',
     date: '2026-2-16',
     tags: ['Design', 'Dev'],
+    externalHref: 'https://bueno.fund/',
     overview:
-      'A funding platform for local businesses and creators to rally their community around what they are building. Designed and built end to end, from campaign pages, backer tiers and checkout to the creator dashboard, with a hand-drawn brand of stickers and illustrations.',
+      'My own venture, co-founded with David Garvin: a funding platform for local businesses and creators to rally their community around what they are building. As co-founder over product, I design and build bueno.fund end to end, from campaign pages, backer tiers and checkout to the creator dashboard. David is co-founder over brand.',
     deliverables: [
-      'Product design',
-      'Brand and illustration',
+      'Co-founder, product',
+      'Product design and build',
       'Campaign pages',
       'Backer tiers and checkout',
       'Creator dashboard',
       'Marketing site',
-      'Guides and release notes',
     ],
-    externalHref: 'https://bueno.fund/',
   },
   {
     slug: 'processcreative',
@@ -167,16 +166,10 @@ const moonlightData: PageItem[] = [
     title: 'thegrandlb.com',
     date: '2022-9-1',
     tags: ['Design', 'Dev', 'Art Direction'],
-    overview:
-      "Website, signage and social for The Grand, an event venue in Long Beach, carried through a 2023 refresh. Earlier work for the venue's catering side, Grand Food & Beverage, set its identity.",
-    deliverables: [
-      'Website design and build',
-      'Signage and wayfinding',
-      'Outdoor banners',
-      '2023 site and social refresh',
-      'Grand Food & Beverage identity',
-    ],
     externalHref: 'https://thegrandlb.com/',
+    overview:
+      'Website and social for The Grand, an event venue in Long Beach, carried through a 2023 refresh.',
+    deliverables: ['Website design and build', '2023 site and social refresh'],
   },
   {
     slug: 'smile-gdp',
@@ -184,6 +177,9 @@ const moonlightData: PageItem[] = [
     date: '2022-5-1',
     tags: ['Design', 'Dev', 'Art Direction'],
     externalHref: 'https://smilegdp.archive.john.design/',
+    overview:
+      'Brand for Smile GDP, investing in a happier future for business, people and the planet, made with Scott Saunders. An archived project: the site is kept at an archive address.',
+    deliverables: ['Brand identity', 'Website design and build', 'Art direction'],
   },
   {
     slug: 'petroleum-club',
@@ -208,6 +204,9 @@ const moonlightData: PageItem[] = [
     date: '2022-6-1',
     tags: ['Design', 'Dev'],
     externalHref: 'https://chrisrushing.com/',
+    overview:
+      'A portfolio site for Chris Rushing, created in partnership with Chris as an independent designer.',
+    deliverables: ['Website design and build'],
   },
   {
     slug: 'kelsey-dake',
@@ -215,6 +214,9 @@ const moonlightData: PageItem[] = [
     date: '2022-6-1',
     tags: ['Design', 'Dev'],
     externalHref: 'https://kelseydake.com/',
+    overview:
+      'A portfolio site for Kelsey Dake, created in partnership with Kelsey as an independent designer.',
+    deliverables: ['Website design and build'],
   },
   {
     slug: 'golden-state',
