@@ -18,13 +18,15 @@ const STRIP_HEIGHT = 40;
 function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
   const media = 'h-full w-auto max-w-none select-none';
   return (
-    <figure className="h-full shrink-0 overflow-hidden rounded-sm bg-current/5">
+    <figure className="relative h-full shrink-0 overflow-hidden rounded-sm bg-current/5">
       {frame.kind === 'video' ? (
         <LoopingVideo
           sources={frame.sources}
           width={frame.width}
           height={frame.height}
           className={media}
+          controls
+          testId={`work-frame-toggle-${frame.src.split('/').pop()}`}
         />
       ) : (
         <Image
