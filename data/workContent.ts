@@ -30,6 +30,15 @@ const daylightData: PageItem[] = [
     title: 'Retool Blog',
     date: '2024-5-1',
     externalHref: 'https://retool.com/blog/',
+    overview:
+      "No longer the current site: Retool has since replaced this design. Cache was Retool's blog from 2024 to mid-2026, designed and built as a home for engineering deep dives, reports and releases, sorted into collections from Build & Learn to Newsroom.",
+    deliverables: [
+      'Blog design and build',
+      'Collections',
+      'Article templates',
+      'Table of contents',
+      'Light and dark themes',
+    ],
   },
   {
     slug: 'retool-pipes',

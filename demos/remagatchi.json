@@ -1,0 +1,11 @@
+{
+  "url": "https://remagatchi.retool.design/",
+  "viewport": [1440, 900],
+  "steps": [
+    { "click": "button:has-text('PLAY')", "after": 2500 },
+    { "click": "[title*='ping pong'], :text('ping pong')", "after": 2500 },
+    { "click": "button:has-text('Sweep')", "after": 1500 },
+    { "click": "button:has-text('Random')", "after": 2500 },
+    { "click": "[title*='matrix'], :text('matrix')", "after": 2500 }
+  ]
+}
