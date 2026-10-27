@@ -8,7 +8,7 @@ const daylightData: PageItem[] = [
     date: '2026-9-12',
     externalHref: 'https://retool.com/',
     overview:
-      "This is my main job at Retool: the most critical surfaces on retool.com, the pages that carry product launches and turn visitors into customers. That's meant launch pages like the waitlist for Retool's agent harness, plus pricing, customer stories and use cases.",
+      "My main job at Retool: the most critical pages on retool.com, the ones that carry launches and drive conversion.",
     deliverables: [
       'Launch pages',
       'Agent harness waitlist',
@@ -29,7 +29,7 @@ const daylightData: PageItem[] = [
     date: '2026-6-1',
     externalHref: 'https://retool.com/',
     overview:
-      "The homepage is Retool's most important surface, and owning it is a core part of my role. Every major launch lands here first, so it keeps evolving with the product. What you're looking at is that evolution over time, one iteration per frame, newest first: Secure your vibe-coded apps, Build me a compliance dashboard, Build internal software better with AI, and Best way to build internal software.",
+      "Retool's most important page, and a core part of my role. Every launch lands here first, so it keeps evolving. These are its iterations over time, newest first.",
     deliverables: [
       'Homepage design',
       'Launch iterations',
