@@ -119,14 +119,46 @@ const daylightData: PageItem[] = [
     slug: 'godaddy-point-of-sale',
     title: 'GoDaddy Point of Sale',
     date: '2021-9-1',
-    status: 'Coming Soon',
+    overview:
+      "When GoDaddy brought Poynt's hardware into its commerce lineup, I designed the product pages for the Smart Terminal and Card Reader, with rich merchandising and interactive moments. I was the interaction designer and art director. Launched Q3 2021.",
+    deliverables: [
+      'Product detail pages',
+      'Hero animation',
+      'Explainer animation',
+      'Storyboards',
+      'Art direction',
+    ],
+    media: [
+      'godaddy-point-of-sale-demo-1.mp4',
+      'godaddy-point-of-sale-demo-2.mp4',
+      'godaddy-point-of-sale-photo-01.jpg',
+      'godaddy-point-of-sale-photo-02.jpg',
+      'godaddy-point-of-sale-photo-03.jpg',
+      'godaddy-point-of-sale-photo-04.jpg',
+      'godaddy-point-of-sale-photo-05.jpg',
+    ],
+    hoverImage: 'godaddy-point-of-sale-photo-04.jpg',
   },
   {
     // href: "/work/godaddy-commerce",
     slug: 'godaddy-commerce',
     title: 'GoDaddy Commerce',
-    date: '2021-9-1',
-    status: 'Coming Soon',
+    date: '2021-6-1',
+    overview:
+      "A new version of GoDaddy's Online Store page, made to help people get the product and to grow sign-ups. I was the interaction designer and art director. Launched Q2 2021.",
+    deliverables: [
+      'Online Store page',
+      'Hero animation',
+      'Scroll storytelling',
+      'Storyboards',
+      'Payments video',
+    ],
+    media: [
+      'godaddy-commerce-demo-1.mp4',
+      'godaddy-commerce-demo-2.mp4',
+      'godaddy-commerce-demo-3.mp4',
+    ],
+    hoverImage: 'posters/godaddy-commerce-demo-1.jpg',
   },
   {
     // href: "/work/happy-money-office",
@@ -134,7 +166,7 @@ const daylightData: PageItem[] = [
     title: 'Happy Money Office',
     date: '2020-2-1',
     overview:
-      "Happy Money's headquarters in Orange County, made with Rapt Studio, who designed the space. Together we carried Happy Money's refreshed brand into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photos by Rapt Studio.",
+      "As the Design Director for Happy Money, I had the privilege to work with Rapt Studio to design a branded space for the company. Together we carried Happy Money's refreshed identity into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photos by Rapt Studio.",
     deliverables: [
       'Environmental graphics',
       'Murals',
