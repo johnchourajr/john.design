@@ -16,16 +16,37 @@ export type WorkItem = PageItem & WorkMedia;
 /** The strip's height, in vh; image `sizes` are worked out from it. */
 const STRIP_HEIGHT = 40;
 
-function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
+/** Frames in view as a row opens, which load straight away. */
+const EAGER_FRAMES = 3;
+
+function Frame({
+  frame,
+  title,
+  eager,
+}: {
+  frame: WorkFrame;
+  title: string;
+  eager: boolean;
+}) {
   const media = 'h-full w-auto max-w-none select-none';
   return (
     <figure className="relative h-full shrink-0 overflow-hidden rounded-sm bg-current/5">
+      {frame.kind === 'video' && frame.placeholder && (
+        // The poster's blur, under the video until its poster arrives.
+        // eslint-disable-next-line @next/next/no-img-element -- a data URL a few hundred bytes long, which the optimizer has nothing to do for.
+        <img
+          src={frame.placeholder}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 size-full scale-110 object-cover blur-lg"
+        />
+      )}
       {frame.kind === 'video' ? (
         <LoopingVideo
           sources={frame.sources}
           width={frame.width}
           height={frame.height}
-          className={media}
+          className={clsx(media, 'relative')}
           poster={frame.poster}
           controls
           testId={`work-frame-toggle-${frame.src.split('/').pop()}`}
@@ -39,6 +60,9 @@ function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
           // A frame is as wide as its aspect ratio at the strip's height.
           sizes={`${Math.ceil((STRIP_HEIGHT * frame.width) / frame.height)}vh`}
           className={media}
+          placeholder={frame.placeholder ? 'blur' : 'empty'}
+          blurDataURL={frame.placeholder ?? undefined}
+          loading={eager ? 'eager' : 'lazy'}
           draggable={false}
         />
       )}
@@ -217,8 +241,13 @@ export function WorkRow({
                 />
               )}
               {opened &&
-                frames.map((frame) => (
-                  <Frame key={frame.src} frame={frame} title={title} />
+                frames.map((frame, index) => (
+                  <Frame
+                    key={frame.src}
+                    frame={frame}
+                    title={title}
+                    eager={index < EAGER_FRAMES}
+                  />
                 ))}
             </div>
           </div>

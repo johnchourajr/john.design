@@ -8,15 +8,23 @@
 // aren't in sourceRoot are kept, so adding new media only needs the new files
 // locally. Work images are kept whole in `.media/work-images/` (#128), so
 // that folder is the source of truth: frames deleted or set aside drop out.
+//
+// Work images (and video posters) also get a blurred placeholder, a 16px WebP
+// as a data URL, in data/media-placeholders.json. It's kept apart from the
+// manifest, which client code imports, and only the work page reads it.
 
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+
+import sharp from 'sharp';
 
 import { readImageSize, readVideoSize } from '../lib/media/read-size.ts';
 
 const PREFIXES = ['journal-images', 'work-images'];
 const MIRRORED = ['work-images'];
 const MANIFEST = 'data/media-manifest.json';
+const PLACEHOLDERS = 'data/media-placeholders.json';
+const PLACEHOLDER_PREFIX = 'work-images';
 const root = process.argv[2] ?? 'public';
 
 function* walk(dir: string): Generator<string> {
@@ -37,6 +45,16 @@ try {
 }
 
 const entries: Record<string, unknown> = { ...existing };
+let placeholders: Record<string, string> | null = null;
+
+/** A 16px-wide WebP of the image, as a data URL, for `next/image`'s blur. */
+async function placeholderOf(buffer: Buffer) {
+  const tiny = await sharp(buffer, { animated: false })
+    .resize(16)
+    .webp({ quality: 40 })
+    .toBuffer();
+  return `data:image/webp;base64,${tiny.toString('base64')}`;
+}
 let scanned = 0;
 
 for (const prefix of PREFIXES) {
@@ -58,6 +76,10 @@ for (const prefix of PREFIXES) {
       ? readVideoSize(buffer)
       : readImageSize(buffer);
     entries[key] = size ? { ...size, bytes: buffer.length } : { bytes: buffer.length };
+    if (prefix === PLACEHOLDER_PREFIX && /\.(png|jpe?g|webp|gif)$/i.test(file)) {
+      placeholders ??= {};
+      placeholders[key] = await placeholderOf(buffer);
+    }
     scanned++;
   }
 }
@@ -66,4 +88,11 @@ const sorted = Object.fromEntries(
   Object.entries(entries).sort(([a], [b]) => a.localeCompare(b)),
 );
 writeFileSync(MANIFEST, JSON.stringify(sorted, null, 2) + '\n');
+// Rebuilt whole from the work images, like their manifest entries.
+if (placeholders) {
+  const sortedPlaceholders = Object.fromEntries(
+    Object.entries(placeholders).sort(([a], [b]) => a.localeCompare(b)),
+  );
+  writeFileSync(PLACEHOLDERS, JSON.stringify(sortedPlaceholders, null, 2) + '\n');
+}
 console.log(`Scanned ${scanned} files; ${MANIFEST} has ${Object.keys(sorted).length} entries.`);
