@@ -1,5 +1,5 @@
 import WorkPage from '@/app-pages/work-page';
-import { workContent } from '@/data/workContent';
+import { workList } from '@/data/workContent';
 import { pageMetadata } from '@/data/metadata';
 import { getWorkMedia } from '@/lib/pages/work-media';
 import type { PageItem } from '@/types/content-types';
@@ -17,16 +17,5 @@ const withFrames = (list: PageItem[]) =>
   }));
 
 export default async function Page() {
-  return (
-    <WorkPage
-      moonlight={{
-        title: workContent.moonlightData.title,
-        list: withFrames(workContent.moonlightData.list),
-      }}
-      daylight={{
-        title: workContent.daylightData.title,
-        list: withFrames(workContent.daylightData.list),
-      }}
-    />
-  );
+  return <WorkPage items={withFrames(workList)} />;
 }

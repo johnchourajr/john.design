@@ -1,6 +1,7 @@
 'use client';
 
 import { TagsList } from '@/components/fragments/TagsList';
+import { LightLabel } from '@/components/work/LightLabel';
 import { LoopingVideo } from '@/components/journal/LoopingVideo';
 import type { WorkFrame, WorkMedia } from '@/lib/pages/work-media';
 import { formatDateYear } from '@/lib/utils/formatDate';
@@ -101,6 +102,7 @@ export function WorkRow({
   slug,
   title,
   date,
+  light,
   tags,
   status,
   externalHref,
@@ -118,7 +120,13 @@ export function WorkRow({
 
   const hasOverview = Boolean(overview || deliverables?.length);
   const hasFrames = frames.length > 0 || hasOverview;
-  const name = <h3 className="headline-display-xs text-left">{title}</h3>;
+  const details = (
+    <>
+      <h3 className="headline-display-xs text-left">{title}</h3>
+      {date && <span className="text-caption opacity-60">{formatDateYear(date)}</span>}
+      {light && <LightLabel light={light} />}
+    </>
+  );
 
   return (
     <article
@@ -148,13 +156,11 @@ export function WorkRow({
             )}
             data-testid={`work-row-toggle-${slug}`}
           >
-            {name}
-            {date && <span className="text-caption opacity-60">{formatDateYear(date)}</span>}
+            {details}
           </button>
         ) : (
           <div className="flex min-w-0 grow items-baseline gap-4">
-            {name}
-            {date && <span className="text-caption opacity-60">{formatDateYear(date)}</span>}
+            {details}
             {status && <span className="text-caption opacity-60">{status}</span>}
           </div>
         )}

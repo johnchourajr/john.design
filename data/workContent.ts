@@ -518,13 +518,8 @@ const moonlightData: PageItem[] = [
   },
 ];
 
-export const workContent = {
-  daylightData: {
-    title: 'Daylight Work',
-    list: sortWorkByDate(daylightData),
-  },
-  moonlightData: {
-    title: 'Moonlight Work',
-    list: sortWorkByDate(moonlightData),
-  },
-};
+/** Every project, newest first, each labelled day job or own time. */
+export const workList: PageItem[] = sortWorkByDate([
+  ...daylightData.map((item) => ({ ...item, light: 'daylight' as const })),
+  ...moonlightData.map((item) => ({ ...item, light: 'moonlight' as const })),
+]);

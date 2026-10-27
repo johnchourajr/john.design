@@ -3,17 +3,12 @@ import {
   JustifiedHeadlineInner,
 } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-import { WorkList, type WorkSection } from '@/components/work/WorkList';
+import { WorkList } from '@/components/work/WorkList';
+import type { WorkItem } from '@/components/work/WorkRow';
 import clsx from 'clsx';
 import { Suspense } from 'react';
 
-export default function WorkPage({
-  moonlight,
-  daylight,
-}: {
-  moonlight: WorkSection;
-  daylight: WorkSection;
-}) {
+export default function WorkPage({ items }: { items: WorkItem[] }) {
   return (
     <>
       <h1 className="sr-only">Work</h1>
@@ -36,7 +31,7 @@ export default function WorkPage({
           </Suspense>
         </HeadlineShader>
       </section>
-      <WorkList sections={[moonlight, daylight]} />
+      <WorkList items={items} />
     </>
   );
 }
