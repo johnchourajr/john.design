@@ -280,7 +280,7 @@ const moonlightData: PageItem[] = [
   {
     slug: 'bueno-fund',
     title: 'bueno.fund',
-    date: '2026-2-16',
+    date: '2026-10-1',
     tags: ['Design', 'Dev'],
     externalHref: 'https://bueno.fund/',
     overview:
