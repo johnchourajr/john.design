@@ -1,9 +1,5 @@
 import clsx from 'clsx';
 
-import {
-  basicAnimateParentVariants,
-  basicAnimateVariants,
-} from '@/lib/config/motion-config';
 import type { MotionObject } from '@/types/content-types';
 import { slugify } from '@/utils/slugify';
 import { m } from 'motion/react';
@@ -26,10 +22,12 @@ export const TextContainer = ({
 
   const motionController = motionObject?.[motionKey];
 
-  const motionProps = {
-    variants: basicAnimateVariants,
-    layout: true,
-  };
+  // Fades in with CSS, so it shows from the static HTML rather than after
+  // hydration; motion only animates the layout.
+  const wordClassName = clsx(
+    'animate-fade-in fade-in-stagger motion-reduce:animate-none',
+    className,
+  );
 
   const renderText = () => {
     if (letters) {
@@ -40,8 +38,8 @@ export const TextContainer = ({
           <m.span
             key={index}
             data-word={slugify(`${letter} ${index}`)}
-            className={className}
-            {...motionProps}
+            className={wordClassName}
+            layout
           >
             {addStrongTags(letter)}
           </m.span>
@@ -54,8 +52,8 @@ export const TextContainer = ({
           <m.span
             key={index}
             data-word={slugify(`${child} ${index}`)}
-            className={className}
-            {...motionProps}
+            className={wordClassName}
+            layout
           >
             {addStrongTags(child)} {index !== childrenArray.length - 1 && ' '}
           </m.span>
@@ -73,12 +71,6 @@ export const TextContainer = ({
     >
       <m.span
         className={clsx('inline-flex whitespace-pre', motionController?.child)}
-        variants={basicAnimateParentVariants({
-          staggerChildren: 0.1,
-          delayChildren: 0.3,
-        })}
-        initial="initial"
-        animate="animate"
         layout
       >
         {renderText()}

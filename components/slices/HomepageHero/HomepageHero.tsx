@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
 import {
   Suspense,
@@ -26,7 +25,6 @@ import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { RolesSection } from '@/components/slices/RolesSection';
 import type { HomePageData } from '@/data/homepageContent';
-import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
 import type { SectionStructure } from '@/types/content-types';
 
 // Lazy load Three.js shader component to reduce initial bundle size
@@ -118,14 +116,12 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           />
         </Suspense>
       </div>
-      <m.div
+      <div
         className={clsx(
           'flex items-start flex-col gap-6 p-4 justify-center relative z-100 mb-[8vw]',
+          'animate-fade-in [animation-delay:0.5s] motion-reduce:animate-none',
           enableDrawing && 'select-none',
         )}
-        variants={basicAnimateDelayVariants({ delay: 0.5 })}
-        initial="initial"
-        animate="animate"
       >
         {heroSection.typographies.map(({ text, size }, index) => (
           <p key={index} className={size}>
@@ -137,7 +133,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             <InformationalChunk key={index} text={chunk.text} />
           ))}
         </div>
-      </m.div>
+      </div>
       <RolesSection rolesSection={rolesSection} />
       <div
         className={clsx(
