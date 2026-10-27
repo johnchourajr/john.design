@@ -8,7 +8,7 @@ const daylightData: PageItem[] = [
     date: '2026-9-12',
     externalHref: 'https://retool.com/',
     overview:
-      "My main job at Retool: the most critical pages on retool.com, the ones that carry launches and drive conversion.",
+      'My main job at Retool: the most critical pages on retool.com, the ones that carry launches and drive conversion.',
     deliverables: [
       'Launch pages',
       'Agent harness waitlist',
@@ -42,6 +42,7 @@ const daylightData: PageItem[] = [
       'retool-homepage-desktop-3.jpg',
       'retool-homepage-desktop-4.jpg',
     ],
+    hoverImage: 'posters/retool-homepage-demo-1.jpg',
   },
   {
     // Internal tools, shown as demos only: no links out.
@@ -49,9 +50,9 @@ const daylightData: PageItem[] = [
     title: 'Retool Internal',
     date: '2026-4-1',
     media: [
-      'retool-internal-demo-1.mp4',
-      'retool-internal-demo-2.mp4',
-      'retool-internal-demo-3.mp4',
+      'retool-internal-demo-4.mp4',
+      'retool-internal-demo-5.mp4',
+      'retool-internal-demo-6.mp4',
     ],
   },
   {

@@ -1,0 +1,13 @@
+{
+  "url": "https://sky.retool.design/?shader=sky",
+  "viewport": [1440, 900],
+  "settle": 2000,
+  "steps": [
+    { "wait": 800 },
+    { "click": "button >> nth=2", "zoom": false, "after": 1800 },
+    { "click": "button >> nth=3", "zoom": false, "after": 1800 },
+    { "click": "button >> nth=4", "zoom": false, "after": 1800 },
+    { "click": "button >> nth=1", "zoom": false, "after": 1500 },
+    { "click": "button >> nth=0", "zoom": false, "after": 2500 }
+  ]
+}
