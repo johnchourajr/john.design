@@ -6,6 +6,7 @@ const daylightData: PageItem[] = [
     slug: 'retool-dot-com',
     title: 'Retool Site',
     date: '2026-9-12',
+    tags: ['Design'],
     externalHref: 'https://retool.com/',
     overview:
       'My main job at Retool: the most critical pages on retool.com, the ones that carry launches and drive conversion.',
@@ -27,6 +28,7 @@ const daylightData: PageItem[] = [
     slug: 'retool-homepage',
     title: 'Retool Homepage',
     date: '2026-6-1',
+    tags: ['Design'],
     externalHref: 'https://retool.com/',
     overview:
       "Retool's most important page, and a core part of my role. Every launch lands here first, so it keeps evolving. These are its iterations over time, newest first.",
@@ -49,6 +51,7 @@ const daylightData: PageItem[] = [
     slug: 'retool-internal',
     title: 'Retool Internal',
     date: '2026-4-1',
+    tags: ['Design', 'Dev'],
     media: [
       'retool-internal-demo-5.mp4',
       'retool-internal-demo-4.mp4',
@@ -60,12 +63,14 @@ const daylightData: PageItem[] = [
     slug: 'retool-brand',
     title: 'Retool Brand',
     date: '2024-8-1',
+    tags: ['Brand Design'],
     status: 'Coming Soon',
   },
   {
     slug: 'retool-blog',
     title: 'Retool Blog',
     date: '2024-5-1',
+    tags: ['Design', 'Dev'],
     externalHref: 'https://retool.com/blog/',
     overview:
       "This isn't the current site anymore; Retool has since replaced it. From 2024 to mid-2026, Cache was Retool's blog. I designed and built it as a home for engineering deep dives, reports and releases, sorted into collections from Build & Learn to Newsroom. Designed along side Cam Sackett.",
@@ -87,6 +92,7 @@ const daylightData: PageItem[] = [
     slug: 'retool-pipes',
     title: 'Pipes',
     date: '2023-12-1',
+    tags: ['Design'],
     externalHref: 'https://retool.com/pipes/',
     overview:
       'Pipes is a editorial project in a series based on influential but defunct software. Design and developed with Cam Sackett as a design partner. ',
@@ -101,6 +107,7 @@ const daylightData: PageItem[] = [
     slug: 'retool-state-of-ai-2023',
     title: 'State of AI 2023',
     date: '2023-11-1',
+    tags: ['Design'],
     externalHref: 'https://retool.com/reports/state-of-ai-2023/',
     media: [
       'retool-state-of-ai-2023-desktop-1.jpg',
@@ -114,6 +121,7 @@ const daylightData: PageItem[] = [
     slug: 'paypal',
     title: 'PayPal.com',
     date: '2022-6-1',
+    tags: ['Art Direction', 'Design', 'Motion', 'Dev'],
     overview:
       'In 2022 I did art direction, interactive design, motion design and some development for PayPal.com, through its June rebrand.',
     deliverables: [
@@ -131,6 +139,7 @@ const daylightData: PageItem[] = [
     slug: 'godaddy-point-of-sale',
     title: 'GoDaddy Point of Sale',
     date: '2021-9-1',
+    tags: ['Art Direction', 'Design', 'Motion', 'Dev'],
     overview:
       "When GoDaddy brought Poynt's hardware into its commerce lineup, I designed the product pages for the Smart Terminal and Card Reader, with rich merchandising and interactive moments. I was the interaction designer and art director. Launched Q3 2021.",
     deliverables: [
@@ -156,6 +165,7 @@ const daylightData: PageItem[] = [
     slug: 'godaddy-commerce',
     title: 'GoDaddy Commerce',
     date: '2021-6-1',
+    tags: ['Art Direction', 'Design', 'Motion', 'Dev'],
     overview:
       "A new version of GoDaddy's Online Store page, made to help people get the product and to grow sign-ups. I was the interaction designer and art director. Launched Q2 2021.",
     deliverables: [
@@ -177,6 +187,7 @@ const daylightData: PageItem[] = [
     slug: 'happy-money-office',
     title: 'Happy Money Office',
     date: '2020-2-1',
+    tags: ['Environmental Design'],
     overview:
       "As the Design Director for Happy Money, I had the privilege to work with Rapt Studio to design a branded space for the company. Together we carried Happy Money's refreshed identity into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photos by Rapt Studio.",
     deliverables: [
@@ -201,6 +212,7 @@ const daylightData: PageItem[] = [
     slug: 'happy-money',
     title: 'Happy Money Brand',
     date: '2018-6-1',
+    tags: ['Brand Design', 'Art Direction'],
     overview:
       "Happy Money's brand, which I designed and gave design direction for while I worked there in 2018: the mark, the logotype, an icon set, a loud brand expression and a photography system, all collected in a visual guidelines deck.",
     deliverables: [
@@ -229,6 +241,7 @@ const daylightData: PageItem[] = [
     slug: 'joy-app',
     title: 'Joy App',
     date: '2017-6-1',
+    tags: ['Product Design'],
     overview:
       "Joy was a money app I led product design on, made for Happy Money in 2017. It asked how your spending made you feel and helped you save a little every day. It was Apple's App of the Day in 2018, and I redesigned it in 2019. It's no longer live.",
     deliverables: [
@@ -252,6 +265,7 @@ const daylightData: PageItem[] = [
     slug: 'vizio-smartcast',
     title: 'Vizio SmartCast',
     date: '2015-1-1',
+    tags: ['Product Design'],
     status: 'Coming Soon',
     media: [
       'vizio-smartcast-archive-1.jpg',
