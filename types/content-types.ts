@@ -34,6 +34,13 @@ export type PageItem = {
   deliverables?: string[];
   /** Shown in place of the site link when the site is no longer live. */
   siteNote?: string;
+  /**
+   * The work page's frames for an open project, in order: file names in
+   * `.media/work-images/<slug>/`, uploaded to R2 (#128).
+   */
+  media?: string[];
+  /** Which of `media` shows beside the cursor on hover; the first image by default. */
+  hoverImage?: string;
 };
 
 export type PostFrontMatter = {

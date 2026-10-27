@@ -7,18 +7,35 @@ const daylightData: PageItem[] = [
     title: 'Retool Site',
     date: '2024-9-12',
     externalHref: 'https://retool.com/',
+    media: [
+      'retool-dot-com-desktop-1.jpg',
+      'retool-dot-com-desktop-2.jpg',
+      'retool-dot-com-desktop-3.jpg',
+      'retool-dot-com-desktop-4.jpg',
+    ],
   },
   {
     slug: 'retool-homepage',
     title: 'Retool Homepage',
     date: '2026-4-1',
     externalHref: 'https://retool.com/',
+    media: [
+      'retool-homepage-desktop-1.jpg',
+      'retool-homepage-desktop-2.jpg',
+      'retool-homepage-desktop-3.jpg',
+      'retool-homepage-desktop-4.jpg',
+    ],
   },
   {
     // Internal tools, shown as demos only: no links out.
     slug: 'retool-internal',
     title: 'Retool Internal',
     date: '2026-4-1',
+    media: [
+      'retool-internal-demo-1.mp4',
+      'retool-internal-demo-2.mp4',
+      'retool-internal-demo-3.mp4',
+    ],
   },
   {
     slug: 'retool-brand',
@@ -39,18 +56,36 @@ const daylightData: PageItem[] = [
       'Table of contents',
       'Light and dark themes',
     ],
+    media: [
+      'retool-blog-desktop-1.jpg',
+      'retool-blog-desktop-2.jpg',
+      'retool-blog-desktop-3.jpg',
+      'retool-blog-mobile-1.jpg',
+    ],
   },
   {
     slug: 'retool-pipes',
     title: 'Pipes',
     date: '2023-12-1',
     externalHref: 'https://retool.com/pipes/',
+    media: [
+      'retool-pipes-desktop-1.jpg',
+      'retool-pipes-desktop-2.jpg',
+      'retool-pipes-desktop-3.jpg',
+      'retool-pipes-mobile-1.jpg',
+    ],
   },
   {
     slug: 'retool-state-of-ai-2023',
     title: 'State of AI 2023',
     date: '2023-11-1',
     externalHref: 'https://retool.com/reports/state-of-ai-2023/',
+    media: [
+      'retool-state-of-ai-2023-desktop-1.jpg',
+      'retool-state-of-ai-2023-desktop-2.jpg',
+      'retool-state-of-ai-2023-desktop-3.jpg',
+      'retool-state-of-ai-2023-mobile-1.jpg',
+    ],
   },
   {
     // href: "/work/paypal",
@@ -86,6 +121,16 @@ const daylightData: PageItem[] = [
       'Manifesto lettering',
       'Wayfinding',
     ],
+    media: [
+      'happy-money-office-photo-01.jpg',
+      'happy-money-office-photo-02.jpg',
+      'happy-money-office-photo-03.jpg',
+      'happy-money-office-photo-04.jpg',
+      'happy-money-office-photo-05.jpg',
+      'happy-money-office-photo-06.jpg',
+      'happy-money-office-photo-07.jpg',
+      'happy-money-office-archive-1.jpg',
+    ],
   },
   {
     // href: "/work/happy-money",
@@ -93,6 +138,11 @@ const daylightData: PageItem[] = [
     title: 'Happy Money Brand',
     date: '2020-1-1',
     status: 'Coming Soon',
+    media: [
+      'happy-money-archive-1.jpg',
+      'happy-money-archive-2.mp4',
+      'happy-money-archive-3.jpg',
+    ],
   },
   {
     // href: "/work/joy-app",
@@ -100,6 +150,7 @@ const daylightData: PageItem[] = [
     title: 'Joy App',
     date: '2018-1-1',
     status: 'Coming Soon',
+    media: ['joy-app-archive-1.jpg'],
   },
   {
     // href: "/work/vizio-smartcast",
@@ -107,6 +158,12 @@ const daylightData: PageItem[] = [
     title: 'Vizio SmartCast',
     date: '2015-1-1',
     status: 'Coming Soon',
+    media: [
+      'vizio-smartcast-archive-1.jpg',
+      'vizio-smartcast-archive-2.mp4',
+      'vizio-smartcast-archive-3.jpg',
+      'vizio-smartcast-archive-4.jpg',
+    ],
   },
 ];
 
@@ -127,6 +184,15 @@ const moonlightData: PageItem[] = [
       'Creator dashboard',
       'Marketing site',
     ],
+    media: [
+      'bueno-fund-scroll-1.mp4',
+      'bueno-fund-mobile-1.jpg',
+      'bueno-fund-brand-06.jpg',
+      'bueno-fund-brand-04.jpg',
+      'bueno-fund-brand-05.jpg',
+      'bueno-fund-art-1.webp',
+    ],
+    hoverImage: 'bueno-fund-brand-06.jpg',
   },
   {
     slug: 'processcreative',
@@ -141,6 +207,12 @@ const moonlightData: PageItem[] = [
       'Selected work showcase',
     ],
     externalHref: 'https://processcreative.co/',
+    media: [
+      'processcreative-scroll-1.mp4',
+      'processcreative-mobile-1.jpg',
+      'processcreative-brand-01.jpg',
+    ],
+    hoverImage: 'processcreative-brand-01.jpg',
   },
   {
     slug: 'goodheart-bread',
@@ -148,6 +220,7 @@ const moonlightData: PageItem[] = [
     date: '2024-10-5',
     tags: ['Design', 'Dev'],
     externalHref: 'https://goodheartbread.com/',
+    media: ['goodheart-bread-desktop-2.jpg', 'goodheart-bread-mobile-1.jpg'],
   },
   {
     slug: 'muybuen-cursor',
@@ -155,6 +228,11 @@ const moonlightData: PageItem[] = [
     date: '2024-10-1',
     tags: ['Dev', 'Open Source'],
     externalHref: 'https://cursor.muybuen.dev/',
+    media: [
+      'muybuen-cursor-desktop-1.jpg',
+      'muybuen-cursor-desktop-2.jpg',
+      'muybuen-cursor-mobile-1.jpg',
+    ],
   },
   {
     slug: 'muybuen-type',
@@ -162,6 +240,13 @@ const moonlightData: PageItem[] = [
     date: '2024-5-1',
     tags: ['Dev', 'Open Source'],
     externalHref: 'https://type.muybuen.dev/',
+    media: [
+      'muybuen-type-desktop-1.jpg',
+      'muybuen-type-desktop-2.jpg',
+      'muybuen-type-desktop-3.jpg',
+      'muybuen-type-mobile-1.jpg',
+      'muybuen-type-demo-1.mp4',
+    ],
   },
   {
     slug: 'buen-coffee',
@@ -169,6 +254,11 @@ const moonlightData: PageItem[] = [
     date: '2024-1-1',
     tags: ['Design', 'Dev'],
     externalHref: 'https://muybuen.coffee/',
+    media: [
+      'buen-coffee-desktop-1.jpg',
+      'buen-coffee-desktop-2.jpg',
+      'buen-coffee-mobile-1.jpg',
+    ],
   },
   {
     slug: 'the-grand',
@@ -179,6 +269,16 @@ const moonlightData: PageItem[] = [
     overview:
       'Website and social for The Grand, an event venue in Long Beach, carried through a 2023 refresh.',
     deliverables: ['Website design and build', '2023 site and social refresh'],
+    media: [
+      'the-grand-scroll-1.mp4',
+      'the-grand-mobile-1.jpg',
+      'the-grand-brand-01.jpg',
+      'the-grand-brand-02.jpg',
+      'the-grand-brand-03.jpg',
+      'the-grand-brand-04.jpg',
+      'the-grand-brand-05.mp4',
+    ],
+    hoverImage: 'the-grand-brand-01.jpg',
   },
   {
     slug: 'smile-gdp',
@@ -192,6 +292,12 @@ const moonlightData: PageItem[] = [
       'Brand identity',
       'Website design and build',
       'Art direction',
+    ],
+    media: [
+      'smile-gdp-desktop-1.jpg',
+      'smile-gdp-desktop-2.jpg',
+      'smile-gdp-desktop-3.jpg',
+      'smile-gdp-mobile-1.jpg',
     ],
   },
   {
@@ -211,6 +317,26 @@ const moonlightData: PageItem[] = [
     ],
     siteNote:
       'lbpetroleum.club is no longer online; the address now points to The Grand.',
+    media: [
+      'petroleum-club-desktop-1.jpg',
+      'petroleum-club-desktop-2.jpg',
+      'petroleum-club-desktop-3.jpg',
+      'petroleum-club-mobile-1.jpg',
+      'petroleum-club-brand-01.mp4',
+      'petroleum-club-brand-02.jpg',
+      'petroleum-club-brand-03.jpg',
+      'petroleum-club-brand-04.jpg',
+      'petroleum-club-brand-05.jpg',
+      'petroleum-club-brand-06.jpg',
+      'petroleum-club-brand-07.jpg',
+      'petroleum-club-brand-08.jpg',
+      'petroleum-club-brand-11.jpg',
+      'petroleum-club-brand-12.jpg',
+      'petroleum-club-brand-13.jpg',
+      'petroleum-club-brand-14.jpg',
+      'petroleum-club-brand-15.jpg',
+    ],
+    hoverImage: 'petroleum-club-brand-02.jpg',
   },
   {
     slug: 'chris-rushing',
@@ -221,6 +347,12 @@ const moonlightData: PageItem[] = [
     overview:
       'A portfolio site for Chris Rushing, created in partnership with Chris as an independent designer.',
     deliverables: ['Website design and build'],
+    media: [
+      'chris-rushing-desktop-1.jpg',
+      'chris-rushing-desktop-2.jpg',
+      'chris-rushing-desktop-3.jpg',
+      'chris-rushing-mobile-1.jpg',
+    ],
   },
   {
     slug: 'kelsey-dake',
@@ -231,6 +363,12 @@ const moonlightData: PageItem[] = [
     overview:
       'A portfolio site for Kelsey Dake, created in partnership with Kelsey as an independent designer.',
     deliverables: ['Website design and build'],
+    media: [
+      'kelsey-dake-desktop-1.jpg',
+      'kelsey-dake-desktop-2.jpg',
+      'kelsey-dake-desktop-3.jpg',
+      'kelsey-dake-mobile-1.jpg',
+    ],
   },
   {
     slug: 'golden-state',
@@ -256,6 +394,14 @@ const moonlightData: PageItem[] = [
       'Stationery',
       'Website design and build',
     ],
+    media: [
+      'arcade-scroll-1.mp4',
+      'arcade-mobile-1.jpg',
+      'arcade-brand-02.jpg',
+      'arcade-bag-03.jpg',
+      'arcade-bag-09.jpg',
+    ],
+    hoverImage: 'arcade-brand-02.jpg',
   },
   {
     slug: 'fermensch',
@@ -273,6 +419,11 @@ const moonlightData: PageItem[] = [
       'Now Serving sign',
       'Social kit',
       'Delivery van lettering',
+    ],
+    media: [
+      'fermensch-brand-02.jpg',
+      'fermensch-brand-06.jpg',
+      'fermensch-archive-1.jpg',
     ],
   },
 ];

@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 const withFrames = (list: PageItem[]) =>
   list.map((item) => ({
     ...item,
-    ...(item.slug ? getWorkMedia(item.slug) : { frames: [], cover: null }),
+    ...(item.slug ? getWorkMedia(item.slug, item.media, item.hoverImage) : { frames: [], cover: null }),
   }));
 
 export default async function Page() {

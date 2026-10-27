@@ -1,21 +1,20 @@
-import { hostedMediaPaths, mediaUrl } from '@/lib/media/hosted';
+import { hasHostedMedia, mediaUrl } from '@/lib/media/hosted';
 import { getMediaSize, getVideoSources, isVideoSrc } from '@/lib/pages/journal-media';
 import type { VideoSource } from '@/lib/pages/journal-media';
 
 /**
  * Build-time listing of each project's frames for the work page's strips
- * (#128). A project's media is every file under `/work-images/<slug>/` in the
- * media manifest (hosted on R2, see lib/media/hosted.ts), named
- * `<slug>-<kind>-<n>` by the capture scripts or by hand; a WebM beside an MP4
- * of the same name is that video's smaller source, not a frame.
+ * (#128). A project's `media` in data/workContent.ts names its files in
+ * `/work-images/<slug>/` (hosted on R2, see lib/media/hosted.ts), in the
+ * order the strip shows them. A video's still lives at
+ * `posters/<name>.jpg` beside it, and a WebM of the same name is its smaller
+ * source; neither is listed.
  */
 
 export type WorkFrame = {
   src: string;
   width: number;
   height: number;
-  /** What the frame shows, from its name: `scroll`, `desktop`, `brand`… */
-  group: string;
 } & (
   | { kind: 'image' }
   | {
@@ -29,89 +28,54 @@ export type WorkFrame = {
 export type WorkMedia = {
   frames: WorkFrame[];
   /** The still shown beside the cursor while a closed row is hovered. */
-  cover: WorkFrame | null;
+  cover: { src: string; width: number; height: number } | null;
 };
 
-const FRAME_PATTERN = /\.(jpe?g|png|webp|gif|mp4|webm|mov)$/i;
-
-// The site comes first (its recording, then its pages), then the brand work
-// and photography around it.
-const GROUP_ORDER = [
-  'scroll',
-  'desktop',
-  'mobile',
-  'release',
-  'demo',
-  'slice',
-  'brand',
-  'gfb',
-  'art',
-  'bag',
-  'photo',
-  'archive',
-];
-
-// A scroll recording already shows the site's pages, so its desktop
-// screenshots would repeat it.
-const COVERED_BY_SCROLL = ['desktop', 'slice'];
-
-// The cover is the first still that shows the work rather than a page of the
-// site, when there is one.
-const COVER_ORDER = ['brand', 'bag', 'photo', 'art', 'gfb', 'archive', 'desktop', 'mobile', 'slice'];
-
-const groupOf = (slug: string, file: string) => file.slice(slug.length + 1).split('-')[0];
-
-function rank(order: string[], group: string): number {
-  const index = order.indexOf(group);
-  return index === -1 ? order.length : index;
-}
-
-export function getWorkMedia(slug: string): WorkMedia {
+/**
+ * The frames for `slug`, in `media` order. `hoverImage` names the file whose
+ * still is the hover cover; without it, the first image (or, failing that,
+ * the first video's poster) is. A name that isn't uploaded fails the build,
+ * so a typo can't quietly drop a frame.
+ */
+export function getWorkMedia(slug: string, media: string[] = [], hoverImage?: string): WorkMedia {
   const prefix = `/work-images/${slug}/`;
-  // Frames sit directly in the project's folder; `posters/` holds stills of
-  // its videos.
-  const paths = hostedMediaPaths(prefix).map((path) => path.slice(prefix.length));
-  const files = paths.filter((file) => !file.includes('/'));
-  const posterOf = (file: string) => {
-    const poster = `posters/${file.replace(/\.\w+$/, '.jpg')}`;
-    return paths.includes(poster) ? mediaUrl(`${prefix}${poster}`) : null;
+  const path = (file: string) => {
+    if (!hasHostedMedia(`${prefix}${file}`)) {
+      throw new Error(
+        `work media: ${slug} lists "${file}", which isn't in data/media-manifest.json. ` +
+          'Check the name, or run `pnpm media:upload .media && pnpm media:manifest .media`.',
+      );
+    }
+    return `${prefix}${file}`;
   };
 
-  const names = new Set(files);
-  const hasScroll = files.some((file) => groupOf(slug, file) === 'scroll');
-  const frames = files
-    .filter((file) => FRAME_PATTERN.test(file))
-    .filter((file) => !(/\.webm$/i.test(file) && names.has(file.replace(/\.webm$/i, '.mp4'))))
-    .filter((file) => !(hasScroll && COVERED_BY_SCROLL.includes(groupOf(slug, file))))
-    .sort(
-      (a, b) =>
-        rank(GROUP_ORDER, groupOf(slug, a)) - rank(GROUP_ORDER, groupOf(slug, b)) ||
-        a.localeCompare(b, 'en', { numeric: true }),
-    )
-    .flatMap((file): WorkFrame[] => {
-      const path = `${prefix}${file}`;
-      const size = getMediaSize(path);
-      if (!size) return [];
-      const group = groupOf(slug, file);
-      const src = mediaUrl(path);
-      return isVideoSrc(path)
-        ? [
-            {
-              kind: 'video',
-              src,
-              group,
-              ...size,
-              sources: getVideoSources(path),
-              poster: posterOf(file),
-            },
-          ]
-        : [{ kind: 'image', src, group, ...size }];
-    });
+  const frames = media.map((file): WorkFrame => {
+    const src = path(file);
+    const size = getMediaSize(src);
+    if (!size) throw new Error(`work media: no size recorded for ${src}`);
+    if (!isVideoSrc(src)) return { kind: 'image', src: mediaUrl(src), ...size };
+    const poster = `${prefix}posters/${file.replace(/\.\w+$/, '.jpg')}`;
+    return {
+      kind: 'video',
+      src: mediaUrl(src),
+      ...size,
+      sources: getVideoSources(src),
+      poster: hasHostedMedia(poster) ? mediaUrl(poster) : null,
+    };
+  });
 
-  const stills = frames.filter((frame) => frame.kind === 'image');
-  const cover =
-    [...stills].sort((a, b) => rank(COVER_ORDER, a.group) - rank(COVER_ORDER, b.group))[0] ??
-    null;
+  if (hoverImage && !media.includes(hoverImage)) {
+    throw new Error(`work media: ${slug}'s hoverImage "${hoverImage}" isn't in its media list.`);
+  }
+
+  const coverOf = (frame: WorkFrame | undefined): WorkMedia['cover'] => {
+    if (!frame) return null;
+    if (frame.kind === 'image') return frame;
+    return frame.poster ? { src: frame.poster, width: frame.width, height: frame.height } : null;
+  };
+  const cover = hoverImage
+    ? coverOf(frames[media.indexOf(hoverImage)])
+    : (coverOf(frames.find((frame) => frame.kind === 'image')) ?? coverOf(frames[0]));
 
   return { frames, cover };
 }
