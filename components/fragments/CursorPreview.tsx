@@ -80,7 +80,7 @@ export function CursorPreview({
             <m.div
               key={image.src}
               className={clsx(
-                'absolute left-4 overflow-hidden rounded-sm shadow-xl',
+                'absolute left-4 overflow-hidden rounded-sm border border-root shadow-xl',
                 above ? 'bottom-4' : 'top-4',
               )}
               initial={{ opacity: 0, scale: scale.small }}
