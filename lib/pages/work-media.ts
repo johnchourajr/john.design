@@ -33,9 +33,10 @@ export type WorkMedia = {
 
 /**
  * The frames for `slug`, in `media` order. `hoverImage` names the file whose
- * still is the hover cover; without it, the first image (or, failing that,
- * the first video's poster) is. A name that isn't uploaded fails the build,
- * so a typo can't quietly drop a frame.
+ * still is the hover cover, listed or not (a video's poster, say, as
+ * `posters/<name>.jpg`); without it, the first image (or, failing that, the
+ * first video's poster) is. A name that isn't uploaded fails the build, so a
+ * typo can't quietly drop a frame.
  */
 export function getWorkMedia(slug: string, media: string[] = [], hoverImage?: string): WorkMedia {
   const prefix = `/work-images/${slug}/`;
@@ -49,7 +50,7 @@ export function getWorkMedia(slug: string, media: string[] = [], hoverImage?: st
     return `${prefix}${file}`;
   };
 
-  const frames = media.map((file): WorkFrame => {
+  const frameOf = (file: string): WorkFrame => {
     const src = path(file);
     const size = getMediaSize(src);
     if (!size) throw new Error(`work media: no size recorded for ${src}`);
@@ -62,11 +63,8 @@ export function getWorkMedia(slug: string, media: string[] = [], hoverImage?: st
       sources: getVideoSources(src),
       poster: hasHostedMedia(poster) ? mediaUrl(poster) : null,
     };
-  });
-
-  if (hoverImage && !media.includes(hoverImage)) {
-    throw new Error(`work media: ${slug}'s hoverImage "${hoverImage}" isn't in its media list.`);
-  }
+  };
+  const frames = media.map(frameOf);
 
   const coverOf = (frame: WorkFrame | undefined): WorkMedia['cover'] => {
     if (!frame) return null;
@@ -74,7 +72,7 @@ export function getWorkMedia(slug: string, media: string[] = [], hoverImage?: st
     return frame.poster ? { src: frame.poster, width: frame.width, height: frame.height } : null;
   };
   const cover = hoverImage
-    ? coverOf(frames[media.indexOf(hoverImage)])
+    ? coverOf(frameOf(hoverImage))
     : (coverOf(frames.find((frame) => frame.kind === 'image')) ?? coverOf(frames[0]));
 
   return { frames, cover };

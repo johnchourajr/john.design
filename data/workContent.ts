@@ -212,7 +212,7 @@ const moonlightData: PageItem[] = [
       'processcreative-mobile-1.jpg',
       'processcreative-brand-01.jpg',
     ],
-    hoverImage: 'processcreative-brand-01.jpg',
+    hoverImage: 'posters/processcreative-scroll-1.jpg',
   },
   {
     slug: 'goodheart-bread',
