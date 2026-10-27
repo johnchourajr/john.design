@@ -112,7 +112,17 @@ const daylightData: PageItem[] = [
     slug: 'paypal',
     title: 'PayPal.com',
     date: '2022-6-1',
-    status: 'Coming Soon',
+    overview:
+      'In 2022 I did art direction, interactive design, motion design and some development for PayPal.com, through its June rebrand.',
+    deliverables: [
+      'Art direction',
+      'Interactive design',
+      'Motion design',
+      'Hero modules',
+      'Front-end development',
+    ],
+    media: ['paypal-demo-1.mp4', 'paypal-desktop-1.jpg'],
+    hoverImage: 'posters/paypal-demo-1.jpg',
   },
   {
     // href: "/work/godaddy-point-of-sale",
