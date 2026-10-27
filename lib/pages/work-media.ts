@@ -1,3 +1,6 @@
+import { getImageProps } from 'next/image';
+
+import placeholders from '@/data/media-placeholders.json';
 import { hasHostedMedia, mediaUrl } from '@/lib/media/hosted';
 import { getMediaSize, getVideoSources, isVideoSrc } from '@/lib/pages/journal-media';
 import type { VideoSource } from '@/lib/pages/journal-media';
@@ -11,10 +14,20 @@ import type { VideoSource } from '@/lib/pages/journal-media';
  * source; neither is listed.
  */
 
+const blurs = placeholders as Record<string, string>;
+
+/**
+ * A video poster's display width. The optimizer serves it at 2x (1080px),
+ * about a 40vh strip on a high-density screen.
+ */
+const POSTER_WIDTH = 540;
+
 export type WorkFrame = {
   src: string;
   width: number;
   height: number;
+  /** A blurred 16px still (the poster's, for a video), shown while it loads. */
+  placeholder: string | null;
 } & (
   | { kind: 'image' }
   | {
@@ -54,26 +67,49 @@ export function getWorkMedia(slug: string, media: string[] = [], hoverImage?: st
     const src = path(file);
     const size = getMediaSize(src);
     if (!size) throw new Error(`work media: no size recorded for ${src}`);
-    if (!isVideoSrc(src)) return { kind: 'image', src: mediaUrl(src), ...size };
+    if (!isVideoSrc(src)) {
+      return { kind: 'image', src: mediaUrl(src), ...size, placeholder: blurs[src] ?? null };
+    }
     const poster = `${prefix}posters/${file.replace(/\.\w+$/, '.jpg')}`;
+    const hasPoster = hasHostedMedia(poster);
     return {
       kind: 'video',
       src: mediaUrl(src),
       ...size,
       sources: getVideoSources(src),
-      poster: hasHostedMedia(poster) ? mediaUrl(poster) : null,
+      // Through the image optimizer, like the strip's images: a <video>
+      // poster is a plain URL, so it gets one size.
+      poster: hasPoster ? posterUrl(mediaUrl(poster), size) : null,
+      placeholder: hasPoster ? (blurs[poster] ?? null) : null,
     };
   };
   const frames = media.map(frameOf);
+  const posterOriginal = (frame: WorkFrame) =>
+    frame.kind === 'video' && frame.poster
+      ? mediaUrl(`${prefix}posters/${frame.src.split('/').pop()!.replace(/\.\w+$/, '.jpg')}`)
+      : null;
 
   const coverOf = (frame: WorkFrame | undefined): WorkMedia['cover'] => {
     if (!frame) return null;
     if (frame.kind === 'image') return frame;
-    return frame.poster ? { src: frame.poster, width: frame.width, height: frame.height } : null;
+    const poster = posterOriginal(frame);
+    return poster ? { src: poster, width: frame.width, height: frame.height } : null;
   };
   const cover = hoverImage
     ? coverOf(frameOf(hoverImage))
     : (coverOf(frames.find((frame) => frame.kind === 'image')) ?? coverOf(frames[0]));
 
   return { frames, cover };
+}
+
+/** The optimizer's URL for a poster at `POSTER_WIDTH` (the 2x candidate). */
+function posterUrl(src: string, size: { width: number; height: number }) {
+  const width = Math.min(POSTER_WIDTH, size.width);
+  const { props } = getImageProps({
+    src,
+    alt: '',
+    width,
+    height: Math.round((width * size.height) / size.width),
+  });
+  return props.src;
 }
