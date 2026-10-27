@@ -652,6 +652,11 @@
   "/work-images/arcade/arcade-scroll-1.webm": {
     "bytes": 1030432
   },
+  "/work-images/arcade/posters/arcade-scroll-1.jpg": {
+    "width": 1440,
+    "height": 900,
+    "bytes": 93963
+  },
   "/work-images/buen-coffee/buen-coffee-desktop-1.jpg": {
     "width": 2880,
     "height": 1800,
@@ -714,6 +719,11 @@
   },
   "/work-images/bueno-fund/bueno-fund-scroll-1.webm": {
     "bytes": 2799753
+  },
+  "/work-images/bueno-fund/posters/bueno-fund-scroll-1.jpg": {
+    "width": 1440,
+    "height": 900,
+    "bytes": 195407
   },
   "/work-images/chris-rushing/chris-rushing-desktop-1.jpg": {
     "width": 2880,
@@ -818,6 +828,11 @@
     "height": 2100,
     "bytes": 223050
   },
+  "/work-images/happy-money/posters/happy-money-archive-2.jpg": {
+    "width": 960,
+    "height": 540,
+    "bytes": 15465
+  },
   "/work-images/joy-app/joy-app-archive-1.jpg": {
     "width": 4320,
     "height": 2775,
@@ -885,6 +900,11 @@
     "width": 780,
     "height": 1688,
     "bytes": 186651
+  },
+  "/work-images/muybuen-type/posters/muybuen-type-demo-1.jpg": {
+    "width": 1440,
+    "height": 970,
+    "bytes": 99264
   },
   "/work-images/petroleum-club/petroleum-club-brand-01.mp4": {
     "width": 1440,
@@ -973,6 +993,16 @@
     "width": 780,
     "height": 1688,
     "bytes": 148376
+  },
+  "/work-images/petroleum-club/posters/petroleum-club-brand-01.jpg": {
+    "width": 1440,
+    "height": 810,
+    "bytes": 82106
+  },
+  "/work-images/processcreative/posters/processcreative-scroll-1.jpg": {
+    "width": 1440,
+    "height": 900,
+    "bytes": 54743
   },
   "/work-images/processcreative/processcreative-brand-01.jpg": {
     "width": 2400,
@@ -1077,6 +1107,21 @@
     "height": 1800,
     "bytes": 478509
   },
+  "/work-images/retool-internal/posters/retool-internal-demo-1.jpg": {
+    "width": 1352,
+    "height": 1080,
+    "bytes": 60619
+  },
+  "/work-images/retool-internal/posters/retool-internal-demo-2.jpg": {
+    "width": 1304,
+    "height": 1080,
+    "bytes": 21750
+  },
+  "/work-images/retool-internal/posters/retool-internal-demo-3.jpg": {
+    "width": 1440,
+    "height": 900,
+    "bytes": 43881
+  },
   "/work-images/retool-internal/retool-internal-demo-1.mp4": {
     "width": 1352,
     "height": 1080,
@@ -1155,6 +1200,16 @@
     "height": 1688,
     "bytes": 44883
   },
+  "/work-images/the-grand/posters/the-grand-brand-05.jpg": {
+    "width": 1440,
+    "height": 810,
+    "bytes": 87375
+  },
+  "/work-images/the-grand/posters/the-grand-scroll-1.jpg": {
+    "width": 1440,
+    "height": 900,
+    "bytes": 160542
+  },
   "/work-images/the-grand/the-grand-brand-01.jpg": {
     "width": 1600,
     "height": 1200,
@@ -1210,6 +1265,11 @@
   },
   "/work-images/the-grand/the-grand-scroll-1.webm": {
     "bytes": 4559604
+  },
+  "/work-images/vizio-smartcast/posters/vizio-smartcast-archive-2.jpg": {
+    "width": 1440,
+    "height": 772,
+    "bytes": 71546
   },
   "/work-images/vizio-smartcast/vizio-smartcast-archive-1.jpg": {
     "width": 4320,

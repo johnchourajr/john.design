@@ -16,7 +16,15 @@ export type WorkFrame = {
   height: number;
   /** What the frame shows, from its name: `scroll`, `desktop`, `brand`… */
   group: string;
-} & ({ kind: 'image' } | { kind: 'video'; sources: VideoSource[] });
+} & (
+  | { kind: 'image' }
+  | {
+      kind: 'video';
+      sources: VideoSource[];
+      /** A still of its opening, from `posters/<name>.jpg`, shown until it plays. */
+      poster: string | null;
+    }
+);
 
 export type WorkMedia = {
   frames: WorkFrame[];
@@ -60,10 +68,14 @@ function rank(order: string[], group: string): number {
 
 export function getWorkMedia(slug: string): WorkMedia {
   const prefix = `/work-images/${slug}/`;
-  // Files directly in the project's folder; anything nested is set aside.
-  const files = hostedMediaPaths(prefix)
-    .map((path) => path.slice(prefix.length))
-    .filter((file) => !file.includes('/'));
+  // Frames sit directly in the project's folder; `posters/` holds stills of
+  // its videos.
+  const paths = hostedMediaPaths(prefix).map((path) => path.slice(prefix.length));
+  const files = paths.filter((file) => !file.includes('/'));
+  const posterOf = (file: string) => {
+    const poster = `posters/${file.replace(/\.\w+$/, '.jpg')}`;
+    return paths.includes(poster) ? mediaUrl(`${prefix}${poster}`) : null;
+  };
 
   const names = new Set(files);
   const hasScroll = files.some((file) => groupOf(slug, file) === 'scroll');
@@ -83,7 +95,16 @@ export function getWorkMedia(slug: string): WorkMedia {
       const group = groupOf(slug, file);
       const src = mediaUrl(path);
       return isVideoSrc(path)
-        ? [{ kind: 'video', src, group, ...size, sources: getVideoSources(path) }]
+        ? [
+            {
+              kind: 'video',
+              src,
+              group,
+              ...size,
+              sources: getVideoSources(path),
+              poster: posterOf(file),
+            },
+          ]
         : [{ kind: 'image', src, group, ...size }];
     });
 

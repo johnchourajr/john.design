@@ -25,6 +25,7 @@ function Frame({ frame, title }: { frame: WorkFrame; title: string }) {
           width={frame.width}
           height={frame.height}
           className={media}
+          poster={frame.poster}
           controls
           testId={`work-frame-toggle-${frame.src.split('/').pop()}`}
         />
