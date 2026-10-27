@@ -1,6 +1,7 @@
 'use client';
 
 import { duration, ease, scale } from '@/lib/config/motion-tokens';
+import { useIdle } from '@/lib/hooks/useIdle';
 import clsx from 'clsx';
 import {
   AnimatePresence,
@@ -10,7 +11,7 @@ import {
   useSpring,
 } from 'motion/react';
 import Image from 'next/image';
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 export type PreviewImage = { src: string; width: number; height: number };
 
@@ -57,15 +58,7 @@ export function CursorPreview({
   const springY = useSpring(y, { stiffness: 500, damping: 45, mass: 0.6 });
   const [above, setAbove] = useState(false);
 
-  const [preloading, setPreloading] = useState(false);
-  useEffect(() => {
-    if (!('requestIdleCallback' in window)) {
-      const timeout = setTimeout(() => setPreloading(true), 1000);
-      return () => clearTimeout(timeout);
-    }
-    const idle = requestIdleCallback(() => setPreloading(true), { timeout: 2000 });
-    return () => cancelIdleCallback(idle);
-  }, []);
+  const preloading = useIdle();
 
   return (
     <div

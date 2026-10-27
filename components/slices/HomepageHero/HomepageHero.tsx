@@ -25,6 +25,7 @@ import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { RolesSection } from '@/components/slices/RolesSection';
 import type { HomePageData } from '@/data/homepageContent';
+import { useIdle } from '@/lib/hooks/useIdle';
 import type { SectionStructure } from '@/types/content-types';
 
 // Lazy load Three.js shader component to reduce initial bundle size
@@ -83,7 +84,11 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     [],
   );
 
+  // three.js loads once the page has settled, so it doesn't compete with
+  // the first render and hydration.
+  const idle = useIdle();
   useEffect(() => {
+    if (!idle) return;
     // The variant is random, so choosing it during render would differ between server and
     // client and break hydration. Picking it once after mount is the intended pattern here.
     const variant = pickShaderVariant(heroShaderVariants);
@@ -94,7 +99,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       // Not the variant: a new label would rebuild the canvas on every click.
       debug: isShaderDebug() ? 'home' : undefined,
     });
-  }, []);
+  }, [idle]);
 
   return (
     <section

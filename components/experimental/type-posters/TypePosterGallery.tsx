@@ -13,6 +13,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 
 import { blur, distance, duration, ease } from '@/lib/config/motion-tokens';
+import { useIdle } from '@/lib/hooks/useIdle';
 
 import type { Poster } from './posters';
 import { TypePoster } from './TypePoster';
@@ -299,7 +300,7 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
   // live frame back to the still.
   const [opened, setOpened] = useState<ReadonlySet<string>>(() => new Set());
   const [loaded, setLoaded] = useState<ReadonlySet<string>>(() => new Set());
-  const [queueing, setQueueing] = useState(false);
+  const queueing = useIdle();
   const setOpen = (slug: string | null) => {
     setOpenSlug(slug);
     if (slug) setOpened((current) => (current.has(slug) ? current : new Set(current).add(slug)));
@@ -312,14 +313,6 @@ export function TypePosterGallery({ posters }: TypePosterGalleryProps) {
       ? posters.find((poster) => !loaded.has(poster.slug) && !opened.has(poster.slug))?.slug
       : undefined;
 
-  useEffect(() => {
-    if (!('requestIdleCallback' in window)) {
-      const timeout = setTimeout(() => setQueueing(true), 1000);
-      return () => clearTimeout(timeout);
-    }
-    const idle = requestIdleCallback(() => setQueueing(true), { timeout: 2000 });
-    return () => cancelIdleCallback(idle);
-  }, []);
   // Kept above the others until it has settled back into its slot.
   const [settling, setSettling] = useState<string | null>(null);
   const active = posters.find((poster) => poster.slug === open);
