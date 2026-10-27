@@ -158,7 +158,8 @@ export function WorkRow({
 
   return (
     <article
-      className="border-t border-current/15"
+      // Clear of the fixed header when a link scrolls to it.
+      className="scroll-mt-20 border-t border-current/15"
       data-work-row={slug ?? title}
       data-testid={`work-row-${slug}`}
     >
