@@ -10,6 +10,8 @@ import {
   type ReactNode,
 } from 'react';
 
+import { useIdle } from '@/lib/hooks/useIdle';
+
 import {
   fragmentThreeShaders,
   heroShaderVariants,
@@ -20,7 +22,7 @@ import {
 } from '../experimental/ImageThreeShader/shaders';
 import { isShaderDebug } from '../experimental/shaderDebug';
 
-// three.js loads after the page, like the home hero's shader.
+// three.js loads once the page is idle, like the home hero's shader.
 const HeadlineShaderLayer = dynamic(() => import('./HeadlineShaderLayer'), {
   ssr: false,
 });
@@ -60,8 +62,9 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
     [],
   );
 
+  const idle = useIdle();
   useEffect(() => {
-    if (!isHeadlineInShader()) return;
+    if (!idle || !isHeadlineInShader()) return;
     const variant = pickShaderVariant(heroShaderVariants);
     // Random and URL-driven, so it's chosen after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -70,7 +73,7 @@ export function HeadlineShader({ children, className }: HeadlineShaderProps) {
       // Not the variant: a new label would rebuild the canvas on every click.
       debug: isShaderDebug() ? 'headline' : undefined,
     });
-  }, []);
+  }, [idle]);
 
   // The padding is room for the effects (the sphere and loupe are a third
   // of the viewport across) so the canvas, which covers it, doesn't clip

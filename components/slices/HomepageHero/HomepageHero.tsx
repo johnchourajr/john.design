@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import { m } from 'motion/react';
 import dynamic from 'next/dynamic';
 import {
   Suspense,
@@ -26,7 +25,7 @@ import { InformationalChunk } from '@/components/fragments/InformationalChunk';
 import { JustifiedHeadlineInner } from '@/components/justified-headline';
 import { RolesSection } from '@/components/slices/RolesSection';
 import type { HomePageData } from '@/data/homepageContent';
-import { basicAnimateDelayVariants } from '@/lib/config/motion-config';
+import { useIdle } from '@/lib/hooks/useIdle';
 import type { SectionStructure } from '@/types/content-types';
 
 // Lazy load Three.js shader component to reduce initial bundle size
@@ -85,7 +84,11 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
     [],
   );
 
+  // three.js loads once the page has settled, so it doesn't compete with
+  // the first render and hydration.
+  const idle = useIdle();
   useEffect(() => {
+    if (!idle) return;
     // The variant is random, so choosing it during render would differ between server and
     // client and break hydration. Picking it once after mount is the intended pattern here.
     const variant = pickShaderVariant(heroShaderVariants);
@@ -96,7 +99,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
       // Not the variant: a new label would rebuild the canvas on every click.
       debug: isShaderDebug() ? 'home' : undefined,
     });
-  }, []);
+  }, [idle]);
 
   return (
     <section
@@ -118,14 +121,12 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
           />
         </Suspense>
       </div>
-      <m.div
+      <div
         className={clsx(
           'flex items-start flex-col gap-6 p-4 justify-center relative z-100 mb-[8vw]',
+          'animate-fade-in [animation-delay:0.5s] motion-reduce:animate-none',
           enableDrawing && 'select-none',
         )}
-        variants={basicAnimateDelayVariants({ delay: 0.5 })}
-        initial="initial"
-        animate="animate"
       >
         {heroSection.typographies.map(({ text, size }, index) => (
           <p key={index} className={size}>
@@ -137,7 +138,7 @@ export function HomepageHero({ heroSection, rolesSection }: HomepageHeroProps) {
             <InformationalChunk key={index} text={chunk.text} />
           ))}
         </div>
-      </m.div>
+      </div>
       <RolesSection rolesSection={rolesSection} />
       <div
         className={clsx(

@@ -29,6 +29,32 @@
       transform: translateX(200%);
     }
   }
+
+  /*
+    A fade in from the static HTML, for above-the-fold text that motion
+    would keep hidden until hydration (it's the LCP).
+  */
+  --animate-fade-in: fade-in 0.4s both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+  Staggers a headline's words fading in along a line, 0.3s in and 0.1s apart. In CSS rather than
+  motion so the headline (the page's LCP) fades in from the static HTML
+  instead of waiting for hydration. Without sibling-index() the line fades
+  in together.
+*/
+@utility fade-in-stagger {
+  animation-delay: 0.3s;
+
+  @supports (animation-delay: calc(sibling-index() * 1s)) {
+    animation-delay: calc(0.2s + sibling-index() * 0.1s);
+  }
 }
 
 /*
