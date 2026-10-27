@@ -3,13 +3,14 @@ import manifest from '@/data/media-manifest.json';
 import type { MediaSize } from './read-size';
 
 /**
- * Journal media lives in the `john-design-media` R2 bucket, served from this
- * origin, instead of `public/` (see #88). Posts keep writing root-relative
- * paths like `/journal-images/images/x.jpg`; `mediaUrl` points them here.
+ * Journal and work media live in the `john-design-media` R2 bucket, served
+ * from this origin, instead of `public/` (see #88 and #128). Pages keep
+ * writing root-relative paths like `/journal-images/images/x.jpg`;
+ * `mediaUrl` points them here.
  */
 export const MEDIA_ORIGIN = 'https://media.john.design';
 
-const HOSTED_PREFIXES = ['/journal-images/'];
+const HOSTED_PREFIXES = ['/journal-images/', '/work-images/'];
 
 type ManifestEntry = MediaSize & { bytes: number };
 
@@ -36,6 +37,11 @@ export function mediaUrl(src: string | null): string | null {
 /** Whether the bucket has this object, according to the committed manifest. */
 export function hasHostedMedia(src: string): boolean {
   return mediaPath(src).split('?')[0] in entries;
+}
+
+/** Every hosted path under a prefix, e.g. `/work-images/<slug>/`. */
+export function hostedMediaPaths(prefix: string): string[] {
+  return Object.keys(entries).filter((path) => path.startsWith(prefix));
 }
 
 /** Intrinsic size recorded in the manifest, or null for SVGs and unknowns. */

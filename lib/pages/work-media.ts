@@ -1,13 +1,13 @@
+import { hostedMediaPaths, mediaUrl } from '@/lib/media/hosted';
 import { getMediaSize, getVideoSources, isVideoSrc } from '@/lib/pages/journal-media';
 import type { VideoSource } from '@/lib/pages/journal-media';
-import fs from 'fs';
-import { join } from 'path';
 
 /**
  * Build-time listing of each project's frames for the work page's strips
- * (#128). A project's media is every file in `public/work-images/<slug>/`,
- * named `<slug>-<kind>-<n>` by the capture scripts or by hand; a WebM beside
- * an MP4 of the same name is that video's smaller source, not a frame.
+ * (#128). A project's media is every file under `/work-images/<slug>/` in the
+ * media manifest (hosted on R2, see lib/media/hosted.ts), named
+ * `<slug>-<kind>-<n>` by the capture scripts or by hand; a WebM beside an MP4
+ * of the same name is that video's smaller source, not a frame.
  */
 
 export type WorkFrame = {
@@ -23,8 +23,6 @@ export type WorkMedia = {
   /** The still shown beside the cursor while a closed row is hovered. */
   cover: WorkFrame | null;
 };
-
-const directory = join(process.cwd(), 'public', 'work-images');
 
 const FRAME_PATTERN = /\.(jpe?g|png|webp|gif|mp4|webm|mov)$/i;
 
@@ -61,13 +59,11 @@ function rank(order: string[], group: string): number {
 }
 
 export function getWorkMedia(slug: string): WorkMedia {
-  let files: string[];
-  try {
-    // Only runs while prerendering; don't trace public/ into the server bundle.
-    files = fs.readdirSync(/*turbopackIgnore: true*/ join(directory, slug));
-  } catch {
-    return { frames: [], cover: null };
-  }
+  const prefix = `/work-images/${slug}/`;
+  // Files directly in the project's folder; anything nested is set aside.
+  const files = hostedMediaPaths(prefix)
+    .map((path) => path.slice(prefix.length))
+    .filter((file) => !file.includes('/'));
 
   const names = new Set(files);
   const hasScroll = files.some((file) => groupOf(slug, file) === 'scroll');
@@ -81,12 +77,13 @@ export function getWorkMedia(slug: string): WorkMedia {
         a.localeCompare(b, 'en', { numeric: true }),
     )
     .flatMap((file): WorkFrame[] => {
-      const src = `/work-images/${slug}/${file}`;
-      const size = getMediaSize(src);
+      const path = `${prefix}${file}`;
+      const size = getMediaSize(path);
       if (!size) return [];
       const group = groupOf(slug, file);
-      return isVideoSrc(src)
-        ? [{ kind: 'video', src, group, ...size, sources: getVideoSources(src) }]
+      const src = mediaUrl(path);
+      return isVideoSrc(path)
+        ? [{ kind: 'video', src, group, ...size, sources: getVideoSources(path) }]
         : [{ kind: 'image', src, group, ...size }];
     });
 
