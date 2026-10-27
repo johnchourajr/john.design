@@ -8,6 +8,8 @@ const nextConfig = {
   images: {
     // Journal media is served from the R2 bucket, see lib/media/hosted.ts.
     remotePatterns: [{ protocol: 'https', hostname: 'media.john.design' }],
+    // AVIF first: usually well under WebP for the work page's screenshots.
+    formats: ['image/avif', 'image/webp'],
   },
   turbopack: {
     rules: {
