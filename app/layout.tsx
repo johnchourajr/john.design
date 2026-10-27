@@ -5,6 +5,7 @@ import { GlobalLayout } from '@/components/globals/layout';
 import { SchemaJson } from '@/components/globals/SchemaJson';
 import { AppProvider } from '@/context/AppProvider';
 import { domain, metadataContent, viewportContent } from '@/data/metadata';
+import { headScript } from '@/lib/head-scripts';
 import {
   DEFAULT_ROOT_BACKGROUND,
   DEFAULT_ROOT_COLOR,
@@ -38,16 +39,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <head>
         <SchemaJson />
-        <Script
-          id="root-color-cookie"
-          src="/scripts/root-color-cookie.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id="iframe-flag"
-          src="/scripts/iframe-flag.js"
-          strategy="beforeInteractive"
-        />
+        {/* The saved accent and the ?iframe flag, before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: headScript }} />
         {/* Load Typekit fonts asynchronously to prevent render blocking */}
         <link
           rel="stylesheet"
