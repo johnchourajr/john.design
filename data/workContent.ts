@@ -5,8 +5,17 @@ const daylightData: PageItem[] = [
   {
     slug: 'retool-dot-com',
     title: 'Retool Site',
-    date: '2024-9-12',
+    date: '2026-9-12',
     externalHref: 'https://retool.com/',
+    overview:
+      "This is my main job at Retool: the most critical surfaces on retool.com, the pages that carry product launches and turn visitors into customers. That's meant launch pages like the waitlist for Retool's agent harness, plus pricing, customer stories and use cases.",
+    deliverables: [
+      'Launch pages',
+      'Agent harness waitlist',
+      'Pricing',
+      'Customer stories',
+      'Use cases',
+    ],
     media: [
       'retool-dot-com-desktop-1.jpg',
       'retool-dot-com-desktop-2.jpg',
@@ -17,10 +26,18 @@ const daylightData: PageItem[] = [
   {
     slug: 'retool-homepage',
     title: 'Retool Homepage',
-    date: '2026-4-1',
+    date: '2026-6-1',
     externalHref: 'https://retool.com/',
+    overview:
+      "The homepage is Retool's most important surface, and owning it is a core part of my role. Every major launch lands here first, so it keeps evolving with the product. What you're looking at is that evolution over time, one iteration per frame, newest first: Secure your vibe-coded apps, Build me a compliance dashboard, Build internal software better with AI, and Best way to build internal software.",
+    deliverables: [
+      'Homepage design',
+      'Launch iterations',
+      'AppGen prompt hero',
+      'MCP setup panel',
+    ],
     media: [
-      'retool-homepage-desktop-1.jpg',
+      'retool-homepage-demo-1.mp4',
       'retool-homepage-desktop-2.jpg',
       'retool-homepage-desktop-3.jpg',
       'retool-homepage-desktop-4.jpg',
@@ -48,7 +65,7 @@ const daylightData: PageItem[] = [
     date: '2024-5-1',
     externalHref: 'https://retool.com/blog/',
     overview:
-      "No longer the current site: Retool has since replaced this design. Cache was Retool's blog from 2024 to mid-2026, designed and built as a home for engineering deep dives, reports and releases, sorted into collections from Build & Learn to Newsroom.",
+      "This isn't the current site anymore; Retool has since replaced it. From 2024 to mid-2026, Cache was Retool's blog. I designed and built it as a home for engineering deep dives, reports and releases, sorted into collections from Build & Learn to Newsroom. Designed along side Cam Sackett.",
     deliverables: [
       'Blog design and build',
       'Collections',
@@ -68,6 +85,8 @@ const daylightData: PageItem[] = [
     title: 'Pipes',
     date: '2023-12-1',
     externalHref: 'https://retool.com/pipes/',
+    overview:
+      'Pipes is a editorial project in a series based on influential but defunct software. Design and developed with Cam Sackett as a design partner. ',
     media: [
       'retool-pipes-desktop-1.jpg',
       'retool-pipes-desktop-2.jpg',
@@ -114,7 +133,7 @@ const daylightData: PageItem[] = [
     title: 'Happy Money Office',
     date: '2020-2-1',
     overview:
-      "Happy Money's headquarters in Orange County, made in collaboration with Rapt Studio, who designed the space. Working with Rapt, we carried Happy Money's refreshed brand into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photography by Rapt Studio.",
+      "Happy Money's headquarters in Orange County, made with Rapt Studio, who designed the space. Together we carried Happy Money's refreshed brand into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photos by Rapt Studio.",
     deliverables: [
       'Environmental graphics',
       'Murals',
@@ -175,7 +194,7 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev'],
     externalHref: 'https://bueno.fund/',
     overview:
-      'My own venture, co-founded with David Garvin: a funding platform for local businesses and creators to rally their community around what they are building. As co-founder over product, I design and build bueno.fund end to end, from campaign pages, backer tiers and checkout to the creator dashboard. David is co-founder over brand.',
+      "My own venture, co-founded with David Garvin. It's a funding platform for local businesses and creators to rally their community around what they're building. I'm the co-founder over product, so I design and build bueno.fund end to end: campaign pages, backer tiers, checkout, all the way to the creator dashboard. David is co-founder over brand.",
     deliverables: [
       'Co-founder, product',
       'Product design and build',
@@ -192,7 +211,7 @@ const moonlightData: PageItem[] = [
       'bueno-fund-brand-05.jpg',
       'bueno-fund-art-1.webp',
     ],
-    hoverImage: 'bueno-fund-brand-06.jpg',
+    hoverImage: 'posters/bueno-fund-scroll-1.jpg',
   },
   {
     slug: 'processcreative',
@@ -200,7 +219,7 @@ const moonlightData: PageItem[] = [
     date: '2025-5-1',
     tags: ['Design', 'Dev'],
     overview:
-      'A new website for Process Creative, a film production company and creative studio in Orange County, built to put their films first.',
+      'Process Creative is a film production company and creative studio in Orange County. I designed and built their new site to put their films first. Made in partnership with David Garvin.',
     deliverables: [
       'Website design',
       'Development on Prismic',
@@ -267,7 +286,7 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev', 'Art Direction'],
     externalHref: 'https://thegrandlb.com/',
     overview:
-      'Website and social for The Grand, an event venue in Long Beach, carried through a 2023 refresh.',
+      'The Grand is an event venue in Long Beach. I made their website and social, then came back for a refresh in 2023.',
     deliverables: ['Website design and build', '2023 site and social refresh'],
     media: [
       'the-grand-scroll-1.mp4',
@@ -287,18 +306,13 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev', 'Art Direction'],
     externalHref: 'https://smilegdp.archive.john.design/',
     overview:
-      'Brand for Smile GDP, investing in a happier future for business, people and the planet, made with Scott Saunders. An archived project: the site is kept at an archive address.',
+      "A brand for Smile GDP, made with Scott Saunders. Their mission: invest in a happier future for business, people and the planet. This one's archived, so the site lives at an archive address now.",
     deliverables: [
       'Brand identity',
       'Website design and build',
       'Art direction',
     ],
-    media: [
-      'smile-gdp-desktop-1.jpg',
-      'smile-gdp-desktop-2.jpg',
-      'smile-gdp-desktop-3.jpg',
-      'smile-gdp-mobile-1.jpg',
-    ],
+    media: ['smile-gdp-desktop-1.jpg', 'smile-gdp-desktop-2.jpg'],
   },
   {
     slug: 'petroleum-club',
@@ -306,7 +320,7 @@ const moonlightData: PageItem[] = [
     date: '2022-8-1',
     tags: ['Design', 'Dev', 'Art Direction'],
     overview:
-      'Brand, website and a photo and video shoot for the Petroleum Club, a mid-century event venue in Long Beach relaunched around one idea: stay classy.',
+      'The Petroleum Club is a mid-century event venue in Long Beach, relaunched around one idea: stay classy. I made the brand and the website, and art directed a photo and video shoot.',
     deliverables: [
       'Brand identity',
       'Website design and build',
@@ -316,7 +330,7 @@ const moonlightData: PageItem[] = [
       'Ballroom mural',
     ],
     siteNote:
-      'lbpetroleum.club is no longer online; the address now points to The Grand.',
+      "lbpetroleum.club isn't online anymore; the address points to The Grand now.",
     media: [
       'petroleum-club-desktop-1.jpg',
       'petroleum-club-desktop-2.jpg',
@@ -336,7 +350,7 @@ const moonlightData: PageItem[] = [
       'petroleum-club-brand-14.jpg',
       'petroleum-club-brand-15.jpg',
     ],
-    hoverImage: 'petroleum-club-brand-02.jpg',
+    hoverImage: 'petroleum-club-desktop-1.jpg',
   },
   {
     slug: 'chris-rushing',
@@ -345,7 +359,7 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev'],
     externalHref: 'https://chrisrushing.com/',
     overview:
-      'A portfolio site for Chris Rushing, created in partnership with Chris as an independent designer.',
+      'Chris Rushing is an independent designer, and we made this portfolio site together.',
     deliverables: ['Website design and build'],
     media: [
       'chris-rushing-desktop-1.jpg',
@@ -361,7 +375,7 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev'],
     externalHref: 'https://kelseydake.com/',
     overview:
-      'A portfolio site for Kelsey Dake, created in partnership with Kelsey as an independent designer.',
+      'Kelsey Dake is an independent artist, and we made this portfolio site together.',
     deliverables: ['Website design and build'],
     media: [
       'kelsey-dake-desktop-1.jpg',
@@ -384,7 +398,7 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev', 'Art Direction'],
     externalHref: 'https://arcadecoffeeroasters.com/',
     overview:
-      "A rebrand for a specialty coffee roaster, carried from the mark and type system through packaging to the shop's website. The diagonal ARCADE lockup became the 12oz bag, and the same system still runs the storefront.",
+      "A rebrand for Arcade, a specialty coffee roaster. Designed the mark and type system from packaging to the shop's website.",
     deliverables: [
       'Brand identity',
       'Logo and monogram system',
@@ -409,7 +423,7 @@ const moonlightData: PageItem[] = [
     date: '2018-1-1',
     tags: ['Brand Design'],
     overview:
-      'A rebrand for a kombucha brewery in Orange, California, built on hand-drawn lettering, lightning bolts and a motto to live by: be a mensch.',
+      "A rebrand for Fermensch, a kombucha brewery in Orange, California. It's built on hand-drawn lettering, lightning bolts and a motto to live by: be a mensch.",
     deliverables: [
       'Brand identity',
       'Hand lettering',

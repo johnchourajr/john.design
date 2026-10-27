@@ -1,0 +1,29 @@
+{
+  "url": "https://retool.com/",
+  "viewport": [1440, 900],
+  "waitUntil": "load",
+  "settle": 3000,
+  "steps": [
+    { "wait": 1000 },
+    {
+      "type": "[aria-label='Enter your prompt']",
+      "text": "Build a compliance dashboard that tracks open audit findings by team",
+      "clear": true,
+      "delay": 40,
+      "after": 1200
+    },
+    { "click": "button:has-text('Starter prompts')", "zoom": false, "after": 900 },
+    { "click": "text='Order management tool'", "zoom": false, "after": 1300 },
+    { "click": "button:has-text('Starter prompts')", "zoom": false, "after": 900 },
+    { "click": "text='Customer support queue'", "zoom": false, "after": 1300 },
+    { "click": "button:has-text('Starter prompts')", "zoom": false, "after": 900 },
+    { "click": "text='Sales KPI dashboard'", "zoom": false, "after": 1500 },
+    { "click": "button:has-text('Build with AI agents')", "zoom": false, "after": 1500 },
+    { "click": "[role=dialog] [role=tab]:has-text('Cursor')", "zoom": false, "after": 1200 },
+    { "click": "[role=dialog] [role=tab]:has-text('Codex')", "zoom": false, "after": 1500 },
+    { "press": "Escape", "after": 800 },
+    { "scroll": "h2:has-text('Apps that mean business')", "after": 3000 },
+    { "scroll": "h2:has-text('Start today')", "after": 3000 },
+    { "scroll": "footer", "after": 1500 }
+  ]
+}
