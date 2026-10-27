@@ -80,7 +80,12 @@ const daylightData: PageItem[] = [
     date: '2020-2-1',
     overview:
       "Happy Money's headquarters in Orange County, made in collaboration with Rapt Studio, who designed the space. Working with Rapt, we carried Happy Money's refreshed brand into three dimensions: murals built from its icons, the manifesto in raised lettering, and wayfinding across both floors. Photography by Rapt Studio.",
-    deliverables: ['Environmental graphics', 'Murals', 'Manifesto lettering', 'Wayfinding'],
+    deliverables: [
+      'Environmental graphics',
+      'Murals',
+      'Manifesto lettering',
+      'Wayfinding',
+    ],
   },
   {
     // href: "/work/happy-money",
@@ -130,7 +135,11 @@ const moonlightData: PageItem[] = [
     tags: ['Design', 'Dev'],
     overview:
       'A new website for Process Creative, a film production company and creative studio in Orange County, built to put their films first.',
-    deliverables: ['Website design', 'Development on Prismic', 'Selected work showcase'],
+    deliverables: [
+      'Website design',
+      'Development on Prismic',
+      'Selected work showcase',
+    ],
     externalHref: 'https://processcreative.co/',
   },
   {
@@ -179,7 +188,11 @@ const moonlightData: PageItem[] = [
     externalHref: 'https://smilegdp.archive.john.design/',
     overview:
       'Brand for Smile GDP, investing in a happier future for business, people and the planet, made with Scott Saunders. An archived project: the site is kept at an archive address.',
-    deliverables: ['Brand identity', 'Website design and build', 'Art direction'],
+    deliverables: [
+      'Brand identity',
+      'Website design and build',
+      'Art direction',
+    ],
   },
   {
     slug: 'petroleum-club',
@@ -187,7 +200,7 @@ const moonlightData: PageItem[] = [
     date: '2022-8-1',
     tags: ['Design', 'Dev', 'Art Direction'],
     overview:
-      "Brand, website and a photo and video shoot for the Petroleum Club, a mid-century event venue in Long Beach relaunched around one idea: stay classy.",
+      'Brand, website and a photo and video shoot for the Petroleum Club, a mid-century event venue in Long Beach relaunched around one idea: stay classy.',
     deliverables: [
       'Brand identity',
       'Website design and build',
@@ -196,7 +209,8 @@ const moonlightData: PageItem[] = [
       'Red Room signage',
       'Ballroom mural',
     ],
-    siteNote: 'lbpetroleum.club is no longer online; the address now points to The Grand.',
+    siteNote:
+      'lbpetroleum.club is no longer online; the address now points to The Grand.',
   },
   {
     slug: 'chris-rushing',
@@ -230,6 +244,7 @@ const moonlightData: PageItem[] = [
     title: 'Arcade Coffee',
     date: '2018-2-1',
     tags: ['Design', 'Dev', 'Art Direction'],
+    externalHref: 'https://arcadecoffeeroasters.com/',
     overview:
       "A rebrand for a specialty coffee roaster, carried from the mark and type system through packaging to the shop's website. The diagonal ARCADE lockup became the 12oz bag, and the same system still runs the storefront.",
     deliverables: [
@@ -241,7 +256,6 @@ const moonlightData: PageItem[] = [
       'Stationery',
       'Website design and build',
     ],
-    status: 'Coming Soon',
   },
   {
     slug: 'fermensch',
@@ -260,7 +274,6 @@ const moonlightData: PageItem[] = [
       'Social kit',
       'Delivery van lettering',
     ],
-    status: 'Coming Soon',
   },
 ];
 
