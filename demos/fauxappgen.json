@@ -1,0 +1,11 @@
+{
+  "url": "https://svggen.retool.design/",
+  "viewport": [1440, 900],
+  "settle": 2000,
+  "steps": [
+    { "upload": "[role=button]:has-text('Drop a screenshot'), :text('Drop a screenshot')", "input": "input[type=file]", "file": "assets/sales-pipeline-board.png", "after": 1200 },
+    { "click": "button:has-text('Generate Prompt')", "zoom": false, "after": 45000 },
+    { "click": "button:has-text('Generate HTML')", "zoom": false, "after": 125000 },
+    { "hover": "iframe", "after": 1500 }
+  ]
+}

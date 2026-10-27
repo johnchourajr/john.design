@@ -18,6 +18,9 @@ export type SectionStructure = {
   list?: string[];
 };
 
+/** Day-job work, or work made on my own time (the work page, #128). */
+export type WorkLight = 'daylight' | 'moonlight';
+
 export type PageItem = {
   title: string;
   description?: string;
@@ -28,6 +31,21 @@ export type PageItem = {
   className?: string;
   status?: 'NEW' | 'Coming Soon';
   date?: string;
+  /** The work page's opening paragraph for an open project (#128). */
+  overview?: string;
+  /** What the project delivered, listed under the overview. */
+  deliverables?: string[];
+  /** Shown in place of the site link when the site is no longer live. */
+  siteNote?: string;
+  /**
+   * The work page's frames for an open project, in order: file names in
+   * `.media/work-images/<slug>/`, uploaded to R2 (#128).
+   */
+  media?: string[];
+  /** Day job or own time; the work page labels each row with it. */
+  light?: WorkLight;
+  /** Which of `media` shows beside the cursor on hover; the first image by default. */
+  hoverImage?: string;
 };
 
 export type PostFrontMatter = {

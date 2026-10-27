@@ -1,15 +1,14 @@
 import clsx from 'clsx';
 
-import LinkGridItem from '@/components/fragments/LinkGridItem';
+import { type ExpItem, ExpList } from '@/components/exp/ExpList';
 import {
   HeadlineShader,
   JustifiedHeadlineInner,
 } from '@/components/justified-headline';
 import { getRandomParentAndChildClassesArray } from '@/components/justified-headline/data';
-import { PageItem } from '@/types/content-types';
 import { Suspense } from 'react';
 
-export default function ExpPage({ content: expData }: { content: PageItem[] }) {
+export default function ExpPage({ content: expData }: { content: ExpItem[] }) {
   const newItems = expData.filter((item) => item.status === 'NEW');
   const regularItems = expData.filter((item) => item.status !== 'NEW');
 
@@ -36,26 +35,12 @@ export default function ExpPage({ content: expData }: { content: PageItem[] }) {
         </HeadlineShader>
       </section>
 
-      {newItems.length > 0 && (
-        <section className="my-[10vw] px-4">
-          <h2 className="text-string mb-8">Latest</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {newItems.map((item, i) => (
-              <LinkGridItem key={`new-${i}`} {...item} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {regularItems.length > 0 && (
-        <section className="my-[10vw] px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {regularItems.map((item, i) => (
-              <LinkGridItem key={`regular-${i}`} {...item} />
-            ))}
-          </div>
-        </section>
-      )}
+      <ExpList
+        sections={[
+          { title: 'Latest', list: newItems },
+          { list: regularItems },
+        ].filter((section) => section.list.length > 0)}
+      />
     </>
   );
 }

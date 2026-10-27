@@ -1,6 +1,8 @@
 import WorkPage from '@/app-pages/work-page';
-import { workContent } from '@/data/workContent';
+import { workList } from '@/data/workContent';
 import { pageMetadata } from '@/data/metadata';
+import { getWorkMedia } from '@/lib/pages/work-media';
+import type { PageItem } from '@/types/content-types';
 
 export const metadata = pageMetadata({
   title: 'Work',
@@ -8,8 +10,12 @@ export const metadata = pageMetadata({
   path: '/work',
 });
 
-export default async function Page() {
-  const data = workContent;
+const withFrames = (list: PageItem[]) =>
+  list.map((item) => ({
+    ...item,
+    ...(item.slug ? getWorkMedia(item.slug, item.media, item.hoverImage) : { frames: [], cover: null }),
+  }));
 
-  return <WorkPage {...data} />;
+export default async function Page() {
+  return <WorkPage items={withFrames(workList)} />;
 }

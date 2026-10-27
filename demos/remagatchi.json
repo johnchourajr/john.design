@@ -1,0 +1,16 @@
+{
+  "url": "https://remagatchi.retool.design/",
+  "viewport": [1440, 900],
+  "settle": 2000,
+  "steps": [
+    { "click": "button:has-text('PLAY')", "zoom": false, "after": 2500 },
+    { "click": "[title*='ping pong'], :text('ping pong')", "zoom": false, "after": 600 },
+    { "click": "button:has-text('PLAY')", "zoom": false, "after": 2500 },
+    { "click": "button:has-text('Sweep')", "zoom": false, "after": 1800 },
+    { "click": ":text('toolie')", "zoom": false, "after": 600 },
+    { "click": "button:has-text('PLAY')", "zoom": false, "after": 2500 },
+    { "click": ":text('fireworks')", "zoom": false, "after": 600 },
+    { "click": "button:has-text('PLAY')", "zoom": false, "after": 2500 },
+    { "click": "button:has-text('Light')", "zoom": false, "after": 2500 }
+  ]
+}

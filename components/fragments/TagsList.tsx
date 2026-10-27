@@ -3,9 +3,11 @@ import clsx from 'clsx';
 export type TagsListProps = {
   tags: string[];
   size?: 'sm' | 'md';
+  /** Spacing from what sits above; rows that centre the tags pass none. */
+  className?: string;
 };
 
-export function TagsList({ tags, size = 'sm' }: TagsListProps) {
+export function TagsList({ tags, size = 'sm', className = 'mt-1' }: TagsListProps) {
   const getSize = () => {
     switch (size) {
       case 'sm':
@@ -17,7 +19,7 @@ export function TagsList({ tags, size = 'sm' }: TagsListProps) {
 
   return (
     <>
-      <div className="flex flex-wrap gap-1 mt-1">
+      <div className={clsx('flex flex-wrap gap-1', className)}>
         {tags.map((tag) => (
           <span
             key={tag}

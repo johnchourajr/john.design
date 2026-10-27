@@ -6,7 +6,9 @@
 #   pnpm media:upload [sourceRoot]
 #
 # sourceRoot defaults to `public`; object keys are paths relative to it, e.g.
-# `journal-images/images/x.jpg`. Re-uploading an existing key overwrites it.
+# `journal-images/images/x.jpg` or `work-images/<slug>/x.jpg` (#128).
+# Re-uploading an existing key overwrites it. Files in an `exclude/` folder
+# (any case) are set aside by hand and never uploaded.
 set -euo pipefail
 
 root="${1:-public}"
@@ -33,7 +35,12 @@ while IFS= read -r -d '' file; do
     --content-type "$type" \
     --cache-control "public, max-age=31536000"
   count=$((count + 1))
-done < <(find "$root/journal-images" -type f ! -name '.*' -print0)
+done < <(
+  for prefix in journal-images work-images; do
+    [ -d "$root/$prefix" ] || continue
+    find "$root/$prefix" -type f ! -name '.*' ! -ipath '*/exclude/*' -print0
+  done
+)
 
 echo "Uploaded $count files to $bucket."
 echo "Next: pnpm media:manifest $root && pnpm media:verify"
