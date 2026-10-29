@@ -1057,6 +1057,11 @@
     "height": 970,
     "bytes": 99264
   },
+  "/work-images/next-starter/next-starter-desktop-1.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 133439
+  },
   "/work-images/paypal/paypal-demo-1.mp4": {
     "width": 1440,
     "height": 810,
@@ -1236,6 +1241,11 @@
     "height": 1688,
     "bytes": 331084
   },
+  "/work-images/retool-db-react/retool-db-react-desktop-1.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 175141
+  },
   "/work-images/retool-dot-com/retool-dot-com-desktop-1.jpg": {
     "width": 2880,
     "height": 1800,
@@ -1364,6 +1374,11 @@
     "width": 780,
     "height": 1688,
     "bytes": 238733
+  },
+  "/work-images/screen-demo/screen-demo-desktop-1.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 238425
   },
   "/work-images/smile-gdp/smile-gdp-desktop-1.jpg": {
     "width": 2880,

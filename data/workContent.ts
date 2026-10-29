@@ -517,6 +517,7 @@ const ossData: PageItem[] = [
     date: '2026-10-26',
     tags: ['Dev'],
     externalHref: 'https://screen-demo.oss.bueno.enterprises/',
+    media: ['screen-demo-desktop-1.jpg'],
     overview:
       'Screen Studio-style product demo videos from a JSON script: a real browser, an eased zoom-to-click camera and a spring-smoothed cursor. Ships with an Agent Skill.',
   },
@@ -526,6 +527,7 @@ const ossData: PageItem[] = [
     date: '2025-5-26',
     tags: ['Dev'],
     externalHref: 'https://next-starter.oss.bueno.enterprises/',
+    media: ['next-starter-desktop-1.jpg'],
     overview: 'A Next.js starter template built with TypeScript, Tailwind CSS and Motion.',
   },
   {
@@ -542,6 +544,7 @@ const ossData: PageItem[] = [
     date: '2024-11-27',
     tags: ['Dev'],
     externalHref: 'https://retool-db-react.oss.bueno.enterprises/',
+    media: ['retool-db-react-desktop-1.jpg'],
     overview:
       'A TypeScript-first React hook for working with Retool PostgreSQL databases in Next.js apps.',
   },

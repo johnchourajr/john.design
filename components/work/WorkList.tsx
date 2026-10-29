@@ -109,7 +109,7 @@ export function WorkList({ items, oss }: { items: WorkItem[]; oss: WorkItem[] })
         <section aria-label="Work">{items.map(row)}</section>
         {oss.length > 0 && (
           <section aria-labelledby="work-oss">
-            <h2 id="work-oss" className="headline-display-xs px-4 pb-5">
+            <h2 id="work-oss" className="text-string mb-6 px-4">
               Open Source
             </h2>
             {oss.map(row)}
