@@ -531,14 +531,6 @@ const ossData: PageItem[] = [
     overview: 'A Next.js starter template built with TypeScript, Tailwind CSS and Motion.',
   },
   {
-    slug: 'scraper',
-    title: 'Scraper',
-    date: '2025-2-3',
-    tags: ['Dev'],
-    externalHref: 'https://scraper.oss.bueno.enterprises/',
-    overview: 'A web scraping API that pulls content out of a page by CSS selector.',
-  },
-  {
     slug: 'retool-db-react',
     title: 'Retool DB React',
     date: '2024-11-27',
