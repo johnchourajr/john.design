@@ -18,12 +18,14 @@ function writeOpenToUrl(slug: string | null) {
 const rowOf = (slug: string) => document.querySelector(`[data-work-row="${CSS.escape(slug)}"]`);
 
 /**
- * The work page's projects, newest first (#128). One row is open at a time,
+ * The work page's projects, newest first (#128), then the open-source ones
+ * under their own heading. One row is open at a time across both lists,
  * and hovering a closed row with a mouse shows its cover beside the cursor.
  * The open row is kept in the URL (`?project=<slug>`), so a link or a reload
  * opens it again and scrolls to it.
  */
-export function WorkList({ items }: { items: WorkItem[] }) {
+export function WorkList({ items, oss }: { items: WorkItem[]; oss: WorkItem[] }) {
+  const all = [...items, ...oss];
   const [openSlug, setOpenSlugState] = useState<string | null>(null);
   const [hovered, setHovered] = useState<WorkItem | null>(null);
   // A project from the URL to scroll to once its row has opened.
@@ -37,12 +39,12 @@ export function WorkList({ items }: { items: WorkItem[] }) {
   // Read after hydration: the page is static, so the server can't see it.
   useEffect(() => {
     const slug = new URLSearchParams(window.location.search).get(PARAM);
-    if (!slug || !items.some((item) => item.slug === slug)) return;
+    if (!slug || ![...items, ...oss].some((item) => item.slug === slug)) return;
     // The URL is only readable on the client, so this follows hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpenSlugState(slug);
     setLinked(slug);
-  }, [items]);
+  }, [items, oss]);
 
   // Scrolls once the strip has opened: before then the page can be too
   // short to bring a row near the bottom up to the top. Without a
@@ -85,25 +87,35 @@ export function WorkList({ items }: { items: WorkItem[] }) {
 
   const cover = hovered && hovered.slug !== openSlug ? hovered.cover : null;
 
+  const row = (item: WorkItem) => {
+    const slug = item.slug ?? item.title;
+    return (
+      <div key={slug} {...previewHandlers(item, setHovered)}>
+        <WorkRow
+          {...item}
+          open={openSlug === slug}
+          onToggle={() => setOpenSlug(openSlug === slug ? null : slug)}
+        />
+      </div>
+    );
+  };
+
   return (
     <CursorPreview
       image={cover}
-      preload={items.flatMap((item) => (item.cover ? [item.cover] : []))}
+      preload={all.flatMap((item) => (item.cover ? [item.cover] : []))}
     >
-      <section className="my-[10vw]">
-        {items.map((item) => {
-          const slug = item.slug ?? item.title;
-          return (
-            <div key={slug} {...previewHandlers(item, setHovered)}>
-              <WorkRow
-                {...item}
-                open={openSlug === slug}
-                onToggle={() => setOpenSlug(openSlug === slug ? null : slug)}
-              />
-            </div>
-          );
-        })}
-      </section>
+      <div className="my-[10vw] flex flex-col gap-[10vw]">
+        <section aria-label="Work">{items.map(row)}</section>
+        {oss.length > 0 && (
+          <section aria-labelledby="work-oss">
+            <h2 id="work-oss" className="headline-display-xs px-4 pb-5">
+              Open Source
+            </h2>
+            {oss.map(row)}
+          </section>
+        )}
+      </div>
     </CursorPreview>
   );
 }

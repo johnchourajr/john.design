@@ -332,32 +332,6 @@ const moonlightData: PageItem[] = [
     media: ['goodheart-bread-desktop-2.jpg', 'goodheart-bread-mobile-1.jpg'],
   },
   {
-    slug: 'muybuen-cursor',
-    title: 'cursor.muybuen.dev',
-    date: '2024-10-1',
-    tags: ['Dev', 'Open Source'],
-    externalHref: 'https://cursor.muybuen.dev/',
-    media: [
-      'muybuen-cursor-desktop-1.jpg',
-      'muybuen-cursor-desktop-2.jpg',
-      'muybuen-cursor-mobile-1.jpg',
-    ],
-  },
-  {
-    slug: 'muybuen-type',
-    title: 'type.muybuen.dev',
-    date: '2024-5-1',
-    tags: ['Dev', 'Open Source'],
-    externalHref: 'https://type.muybuen.dev/',
-    media: [
-      'muybuen-type-desktop-1.jpg',
-      'muybuen-type-desktop-2.jpg',
-      'muybuen-type-desktop-3.jpg',
-      'muybuen-type-mobile-1.jpg',
-      'muybuen-type-demo-1.mp4',
-    ],
-  },
-  {
     slug: 'buen-coffee',
     title: 'muybuen.coffee',
     date: '2024-1-1',
@@ -532,7 +506,78 @@ const moonlightData: PageItem[] = [
   },
 ];
 
-/** Every project, newest first, each labelled day job or own time. */
+/**
+ * Open-source projects, listed after the dated work under their own
+ * heading, newest first. All made on my own time.
+ */
+const ossData: PageItem[] = [
+  {
+    slug: 'screen-demo',
+    title: 'Screen-Demo',
+    date: '2026-10-26',
+    tags: ['Dev'],
+    externalHref: 'https://screen-demo.oss.bueno.enterprises/',
+    overview:
+      'Screen Studio-style product demo videos from a JSON script: a real browser, an eased zoom-to-click camera and a spring-smoothed cursor. Ships with an Agent Skill.',
+  },
+  {
+    slug: 'next-starter',
+    title: 'Next Starter',
+    date: '2025-5-26',
+    tags: ['Dev'],
+    externalHref: 'https://next-starter.oss.bueno.enterprises/',
+    overview: 'A Next.js starter template built with TypeScript, Tailwind CSS and Motion.',
+  },
+  {
+    slug: 'scraper',
+    title: 'Scraper',
+    date: '2025-2-3',
+    tags: ['Dev'],
+    externalHref: 'https://scraper.oss.bueno.enterprises/',
+    overview: 'A web scraping API that pulls content out of a page by CSS selector.',
+  },
+  {
+    slug: 'retool-db-react',
+    title: 'Retool DB React',
+    date: '2024-11-27',
+    tags: ['Dev'],
+    externalHref: 'https://retool-db-react.oss.bueno.enterprises/',
+    overview:
+      'A TypeScript-first React hook for working with Retool PostgreSQL databases in Next.js apps.',
+  },
+  {
+    slug: 'muybuen-cursor',
+    title: 'Cursor',
+    date: '2024-10-1',
+    tags: ['Dev'],
+    externalHref: 'https://cursor.oss.bueno.enterprises/',
+    media: [
+      'muybuen-cursor-desktop-1.jpg',
+      'muybuen-cursor-desktop-2.jpg',
+      'muybuen-cursor-mobile-1.jpg',
+    ],
+  },
+  {
+    slug: 'muybuen-type',
+    title: 'Type',
+    date: '2024-5-1',
+    tags: ['Dev'],
+    externalHref: 'https://type.oss.bueno.enterprises/',
+    media: [
+      'muybuen-type-desktop-1.jpg',
+      'muybuen-type-desktop-2.jpg',
+      'muybuen-type-desktop-3.jpg',
+      'muybuen-type-mobile-1.jpg',
+      'muybuen-type-demo-1.mp4',
+    ],
+  },
+];
+
+export const ossList: PageItem[] = sortWorkByDate(
+  ossData.map((item) => ({ ...item, light: 'moonlight' as const })),
+);
+
+/** Every other project, newest first, each labelled day job or own time. */
 export const workList: PageItem[] = sortWorkByDate([
   ...daylightData.map((item) => ({ ...item, light: 'daylight' as const })),
   ...moonlightData.map((item) => ({ ...item, light: 'moonlight' as const })),
