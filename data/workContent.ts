@@ -547,9 +547,9 @@ const ossData: PageItem[] = [
     tags: ['Dev'],
     externalHref: 'https://cursor.oss.bueno.enterprises/',
     media: [
-      'muybuen-cursor-desktop-1.jpg',
-      'muybuen-cursor-desktop-2.jpg',
-      'muybuen-cursor-mobile-1.jpg',
+      'cursor-oss-desktop-1.jpg',
+      'cursor-oss-desktop-2.jpg',
+      'cursor-oss-mobile-1.jpg',
     ],
   },
   {
@@ -559,10 +559,10 @@ const ossData: PageItem[] = [
     tags: ['Dev'],
     externalHref: 'https://type.oss.bueno.enterprises/',
     media: [
-      'muybuen-type-desktop-1.jpg',
-      'muybuen-type-desktop-2.jpg',
-      'muybuen-type-desktop-3.jpg',
-      'muybuen-type-mobile-1.jpg',
+      'type-oss-desktop-1.jpg',
+      'type-oss-desktop-2.jpg',
+      'type-oss-desktop-3.jpg',
+      'type-oss-mobile-1.jpg',
       'muybuen-type-demo-1.mp4',
     ],
   },

@@ -1009,6 +1009,21 @@
     "height": 1688,
     "bytes": 358548
   },
+  "/work-images/muybuen-cursor/cursor-oss-desktop-1.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 158268
+  },
+  "/work-images/muybuen-cursor/cursor-oss-desktop-2.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 156583
+  },
+  "/work-images/muybuen-cursor/cursor-oss-mobile-1.jpg": {
+    "width": 780,
+    "height": 1328,
+    "bytes": 81124
+  },
   "/work-images/muybuen-cursor/muybuen-cursor-desktop-1.jpg": {
     "width": 2880,
     "height": 1800,
@@ -1056,6 +1071,26 @@
     "width": 1440,
     "height": 970,
     "bytes": 99264
+  },
+  "/work-images/muybuen-type/type-oss-desktop-1.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 270591
+  },
+  "/work-images/muybuen-type/type-oss-desktop-2.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 200380
+  },
+  "/work-images/muybuen-type/type-oss-desktop-3.jpg": {
+    "width": 2880,
+    "height": 1800,
+    "bytes": 245880
+  },
+  "/work-images/muybuen-type/type-oss-mobile-1.jpg": {
+    "width": 780,
+    "height": 1328,
+    "bytes": 87979
   },
   "/work-images/next-starter/next-starter-desktop-1.jpg": {
     "width": 2880,
