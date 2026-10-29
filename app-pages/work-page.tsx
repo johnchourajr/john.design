@@ -8,7 +8,7 @@ import type { WorkItem } from '@/components/work/WorkRow';
 import clsx from 'clsx';
 import { Suspense } from 'react';
 
-export default function WorkPage({ items }: { items: WorkItem[] }) {
+export default function WorkPage({ items, oss }: { items: WorkItem[]; oss: WorkItem[] }) {
   return (
     <>
       <h1 className="sr-only">Work</h1>
@@ -31,7 +31,7 @@ export default function WorkPage({ items }: { items: WorkItem[] }) {
           </Suspense>
         </HeadlineShader>
       </section>
-      <WorkList items={items} />
+      <WorkList items={items} oss={oss} />
     </>
   );
 }

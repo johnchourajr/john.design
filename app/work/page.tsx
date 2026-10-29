@@ -1,5 +1,5 @@
 import WorkPage from '@/app-pages/work-page';
-import { workList } from '@/data/workContent';
+import { ossList, workList } from '@/data/workContent';
 import { pageMetadata } from '@/data/metadata';
 import { getWorkMedia } from '@/lib/pages/work-media';
 import type { PageItem } from '@/types/content-types';
@@ -17,5 +17,5 @@ const withFrames = (list: PageItem[]) =>
   }));
 
 export default async function Page() {
-  return <WorkPage items={withFrames(workList)} />;
+  return <WorkPage items={withFrames(workList)} oss={withFrames(ossList)} />;
 }
